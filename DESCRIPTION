@@ -1,15 +1,30 @@
 Package: mapspam2globiom
-Title: What the Package Does (One Line, Title Case)
+Title: Creates Crop Distribution Maps as input for GLOBIOM
 Version: 0.0.1
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Michiel",
+           family = "Van Dijk",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "michiel.vandijk@wur.nl",
+           comment = c(ORCID = "0000-0002-5207-7304"))
 Author: Michiel van Dijk
 Maintainer: Michiel van Dijk <Michiel.vandijk@wur.nl>
-Description: What the package does (one paragraph).
+Description: This package facilitates the creation of crop distribution maps for a given country, 
+    which can be used as input by GLOBIOM. Crop distribution maps are raster files that show the location of various crops. It uses a
+    downscaling procedure to 'pixelate' national and subnational crop statistics on a spatial grid.
+    Apart from crop statistics, the procedure requires several additional data sources, including a map of the subnational administrative regions,
+    crop suitability maps population maps and any other spatial information that provides information on
+    the likely location of crops. See Van Dijk et al (2020) for more information on the methodology.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+SystemRequirements: GAMS
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    dplyr,
+    glue
