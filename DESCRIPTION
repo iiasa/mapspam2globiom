@@ -9,12 +9,13 @@ Authors@R:
            comment = c(ORCID = "0000-0002-5207-7304"))
 Author: Michiel van Dijk
 Maintainer: Michiel van Dijk <Michiel.vandijk@wur.nl>
-Description: This package facilitates the creation of crop distribution maps for a given country, 
-    which can be used as input by GLOBIOM. Crop distribution maps are raster files that show the location of various crops. It uses a
-    downscaling procedure to 'pixelate' national and subnational crop statistics on a spatial grid.
-    Apart from crop statistics, the procedure requires several additional data sources, including a map of the subnational administrative regions,
-    crop suitability maps population maps and any other spatial information that provides information on
-    the likely location of crops. See Van Dijk et al (2020) for more information on the methodology.
+Description: The goal of mapspam2globiom is to facilitate the creation of crop distribution maps 
+        for a selected country, which can be used as input by GLOBIOM. A modified version of the
+        Spatial Production Allocation Model - SPAM (Liang et al., 2006, 2009, 2014) is used to
+        'pixelate' national and subnational crop statistics on a spatial grid. Apart from crop
+        statistics, SPAM input includes crop suitability maps, population maps and any other spatial
+        information that provides an indication on the likely location of crops. See
+        Van Dijk et al (2020) for more information on the methodology.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
