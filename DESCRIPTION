@@ -1,5 +1,5 @@
 Package: mapspam2globiom
-Title: Creates Crop Distribution Maps as input for GLOBIOM
+Title: Creates crop distribution maps as input for GLOBIOM
 Version: 0.0.1
 Authors@R: 
     person(given = "Michiel",
@@ -28,4 +28,5 @@ Suggests:
 VignetteBuilder: knitr
 Imports: 
     dplyr,
-    glue
+    glue,
+    countrycode

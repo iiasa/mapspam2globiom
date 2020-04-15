@@ -1,10 +1,6 @@
 ---
-title: "Software"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Software}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+title: "Software and hardware"
+bibliography: bib/mapspam.bib
 ---
 
 ```{r, include = FALSE}
@@ -17,3 +13,108 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(mapspam2globiom)
 ```
+
+To run SPAM, one needs use a combination of software packages, including R (and R studio), GAMS and GDAL. Below, we provide a brief description on how to install the software and its components and point towards several other pieces of software and tools that are useful, although not strictly necessary to use the SPAM model. Note that the scripts and implementation of SPAM version 2 have been developed, implemented and tested using a windows environment. As all the software is also available for other operating systems (e.g. Linux and Mac) it should theoretically be possible to run SPAM in a different environments but this has not been tested.
+
+
+## Installing R and RStudio
+
+All the pre- and postprocessing of the data is done in R [@RCoreTeam2018]. R is a free and open source software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing. To run SPAM one needs to install R and RStudio, a graphical user interface for R. Both pieces of software are is available for various operating systems. We recommend using the second to last release of R as it takes some time before all packages are updated, potentialy causing errors (see below for more information on R packages). If you are not familiar with R, please have a look at the online book [R for Data Science](https://r4ds.had.co.nz) by Hadley Wickham and Garrett Grolemund, which is probably the best book to get you started. 
+
+1. [Download and install R](https://cran.r-project.org/)
+2. [Download and install Rstudio](https://rstudio.com/products/rstudio/download/).
+
+
+## Installing GAMS
+
+The SPAM model is solved using the [General Algebraic Modeling System](https://www.gams.com/) (GAMS), which is modelling system and language designed for mathematical optimization. The GAMS system and solvers can be downloaded from the GAMS website. Unfortunately, one needs a GAMS Base Module licence plus additional Mosek solver licence to run the SPAM model^[We are exploring the possibility to solve SPAM directly in R using the  [Rmosek](https://cran.r-project.org/web/packages/Rmosek/index.html) package. As MOSEK offers unrestricted trial and academic licence, using this package would make the use of GAMS, and the need of a paid licence, superfluous. At the moment it is not clear yet if this alternative is technicallly possible.]
+
+- [Download and install GAMS](https://www.gams.com/download)
+
+
+## Installing GDAL
+
+A lot of SPAM's input data is spatially explicit and comes in the format of maps, which can be in vector/polygon or raster format. Although most of the map processing can be done within R, We mostly use [Geospatial Data Abstraction Library](https://gdal.org/) (GDAL) for this type of operations as it tends to be much faster. GDAL is a free computer software library for reading and writing raster and vector geospatial data formats, developed by the Open Source Geospatial Foundation. 
+
+- [Dowload and install GDAL](https://trac.osgeo.org/osgeo4w)^[We prefer to install from OSGeo4W, which is a collection of open source geospatial software for windows that also includes QGIS (see below). GDAL for other systems than windows can be downloaded [here](https://gdal.org/download.html).]
+
+
+## Additional software
+
+Although not strictly necessary to use SPAM, We recommend installing the following additional software:
+
+- [MikTeX](https://miktex.org) is (one of) implementations of TeX/LaTeX and related programs. RStudio facilitates the use of LaTex through Rmarkdown but this requires the installation of.
+
+- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is software to version your code. RStudio and git can be easily linked to version your code. We use it in combination with [GitHub](https://github.com) to store code in the cloud and facilitate collaborative code development. 
+
+- [QGIS](https://qgis.org/en/site/) a free and open-source cross-platform desktop geographic information system application that supports viewing, editing, and analysis of geospatial data. We sometimes use it to quickly inspect vector and raster maps. 
+
+
+## Storate and formats of model input and output
+
+Depending on the resolution of the model and the size of the country, the size of the input (raw and processed) and output files can become quite large. Hence it is important to ensure sufficient disk space to store the files. To give you an idea, all files related to the China example have a total size of [@ADD], while the total size for the Malawi example is [@ADD]. We also encountered some problems when performing some of the GDAL operations using DropBox, probably related to the  synchronization of files. If you encounter problems when saving to Dropbox, try saving to a folder that is not being  synchronizated automatically.  
+
+In most cases we use the following file formats to store data:
+- Raster maps are stored using Geotiff (*.tif).
+- Shape files (i.e. vector/polygon data) are stored in the R .rds data format, which ensures the data structure is maintained and data can be quickly loaded into R. The shapefile with ADM information is also saved in .shp format as this is needed for GDAL.
+- Data files are stored in the R .rds data format. For files with lists of information (e.g. list of crops and ADMs in the country) we use .csv files for quick referencing (e.g. using Excel).
+- GAMS code is saved in .gms [@UPDATE]
+- GAMS data files are stored in .gdx [@UPDATE]
+
+
+# R packages
+
+## Installing R packages
+R packages are pieces of bundled R code, frequently including scripts from other languages (e.g. C or C++) to speed up calculations or interface with other software (e.g. GAMS). Packages can be easily installed by typing `install.packages("PACKAGE_NAME") in R or by clicking on the 'package' tab in RStudio. Nearly all packages are directly downloaded from CRAN, the R package repository, on your system.
+
+To install mapspam, which is not on CRAN, one first has to install the devtools package (if not already installed) [@ADD package name]:
+
+```{r, eval=FALSE}
+install.packages("devtools")
+library(devtools)
+devtools::install_github("michielvandijk/mapspam")
+```
+
+To interface between R and GAMS the GDXRRW package is required. This package is also not available on CRAN and therefore cannot be installed using the standard approach. Hence, one has to install it manually. The package can be found [here](https://support.gams.com/gdxrrw:interfacing_gams_and_r)
+
+To install GDXRRW [@ADD need to solve this using one approach]:
+
+1. Copy the GDXRRW.zip to a temporary folder on your machine. Note that the version of GDXRRW has to match your R version, otherwise there might be an error! Thus, if you have R version 3.5.X install the GDXRRW version that is built with R 3.5.x.
+2. Click 'Packages' > 'install' in RStudio
+3. Select 'Install from: Package Archive File (.zip; .tar; .gz)
+4. Select GDXRRW.zip to install the package in your R library
+
+For GDXRRW to work and to be able to read gdx files, the package needs to link with GAMS. This can be done manually using the following code. If the link is created you should get the message `The GDX library has been loaded`.
+
+```{r eval=FALSE}
+# Where C:/GAMS/win64/25.0 is the location of the gams.exe
+gams_path <- "C:/GAMS/win64/25.0"
+library(gdxrrw)
+igdx(gams_path)
+```
+
+If the location of GAMS is added to the PATH on windows or LD_LIBRARY_PATH on Linux, this command is not necessary anymore. To add GAMS to the Windows path type "edit the system environment variables" in the Search Windows bar at the bottom of your Windows session. Click "Environment Variables", select "Path", click "Edit", click "New" and add (in this case) "C:/GAMS/win64/25.0" to the PATH list. 
+
+
+## Essential packages
+
+Apart from mapspam and GDXRRW, a number of R packages are needed to peform the tasks related to SPAM. Most important are: 
+
+- [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html) [@Wickham2019], is the name for a set of packages that work in harmony to facilitate data preparation and processing, most importantly dplyr, purrr, tidyr and ggplot2. Some of them are used by the mapspam package and will be installed automatically when mapspam is installed for the first time if they have not been installed before. 
+
+- [sf package](https://cran.r-project.org/web/packages/sf/index.html) [@Pebesma2018]
+
+- [raster package](https://cran.r-project.org/web/packages/raster/index.html) [@Hijmans2020]
+
+
+
+## Hardware
+
+The dimensions of SPAM are determined by the number of grid cells x number of administrative regions x number of crops x number of farming systems. Of these four elements, the number of grid cells is the main factor determining the size of the model although the other dimensions (in combination with grid cells) also play a role. The total number of grid cells is related to (1) the cropland extent and, hence, size of the country and (2) the resolution of the model, e.g. 30 arcsec or 5 arcmin. 
+
+When the model is run at higher resolution, the number of dimensions quickly tends to become very large (e.g. @ADD number of equations). Excessively large models will result in memory problems or very long processing times on an desktop machine. These models can only be solved by splitting the problem into pieces as illustrated by the China example and/or reducing the resolution of the model. We succesfully managed to run 30 arcsec single country models for small to medium size African countries, such as Malawi, Zambia and Kenya on a Windows 10 desktop with @ADD. However, we did not manage to run this model for Ethiopia, which is characterized by much larger cropland area and administrative zones. When we tried to run the model on the desktop, GAMS indicated there was not enough RAM available. To solve this issue we tried to run the model on high-memory machine with @ADD memory. The model started to run succesfully but due to the high number of dimensions, it was not solved after a week, resulting in a time-out error. @ADD eventually we split the model into @adm units and solved the model. Disadvantage of splitting the model is that assumptions need to be made on crop area by adminstrative 1 unit if this data is not available (see Chapter \@(overview)).
+
+Concluding, we recommend running the model at 5 arcmin first to test the model behaviour and only then decide on how to proceed with higher resolution models if needed. 
+
+
+## References
