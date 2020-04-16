@@ -1,3 +1,3 @@
-# mapspam2globiom 0.0.1
+# mapspam2globiom v0.0.1
 
-* Added a `NEWS.md` file to track changes to the package.
+* First work in progress release
