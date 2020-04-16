@@ -1,0 +1,23 @@
+---
+title: "Process spatial data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Process spatial data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+resource_files:
+  bib/mapspam.bib
+
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mapspam2globiom)
+```
+

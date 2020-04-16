@@ -1,0 +1,143 @@
+---
+title: "Model setup"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Model setup}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+resource_files:
+  bib/mapspam.bib
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mapspam2globiom)
+```
+
+# Check workflowr on how to show project folder.
+https://jdblischak.github.io/workflowr/articles/wflow-01-getting-started.html
+--------------------
+
+To set up SPAMc the following steps should be followed in the order as listed below. It is assumed that all required software is already installed (see [Getting started](getting_started.html)).
+
+1. create R project
+2. Initialize model
+3. Set parameters and data location
+4. Create data folder structure
+
+This creates the basic SPAM model with the following dimensions:
+- 40 crop or crop groups (\@ref(croplist))
+- 4 farming systems (subsistence, rainfed low-input, rainfed high-input, irrigated)
+
+Technically, these dimensions can be easiliy changed if for instance an increase in number of crops is desired. In practice, certain type of input data that SPAM takes from global databases is not available. The 40 crops were selected because global suitability layers were available from GAEZ. If there is a need to increase the number of crops, the user must prepare or add new suitability maps. Appendix X provides more information on how to add more crops.
+
+
+## Create R project
+
+Name
+versioning
+
+
+## Initialize model
+
+Prepared a function to copy all scripts to the R project
+
+```{r}
+
+```
+
+Creates following folders and files
+
+[@ADD folder and file tree]
+
+
+## Set model parameters and file location
+
+`set` script needs to be prepared before SPAM can be set up. It has the following parameters.
+
+### Set country
+
+SPAM uses ISO 3166-1 alpha-3 codes (hereafter iso3c) to determine the country and extract relevant data from global databases.  ISO 3166-1 alpha-3 codes are three-letter country codes defined in ISO 3166-1, part of the ISO 3166 standard published by the International Organization for Standardization (ISO). A full list of iso3c codes can be found on Wikipedia [here](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3). For China the iso3c code is `CHN`. Not all data sources use iso3c codes so we added a script to determine a number of other country identifiers, including the standard full country name, the iso3 numerical code and the country identifier used by FAOSTAT. We also add the continent information, which is sometimes needed to select a continent-level spatial map.
+
+```{r eval=FALSE}
+iso3c_sel <- "CHN"
+country_sel <- countrycode(iso3c_sel, "iso3c", "country.name")
+iso3n_sel <- countrycode(iso3c_sel, "iso3c", "iso3n")
+fao_sel <- countrycode(iso3c_sel, "iso3c", "fao")
+continent_sel <- countrycode(iso3c_sel, "iso3c", "continent")
+```
+
+### Set year
+
+```{r}
+year_sel <- 2010
+```
+
+### Set resolution
+
+Two options `30sec` or `5min`
+
+```{r}
+grid_sel <- "5min"
+```
+
+### Set administrative zone level
+
+
+
+```{r}
+adm_sel <- 2
+```
+
+
+### Set solve level
+
+Solve at country level (solve_sel = 0) or at adminstrative level (solve_sel = 1)
+
+```{r}
+solve_sel <- 1
+```
+
+
+### Set file location
+
+```{r, eval=F}
+### SET DATAPATH
+# Michiel IIASA
+if(Sys.info()["user"] == "vandijkm") {
+  glob_path <- "P:/globiom/crop_map/data/Global"
+  crop_map_path <- "E:/Dropbox/crop_map_CHN"
+  mappings_path <- file.path(crop_map_path, paste0("data/mappings"))
+  iso3c_path <- file.path(crop_map_path, paste0("data/", year_sel, "/", iso3c_sel))
+  raw_path <- file.path(iso3c_path, "raw")
+  proc_path <- paste0(iso3c_path, "/processed")
+  spam_path <- file.path(crop_map_path, paste0("SPAM_2.0/", year_sel, "/", iso3c_sel))
+  gams_path <- "C:/GAMS/win64/25.0"
+}
+
+```
+
+
+## Create data folder structure
+
+Reads folder location from `set_parameters.r`
+
+```{r}
+
+```
+
+
+This creates the folder structure as depicted below in the R project.
+
+```{r f_structure, echo=FALSE, message=FALSE, warning=FALSE, comment=NA}
+#source("R/depict_folder_structure.R")
+#print(f_structure)
+```
+
+Now the model is set up, it is time to collect input data and put them in the right location, which is described in Chapter \@(data)

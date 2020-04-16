@@ -1,0 +1,22 @@
+---
+title: "Process subnational statistics"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Process subnational data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+resource_files:
+  bib/mapspam.bib
+
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mapspam2globiom)
+```

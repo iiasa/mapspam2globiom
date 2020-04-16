@@ -1,0 +1,19 @@
+---
+title: "template"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{template}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mapspam2globiom)
+```

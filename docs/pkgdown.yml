@@ -2,6 +2,10 @@ pandoc: 2.7.2
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
-  Software: Software.html
-last_built: 2020-04-15T08:35Z
+  getting_started: getting_started.html
+  model_setup: model_setup.html
+  process_spatial_data: process_spatial_data.html
+  process_subnat_stat: process_subnat_stat.html
+  template: template.html
+last_built: 2020-04-16T09:49Z
 

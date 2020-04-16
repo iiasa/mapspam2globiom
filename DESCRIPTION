@@ -9,13 +9,16 @@ Authors@R:
            comment = c(ORCID = "0000-0002-5207-7304"))
 Author: Michiel van Dijk
 Maintainer: Michiel van Dijk <Michiel.vandijk@wur.nl>
-Description: The goal of mapspam2globiom is to facilitate the creation of crop distribution maps 
-        for a selected country, which can be used as input by GLOBIOM. A modified version of the
-        Spatial Production Allocation Model - SPAM (Liang et al., 2006, 2009, 2014) is used to
-        'pixelate' national and subnational crop statistics on a spatial grid. Apart from crop
-        statistics, SPAM input includes crop suitability maps, population maps and any other spatial
-        information that provides an indication on the likely location of crops. See
-        Van Dijk et al (2020) for more information on the methodology.
+Description: The aim of the mapspam2globiom R package is to facilitate the creation of country level 
+        crop distribution maps, which can be used as input by the IIASA's Global Biosphere Management Model
+        (GLOBIOM) for a selected country. mapspam2globiom provides the necessary infrastructure to run the
+        Spatial Production Allocation Model for Country level studies (SPAMc). The model builds on the global
+        version of SPAM (You et al., 2006; You et al., 2009 et al.; You et al., 2014 and Yu et al., 2020), which
+        use a cross-entropy optimization approach to 'pixelate' national and subnational crop statistics on a
+        spatial grid at a resolution of 5 arcmin. SPAMc was specifically developed to support country level
+        analysis and makes it possible to incorporate national sources of information and create maps at a
+        higher resolution of 30 arcsec. Van Dijk et al. (2020) provides an in-depth discussion of SPAMc
+        including an example for Southern Africa. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -24,9 +27,11 @@ RoxygenNote: 7.1.0
 SystemRequirements: GAMS
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    spelling
 VignetteBuilder: knitr
 Imports: 
     dplyr,
     glue,
     countrycode
+Language: en-US

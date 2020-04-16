@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • mapspam2globiom</title>
+<title>Create spam folder structure — create_spam_folders • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,9 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Create spam folder structure — create_spam_folders" />
+<meta property="og:description" content="create_spam_folders creates the folder structure that is needed store raw data,
+processed data and parameters for SPAM." />
 
 
 
@@ -58,7 +60,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -143,26 +145,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Create spam folder structure</h1>
+    
+    <div class="hidden name"><code>create_spam_folders.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="getting_started.html">Getting started</a></dt>
-        <dd></dt>
-        <dt><a href="model_setup.html">Model setup</a></dt>
-        <dd></dt>
-        <dt><a href="process_spatial_data.html">Process spatial data</a></dt>
-        <dd></dt>
-        <dt><a href="process_subnat_stat.html">Process subnational statistics</a></dt>
-        <dd></dt>
-        <dt><a href="template.html">template</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p><code>create_spam_folders</code> creates the folder structure that is needed store raw data,
+processed data and parameters for SPAM.</p>
     </div>
+
+    <pre class="usage"><span class='fu'>create_spam_folders</span>(<span class='kw'>spam_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>spam_path</th>
+      <td><p>character string with the main SPAM folder. Note that R
+uses forward slash or double backslash to separate folder names.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>create_spam_folders</code> creates three folders in the <code>spam_path</code> set by the user:
+parameters, processed_data and raw_data as well as a number of lower level
+folders. This structure is essential to run SPAM. If <code>spam_path</code> is missing,
+the folder will be created in the <code><a href='https://rdrr.io/r/base/path.expand.html'>path.expand("~")</a></code>.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>create_spam_folders</span>(<span class='kw'>spam_path</span> <span class='kw'>=</span> <span class='st'>"C:/Users/dijk158/spam_mwi"</span>)
+}</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
