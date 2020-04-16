@@ -1,4 +1,5 @@
 destination: docs
+url: https://iiasa.github.io/mapspam2globiom
 navbar:
   structure:
     left:
