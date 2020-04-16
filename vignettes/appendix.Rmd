@@ -17,6 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+
 The spatial allocation model outlined in this paper builds on SPAM, which technical details can be found in @Wood-Sichra2016 (also see the [SPAM](www.mapSPAM.org)  website). One major difference between both model versions is the use of an alternative objective function, which maximizes the total average 'fitness' score' of the allocated crops (see below for a comparison of the two versions of the models) instead of using a cross-entropy framework. A key starting point for the cross-entropy framework is prior estimates of physical area for each crop-farming system combination at the grid cell level. The final solution of the model will be in the neighborhood of the priors but taking into account a number of constraints. Using this approach at the 30 arcsec resolution resulted in very fragmented allocation, in which the area of a large number of crop-farming system combinations will be allocated to single 30 arcsec grid cells. A more realistic distribution would result in clusters of 30 arcsec grid cells that are populated by a limited number of crop-farming system combinations and determined by biophysical and economic suitability. The objective function in SPAMc is better suited to simulate this process.
 
 

@@ -14,3 +14,11 @@ plus <- function(x, na.rm = F){
         }
     }
 }
+
+# Function to test if gdxrrw is installed.
+test_gdxrrw <- function(a, b) {
+    if (!requireNamespace("gdxrrw", quietly = TRUE)) {
+        stop("Package gdxrrw needed for this function to work. Please install it (see software article for help).",
+             call. = FALSE)
+    }
+}

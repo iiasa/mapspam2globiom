@@ -1,5 +1,5 @@
 ---
-title: "Setup SPAMc"
+title: "Model setup"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{setup}
@@ -38,7 +38,7 @@ create_spam_folders(spamc_path)
 
 ## Set model parameters and location of files
 
-Nearly all functions in mapspam2globiom need input on (1) key parameters that determine the design of the model and how it is solved and (2) the location of files that are processed so they can be used as input in the next step. 
+Nearly all functions in mapspam2globiom need input on (1) key parameters that determine the design of the model and how will be solved and (2) the location of raw and intermediate data, which will be processed. Both pieces of information are bundled and stored by the function `set_spam_par()`.
 
 
 `set` script needs to be prepared before SPAM can be set up. It has the following parameters.

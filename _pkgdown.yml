@@ -14,7 +14,7 @@ navbar:
     - home
     - background
     - get_started
-    - articles
+    - run_spam
     - reference
     - news
     right: github
@@ -27,8 +27,8 @@ navbar:
       menu:
       - text: 1. Introduction
         href: articles/introduction.html
-      - text: 2. Model dimensions
-        href: articles/model_dimensions.html
+      - text: 2. Model structure
+        href: articles/model_structure.html
       - text: 3. Input data
         href: articles/input_data.html
       - text: 4. Appendix
@@ -40,8 +40,8 @@ navbar:
         href: articles/software.html
       - text: 2. Template
         href: articles/template.html
-    articles:
-      text: Running SPAMc
+    run_spam:
+      text: Run SPAMc
       menu:
       - text: 1. Model setup
         href: articles/setup.html

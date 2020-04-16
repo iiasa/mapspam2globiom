@@ -1,6 +1,9 @@
 ---
 output: github_document
+resource_files:
+  vignettes/mapspam.bib
 bibliography: vignettes/bib/mapspam.bib
+
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
