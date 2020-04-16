@@ -1,10 +1,19 @@
+home:
+  title: mapspam2globiom
+  description: R package to create crop distribution maps as input for GLOBIOM.
+
+template:
+  params:
+    bootswatch: flatly
+
 destination: docs
 url: https://iiasa.github.io/mapspam2globiom
 navbar:
   structure:
     left:
     - home
-    - getting_started
+    - background
+    - get_started
     - articles
     - reference
     - news
@@ -13,18 +22,29 @@ navbar:
     home:
       icon: fas fa-home fa-lg
       href: index.html
-    getting_started:
-      text: Getting started
+    background:
+      text: Background
+      menu:
+      - text: 1. Introduction
+        href: articles/introduction.html
+      - text: 2. Model dimensions
+        href: articles/model_dimensions.html
+      - text: 3. Input data
+        href: articles/input_data.html
+      - text: 4. Appendix
+        href: articles/appendix.html
+    get_started:
+      text: Get started
       menu:
       - text: 1. Software and hardware
-        href: articles/getting_started.html
+        href: articles/software.html
       - text: 2. Template
         href: articles/template.html
     articles:
-      text: Implementation steps
+      text: Running SPAMc
       menu:
       - text: 1. Model setup
-        href: articles/model_setup.html
+        href: articles/setup.html
       - text: 2. Process subnational statistics
         href: articles/process_subnat_stat.html
       - text: 3. Process spatial data

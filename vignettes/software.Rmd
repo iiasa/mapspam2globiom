@@ -1,5 +1,5 @@
 ---
-title: "Getting started"
+title: "Get started"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Getting started}
@@ -7,6 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 resource_files:
   bib/mapspam.bib
+bibliography: bib/mapspam.bib
 ---
 
 ```{r, include = FALSE}
@@ -64,9 +65,9 @@ In most cases we use the following file formats to store data:
 - GAMS data files are stored in .gdx [@UPDATE]
 
 
-# R packages
+## R packages
 
-## Installing R packages
+### Installing R packages
 R packages are pieces of bundled R code, frequently including scripts from other languages (e.g. C or C++) to speed up calculations or interface with other software (e.g. GAMS). Packages can be easily installed by typing `install.packages("PACKAGE_NAME") in R or by clicking on the 'package' tab in RStudio. Nearly all packages are directly downloaded from CRAN, the R package repository, on your system.
 
 To install mapspam, which is not on CRAN, one first has to install the devtools package (if not already installed) [@ADD package name]:
@@ -98,7 +99,7 @@ igdx(gams_path)
 If the location of GAMS is added to the PATH on windows or LD_LIBRARY_PATH on Linux, this command is not necessary anymore. To add GAMS to the Windows path type "edit the system environment variables" in the Search Windows bar at the bottom of your Windows session. Click "Environment Variables", select "Path", click "Edit", click "New" and add (in this case) "C:/GAMS/win64/25.0" to the PATH list. 
 
 
-## Essential packages
+### Essential packages
 
 Apart from mapspam and GDXRRW, a number of R packages are needed to peform the tasks related to SPAMc. Most important are: 
 

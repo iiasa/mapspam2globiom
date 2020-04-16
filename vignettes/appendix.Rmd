@@ -1,0 +1,138 @@
+---
+title: "Appendix: model equations"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{appendix}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+resource_files:
+  bib/mapspam.bib
+bibliography: bib/mapspam.bib
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The spatial allocation model outlined in this paper builds on SPAM, which technical details can be found in @Wood-Sichra2016 (also see the [SPAM](www.mapSPAM.org)  website). One major difference between both model versions is the use of an alternative objective function, which maximizes the total average 'fitness' score' of the allocated crops (see below for a comparison of the two versions of the models) instead of using a cross-entropy framework. A key starting point for the cross-entropy framework is prior estimates of physical area for each crop-farming system combination at the grid cell level. The final solution of the model will be in the neighborhood of the priors but taking into account a number of constraints. Using this approach at the 30 arcsec resolution resulted in very fragmented allocation, in which the area of a large number of crop-farming system combinations will be allocated to single 30 arcsec grid cells. A more realistic distribution would result in clusters of 30 arcsec grid cells that are populated by a limited number of crop-farming system combinations and determined by biophysical and economic suitability. The objective function in SPAMc is better suited to simulate this process.
+
+
+## Objective functions
+
+The actual location of crops will be determined by a combination of economic (e.g. market access and population density) and biophysical factors (e.g growing conditions determined by soil, temperature and precipitation). To simulate this process, we calculate a 'fitness' score between 0 and 100, which measures the economic and biophysical suitability at the grid cell level for each crop-farming system combination. The spatial allocation model is defined as a linear optimization problem in which the weighted score over all grid cells, crops and farming systems is maximized. This implies that on average all crops will be allocated to locations, which are considered as most appropriate from both an economic and biophysical viewpoint. The objective function is defined as follows:
+
+\begin{equation}
+\max\sum_{i} \sum_{j} \sum_{l}s_{ijl} \times score_{ijl}
+(\#eq:obj)
+\end{equation}
+
+where, $s_{ijl}$ is the share of total physical area of crop $j$ and farming system $l$ allocated to grid cell $i$, and $score_{ijl}$ is the fitness score for all $j$ and $l$ combinations.
+
+The second channel is the use of priors. Instead of using the fitness score to allocate crop area, we use the cross-entropy ($CE$) objective function used by SPAM, which minimizes the error between the prior information on physical area shares ($\pi_{ijl}$) and the allocated shares of physical area ($s_{ijl}$) for each grid cell $i$, crop $j$ and farming system $l$:
+
+\begin{equation}
+\min\ CE(s_{ijl}, \pi_{ijl})= \sum_{i} \sum_{j} \sum_{l}s_{ijl} \ lns_{ijl}- \sum_{i} \sum_{j} \sum_{l}s_{ijl} \ ln\pi_{ijl}
+\end{equation}
+
+
+## Fitness score and priors
+
+Similar to SPAM, we assume that subsistence farmers mainly grow crops for their own consumption and therefore the rural population density is a reasonable proxy for the allocation of subsistence farming systems. As we are not using the crop-entropy approach, the allocation of subsistence farmers is modelled by means of a constraint (see next section). For the other three systems, the allocation is determined by maximizing the objective function. The fitness scores are very similar to the calculation of the priors that are used to inform the cross-entropy model in SPAM. 
+
+Low-input rainfed systems are characterized by smallholder farms that mostly sell their products on local markets. Farmers will specialize in growing crops for which environmental conditions are best, while market access plays a limited role. We therefore assume that the fitness core can be informed by an index of biophysical suitability:
+
+\begin{equation}
+score_{ijl} = suit\_index_{ijl} \quad l = low\ input \quad \forall i\ \forall j
+\end{equation}
+
+where $score_{ijl}$ and $suit\_index_{ijl}$ are the fitness score and the biophysical suitability score for grid cell $i$, crop $j$ and farming system $l$, respectively. 
+
+We assume that high-input rainfed and irrigated farming systems mostly consist of medium to large commercial farms, which location is largely determined by profit maximization. To simulate this, the fitness core is defined as the square root of potential revenue and market access:
+
+\begin{equation}
+score_{ijl} =  \sqrt{access_{i} \times rev_{ijl}} \quad l \in high\ input,\ irrigated \quad \forall i\ \forall j
+\end{equation}
+
+where $access_{ijl}$ is market access approximated by travel distance to large cities and $rev_{ijl}$ is potential revenue, calculated as the product of potential yield ($yield_{ijl}$) for grid cell $i$, crop $j$ and system $l$ and national level crop price ($price_j$): 
+
+\begin{equation}
+rev_{ijl} = pot\_yield_{ijl} \times price_{i}
+\end{equation}
+
+
+## Constraints
+
+The allocation of crop area is determined by maximizing the objective function in equation \@ref(eq:obj) subject to a set of constraints:
+
+(i) A constraint defining the range of permitted physical area shares:
+
+\begin{equation}
+0 \leq s_{ijl} \leq 1
+\end{equation}
+
+(ii) A constraint, which forces that the sum of allocated physical area shares for each crop $j$ and farming system $l$ over all grid cells $i$ is equal to one. This ensures all physical crop area is allocated to grid cells. 
+
+\begin{equation}
+\sum_{i}s_{ij}=1 \qquad \forall j\ \forall l
+\end{equation}
+
+(iii) A constraint, which specifies that the total physical area allocated to a grid cell $i$ is lower or equal than the available cropland ($avail_{i}$) in grid cell $i$.     
+
+\begin{equation}
+\sum_{j} \sum_{l}crop\_area_{jl} \times s_{ijl} \leq avail_{i} \qquad \forall i
+\end{equation}
+
+\setlength\parindent{24pt} where $crop\_area_{jl}$ is total national-level physical area for crop $j$ and farming system $j$. 
+
+(iv) A constraint, which ensures that the allocated physical area is equal to the sub-national statistics ($sub\_crop\_area_{jk}$) that are available for statistical reporting unit $k$ (i.e. a region or province) and crops $J$. Crops for which only national level information is available are not affected by this constraint. 
+
+\begin{equation}
+\sum_{i \in k} \sum_{l}crop\_area_{jl} \times s_{ijl} = sub\_crop\_area_{jk} \qquad \forall j \in J\
+\forall k
+\end{equation}
+
+(v) A constraint, which specifies that the total allocated physical area for all irrigated crops $L$ in grid cell $i$ does not exceed the total available irrigated area ($irr\_area_{i}$) in that grid cell. 
+
+\begin{equation}
+\sum_{j \in L}crop\_area_{jl} \times s_{ijl} \leq irr\_area_{i} \qquad \forall i
+\end{equation}
+
+(iv) A constraint, that allocates the subsistence farming system crops proportional to rural population density. In cases, where the biophysical conditions are considered not suitable for a certain crop, we assume a zero allocation:
+
+\begin{equation}
+\bar{s}_{ijl} = \frac{rur\_pop_i}{\sum_{i}{rur\_pop_i}} \quad l = subsistence \quad \forall i\ \forall j
+\end{equation}
+
+where $\bar{s}_{ijl}$ is the share of physical area allocated to grid cell $i$ for crop $j$ and farming system $l$ and $Pop_i$ is the rural population density in grid cell $i$. 
+
+(iiv) A constraint, which specifies the allocation of crops $N$ and farming systems $O$ for which detailed location information $M$ is available ($det_{ijl}$), for example large commercial estates that produce sugarcane, tea or coffee.  The constraint, 'fixes' the location of such estates on the map, while at the same time allowing the model to allocate the rest of the crop-farming systems 'around' them using the optimization routine. It extends the SPAM model, where this type of information was not used.
+
+\begin{equation}
+crop\_area_{jl} \times s_{ijl}= det_{ijl}  \qquad \forall i \in M\ \forall j \in N\ \forall l \in O
+\end{equation}
+
+\newpage
+# S2 Solving SPAMc
+
+The General Algebraic Modeling System (GAMS) Release 25.0 [@GAMSDevelopmentCorporation2019] was used to solve SPAMc. The model was solved in two stages. In the first stage, we test if the model has a solution. As we combine information from many different sources, we often encounter inconsistencies, for example because the available cropland in a certain administrative area is lower than what is need to allocate according to the subnational statistics, resulting in an infeasible model. To investigate and reveal the inconsistencies we run the model using a set of slack variables on all constraints [@Boyd2004a] and minimize the sum of slacks. If the model is solved with zero sum of slacks the data can be considered consistent and there is no need to make adjustments. In case slacks are larger than zero, they will show where and how the model is inconsistent and if, for example, there is not enough cropland or irrigated area. 
+
+To solve the inconsistencies, we start by inspecting the data for common errors (e.g. data entry errors in the subnational statistics) and, if needed, repair them. If there are still problems, we adjusted the data adopting a hierarchy of ‘credibility’ in the following decreasing order of importance:
+
+1. Agricultural statistics
+2. OpenStreetMap
+3. Cropland
+4. Irrigated area
+
+The agricultural statistics were not changed, except when the model proved to be infeasible and after all other modification options were exhausted. As discussed before OpenStreetMap (OSM) data was scaled to the year 2000 and 2010 using the cropland extent for these two periods. In case OSM data is larger than the statistics, we set decrease it accordingly. If there are inconsistencies with cropland and irrigated area, values are scaled up so that they match with the statistical totals reported for the smallest available administrative unit, while at the same time, checking that the corresponding totals at higher administrative units also continue to align @Wood-Sichra2016 presents more details about the various procedures.
+
+The first stage is also needed to distribute the crops that belong to the subsistence farming system. Equation 10 in the main text, fixes the allocation of these crops proportional to rural population density. However, this allocation will almost never be within the bounds of the model solution that are set by the other constraints. To ensure a feasible solution, a slack variable is essential. 
+
+In the second stage, the slack values determined in the first stage are 'fixed'. This means that, for example, the cropland in an administrative area with problems has now been expanded to the original value plus the slack value. As the slack values account for all inconsistencies, the model can be solved. 
+
+The code to run the country models as well as the results are available from @ADD
+
+
+## References

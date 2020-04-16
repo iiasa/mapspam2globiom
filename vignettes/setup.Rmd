@@ -1,12 +1,13 @@
 ---
-title: "Model setup"
+title: "Setup SPAMc"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Model setup}
+  %\VignetteIndexEntry{setup}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:
   bib/mapspam.bib
+bibliography: bib/mapspam.bib
 ---
 
 ```{r, include = FALSE}
@@ -16,48 +17,29 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(mapspam2globiom)
+To setup SPAMc two steps need to be taken (the order is important!). It is assumed that all required software is already installed and working (see [software and hardware](software.html)). As [mentioned](template.html), it is by far the easiest to install the template in an RStudio project first and then start to work on your own country SPAMc version as all the steps discussed from now on are already pre-coded in the template.
+
+## Create SPAMc folder structure
+
+mapspam2globiom includes a function to create all necessary folders `create_spam_folders()`. The only input it requires is a path on your harddisk. We do not recommend using a server to store the model as the potential increase in file access time might seriously affect the time it takes to process some of the spatial datasets which can be very large. Note that it is perfectly fine to store large *raw data* files on a server (see below). 
+
+```{r eval=FALSE}
+# Load mapspam2globiom
+library("mapspam2globiom")
+
+# Set the folder where the model will be stored
+# Note that R uses forward slashes even in Windows!!
+spamc_path <- "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi"
+
+# Create SPAMc folder structure in the spamc_path
+create_spam_folders(spamc_path)
 ```
 
-# Check workflowr on how to show project folder.
-https://jdblischak.github.io/workflowr/articles/wflow-01-getting-started.html
---------------------
 
-To set up SPAMc the following steps should be followed in the order as listed below. It is assumed that all required software is already installed (see [Getting started](getting_started.html)).
+## Set model parameters and location of files
 
-1. create R project
-2. Initialize model
-3. Set parameters and data location
-4. Create data folder structure
+Nearly all functions in mapspam2globiom need input on (1) key parameters that determine the design of the model and how it is solved and (2) the location of files that are processed so they can be used as input in the next step. 
 
-This creates the basic SPAM model with the following dimensions:
-- 40 crop or crop groups (\@ref(croplist))
-- 4 farming systems (subsistence, rainfed low-input, rainfed high-input, irrigated)
-
-Technically, these dimensions can be easiliy changed if for instance an increase in number of crops is desired. In practice, certain type of input data that SPAM takes from global databases is not available. The 40 crops were selected because global suitability layers were available from GAEZ. If there is a need to increase the number of crops, the user must prepare or add new suitability maps. Appendix X provides more information on how to add more crops.
-
-
-## Create R project
-
-Name
-versioning
-
-
-## Initialize model
-
-Prepared a function to copy all scripts to the R project
-
-```{r}
-
-```
-
-Creates following folders and files
-
-[@ADD folder and file tree]
-
-
-## Set model parameters and file location
 
 `set` script needs to be prepared before SPAM can be set up. It has the following parameters.
 

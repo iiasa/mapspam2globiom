@@ -1,5 +1,5 @@
 Package: mapspam2globiom
-Title: Creates crop distribution maps as input for GLOBIOM
+Title: R package to create crop distribution maps as input for GLOBIOM
 Version: 0.0.1
 Authors@R: 
     person(given = "Michiel",

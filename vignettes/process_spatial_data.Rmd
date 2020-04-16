@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 resource_files:
   bib/mapspam.bib
-
+bibliography: bib/mapspam.bib
 ---
 
 ```{r, include = FALSE}

@@ -127,7 +127,6 @@ set_spam_par <-
             stop("The model has not been built. Run build_model() first.")
         }
         saveRDS(par, file.path(spam_path, "parameters/spam_par.rds"))
-        print.spam_par(par)
         return(par)
     }
 

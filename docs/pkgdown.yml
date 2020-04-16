@@ -2,10 +2,17 @@ pandoc: 2.7.2
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
-  getting_started: getting_started.html
-  model_setup: model_setup.html
+  appendix: appendix.html
+  input_data: input_data.html
+  introduction: introduction.html
+  model_dimensions: model_dimensions.html
   process_spatial_data: process_spatial_data.html
   process_subnat_stat: process_subnat_stat.html
+  setup: setup.html
+  software: software.html
   template: template.html
-last_built: 2020-04-16T09:49Z
+last_built: 2020-04-16T16:13Z
+urls:
+  reference: https://iiasa.github.io/mapspam2globiom/reference
+  article: https://iiasa.github.io/mapspam2globiom/articles
 

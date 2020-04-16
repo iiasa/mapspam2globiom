@@ -1,0 +1,21 @@
+---
+title: "model_dimensions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{model_dimensions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+resource_files:
+  bib/mapspam.bib
+bibliography: bib/mapspam.bib
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+SPAMc 42 crop and crop groups each split into four agricultural systems: subsistence, rainfed low-input, rainfed high-input and irrigated. Grid cell values are allocated subject to a set of constraints that capture information on the location of crops at the subnational level, cropland surface and irrigated area. 

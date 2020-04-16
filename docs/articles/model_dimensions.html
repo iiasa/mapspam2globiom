@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Template and examples • mapspam2globiom</title>
+<title>model_dimensions • mapspam2globiom</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Template and examples">
+<script src="../pkgdown.js"></script><meta property="og:title" content="model_dimensions">
 <meta property="og:description" content="mapspam2globiom">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -124,45 +124,22 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Template and examples</h1>
+      <h1 data-toc-skip>model_dimensions</h1>
             
       
       
-      <div class="hidden name"><code>template.Rmd</code></div>
+      <div class="hidden name"><code>model_dimensions.Rmd</code></div>
 
     </div>
 
     
     
-<p>Broadly, running SPAMc can be divided into three phases:</p>
-<ul>
-<li>Pre-procesing subnational statistics and spatial information</li>
-<li>Running the model</li>
-<li>Post-processing model results to create maps and GLOBIOM input.</li>
-</ul>
-<p>mapspam2globiom facilitates this by providing several functions that take care of major components, such as the clipping and reprojection of spatial datasets, the harmonization of agricultural statistics and cropland, and the creation of datafiles that can be loaded by GLOBIOM. However, to fully run SPAMc much more data work needs to be done. The majority can be performed with standard R packages, such as <a href="https://cran.r-project.org/web/packages/tidyverse/index.html">tidyverse</a>, which were specifically designed ‘tidy’ messy information, and <a href="https://cran.r-project.org/web/packages/sf/index.html">sf</a> and <a href="https://cran.r-project.org/web/packages/raster/index.html">raster</a>, which were built to perform spatial data operations.</p>
-<p>For this purpose, mapspam2globiom is supplemented with examples of how to run the model for a particular country. These examples provide fully developed scripts to run SPAMc from start to finish and require only minimum user input to adapt them to other countries. In fact, most work for the user will be to collect the required subnational agricultural statistics and reshape them so that they can used as input for SPAMc (although some tools are provided to support the latter in the package). The examples, therefore, can be regarded as templates to run SPAMc for any country, assuming all raw input data is available.</p>
-<p>The examples are stored in Github repositories with the following name: mapspam2GLOBIOM_ISO, where ‘ISO’ is the <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">ISO 3166-1 alpha-3 letter</a> country code in lowercase. At the moment only one example is provided: mapspam2globiom_mwi for Malawi but we hope to include an example for a larger country, which requires a slightly different aproach soon.</p>
-<div id="downloading-country-examples" class="section level1">
-<h1 class="hasAnchor">
-<a href="#downloading-country-examples" class="anchor"></a>Downloading country examples</h1>
-<ul>
-<li>Visit the <a href="https://github.com/iiasa/mapspam2globiom_mwi">mapspam2globiom_mwi repository website</a>.</li>
-<li>Click on ‘clone or download’.</li>
-<li><ol style="list-style-type: decimal">
-<li>clone the repository to your Github account or (2) save the zip file.</li>
-</ol></li>
-<li>Store the files in an RStudio project environment using the alpha-3 letter code of the country of interest.</li>
-</ul>
-<p>Now you are ready to start working on your own model! The articles in the <code>Running SPAMc</code> section will go over the various steps to build the model following the Malawi example. Please read the article on how to <a href="setup.html">setup SPAMc</a> to continue.</p>
-</div>
+<p>SPAMc 42 crop and crop groups each split into four agricultural systems: subsistence, rainfed low-input, rainfed high-input and irrigated. Grid cell values are allocated subject to a set of constraints that capture information on the location of crops at the subnational level, cropland surface and irrigated area.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
+      </div>
 
 </div>
 
