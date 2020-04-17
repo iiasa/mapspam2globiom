@@ -6,7 +6,7 @@
 \usage{
 set_spam_par(
   spam_path = NULL,
-  glob_raw_path = NULL,
+  raw_path = NULL,
   iso3c_sel = NULL,
   year_sel = NULL,
   grid_sel = "5min",
@@ -19,11 +19,10 @@ set_spam_par(
 \item{spam_path}{character string with the main SPAM folder. Note that R uses
 forward slash or double backslash to separate folder names.}
 
-\item{glob_raw_path}{character string with the raw data folder for global
-data. This makes it possible to store large files, such as global cropland
-maps at high resolution, on a server, while country specific data can be
-stored locally in the raw data folder. If \code{glob_raw_path} is not specified
-it is automatically set to the raw data folder.}
+\item{raw_path}{character string with the raw data folder. This makes it
+possible to store the raw data on a server. If \code{raw_path} is not specified
+it is automatically set to the default raw data folder in the main model
+folder.}
 
 \item{iso3c_sel}{character string with the three letter ISO 3166-1 alpha-3
 country code, also referred to as iso3c. A list of country codes can be
@@ -63,15 +62,15 @@ country, year, resolution, depth of administrative units for which subnational
 statistics are available, level at which the model is solved and type of
 model.
 
-\code{\link{create_spam_folders}} needs to be run before as it creates all core
-folders, including the \code{parameters} folder where \code{set_spam_par} output is
+\code{\link{create_spam_folders}} needs to be run before as it creates all
+core folders, including the \code{parameters} folder where \code{set_spam_par} output is
 stored. An error will be thrown if these essential folders do not exist when
 the function is run.
 
-\code{\link[countrycode]{countrycode}} is used to determine the full country name, three
-digit country code, three digit FAO country code and continent on the basis of
-the alpha-3 country code. This information is required to extract country
-specific information from several datasets.
+\code{\link[countrycode]{countrycode}} is used to determine the full country
+name, three digit country code, three digit FAO country code and continent on
+the basis of the alpha-3 country code. This information is required to extract
+country specific information from several datasets.
 }
 \examples{
 \dontrun{
