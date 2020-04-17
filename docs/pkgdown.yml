@@ -6,6 +6,7 @@ articles:
   collect_input_data: collect_input_data.html
   data: data.html
   introduction: introduction.html
+  mapspam2globiom: mapspam2globiom.html
   model_structure: model_structure.html
   post_process: post_process.html
   process_spatial_data: process_spatial_data.html
@@ -14,7 +15,7 @@ articles:
   setup_model: setup_model.html
   software: software.html
   template: template.html
-last_built: 2020-04-17T10:07Z
+last_built: 2020-04-17T12:24Z
 urls:
   reference: https://iiasa.github.io/mapspam2globiom/reference
   article: https://iiasa.github.io/mapspam2globiom/articles

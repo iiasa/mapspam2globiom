@@ -1,0 +1,17 @@
+---
+title: "mapspam2globiom"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mapspam2globiom}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+GET STARTED vignette
