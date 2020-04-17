@@ -19,10 +19,16 @@
     <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix_b.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/collect_input_data.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/data.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/installation.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/introduction.html</loc>
@@ -47,9 +53,6 @@
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/setup_model.html</loc>
-  </url>
-  <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/software.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/template.html</loc>

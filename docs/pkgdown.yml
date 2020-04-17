@@ -3,8 +3,10 @@ pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   appendix: appendix.html
+  appendix_b: appendix_b.html
   collect_input_data: collect_input_data.html
   data: data.html
+  installation: installation.html
   introduction: introduction.html
   mapspam2globiom: mapspam2globiom.html
   model_structure: model_structure.html
@@ -13,9 +15,8 @@ articles:
   process_subnat_stat: process_subnat_stat.html
   run_model: run_model.html
   setup_model: setup_model.html
-  software: software.html
   template: template.html
-last_built: 2020-04-17T12:24Z
+last_built: 2020-04-17T15:24Z
 urls:
   reference: https://iiasa.github.io/mapspam2globiom/reference
   article: https://iiasa.github.io/mapspam2globiom/articles

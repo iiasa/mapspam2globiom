@@ -23,25 +23,25 @@ navbar:
       href: index.html
     get_started:
       text: Installation
-      href: articles/software.html
+      href: articles/installation.html
     articles:
       text: Articles
       menu:
       - text: Background
         menu:
-        - text: 1. Introduction
+        - text: Introduction
           href: articles/introduction.html
-        - text: 2. Model structure
+        - text: Model structure
           href: articles/model_structure.html
-        - text: 3. Data
+        - text: Data
           href: articles/data.html
-        - text: 4. Appendix
+        - text: Appendix
           href: articles/appendix.html
       - text: Preparation
         menu:
-        - text: 2. Template
+        - text: Download template
           href: articles/template.html
-        - text: 3. Input data collection
+        - text: Input data collection
           href: articles/collect_input_data.html
       - text: Run SPAMc
         menu:

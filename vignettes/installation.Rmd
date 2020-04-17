@@ -1,5 +1,5 @@
 ---
-title: "Software"
+title: "Installation"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Getting started}
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-To run SPAMc, one needs a combination of software packages, including R (and RStudio), GAMS and GDAL. Below, we provide a brief description on how to install the software and point towards several other pieces of software and tools that are useful, although not strictly necessary to run SPAMc. Note that the scripts and implementation of the model have been developed, implemented and tested using a windows environment. As all the software is cross platform it should be possible to run SPAMc on Mac and Linux but this has not been tested.
+To run SPAMc, one needs to install several software packages, including R (and RStudio), GAMS and GDAL. Below, we provide a brief description on how to install the software and point towards several other software tools that are useful, although not strictly necessary to run SPAMc. Note that the scripts and implementation of the model have been developed, implemented and tested using a windows environment. As all the software is cross platform it should be possible to run SPAMc on Mac and Linux but this has not been tested.
 
 
 ## Installing R and RStudio
@@ -51,18 +51,6 @@ Although not strictly necessary to use SPAMc, We recommend installing the follow
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) is software to version your code. RStudio and git can be easily linked to version your code. We use it in combination with [GitHub](https://github.com) to store code in the cloud and facilitate collaborative code development. 
 
 - [QGIS](https://qgis.org/en/site/) a free and open-source cross-platform desktop geographic information system application that supports viewing, editing, and analysis of geospatial data. We sometimes use it to quickly inspect vector and raster maps. 
-
-
-## Storate and formats of model input and output
-
-Depending on the resolution of the model and the size of the country, the size of the input (raw and processed) and output files can become quite large. Hence it is important to ensure sufficient disk space to store the files. To give you an idea, all files related to the China example have a total size of [@ADD], while the total size for the Malawi example is [@ADD]. We also encountered some problems when performing some of the GDAL operations using DropBox, probably related to the  synchronization of files. If you encounter problems when saving to Dropbox, try saving to a folder that is not being  synchronizated automatically.  
-
-In most cases we use the following file formats to store data:
-- Raster maps are stored using Geotiff (*.tif).
-- Shape files (i.e. vector/polygon data) are stored in the R .rds data format, which ensures the data structure is maintained and data can be quickly loaded into R. The shapefile with ADM information is also saved in .shp format as this is needed for GDAL.
-- Data files are stored in the R .rds data format. For files with lists of information (e.g. list of crops and ADMs in the country) we use .csv files for quick referencing (e.g. using Excel).
-- GAMS code is saved in .gms [@UPDATE]
-- GAMS data files are stored in .gdx [@UPDATE]
 
 
 ## R packages
@@ -108,7 +96,6 @@ Apart from mapspam and GDXRRW, a number of R packages are needed to peform the t
 - [sf package](https://cran.r-project.org/web/packages/sf/index.html) [@Pebesma2018]
 
 - [raster package](https://cran.r-project.org/web/packages/raster/index.html) [@Hijmans2020]
-
 
 
 ## Hardware
