@@ -57,7 +57,7 @@
       <a href="../articles/model_structure.html">2. Model structure</a>
     </li>
     <li>
-      <a href="../articles/input_data.html">3. Input data</a>
+      <a href="../articles/data.html">3. Data</a>
     </li>
     <li>
       <a href="../articles/appendix.html">4. Appendix</a>
@@ -77,6 +77,9 @@
     <li>
       <a href="../articles/template.html">2. Template</a>
     </li>
+    <li>
+      <a href="../articles/collect_input_data.html">3. Input data</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -87,13 +90,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/setup.html">1. Model setup</a>
+      <a href="../articles/setup_model.html">1. Model setup</a>
     </li>
     <li>
       <a href="../articles/process_subnat_stat.html">2. Process subnational statistics</a>
     </li>
     <li>
       <a href="../articles/process_spatial_data.html">3. Process spatial data</a>
+    </li>
+    <li>
+      <a href="../articles/run_model.html">4. Run model</a>
+    </li>
+    <li>
+      <a href="../articles/post_process.html">5. Post-processing</a>
     </li>
   </ul>
 </li>
@@ -114,7 +123,10 @@
       <a href="../articles/appendix.html">Appendix: model equations</a>
     </li>
     <li>
-      <a href="../articles/input_data.html">input_data</a>
+      <a href="../articles/collect_input_data.html">collect_input_data</a>
+    </li>
+    <li>
+      <a href="../articles/data.html">input_data</a>
     </li>
     <li>
       <a href="../articles/introduction.html">introduction</a>
@@ -123,13 +135,19 @@
       <a href="../articles/model_structure.html">Model structure</a>
     </li>
     <li>
+      <a href="../articles/post_process.html">post_process</a>
+    </li>
+    <li>
       <a href="../articles/process_spatial_data.html">Process spatial data</a>
     </li>
     <li>
       <a href="../articles/process_subnat_stat.html">Process subnational statistics</a>
     </li>
     <li>
-      <a href="../articles/setup.html">Model setup</a>
+      <a href="../articles/run_model.html">run_model</a>
+    </li>
+    <li>
+      <a href="../articles/setup_model.html">Model setup</a>
     </li>
     <li>
       <a href="../articles/software.html">Get started</a>
@@ -164,7 +182,7 @@
             
       
       
-      <div class="hidden name"><code>setup.Rmd</code></div>
+      <div class="hidden name"><code>setup_model.Rmd</code></div>
 
     </div>
 
@@ -174,7 +192,7 @@
 <div id="create-spamc-folder-structure" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-spamc-folder-structure" class="anchor"></a>Create SPAMc folder structure</h2>
-<p>mapspam2globiom includes a function to create all necessary folders <code><a href="../reference/create_spam_folders.html">create_spam_folders()</a></code>. The only input it requires is a path on your harddisk. We do not recommend using a server to store the model as the potential increase in file access time might seriously affect the time it takes to process some of the spatial datasets which can be very large. Note that it is perfectly fine to store large <em>raw data</em> files on a server (see below).</p>
+<p><code>mapspam2globiom</code> includes a function to create all necessary folders <code><a href="../reference/create_spam_folders.html">create_spam_folders()</a></code>. The only input it requires is a path on your harddisk. We do not recommend using a server to store the model as the potential increase in file access time might seriously affect the time it takes to process some of the spatial datasets which can be very large. Note that it is perfectly fine to store large <em>raw data</em> files on a server (see below).</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># Load mapspam2globiom</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"mapspam2globiom"</span>)
 
@@ -188,63 +206,42 @@
 <div id="set-model-parameters-and-location-of-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#set-model-parameters-and-location-of-files" class="anchor"></a>Set model parameters and location of files</h2>
-<p>Nearly all functions in mapspam2globiom need input on (1) key parameters that determine the design of the model and how will be solved and (2) the location of raw and intermediate data, which will be processed. Both pieces of information are bundled and stored by the function <code><a href="../reference/set_spam_par.html">set_spam_par()</a></code>.</p>
-<p><code>set</code> script needs to be prepared before SPAM can be set up. It has the following parameters.</p>
-<div id="set-country" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-country" class="anchor"></a>Set country</h3>
-<p>SPAM uses ISO 3166-1 alpha-3 codes (hereafter iso3c) to determine the country and extract relevant data from global databases. ISO 3166-1 alpha-3 codes are three-letter country codes defined in ISO 3166-1, part of the ISO 3166 standard published by the International Organization for Standardization (ISO). A full list of iso3c codes can be found on Wikipedia <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">here</a>. For China the iso3c code is <code>CHN</code>. Not all data sources use iso3c codes so we added a script to determine a number of other country identifiers, including the standard full country name, the iso3 numerical code and the country identifier used by FAOSTAT. We also add the continent information, which is sometimes needed to select a continent-level spatial map.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">iso3c_sel</span> <span class="kw">&lt;-</span> <span class="st">"CHN"</span>
-<span class="no">country_sel</span> <span class="kw">&lt;-</span> <span class="fu">countrycode</span>(<span class="no">iso3c_sel</span>, <span class="st">"iso3c"</span>, <span class="st">"country.name"</span>)
-<span class="no">iso3n_sel</span> <span class="kw">&lt;-</span> <span class="fu">countrycode</span>(<span class="no">iso3c_sel</span>, <span class="st">"iso3c"</span>, <span class="st">"iso3n"</span>)
-<span class="no">fao_sel</span> <span class="kw">&lt;-</span> <span class="fu">countrycode</span>(<span class="no">iso3c_sel</span>, <span class="st">"iso3c"</span>, <span class="st">"fao"</span>)
-<span class="no">continent_sel</span> <span class="kw">&lt;-</span> <span class="fu">countrycode</span>(<span class="no">iso3c_sel</span>, <span class="st">"iso3c"</span>, <span class="st">"continent"</span>)</pre></body></html></div>
-</div>
-<div id="set-year" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-year" class="anchor"></a>Set year</h3>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">year_sel</span> <span class="kw">&lt;-</span> <span class="fl">2010</span></pre></body></html></div>
-</div>
-<div id="set-resolution" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-resolution" class="anchor"></a>Set resolution</h3>
-<p>Two options <code>30sec</code> or <code>5min</code></p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">grid_sel</span> <span class="kw">&lt;-</span> <span class="st">"5min"</span></pre></body></html></div>
-</div>
-<div id="set-administrative-zone-level" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-administrative-zone-level" class="anchor"></a>Set administrative zone level</h3>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">adm_sel</span> <span class="kw">&lt;-</span> <span class="fl">2</span></pre></body></html></div>
-</div>
-<div id="set-solve-level" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-solve-level" class="anchor"></a>Set solve level</h3>
-<p>Solve at country level (solve_sel = 0) or at adminstrative level (solve_sel = 1)</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">solve_sel</span> <span class="kw">&lt;-</span> <span class="fl">1</span></pre></body></html></div>
-</div>
-<div id="set-file-location" class="section level3">
-<h3 class="hasAnchor">
-<a href="#set-file-location" class="anchor"></a>Set file location</h3>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="co">### SET DATAPATH</span>
-<span class="co"># Michiel IIASA</span>
-<span class="kw">if</span>(<span class="fu"><a href="https://rdrr.io/r/base/Sys.info.html">Sys.info</a></span>()[<span class="st">"user"</span>] <span class="kw">==</span> <span class="st">"vandijkm"</span>) {
-  <span class="no">glob_path</span> <span class="kw">&lt;-</span> <span class="st">"P:/globiom/crop_map/data/Global"</span>
-  <span class="no">crop_map_path</span> <span class="kw">&lt;-</span> <span class="st">"E:/Dropbox/crop_map_CHN"</span>
-  <span class="no">mappings_path</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">crop_map_path</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"data/mappings"</span>))
-  <span class="no">iso3c_path</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">crop_map_path</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"data/"</span>, <span class="no">year_sel</span>, <span class="st">"/"</span>, <span class="no">iso3c_sel</span>))
-  <span class="no">raw_path</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">iso3c_path</span>, <span class="st">"raw"</span>)
-  <span class="no">proc_path</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="no">iso3c_path</span>, <span class="st">"/processed"</span>)
-  <span class="no">spam_path</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">crop_map_path</span>, <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">"SPAM_2.0/"</span>, <span class="no">year_sel</span>, <span class="st">"/"</span>, <span class="no">iso3c_sel</span>))
-  <span class="no">gams_path</span> <span class="kw">&lt;-</span> <span class="st">"C:/GAMS/win64/25.0"</span>
-}</pre></body></html></div>
-</div>
-</div>
-<div id="create-data-folder-structure" class="section level2">
-<h2 class="hasAnchor">
-<a href="#create-data-folder-structure" class="anchor"></a>Create data folder structure</h2>
-<p>Reads folder location from <code>set_parameters.r</code></p>
-<p>This creates the folder structure as depicted below in the R project.</p>
-<p>Now the model is set up, it is time to collect input data and put them in the right location, which is described in Chapter @(data)</p>
+<p>Nearly all functions in <code>mapspam2globiom</code> need input on (1) key parameters that determine the design of the model and how will be solved and (2) the location of raw and intermediate data, which will be processed (see <a href="model_structure.html">model structure</a>. Both pieces of information are bundled and stored by the function <code><a href="../reference/set_spam_par.html">set_spam_par()</a></code> in a <code>spam_par</code> object.</p>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Set SPAMc parameters</span>
+<span class="no">par</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/set_spam_par.html">set_spam_par</a></span>(<span class="kw">spam_path</span> <span class="kw">=</span> <span class="no">spamc_path</span>,
+ <span class="kw">iso3c_sel</span> <span class="kw">=</span> <span class="st">"MWI"</span>,
+ <span class="kw">year_sel</span> <span class="kw">=</span> <span class="fl">2010</span>,
+ <span class="kw">grid_sel</span> <span class="kw">=</span> <span class="st">"5min"</span>,
+ <span class="kw">adm_sel</span> <span class="kw">=</span> <span class="fl">1</span>,
+ <span class="kw">solve_sel</span> <span class="kw">=</span> <span class="fl">0</span>,
+ <span class="kw">model_sel</span> <span class="kw">=</span> <span class="st">"max_score"</span>)
+<span class="co">#&gt; glob_raw_path is not defined, set to raw_data path.</span>
+
+<span class="co"># check class</span>
+<span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span>(<span class="no">par</span>)
+<span class="co">#&gt; [1] "spam_par"</span>
+
+<span class="co"># Show parameters</span>
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">par</span>)
+<span class="co">#&gt; iso3c:  MWI </span>
+<span class="co">#&gt; year:  2010 </span>
+<span class="co">#&gt; resolution:  5min </span>
+<span class="co">#&gt; adm level:  1 </span>
+<span class="co">#&gt; solve level:  0 </span>
+<span class="co">#&gt; model:  max_score </span>
+<span class="co">#&gt; spam path:  C:/Users/dijk158/Dropbox/mapspam2globiom_mwi </span>
+<span class="co">#&gt; global raw data path:  C:/Users/dijk158/Dropbox/mapspam2globiom_mwi/raw_data </span>
+<span class="co">#&gt; raw data path:  C:/Users/dijk158/Dropbox/mapspam2globiom_mwi/raw_data </span>
+<span class="co">#&gt; processed data:  C:/Users/dijk158/Dropbox/mapspam2globiom_mwi/processed_data </span>
+<span class="co">#&gt; parameter path:  C:/Users/dijk158/Dropbox/mapspam2globiom_mwi/parameters </span>
+<span class="co">#&gt; country name:  Malawi </span>
+<span class="co">#&gt; iso3n:  454 </span>
+<span class="co">#&gt; fao code:  130 </span>
+<span class="co">#&gt; continent:</span></pre></body></html></div>
+<p>This object need to be saved in the <code>parameters</code> folder that was created together with all the other folders when running <code>create_spam_folders</code>. Elements in a <code>spam_par</code> object class can be extracted by using the dollar sign ($). This feature is used to save <code>par</code> the temporary object of class <code>spam_par</code> into the relevant folder.</p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co"># Save </span>
+<span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span>(<span class="no">par</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">par</span>$<span class="no">spam_path</span>, <span class="st">"parameters/spam_par.rds"</span>))</pre></body></html></div>
+<p>That is all it takes to set up the SPAMc model! The next step is processing the <a href="process_subnat_stat.html">raw subnational statistics</a> and <a href="process_spatial_data.html">spatial data</a>.</p>
 </div>
   </div>
 

@@ -7,6 +7,9 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/create_spam_folders.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/mapspam2globiom-package.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/plus.html</loc>
   </url>
   <url>
@@ -16,13 +19,19 @@
     <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/input_data.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/collect_input_data.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/data.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/introduction.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/model_dimensions.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/model_structure.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/post_process.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/process_spatial_data.html</loc>
@@ -31,7 +40,10 @@
     <loc>https://iiasa.github.io/mapspam2globiom/articles/process_subnat_stat.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/setup.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/run_model.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/setup_model.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/software.html</loc>

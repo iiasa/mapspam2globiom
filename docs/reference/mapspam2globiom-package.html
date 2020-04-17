@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Citation and Authors • mapspam2globiom</title>
+<title>mapspam2globiom: An R package to create crop distribution maps as input for GLOBIOM — mapspam2globiom-package • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -18,8 +18,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
-<link rel="stylesheet" href="bootstrap-toc.css">
-<script src="bootstrap-toc.js"></script>
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
@@ -33,13 +33,27 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script>
+<link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Citation and Authors" />
+<meta property="og:title" content="mapspam2globiom: An R package to create crop distribution maps as input for GLOBIOM — mapspam2globiom-package" />
+<meta property="og:description" content="The aim of the mapspam2globiom R package is to facilitate the
+    creation of country level crop distribution maps, which can be used as
+    input by the IIASA's Global Biosphere Management Model (GLOBIOM) for a
+    selected country. mapspam2globiom provides the necessary
+    infrastructure to run the Spatial Production Allocation Model for
+    Country level studies (SPAMc). The model builds on the global version
+    of SPAM (You et al., 2006; You et al., 2009 et al.; You et al., 2014
+    and Yu et al., 2020), which use a cross-entropy optimization approach
+    to 'pixelate' national and subnational crop statistics on a spatial grid
+    at a resolution of 5 arcmin. SPAMc was specifically developed to support
+    country level analysis and makes it possible to incorporate national
+    sources of information and create maps at a higher resolution of 30
+    arcsec. Van Dijk et al. (2020) provides an in-depth discussion of SPAMc
+    including an example for Southern Africa." />
 
 
 
@@ -58,7 +72,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-citation-authors">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -70,7 +84,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">mapspam2globiom</a>
+        <a class="navbar-link" href="../index.html">mapspam2globiom</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
@@ -78,7 +92,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">
+  <a href="../index.html">
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
@@ -91,16 +105,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/introduction.html">1. Introduction</a>
+      <a href="../articles/introduction.html">1. Introduction</a>
     </li>
     <li>
-      <a href="articles/model_structure.html">2. Model structure</a>
+      <a href="../articles/model_structure.html">2. Model structure</a>
     </li>
     <li>
-      <a href="articles/data.html">3. Data</a>
+      <a href="../articles/data.html">3. Data</a>
     </li>
     <li>
-      <a href="articles/appendix.html">4. Appendix</a>
+      <a href="../articles/appendix.html">4. Appendix</a>
     </li>
   </ul>
 </li>
@@ -112,13 +126,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/software.html">1. Software and hardware</a>
+      <a href="../articles/software.html">1. Software and hardware</a>
     </li>
     <li>
-      <a href="articles/template.html">2. Template</a>
+      <a href="../articles/template.html">2. Template</a>
     </li>
     <li>
-      <a href="articles/collect_input_data.html">3. Input data</a>
+      <a href="../articles/collect_input_data.html">3. Input data</a>
     </li>
   </ul>
 </li>
@@ -130,27 +144,27 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/setup_model.html">1. Model setup</a>
+      <a href="../articles/setup_model.html">1. Model setup</a>
     </li>
     <li>
-      <a href="articles/process_subnat_stat.html">2. Process subnational statistics</a>
+      <a href="../articles/process_subnat_stat.html">2. Process subnational statistics</a>
     </li>
     <li>
-      <a href="articles/process_spatial_data.html">3. Process spatial data</a>
+      <a href="../articles/process_spatial_data.html">3. Process spatial data</a>
     </li>
     <li>
-      <a href="articles/run_model.html">4. Run model</a>
+      <a href="../articles/run_model.html">4. Run model</a>
     </li>
     <li>
-      <a href="articles/post_process.html">5. Post-processing</a>
+      <a href="../articles/post_process.html">5. Post-processing</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="reference/index.html">Functions</a>
+  <a href="../reference/index.html">Functions</a>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="../news/index.html">Changelog</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -160,40 +174,40 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/appendix.html">Appendix: model equations</a>
+      <a href="../articles/appendix.html">Appendix: model equations</a>
     </li>
     <li>
-      <a href="articles/collect_input_data.html">collect_input_data</a>
+      <a href="../articles/collect_input_data.html">collect_input_data</a>
     </li>
     <li>
-      <a href="articles/data.html">input_data</a>
+      <a href="../articles/data.html">input_data</a>
     </li>
     <li>
-      <a href="articles/introduction.html">introduction</a>
+      <a href="../articles/introduction.html">introduction</a>
     </li>
     <li>
-      <a href="articles/model_structure.html">Model structure</a>
+      <a href="../articles/model_structure.html">Model structure</a>
     </li>
     <li>
-      <a href="articles/post_process.html">post_process</a>
+      <a href="../articles/post_process.html">post_process</a>
     </li>
     <li>
-      <a href="articles/process_spatial_data.html">Process spatial data</a>
+      <a href="../articles/process_spatial_data.html">Process spatial data</a>
     </li>
     <li>
-      <a href="articles/process_subnat_stat.html">Process subnational statistics</a>
+      <a href="../articles/process_subnat_stat.html">Process subnational statistics</a>
     </li>
     <li>
-      <a href="articles/run_model.html">run_model</a>
+      <a href="../articles/run_model.html">run_model</a>
     </li>
     <li>
-      <a href="articles/setup_model.html">Model setup</a>
+      <a href="../articles/setup_model.html">Model setup</a>
     </li>
     <li>
-      <a href="articles/software.html">Get started</a>
+      <a href="../articles/software.html">Get started</a>
     </li>
     <li>
-      <a href="articles/template.html">Template and examples</a>
+      <a href="../articles/template.html">Template and examples</a>
     </li>
   </ul>
 </li>
@@ -216,38 +230,40 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Citation</h1>
-      
+    <h1>mapspam2globiom: An R package to create crop distribution maps as input for GLOBIOM</h1>
+    
+    <div class="hidden name"><code>mapspam2globiom-package.Rd</code></div>
     </div>
 
-    <p>van Dijk M (2020).
-&ldquo;mapspam2globiom: An R package to create crop distribution maps for GLOBIOM.&rdquo;
-<em>not published</em>. 
-</p>
-    <pre>@Article{,
-  title = {mapspam2globiom: An R package to create crop distribution maps for GLOBIOM},
-  author = {Michiel {van Dijk}},
-  journal = {not published},
-  year = {2020},
-}</pre>
-
-    <div class="page-header">
-      <h1>Authors</h1>
+    <div class="ref-description">
+    <p>The aim of the mapspam2globiom R package is to facilitate the
+    creation of country level crop distribution maps, which can be used as
+    input by the IIASA's Global Biosphere Management Model (GLOBIOM) for a
+    selected country. mapspam2globiom provides the necessary
+    infrastructure to run the Spatial Production Allocation Model for
+    Country level studies (SPAMc). The model builds on the global version
+    of SPAM (You et al., 2006; You et al., 2009 et al.; You et al., 2014
+    and Yu et al., 2020), which use a cross-entropy optimization approach
+    to 'pixelate' national and subnational crop statistics on a spatial grid
+    at a resolution of 5 arcmin. SPAMc was specifically developed to support
+    country level analysis and makes it possible to incorporate national
+    sources of information and create maps at a higher resolution of 30
+    arcsec. Van Dijk et al. (2020) provides an in-depth discussion of SPAMc
+    including an example for Southern Africa.</p>
     </div>
 
-    <ul class="list-unstyled">
-      <li>
-        <p><strong>Michiel Van Dijk</strong>. Author, maintainer. <a href='https://orcid.org/0000-0002-5207-7304' target='orcid.widget' aria-label='ORCID'><span class='fab fa-orcid orcid' aria-hidden='true'></span></a>
-        </p>
-      </li>
-    </ul>
+
+
 
   </div>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
+  </div>
 </div>
-
 
 
       <footer>

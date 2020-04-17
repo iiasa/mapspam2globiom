@@ -8,7 +8,6 @@ print.spam_par <- function(x, ...) {
     cat("solve level: ", x$solve_sel, "\n")
     cat("model: ", x$model_sel, "\n")
     cat("spam path: ", x$spam_path, "\n")
-    cat("global raw data path: ", x$glob_raw_path, "\n")
     cat("raw data path: ", x$raw_path, "\n")
     cat("processed data: ", x$proc_path, "\n")
     cat("parameter path: ", x$par_path, "\n")

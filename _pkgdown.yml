@@ -29,8 +29,8 @@ navbar:
         href: articles/introduction.html
       - text: 2. Model structure
         href: articles/model_structure.html
-      - text: 3. Input data
-        href: articles/input_data.html
+      - text: 3. Data
+        href: articles/data.html
       - text: 4. Appendix
         href: articles/appendix.html
     get_started:
@@ -40,15 +40,21 @@ navbar:
         href: articles/software.html
       - text: 2. Template
         href: articles/template.html
+      - text: 3. Input data collection
+        href: articles/collect_input_data.html
     run_spam:
       text: Run SPAMc
       menu:
       - text: 1. Model setup
-        href: articles/setup.html
+        href: articles/setup_model.html
       - text: 2. Process subnational statistics
         href: articles/process_subnat_stat.html
       - text: 3. Process spatial data
         href: articles/process_spatial_data.html
+      - text: 4. Run model
+        href: articles/run_model.html
+      - text: 5. Post-processing
+        href: articles/post_process.html
     reference:
       text: Functions
       href: reference/index.html

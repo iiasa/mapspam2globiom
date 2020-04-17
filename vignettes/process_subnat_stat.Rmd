@@ -1,5 +1,5 @@
 ---
-title: "Process subnational statistics"
+title: "Processing of subnational statistics"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Process subnational data}
@@ -17,6 +17,86 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(mapspam2globiom)
-```
+
+
+## Country shapefile, subnational administrative areas and grid
+
+*folder*: `01_adm_and_grid`
+
+Key elements of SPAM are the definition of the country borders, the location of the administrative areas (ADMs) for which additional crop statistics are available and the creation of a grid at a selected resolution that is used to allocate the crop and farming system shares. To run the model a shapefile (or any other vector/polygon format) is needed to show the borders of the countries and the location of the ADMs at which the model is run. 
+
+
+### Country and administrative zone shapefile
+
+1. Save the country ADM shapefile in `data\raw\adm` folder. It is crucial that file contains the following information (in the attribute table):
+    + The location of the ADMs at the lowest level at which the model is run (e.g. if there are only ADM1 statistics an ADM1 map and if there are ADM2 statistics an ADM2 map).
+    + A unique name and a unique code for all ADMs at all levels where crops are expected to be located (i.e. where there is cropland). Hence, it also needs to include the ADMs for which no subnational statistics are available. ADMs which refer to areas where there is no cropland or where none of the statistics should be allocated should be removed! The names and IDs should be identical to ones that are used to organize the subnational statistics (see @ADD). In case the name of ADMS are not easily available (e.g. because they are not written in alphanumerics), the ID can duplicated and be put in the column for the name. The attribute table of the shapefile with the list and relationship (i.e. how ADMs at different levels are nested), will be stored and used to structure the data so it is very important to make sure it is correct. 
+
+    
+The above can be illustrated using the Malawi example [@ADD]. The Malawi model is run at ADM2 and therefore the shapefile contains the location of the ADM2s. However, the attribute table has six columns which present a unique name and a unique IDs for all ADM0 (i.e. country name and iso3c code), ADM1s and ADM2s. As at least for one crop, statistics area available for all ADMs (@check) so there is no reason to remove an ADM. But suppose that for @ADD the entries for all crops would be -999 (missing), the polygon for this ADM should still be included if there is cropland and the model should allocate crops in that region.
+
+[@MOVE TO ANNEX] A contrasting case are the ADMs Area under National Administration (MI01/MI01001), which is that part of lake Malawi that falls witin the borders of Malawi and Likoma (MI03007), several small islands in this part of the lake. It is obvious that we do not want to allocate any crops to the Area under National Administration. Normally, this area would not have any cropland and therefore the model will not allocate any crops there. However, as the country cropland layer is created by overlaying a polygon (with the country and ADM boundaries) with a raster (the cropland extent), it is possible that several cropland cells will be allocated to, in this case, the Area under National Administration. These border effects are larger at lower resolutions where larger grid cells are split by the polygon boundaries. Despite, the erroneous availability of cropland in the Area under National Administration, the model will not allocate any crops there if the subnational statistics are set to zero. However, in case, for some reason the subnational statistics do not fit and the model will introduce slack, it is possible that the cropland will be allocated to the Area under National Administration as cropland is still available there. To avoid this, we removed the region from the ADM polygon.
+
+FOr the same reason we remove Likoma. Although it is possible that there is cropland on these islands, the statistics do not include information on this, so we assume no crops are produced on Likoma (and if so this will be a very small area anyways). We also remove the polygons for Likoma from the shapefile. The @ADD script how this easily can be done using R.
+
+2. Run the script `01_process_adm.r`. Note that the script requires the following **user input**:
+    + The name of the raw shapefile, e.g. `adm_2010_MWI.shp`
+    + The names of the columns with the names and IDs for all relevant ADMs in the raw shapefile. These will be renamed for further processing.
+
+3. Run the script `02_create_adm_pdf.r` This script creates a pdf file in the `data/processed/adm` folder that depicts the ADM map (or maps if ADM1 and ADM2 data is available) with their names. These maps are often helpfull when processing are interpreting subnational data and results. 
+
+
+### Harvested area
+
+Raw subnational statistics data file with harvested area per ADM up to the most detailed ADM for which data is available. Hence, in case ADM2 level data is available, data should be supplied for ADM0, ADM1 and ADM2. In case ADM1 level data is available, data should be supplied for ADM0 and ADM1. In case no subnational data is available, there is no need to create this file as national data will be taken from FAOSTAT. 
+
+Subnational data should be supplied in a fixed format, described below. Probably easiest is to have a look at `subnational_statistics_2010_MWI.csv, which illustrates this.
+
+- Data organized using a wide format, meaning first three columns with adm name (`adm`), adm code (`adm_code`) and adm level (`adm_level`), followed by named columns, one for each crop, with harvested area per subnational unit. 
+
+- Crop information should be aggregated to the 40 SPAM crop and crop groups (see @ADD for suggestions how to expand the number of crops). For convenience, the crop names (i.e. headers of the crop data columns) can be different from the SPAM crop names as, in any case, a one-to-one mapping table between the crop names in the raw statistics data file and the SPAM list must be stored in the `data/mappings/mappings_spam.xlsx` file in the `crop_orig2crop` worksheet. Note that the crop names are not allowed to contain any spaces but underscores ('_') are allowed.
+
+- The crops for which subnational data is available should be consistent with the list of crops for which FAOSTAT presents data. We use FAOSTAT as main source for the national statistics and all subnational information will be scaled to FAOSTAT.^[We might make this an option in updates of the package.]. Hence, if the subnational statistics indicate a certain crop is produced, say, sweet potato, and FAOSTAT indicates there is no harvested area for this crop, there is an inconsistency.  
+
+- Adding crops which are not produced in the country (all values zero) or for which there are no subnational statistics (all values missing) is optional. They will be filtered out when processing the data.
+
+- Data should be consistent and add up, meaning that the sum of harvested area for all ADM2s for, say, maize is the smaller or the same as harvested area for the ADM1 to which all these ADM2s belong. In case information for maize harvested area is available for all ADM2s that belong to one ADM1, the sum of ADM2s should be equal to the ADM1 value. In case there is missing information for some of the ADM2s, their sum can be lower. The script to process the statistics includes some code to check the consistency of the data.
+
+- Use -999 or empty cells to indicate data is missing for certain crop and ADM combinations. In case subnational statistics are completely missing missing for a certain crop, also when this crop is not relevant at all for the country, add a column 
+
+- Unique adm name (`adm`) and unique adm code (`adm_code`) that need to match exactly with the adm name and adm code in the attribute table of the shape file. 
+- A column that indicates 
+- Consistent 
+
+- @Add a paragrpah on how to deal with areas where not crops grow (e.g. refer to Area under National Administration in MWI)
+- Note that it has to be in a certain format ad use the names `adm` and `adm_code`
+The availability of subnational statistics is key to improve the allocation of crop area in space. From a technical perspective, SPAM can be run with only national level crop information [@ADD option] but this would probably result in crop distribution maps of lower quality. Several  types of information at the subnational level are required. 
+
+First, a database with subnational level crop information.  So a database can contain data for only adm1 or for adm1 and adm2one adm level (normally this would be adm1 level, which is a aIdeally, data for all 40 SPAM crops at both adms would be available but this is rarely the case. In practice data is only available at adm1 or for adm1 and adm2 for a selective number of crops. In this case. the allocation of crops for which detailed spatial information is available will simply be more constrained than crops for which only country level data is available. 
+
+The database must be organized according to a fixed structure (see @CHN for an example):
+- It must have a 'wide' format, with starting with the following @ADD columns, 
+Need statistics at adm 1 and/or adm 2 level. If for some crops adm1 is available but not adm2, also good to include. Any information should be added. 
+
+Important that the statistics are organized in a certain way:
+- List of all adm 1 and/ or amd2 administrateve units is essential, also when no data is available. Model needs to know where there is data but also where there is no data because..
+- Data needs to be consistent... Script available to check. Aggregates bottom up to make sure adm1 is total of adm2 IF all data is available. Also means adm2 units in maps should map with amd1 units etc. 
+
+# Tips to prepare subnational statistics. 
+
+When only national statistics are available (through FAOSTAT) and no subnat stat:
+
+- Having information where crops are not grown is also very valuable. Set these adms to 0 and the rest to -999 (or empty). In this way the national statistics will only be distributed to areas where ADM values is missing. We did this with coffee in MWI where secondary sources indicate coffee is only produced in [@ADD]
+- Secondary information. Trade and AQUASTAT.
+- Country reports.
+- Expert input.
+- Open Street Map - not discusse. here
+
+- Only use ADM1 when available and set ADM2 to -999.
+
+
+# Infeasinilities. 
+
+- Statistics not consistent
+- Many zero and a few -999 in ADM. As cropland cells are selected using ranking up to total cropland, this cannot be done for NA values, while it is severely constrained in other adms. Might not fit @is this solved by slacks?
+*if* the statistics are consistent

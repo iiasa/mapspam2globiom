@@ -31,9 +31,12 @@ subnational crop statistics on a spatial grid at a 5 arcmin resolution.
 SPAMc was specifically developed to support country level analysis and
 makes it possible to incorporate national sources of information and
 create maps at a higher resolution of 30 arcsec (Van Dijk et al. 2020).
-Apart from implementing SPAMc, mapspam2globiom includes functions to
-aggregate the SPAMc output to the spatial (i.e. simulation units) and
-crop-level (18 major crops) format that is used by GLOBIOM.
+The articles in the background section provide an overview of the the
+model, including [model structure](model_structure.html), overview of
+[input data](input.data.html) and an [appendix](appendix.html) with the
+equations. Apart from implementing SPAMc, mapspam2globiom includes
+functions to aggregate the SPAMc output to the spatial (i.e. simulation
+units) and crop-level (18 major crops) format that is used by GLOBIOM.
 
 ## Installation
 
@@ -43,6 +46,36 @@ To install mapspam2globiom:
 install.packages("remotes")
 remotes::install_github("iiasa/mapspam2globiom")
 ```
+
+## Get started
+
+It takes some preparation before SPAMc can be run. Most important and
+propbably most time consuming is the collection of input data. SPAMc is
+a data-driven model and therefore requires a large variety of input
+data, which can be grouped under two headers: (1) (Sub)national
+agricultural statistics and (2) spatial information. The availability of
+data strongly affects the structure of the model and how can be solved.
+Hence, we strongly recommend to start collecting input data before
+running the model. The Get started section describes all the
+preparations:
+
+  - [Installation of software](articles\\software.html)
+  - [downloading templates](articles\\template.html)
+  - [Input data collection](articles\\collect_input_data.html).
+
+## Run SPAMc
+
+Running SPAMc can be divided into seven steps, which are described in
+the Run SPAMc section:
+
+  - [Model setup](articles/model_structure.html)
+  - [Processing of subnational
+    statistics](articles/process_subnat_stat.html)
+  - [Processing of spatial data](articles/process_spatial_data.html)
+  - Create cropland extend
+  - Create irrigated area extend
+  - [Run model](articles/run_model.html)
+  - [Post-processing](articles/post_process.html)
 
 ## References
 
