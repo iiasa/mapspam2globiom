@@ -57,13 +57,13 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Background</a>
       <ul class="dropdown-menu" role="menu">
 <li>
-          <a href="../articles/introduction.html">Introduction</a>
+          <a href="../articles/crop_distribution_maps.html">Crop distribution maps</a>
         </li>
         <li>
           <a href="../articles/model_structure.html">Model structure</a>
         </li>
         <li>
-          <a href="../articles/data.html">Data</a>
+          <a href="../articles/data.html">Input data</a>
         </li>
         <li>
           <a href="../articles/appendix.html">Appendix</a>
@@ -74,10 +74,10 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Preparation</a>
       <ul class="dropdown-menu" role="menu">
 <li>
-          <a href="../articles/template.html">Download template</a>
+          <a href="../articles/collect_input_data.html">Input data collection</a>
         </li>
         <li>
-          <a href="../articles/collect_input_data.html">Input data collection</a>
+          <a href="../articles/template.html">Download template</a>
         </li>
       </ul>
 </li>
@@ -85,7 +85,7 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Run SPAMc</a>
       <ul class="dropdown-menu" role="menu">
 <li>
-          <a href="../articles/setup_model.html">1. Model setup</a>
+          <a href="../articles/model_setup.html">1. Model setup</a>
         </li>
         <li>
           <a href="../articles/process_subnat_stat.html">2. Process subnational statistics</a>
@@ -108,9 +108,6 @@
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
-</li>
-<li>
-  <a href="../articles/mapspam2globiom.html">Get started</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -143,9 +140,39 @@
 
     
     
-<div id="country-shapefile-subnational-administrative-areas-and-grid" class="section level2">
+<p>FAOSTAT crops</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Run the script <code>agricultural_statistics\1_process_faostat_crops.r</code> Before you run the script make sure to set the <code>faostat_version</code>, corresponding to the date the FAOSTAT files were downloaded, in this case <code>20200303</code>. The script will produce country specific files for harvested area statistics and saves them in the <code>data\processed\agricultural_statistics</code> folder, in our example: <code>faostat_crops_2020_CHN.rds</code>.</li>
+</ol>
+<p>FAOSTAT prices 3. Run the script <span class="citation">(<span class="citeproc-not-found" data-reference-id="UPDATE"><strong>???</strong></span>)</span> <code>agricultural_statistics\1_process_faostat_prices.r</code> Before you run the script make sure to set the <code>faostat_version</code>, corresponding to the date the FAOSTAT files were downloaded, in this case <code>20200303</code>. The script will produce country specific files for price statistics and saves them in the <code>data\processed\agricultural_statistics</code> folder, in our example: <code>faostat_crop_prices_2010_CHN.rds</code>.</p>
+<p>AQUASTAT 3. Run <code>process_aquastat.r</code>. Note that AQUATSTAT uses a a category ‘Other fruits’ to refer to irrigated fruits. This category, which is relatively rare, is mapped to the Tropical fruits (trof) class in SPAM. However, for some countries it might be more appropriate the map Other fruits to the Temperate fruits calls (temf). This can be done manually in the script. The code will display a message when the Other fruits category is present in the AQUASTAT data.</p>
+<p>Here we only present a brief summary on the steps to prepare the data for the model. For examples, have a look at the <code>subnational_harvested_area_2010_MWI.csv</code>, <code>farming_system_shares_2010_MWI.csv</code> and <code>cropping_intensity_2010_MWI.csv</code> in the <code>data/raw/subnational_statistics</code> folder.</p>
+<div id="harvested-area" class="section level3">
+<h3 class="hasAnchor">
+<a href="#harvested-area" class="anchor"></a>Harvested area</h3>
+<p>A .csv file with (raw) subnational statistics in the wide format. The file should contain harvested area for each ADM up to the most detailed ADM for which data is available. Hence, in case ADM2 level data is available, data should be supplied for ADM0, ADM1 and ADM2. In case ADM1 level data is available, data should be supplied for ADM0 and ADM1. In case no subnational data is available, there is no need to create this file as national data will be taken from FAOSTAT.</p>
+<p>The first three columns of the file should present the adm names (<code>adm</code>), adm code (<code>adm_code</code>) and adm level (<code>adm_level</code>), which should match exactly with the adm names and adm codes used in the country shapefile. The next columns, one for each crop, present harvested area for crop and subnational unit using the name of the crop as header. Crop information should be aggregated to the 40 SPAM crop and crop groups. A one-to-one mapping table between the crop names in the raw statistics data file and the SPAM list must be stored in the <code>data/mappings/mappings_spam.xlsx</code> file in the <code>crop_orig2crop</code> worksheet. Note that the crop names are not allowed to contain any spaces but underscores (’_’) are allowed.</p>
+<p>The crops for which subnational data is available should be consistent and match with the list of crops for which FAOSTAT presents data. We use FAOSTAT as main source for the national statistics and all subnational information will be scaled to FAOSTAT.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. See <span class="citation">(<span class="citeproc-not-found" data-reference-id="ANNEX"><strong>???</strong></span>)</span> for more information on how to do this. Empty cells or -999 can be used to indicate data is missing for certain crop and ADM combinations. In case a crop is not grown at all in the country (meaning FAOSTAT does not present data for it), values for all ADMs should be set to zero.</p>
+</div>
+<div id="farming-system-shares" class="section level3">
+<h3 class="hasAnchor">
+<a href="#farming-system-shares" class="anchor"></a>Farming system shares</h3>
+</div>
+<div id="cropping-intensity" class="section level3">
+<h3 class="hasAnchor">
+<a href="#cropping-intensity" class="anchor"></a>Cropping intensity</h3>
+</div>
+<div id="combine-harvested-area-farming-system-shares-and-cropping-intensity" class="section level3">
+<h3 class="hasAnchor">
+<a href="#combine-harvested-area-farming-system-shares-and-cropping-intensity" class="anchor"></a>Combine harvested area, farming system shares and cropping intensity</h3>
+<p>The subnational statistics consist of two pieces of information:</p>
+<ol style="list-style-type: decimal">
+<li>A country polygon/shapefile with the location of the highest level the administrative</li>
+</ol>
+</div>
+<div id="country-polygon-subnational-administrative-areas-and-grid" class="section level2">
 <h2 class="hasAnchor">
-<a href="#country-shapefile-subnational-administrative-areas-and-grid" class="anchor"></a>Country shapefile, subnational administrative areas and grid</h2>
+<a href="#country-polygon-subnational-administrative-areas-and-grid" class="anchor"></a>Country polygon, subnational administrative areas and grid</h2>
 <p><em>folder</em>: <code>01_adm_and_grid</code></p>
 <p>Key elements of SPAM are the definition of the country borders, the location of the administrative areas (ADMs) for which additional crop statistics are available and the creation of a grid at a selected resolution that is used to allocate the crop and farming system shares. To run the model a shapefile (or any other vector/polygon format) is needed to show the borders of the countries and the location of the ADMs at which the model is run.</p>
 <div id="country-and-administrative-zone-shapefile" class="section level3">
@@ -173,15 +200,15 @@
 <li>Run the script <code>02_create_adm_pdf.r</code> This script creates a pdf file in the <code>data/processed/adm</code> folder that depicts the ADM map (or maps if ADM1 and ADM2 data is available) with their names. These maps are often helpfull when processing are interpreting subnational data and results.</li>
 </ol>
 </div>
-<div id="harvested-area" class="section level3">
+<div id="harvested-area-1" class="section level3">
 <h3 class="hasAnchor">
-<a href="#harvested-area" class="anchor"></a>Harvested area</h3>
+<a href="#harvested-area-1" class="anchor"></a>Harvested area</h3>
 <p>Raw subnational statistics data file with harvested area per ADM up to the most detailed ADM for which data is available. Hence, in case ADM2 level data is available, data should be supplied for ADM0, ADM1 and ADM2. In case ADM1 level data is available, data should be supplied for ADM0 and ADM1. In case no subnational data is available, there is no need to create this file as national data will be taken from FAOSTAT.</p>
 <p>Subnational data should be supplied in a fixed format, described below. Probably easiest is to have a look at `subnational_statistics_2010_MWI.csv, which illustrates this.</p>
 <ul>
 <li><p>Data organized using a wide format, meaning first three columns with adm name (<code>adm</code>), adm code (<code>adm_code</code>) and adm level (<code>adm_level</code>), followed by named columns, one for each crop, with harvested area per subnational unit.</p></li>
 <li><p>Crop information should be aggregated to the 40 SPAM crop and crop groups (see <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span>)</span> for suggestions how to expand the number of crops). For convenience, the crop names (i.e. headers of the crop data columns) can be different from the SPAM crop names as, in any case, a one-to-one mapping table between the crop names in the raw statistics data file and the SPAM list must be stored in the <code>data/mappings/mappings_spam.xlsx</code> file in the <code>crop_orig2crop</code> worksheet. Note that the crop names are not allowed to contain any spaces but underscores (’_’) are allowed.</p></li>
-<li><p>The crops for which subnational data is available should be consistent with the list of crops for which FAOSTAT presents data. We use FAOSTAT as main source for the national statistics and all subnational information will be scaled to FAOSTAT.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>. Hence, if the subnational statistics indicate a certain crop is produced, say, sweet potato, and FAOSTAT indicates there is no harvested area for this crop, there is an inconsistency.</p></li>
+<li><p>The crops for which subnational data is available should be consistent with the list of crops for which FAOSTAT presents data. We use FAOSTAT as main source for the national statistics and all subnational information will be scaled to FAOSTAT.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. Hence, if the subnational statistics indicate a certain crop is produced, say, sweet potato, and FAOSTAT indicates there is no harvested area for this crop, there is an inconsistency.</p></li>
 <li><p>Adding crops which are not produced in the country (all values zero) or for which there are no subnational statistics (all values missing) is optional. They will be filtered out when processing the data.</p></li>
 <li><p>Data should be consistent and add up, meaning that the sum of harvested area for all ADM2s for, say, maize is the smaller or the same as harvested area for the ADM1 to which all these ADM2s belong. In case information for maize harvested area is available for all ADM2s that belong to one ADM1, the sum of ADM2s should be equal to the ADM1 value. In case there is missing information for some of the ADM2s, their sum can be lower. The script to process the statistics includes some code to check the consistency of the data.</p></li>
 <li><p>Use -999 or empty cells to indicate data is missing for certain crop and ADM combinations. In case subnational statistics are completely missing missing for a certain crop, also when this crop is not relevant at all for the country, add a column</p></li>
@@ -221,6 +248,7 @@
 <hr>
 <ol>
 <li id="fn1"><p>We might make this an option in updates of the package.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>We might make this an option in updates of the package.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
   </div>

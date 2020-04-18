@@ -7,12 +7,13 @@
 set_spam_par(
   spam_path = NULL,
   raw_path = NULL,
-  iso3c_sel = NULL,
-  year_sel = NULL,
-  grid_sel = "5min",
-  adm_sel = 1,
-  solve_sel = 0,
-  model_sel = "max_score"
+  iso3c = NULL,
+  year = NULL,
+  res = "5min",
+  adm_level = 1,
+  solve_level = 0,
+  model = "max_score",
+  crs = "+proj=longlat +datum=WGS84 +no_defs"
 )
 }
 \arguments{
@@ -24,28 +25,31 @@ possible to store the raw data on a server. If \code{raw_path} is not specified
 it is automatically set to the default raw data folder in the main model
 folder.}
 
-\item{iso3c_sel}{character string with the three letter ISO 3166-1 alpha-3
-country code, also referred to as iso3c. A list of country codes can be
-found in \href{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3}{Wikipedia}.}
+\item{iso3c}{character string with the three letter ISO 3166-1 alpha-3 country
+code, also referred to as iso3c. A list of country codes can be found in
+\href{https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3}{Wikipedia}.}
 
-\item{year_sel}{numeric with the reference year for SPAM.}
+\item{year}{numeric with the reference year for SPAM.}
 
-\item{grid_sel}{character with the resolution of SPAM. Accepted inputs are
-"5min" (default) and "30sec".}
+\item{res}{character with the resolution of SPAM. Accepted inputs are "5min"
+(default) and "30sec".}
 
-\item{adm_sel}{integer with the level up to which subnational statistics are
+\item{adm_level}{integer with the level up to which subnational statistics are
 available. Accepted inputs are 0 (only national level data), 1 (national
 level and first level administrative unit - default) and 2 (national level,
 first and second level administrative unit).}
 
-\item{solve_sel}{integer that indicates the level at which the model is
+\item{solve_level}{integer that indicates the level at which the model is
 solved. Accepted inputs are 0 (model is run at national level - default) and
 1 (model is solved for each first level administrative unit separately).
 level and first level administrative unit - default)}
 
-\item{model_sel}{character that specifies the type of model that is run.
-Accepted inputs are "max_score" and "min_entropy". See package documentation
-for more information.}
+\item{model}{character that specifies the type of model that is run. Accepted
+inputs are "max_score" and "min_entropy". See package documentation for more
+information.}
+
+\item{crs}{coordinate reference system: integer with the EPSG code, or
+character with proj4string.}
 }
 \value{
 spam_par object
@@ -74,9 +78,9 @@ country specific information from several datasets.
 }
 \examples{
 \dontrun{
-set_spam_par(spam_path = "C:/Users/dijk158/spam_mwi",
- iso3c_sel = "MWI", year_sel = 2010, grid_sel = "5min", adm_sel = 1,
- solve_sel = 0, model_sel = "max_score")
+set_spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
+ iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
+ solve_level = 0, model = "max_score", crs = "+proj=longlat +datum=WGS84 +no_defs")
 }
-
+#'@export
 }

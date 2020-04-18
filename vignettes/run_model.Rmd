@@ -1,5 +1,13 @@
 ---
-title: "run_model"
+title: "Running the model"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mapspam2globiom}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+resource_files:
+  bib/mapspam.bib
+bibliography: bib/mapspam.bib
 ---
 
 ```{r, include = FALSE}

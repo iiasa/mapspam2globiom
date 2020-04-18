@@ -12,7 +12,7 @@ navbar:
   structure:
     left:
     - home
-    - get_started
+    - installation
     - articles
     - reference
     - news
@@ -21,7 +21,7 @@ navbar:
     home:
       icon: fas fa-home fa-lg
       href: index.html
-    get_started:
+    installation:
       text: Installation
       href: articles/installation.html
     articles:
@@ -29,24 +29,24 @@ navbar:
       menu:
       - text: Background
         menu:
-        - text: Introduction
-          href: articles/introduction.html
+        - text: Crop distribution maps
+          href: articles/crop_distribution_maps.html
         - text: Model structure
           href: articles/model_structure.html
-        - text: Data
+        - text: Input data
           href: articles/data.html
         - text: Appendix
           href: articles/appendix.html
       - text: Preparation
         menu:
-        - text: Download template
-          href: articles/template.html
         - text: Input data collection
           href: articles/collect_input_data.html
+        - text: Download template
+          href: articles/template.html
       - text: Run SPAMc
         menu:
         - text: 1. Model setup
-          href: articles/setup_model.html
+          href: articles/model_setup.html
         - text: 2. Process subnational statistics
           href: articles/process_subnat_stat.html
         - text: 3. Process spatial data

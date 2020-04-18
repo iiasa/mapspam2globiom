@@ -1,5 +1,5 @@
 ---
-title: "introduction"
+title: "Crop distribution maps"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{introduction}

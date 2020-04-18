@@ -2,4 +2,3 @@
 
 S3method(print,spam_par)
 export(create_spam_folders)
-export(set_spam_par)

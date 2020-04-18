@@ -5,18 +5,17 @@ articles:
   appendix: appendix.html
   appendix_b: appendix_b.html
   collect_input_data: collect_input_data.html
+  crop_distribution_maps: crop_distribution_maps.html
   data: data.html
   installation: installation.html
-  introduction: introduction.html
-  mapspam2globiom: mapspam2globiom.html
+  model_setup: model_setup.html
   model_structure: model_structure.html
   post_process: post_process.html
   process_spatial_data: process_spatial_data.html
   process_subnat_stat: process_subnat_stat.html
   run_model: run_model.html
-  setup_model: setup_model.html
   template: template.html
-last_built: 2020-04-17T15:24Z
+last_built: 2020-04-17T19:56Z
 urls:
   reference: https://iiasa.github.io/mapspam2globiom/reference
   article: https://iiasa.github.io/mapspam2globiom/articles
