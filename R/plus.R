@@ -8,11 +8,14 @@
 #'
 #' @param x numeric vector.
 #' @param na.rm logical. Should missing values be removed?
+#'
 #' @return The sum of \code{x}
+#'
 #' @examples
 #' plus(1:10)
 #' plus(c(NA, NA))
 #' plus(c(NA, NA), na.rm = T)
+#' @export
 plus <- function(x, na.rm = F){
     if(all(is.na(x))){
         c(x[0],NA)

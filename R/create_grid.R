@@ -12,9 +12,12 @@
 #'a SPAM grid at a resolution of 30 arcsec can be very large and might make some
 #'time to create, in particular if it also has to be reprojected.
 #'
-#'@param res character with the resolution of SPAM. Accepted inputs are "5min"
-#'  (default) and "30sec".
-#'@param border sf or SpatialPolygonsDataFrame object with the country border of the SPAM target country.
+#'@param spam_par list that bundles SPAM parameters, including core model
+#'  folders, alpha-3 country code, year, spatial resolution, most detailed level
+#'  at which subnational statistics are available, administrative unit level at
+#'  which the model is solved, type of model and coordinate reference system.
+#'@param border sf or SpatialPolygonsDataFrame object with the country border of
+#'  the SPAM target country.
 #'@param crs coordinate reference system: integer with the EPSG code, or
 #'  character with proj4string. The default is WGS 84 (+proj=longlat
 #'  +datum=WGS84 +no_defs).
@@ -23,18 +26,17 @@
 #'
 #'@examples
 #'\dontrun{
-#'create_grid(res = "5min", border = adm, crs = "+proj=longlat +datum=WGS84 +no_defs")
+#'create_grid(spam_par = spam_par, border = adm, crs = "+proj=longlat +datum=WGS84 +no_defs")
 #'}
 #'@export
-create_grid <- function(res = "5min", border, crs = "+proj=longlat +datum=WGS84 +no_defs"){
-  if(res == "5min") {
+create_grid <- function(par = NULL, border = NULL, crs = "+proj=longlat +datum=WGS84 +no_defs"){
+  stopifnot(inherits(par, "spam_par"))
+  if(par$res == "5min") {
     grid_fact <- 12
     message(glue::glue("Resolution is {res}"))
-  } else if (res == "30sec"){
+  } else if (par$res == "30sec"){
     grid_fact <- 120
     message(glue::glue("Resolution is {res}"))
-  } else {
-    stop("Resolution is not 5min or 30sec.")
   }
 
   # Create grid masked to country

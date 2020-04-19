@@ -1,15 +1,15 @@
 #'Create spam folder structure
 #'
-#'`create_spam_folders` creates the folder structure that is needed store raw data,
-#'processed data and parameters for SPAM.
+#'`create_spam_folders` creates the folder structure that is needed store raw
+#'data, processed data and parameters for SPAM.
 #'
-#'`create_spam_folders` creates three folders in the `spam_path` set by the user:
-#'parameters, processed_data and raw_data as well as a number of lower level
-#'folders. This structure is essential to run SPAM. If `spam_path` is missing,
-#'the folder will be created in the `path.expand("~")`.
+#'`create_spam_folders` creates three folders in the `spam_path` set by the
+#'user: parameters, processed_data and raw_data as well as a number of lower
+#'level folders. This structure is essential to run SPAM. If `spam_path` is
+#'missing, the folder will be created in the `path.expand("~")`.
 #'
-#'@param spam_path character string with the main SPAM folder. Note that R
-#'  uses forward slash or double backslash to separate folder names.
+#'@param spam_path character string with the main SPAM folder. Note that R uses
+#'  forward slash or double backslash to separate folder names.
 #'
 #'@examples
 #'\dontrun{
@@ -44,7 +44,8 @@ create_spam_folders <- function(spam_path = NULL) {
             recursive = T
         )))
 
-    proc_folders <- c("lists", "intermediate_output", "maps/adm", "maps/grid", "output")
+    proc_folders <- c("lists", "intermediate_output", "agricultural_statistics",
+                      "maps/adm", "maps/grid", "output")
     invisible(lapply(proc_folders, function(x)
         dir.create(
             file.path(spam_path, paste0("processed_data/", x)),

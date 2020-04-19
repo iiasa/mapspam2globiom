@@ -1,19 +1,15 @@
 #'Sets spam parameters
 #'
-#'`set_spam_par` sets all required parameters for spam to run, including: model
-#'folders, country, year, resolution, administrative unit information, solve
-#'level and model type.
+#'`spam_par` sets all required parameters for spam to run, including core model
+#'folders, country code, year, spatial resolution, availability of subnational
+#'statistics, solve level, type of model and coordinate reference system.
 #'
-#'`set_spam_par` creates an object of class `spam_par`, which bundles all
-#'required spam parameters set by the user, including: core model folders,
-#'country, year, resolution, depth of administrative units for which subnational
-#'statistics are available, level at which the model is solved and type of
-#'model.
-#'
-#'\code{\link{create_spam_folders}} needs to be run before as it creates all
-#'core folders, including the `parameters` folder where `set_spam_par` output is
-#'stored. An error will be thrown if these essential folders do not exist when
-#'the function is run.
+#'`spam_par` creates an object of class `spam_par`, which bundles all required
+#'spam parameters set by the user: SPAM folder, raw data folder, country alpha-3
+#'code and name, year, spatial resolution, most detailed level at which
+#'subnational statistics are available, administrative unit level at which the
+#'model is solved, type of model, coordinate reference system, three digit
+#'country code, FAO country code and continent.
 #'
 #'\code{\link[countrycode]{countrycode}} is used to determine the full country
 #'name, three digit country code, three digit FAO country code and continent on
@@ -51,12 +47,13 @@
 #'
 #'@examples
 #'\dontrun{
-#'set_spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
+#spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
 #'  iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
-#'  solve_level = 0, model = "max_score", crs = "+proj=longlat +datum=WGS84 +no_defs")
+#'  solve_level = 0, model = "max_score",
+#'  crs = "+proj=longlat +datum=WGS84 +no_defs")
 #'}
 #'@export
-set_spam_par <-
+spam_par <-
     function(spam_path = NULL,
              raw_path = NULL,
              iso3c = NULL,
@@ -67,43 +64,12 @@ set_spam_par <-
              model = "max_score",
              crs = "+proj=longlat +datum=WGS84 +no_defs") {
 
-        if (is.null(spam_path))
-            stop("spam_path is not defined.")
-
         raw_path <- file.path(spam_path, "raw_data")
-        par_path <- file.path(spam_path, "parameters")
 
         if (is.null(raw_path)) {
             message("raw_path is not defined, set to raw_data in main folder")
             raw_path <- file.path(spam_path, "raw_data")
         }
-        if (is.null(iso3c)) {
-            stop("iso3c not defined")
-        } else {
-            if(!grepl("^[a-zA-Z]{3}$", iso3c)) {
-                stop("iso3c is not a three letter character")
-            }
-        }
-        if (is.null(year)) {
-            stop("year is not defined")
-        } else {
-            if(!is.numeric(year)) {
-                stop("year is not a value")
-            } else {
-                if(year < 1000 | year > 2300) {
-                    message("year seems to have an unrealistic value")
-                }
-            }
-        }
-
-        if (!res %in% c("5min", "30sec"))
-            stop("5min and 30sec are allowed values for res")
-        if (!adm_level %in% c(0, 1, 2))
-            stop("0, 1, 2, are allowed values for adm_level")
-        if (!solve_level %in% c(0, 1))
-            stop("0, 1 are only allowed values for solve_level")
-        if (!model %in% c("max_score", "min_entropy"))
-            stop("max_score and min_entropy are allowed values for model")
 
         par <- list(
             iso3c = toupper(iso3c),
@@ -113,19 +79,15 @@ set_spam_par <-
             continent =
                 countrycode::countrycode(iso3c, "iso3c", "continent"),
             year = year,
-            resolution = resolution,
+            resolution = res,
             adm_level = adm_level,
             solve_level = solve_level,
             model = model,
             spam_path = spam_path,
             raw_path = raw_path,
             crs = crs)
-
-        attr(par, 'class') <- 'spam_par'
-        if (!all(dir.exists(c(raw_path, par_path)))) {
-            stop("The model has not been built. Run build_model() first")
-        }
-        saveRDS(par, file.path(spam_path, "parameters/spam_par.rds"))
+        structure(par, class = "spam_par")
+        validate_spam_par(par)
         return(par)
     }
 

@@ -1,1 +1,0 @@
-#' Align two rasters

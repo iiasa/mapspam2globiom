@@ -7,18 +7,18 @@
 create_spam_folders(spam_path = NULL)
 }
 \arguments{
-\item{spam_path}{character string with the main SPAM folder. Note that R
-uses forward slash or double backslash to separate folder names.}
+\item{spam_path}{character string with the main SPAM folder. Note that R uses
+forward slash or double backslash to separate folder names.}
 }
 \description{
-\code{create_spam_folders} creates the folder structure that is needed store raw data,
-processed data and parameters for SPAM.
+\code{create_spam_folders} creates the folder structure that is needed store raw
+data, processed data and parameters for SPAM.
 }
 \details{
-\code{create_spam_folders} creates three folders in the \code{spam_path} set by the user:
-parameters, processed_data and raw_data as well as a number of lower level
-folders. This structure is essential to run SPAM. If \code{spam_path} is missing,
-the folder will be created in the \code{path.expand("~")}.
+\code{create_spam_folders} creates three folders in the \code{spam_path} set by the
+user: parameters, processed_data and raw_data as well as a number of lower
+level folders. This structure is essential to run SPAM. If \code{spam_path} is
+missing, the folder will be created in the \code{path.expand("~")}.
 }
 \examples{
 \dontrun{
