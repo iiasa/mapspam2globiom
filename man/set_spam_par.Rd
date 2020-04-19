@@ -49,7 +49,8 @@ inputs are "max_score" and "min_entropy". See package documentation for more
 information.}
 
 \item{crs}{coordinate reference system: integer with the EPSG code, or
-character with proj4string.}
+character with proj4string. The default is WGS 84 (+proj=longlat
++datum=WGS84 +no_defs).}
 }
 \value{
 spam_par object
@@ -82,5 +83,4 @@ set_spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
  iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
  solve_level = 0, model = "max_score", crs = "+proj=longlat +datum=WGS84 +no_defs")
 }
-#'@export
 }

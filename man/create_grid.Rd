@@ -4,8 +4,37 @@
 \alias{create_grid}
 \title{Create spam country grid}
 \usage{
-create_grid(res, adm)
+create_grid(res = "5min", border, crs = "+proj=longlat +datum=WGS84 +no_defs")
+}
+\arguments{
+\item{res}{character with the resolution of SPAM. Accepted inputs are "5min"
+(default) and "30sec".}
+
+\item{border}{sf or SpatialPolygonsDataFrame object with the country border of the SPAM target country.}
+
+\item{crs}{coordinate reference system: integer with the EPSG code, or
+character with proj4string. The default is WGS 84 (+proj=longlat
++datum=WGS84 +no_defs).}
+}
+\value{
+RasterLayer
 }
 \description{
-Create spam country grid
+Creates the spatial grid that is used by SPAM to allocate physical area shares
+for each crop and system. The border of the country is used as mask to
+determine the grid and each grid is given a gridID number.
+}
+\details{
+Only two resolutions are allowed for \code{create_grid}: 5 arcmin and 30 arcsec,
+which are set by \code{res}. For technical reasons, gridID values are set before
+the raster is masked with the country border, which means they are unique but
+non consecutive. The crs can be set to reproject the raster. The default
+projection is WGS 84 (+proj=longlat +datum=WGS84 +no_defs). Note that creating
+a SPAM grid at a resolution of 30 arcsec can be very large and might make some
+time to create, in particular if it also has to be reprojected.
+}
+\examples{
+\dontrun{
+create_grid(res = "5min", border = adm, crs = "+proj=longlat +datum=WGS84 +no_defs")
+}
 }

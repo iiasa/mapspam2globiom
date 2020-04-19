@@ -44,8 +44,8 @@
 #'  inputs are "max_score" and "min_entropy". See package documentation for more
 #'  information.
 #'@param crs coordinate reference system: integer with the EPSG code, or
-#'  character with proj4string.
-
+#'  character with proj4string. The default is WGS 84 (+proj=longlat
+#'  +datum=WGS84 +no_defs).
 #'
 #'@return spam_par object
 #'
@@ -55,7 +55,7 @@
 #'  iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
 #'  solve_level = 0, model = "max_score", crs = "+proj=longlat +datum=WGS84 +no_defs")
 #'}
-#'#'@export
+#'@export
 set_spam_par <-
     function(spam_path = NULL,
              raw_path = NULL,
