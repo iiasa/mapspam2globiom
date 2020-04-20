@@ -2,7 +2,7 @@
 % Please edit documentation in R/plus.R
 \name{plus}
 \alias{plus}
-\title{Sum of vector elements with NA+NA=NA}
+\title{Sum of vector elements but now NA + NA = NA not 0 as in sum}
 \usage{
 plus(x, na.rm = F)
 }
@@ -15,12 +15,12 @@ plus(x, na.rm = F)
 The sum of \code{x}
 }
 \description{
-\code{plus} Returns the sum of all values provided as arguments but ensures
-NA + NA = NA.
+\code{plus} Returns the sum of all values provided as arguments but ensures NA +
+NA = NA.
 }
 \details{
-This function is the same as \code{sum} but if \code{na.rm} is \code{false}
-and all input values are \code{NA}, it will return \code{NA} instead of 0.
+This function is the same as \code{sum} but if \code{na.rm} is \code{false} and all input
+values are \code{NA}, it will return \code{NA} instead of 0.
 }
 \examples{
 plus(1:10)

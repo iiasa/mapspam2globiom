@@ -4,24 +4,20 @@
 \alias{create_grid}
 \title{Create spam country grid}
 \usage{
-create_grid(
-  par = NULL,
-  border = NULL,
-  crs = "+proj=longlat +datum=WGS84 +no_defs"
-)
+create_grid(border = NULL, param = NULL)
 }
 \arguments{
 \item{border}{sf or SpatialPolygonsDataFrame object with the country border of
 the SPAM target country.}
 
-\item{crs}{coordinate reference system: integer with the EPSG code, or
-character with proj4string. The default is WGS 84 (+proj=longlat
-+datum=WGS84 +no_defs).}
-
-\item{spam_par}{list that bundles SPAM parameters, including core model
+\item{param}{list that bundles SPAM parameters, including core model
 folders, alpha-3 country code, year, spatial resolution, most detailed level
 at which subnational statistics are available, administrative unit level at
 which the model is solved, type of model and coordinate reference system.}
+
+\item{crs}{coordinate reference system: integer with the EPSG code, or
+character with proj4string. The default is WGS 84 (+proj=longlat
++datum=WGS84 +no_defs).}
 }
 \value{
 RasterLayer

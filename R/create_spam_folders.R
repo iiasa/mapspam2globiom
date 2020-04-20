@@ -13,7 +13,7 @@
 #'
 #'@examples
 #'\dontrun{
-#'create_spam_folders(spam_path = "C:/Users/dijk158/spam_mwi")
+#'create_spam_folders(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi")
 #'}
 #'
 #'@export
@@ -44,8 +44,18 @@ create_spam_folders <- function(spam_path = NULL) {
             recursive = T
         )))
 
-    proc_folders <- c("lists", "intermediate_output", "agricultural_statistics",
-                      "maps/adm", "maps/grid", "output")
+    proc_folders <- c("lists",
+                      "intermediate_output",
+                      "agricultural_statistics",
+                      "maps/adm",
+                      "maps/grid",
+                      "maps/biophysical_suitability",
+                      "maps/potential_yield",
+                      "maps/accessibility",
+                      "maps/population",
+                      "maps/irrigated_area",
+                      "maps/cropland",
+                      "output")
     invisible(lapply(proc_folders, function(x)
         dir.create(
             file.path(spam_path, paste0("processed_data/", x)),

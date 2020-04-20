@@ -47,10 +47,10 @@
 #'
 #'@examples
 #'\dontrun{
-#spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
-#'  iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
-#'  solve_level = 0, model = "max_score",
-#'  crs = "+proj=longlat +datum=WGS84 +no_defs")
+#'spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
+#'iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
+#'solve_level = 0, model = "max_score",
+#'crs = "+proj=longlat +datum=WGS84 +no_defs")
 #'}
 #'@export
 spam_par <-
@@ -64,20 +64,17 @@ spam_par <-
              model = "max_score",
              crs = "+proj=longlat +datum=WGS84 +no_defs") {
 
-        raw_path <- file.path(spam_path, "raw_data")
-
         if (is.null(raw_path)) {
             message("raw_path is not defined, set to raw_data in main folder")
             raw_path <- file.path(spam_path, "raw_data")
         }
 
-        par <- list(
-            iso3c = toupper(iso3c),
-            country = countrycode::countrycode(iso3c, "iso3c", "country.name"),
-            iso3n = countrycode::countrycode(iso3c, "iso3c", "iso3n"),
-            fao_code = countrycode::countrycode(iso3c, "iso3c", "fao"),
-            continent =
-                countrycode::countrycode(iso3c, "iso3c", "continent"),
+        param <- list(
+            iso3c = ifelse(!is.null(iso3c), toupper(iso3c), NA_character_),
+            country = ifelse(!is.null(iso3c), countrycode::countrycode(iso3c, "iso3c", "country.name"), NA_character_),
+            iso3n = ifelse(!is.null(iso3c), countrycode::countrycode(iso3c, "iso3c", "iso3n"), NA_character_),
+            fao_code = ifelse(!is.null(iso3c), countrycode::countrycode(iso3c, "iso3c", "fao"), NA_character_),
+            continent = ifelse(!is.null(iso3c), countrycode::countrycode(iso3c, "iso3c", "continent"), NA_character_),
             year = year,
             resolution = res,
             adm_level = adm_level,
@@ -86,8 +83,8 @@ spam_par <-
             spam_path = spam_path,
             raw_path = raw_path,
             crs = crs)
-        structure(par, class = "spam_par")
-        validate_spam_par(par)
-        return(par)
+        class(param) <- "spam_par"
+        validate_spam_par(param)
+        return(param)
     }
 

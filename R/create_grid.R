@@ -12,7 +12,7 @@
 #'a SPAM grid at a resolution of 30 arcsec can be very large and might make some
 #'time to create, in particular if it also has to be reprojected.
 #'
-#'@param spam_par list that bundles SPAM parameters, including core model
+#'@param param list that bundles SPAM parameters, including core model
 #'  folders, alpha-3 country code, year, spatial resolution, most detailed level
 #'  at which subnational statistics are available, administrative unit level at
 #'  which the model is solved, type of model and coordinate reference system.
@@ -29,14 +29,14 @@
 #'create_grid(spam_par = spam_par, border = adm, crs = "+proj=longlat +datum=WGS84 +no_defs")
 #'}
 #'@export
-create_grid <- function(par = NULL, border = NULL, crs = "+proj=longlat +datum=WGS84 +no_defs"){
-  stopifnot(inherits(par, "spam_par"))
-  if(par$res == "5min") {
+create_grid <- function(border = NULL, param = NULL){
+  stopifnot(inherits(param, "spam_par"))
+  if(param$res == "5min") {
     grid_fact <- 12
-    message(glue::glue("Resolution is {res}"))
-  } else if (par$res == "30sec"){
+    message(glue::glue("Resolution is {param$res}"))
+  } else if (param$res == "30sec"){
     grid_fact <- 120
-    message(glue::glue("Resolution is {res}"))
+    message(glue::glue("Resolution is {param$res}"))
   }
 
   # Create grid masked to country
@@ -45,7 +45,7 @@ create_grid <- function(par = NULL, border = NULL, crs = "+proj=longlat +datum=W
   grid <- raster::crop(grid, border)
   values(grid) <- 1:ncell(grid) # Add ID numbers
   grid <- raster::mask(grid, border)
-  grid <- raster::projectRaster(grid, crs = crs)
+  grid <- raster::projectRaster(grid, crs = param$crs)
   names(grid) <- "gridID"
   return(grid)
 }

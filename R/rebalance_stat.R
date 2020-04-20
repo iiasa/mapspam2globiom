@@ -1,18 +1,20 @@
 #'Rebalances subnational statistics so they are consistent
 #'
-#'@param tbl or data.frame
-#'@param par
+#'@param df tbl or data.frame
+#'@param param
+#'@inheritParams create_grid
 #'
 #'@return same class as `df`.
 #'
 #'@examples
 #'
 #'@export
-rebalance_adm <- function(df, adm_level){
+rebalance_stat <- function(df, param){
+    stopifnot(inherits(param, "spam_par"))
     unit <- names(df)[names(df) %in% c("ha", "pa")]
     names(df)[names(df) %in% c("ha", "pa")] <- "value"
 
-    if(adm_level == 2) {
+    if(param$adm_level == 2) {
 
         # Aggregate adm2
         adm2_reag <- df %>%
@@ -50,7 +52,7 @@ rebalance_adm <- function(df, adm_level){
             dplyr::select(-adm_code_crop)
     }
 
-    if(adm_level %in% c(1,2)) {
+    if(param$adm_level %in% c(1,2)) {
 
         # Aggregate adm1
         adm1_reag <- df %>%

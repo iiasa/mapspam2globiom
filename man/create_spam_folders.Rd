@@ -22,7 +22,7 @@ missing, the folder will be created in the \code{path.expand("~")}.
 }
 \examples{
 \dontrun{
-create_spam_folders(spam_path = "C:/Users/dijk158/spam_mwi")
+create_spam_folders(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi")
 }
 
 }

@@ -1,15 +1,15 @@
-#' Sum of vector elements with NA+NA=NA
+#' Sum of vector elements but now NA + NA = NA not 0 as in sum
 #'
-#' \code{plus} Returns the sum of all values provided as arguments but ensures
-#' NA + NA = NA.
+#' `plus` Returns the sum of all values provided as arguments but ensures NA +
+#' NA = NA.
 #'
-#' This function is the same as \code{sum} but if \code{na.rm} is \code{false}
-#' and all input values are \code{NA}, it will return \code{NA} instead of 0.
+#' This function is the same as `sum` but if `na.rm` is `false` and all input
+#' values are `NA`, it will return `NA` instead of 0.
 #'
 #' @param x numeric vector.
 #' @param na.rm logical. Should missing values be removed?
 #'
-#' @return The sum of \code{x}
+#' @return The sum of `x`
 #'
 #' @examples
 #' plus(1:10)
