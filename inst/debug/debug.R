@@ -92,6 +92,18 @@ ci <- ci %>%
   filter(crop %in% unique(ha$crop))
 
 
+############### SET ADM IN LINE WITH SOLVE_SEL ###############
+if(param$solve_level == 0) {
+  adm_code_list <- unique(adm_list$adm0_code)
+} else {
+  adm_code_list <- unique(adm_list$adm1_code)
+}
+
+#walk(adm_code_list, prepare_pa_stat, ha, fs, ci, param)
+
+adm_code_sel <- adm_code_list[1]
+
+
 ########## CONSISTENCY CHECKS ##########
 
 
@@ -102,4 +114,100 @@ ci <- ci %>%
 # Is ADM system the same as the map
 # Are crops the same in ci, fs and ha data files. Not possible to have ADM0 data and NA for fs and ci.
 
-compare_adm_tot2(pa_adm, pa_fs_adm, 0)
+prepare_pa_stat <- function(adm_code_sel, ha, fs, ci, param){
+  if(!adm_code_sel %in% ha$adm_code[ha$adm_level == param$solve_level]) {
+    stop("The adm codes in adm_code_sel are not present in the list of adm codes in
+             the physical area statistics.",
+         call. = FALSE)
+  }
+  message(glue("Save pa and pa_fs statistics for {adm_code_sel}"))
+
+  # Select ha for top level and all lower level ADMs
+  ha_adm <- bind_rows(
+    ha[ha$adm_code == adm_code_sel,],
+    ha[ha$adm_code %in% adm_list$adm1_code[adm_list$adm0_code == adm_code_sel],],
+    ha[ha$adm_code %in% adm_list$adm2_code[adm_list$adm1_code == adm_code_sel],],
+    ha[ha$adm_code %in% adm_list$adm2_code[adm_list$adm0_code == adm_code_sel],]) %>%
+    unique()
+
+  # Select fs and ci for top level ADM only. We apply these to lower levels.
+  fs_adm <- bind_rows(
+    fs[fs$adm_code == adm_code_sel,]) %>%
+    dplyr::select(-adm_code, -adm_name, -adm_level) %>%
+    unique()
+
+  ci_adm <- bind_rows(
+    ci[ci$adm_code == adm_code_sel,]) %>%
+    dplyr::select(-adm_code, -adm_name, -adm_level) %>%
+    unique()
+
+  # Calculate physical area using cropping intensity information.
+  pa_adm <- ha_adm %>%
+    left_join(ci_adm, by = "crop")  %>%
+    left_join(fs_adm, by = c("crop", "system")) %>%
+    mutate(pa = ha*fs/ci) %>%
+    group_by(adm_name, adm_code, crop, adm_level) %>%
+    summarize(pa = plus(pa, na.rm = T)) %>%
+    ungroup()
+
+  # Calculate physical area broken down by farming systems
+  pa_fs_adm <- pa_adm %>%
+    filter(adm_code == adm_code_sel) %>%
+    left_join(fs_adm, by = "crop") %>%
+    mutate(pa = pa*fs) %>%
+    dplyr::select(-fs) %>%
+    ungroup()
+
+  # ADD CONSISTENCY CHECK
+  compare_adm2(pa_adm, pa_fs_adm, param$solve_level)
+
+  df1 <- pa_adm
+  df2 <- pa_fs_adm
+  level <- param$solve_level
+  compare_adm2 <- function(df1, df2, level, out = F){
+    tot1 <- sum_adm_total(df1, level) %>%
+      na.omit
+    tot2 <- sum_adm_total(df2, level) %>%
+      na.omit
+    inter <- intersect(tot1$crop, tot2$crop)
+    if(!isTRUE(all.equal(tot1$value[tot1$crop %in% inter],
+                         tot2$value[tot2$crop %in% inter]))){
+      stop(
+        glue::glue("df1 and df2 are not equal!",
+                   call. = FALSE)
+      )
+    } else {
+      message(glue::glue("df1 and df2 are equal"))
+    }
+
+    out_df <- dplyr::bind_rows(
+      sum_adm_total(df1, level) %>%
+        mutate(source = "df1"),
+      sum_adm_total(df2, level) %>%
+        mutate(source = "df2")) %>%
+      tidyr::spread(source, value) %>%
+      mutate(difference = round(df1 - df2, 6)) %>%
+      dplyr::select(-adm_level)
+    if(out) return(out_df)
+  }
+
+
+
+  # save
+  temp_path <- file.path(param$spam_path,
+                         glue::glue("processed_data/intermediate_output/{adm_code_sel}"))
+  dir.create(temp_path, recursive = T, showWarnings = F)
+
+  pa_adm <- pa_adm %>%
+    spread(crop, pa) %>%
+    arrange(adm_code, adm_name, adm_level)
+
+  pa_fs_adm <- pa_fs_adm %>%
+    spread(crop, pa) %>%
+    arrange(adm_code, adm_name, adm_level)
+
+  write_csv(pa_adm, file.path(temp_path,
+                              glue::glue("pa_{param$year}_{adm_code_sel}_{param$iso3c}.csv")))
+  write_csv(pa_fs_adm, file.path(temp_path,
+                                 glue::glue("pa_fs_{param$year}_{adm_code_sel}_{param$iso3c}.csv")))
+}

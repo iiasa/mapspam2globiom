@@ -48,7 +48,7 @@ compare_adm <- function(df, level_1, level_2, out = F){
     if(out) return(out_df)
 }
 
-
+# Function to compare adm totals for two different data.frames, i.e. pa and pa_fs
 compare_adm2 <- function(df1, df2, level, out = F){
     tot1 <- sum_adm_total(df1, level) %>%
         na.omit
@@ -57,8 +57,9 @@ compare_adm2 <- function(df1, df2, level, out = F){
     inter <- intersect(tot1$crop, tot2$crop)
     if(!isTRUE(all.equal(tot1$value[tot1$crop %in% inter],
                          tot2$value[tot2$crop %in% inter]))){
-        message(
-            glue::glue("df1 and df2 are not equal!")
+        stop(
+            glue::glue("df1 and df2 are not equal!",
+                       call. = FALSE)
         )
     } else {
         message(glue::glue("df1 and df2 are equal"))
@@ -74,3 +75,7 @@ compare_adm2 <- function(df1, df2, level, out = F){
         dplyr::select(-adm_level)
     if(out) return(out_df)
 }
+
+
+# Function to paste a vector but replace last one by and
+fPaste <- function(vec) sub(",\\s+([^,]+)$", " and \\1", toString(vec))

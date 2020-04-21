@@ -45,7 +45,8 @@ create_grid <- function(border = NULL, param = NULL){
   grid <- raster::crop(grid, border)
   values(grid) <- 1:ncell(grid) # Add ID numbers
   grid <- raster::mask(grid, border)
-  grid <- raster::projectRaster(grid, crs = param$crs)
+  grid <- raster::projectRaster(grid, crs = param$crs, method = "ngb")
+  grid <- trim(grid)
   names(grid) <- "gridID"
   return(grid)
 }

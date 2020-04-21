@@ -13,7 +13,7 @@
 #'systems (pa_fs). Results are saved in the subfolders that are located in the
 #'the `processed_data/intermediate` folder.
 #'
-#'@param vector with administrative unit codes. This is either a single value
+#'@param adm_code vector with administrative unit codes. This is either a single value
 #'  equal to the country alpha-3 country code if model solve level is set to 0
 #'  or a vector with all level 1 administrative unit codes if the model solve
 #'  level is set to 1.
@@ -26,30 +26,30 @@
 #'@examples
 #'
 #'@export
-prepare_pa_stat <- function(adm_code_sel, ha, fs, ci, param){
-    if(!adm_code_sel %in% ha$adm_code[ha$adm_level == param$solve_level]) {
-        stop("The adm codes in adm_code_sel are not present in the list of adm codes in
+prepare_pa_stat <- function(adm_code, ha, fs, ci, param){
+    if(!adm_code %in% ha$adm_code[ha$adm_level == param$solve_level]) {
+        stop("The adm codes in adm_code are not present in the list of adm codes in
              the physical area statistics.",
              call. = FALSE)
     }
-    message(glue("Save pa and pa_fs statistics for {adm_code_sel}"))
+    message(glue("Save pa and pa_fs statistics for {adm_code}"))
 
     # Select ha for top level and all lower level ADMs
     ha_adm <- bind_rows(
-        ha[ha$adm_code == adm_code_sel,],
-        ha[ha$adm_code %in% adm_list$adm1_code[adm_list$adm0_code == adm_code_sel],],
-        ha[ha$adm_code %in% adm_list$adm2_code[adm_list$adm1_code == adm_code_sel],],
-        ha[ha$adm_code %in% adm_list$adm2_code[adm_list$adm0_code == adm_code_sel],]) %>%
+        ha[ha$adm_code == adm_code,],
+        ha[ha$adm_code %in% adm_list$adm1_code[adm_list$adm0_code == adm_code],],
+        ha[ha$adm_code %in% adm_list$adm2_code[adm_list$adm1_code == adm_code],],
+        ha[ha$adm_code %in% adm_list$adm2_code[adm_list$adm0_code == adm_code],]) %>%
         unique()
 
     # Select fs and ci for top level ADM only. We apply these to lower levels.
     fs_adm <- bind_rows(
-        fs[fs$adm_code == adm_code_sel,]) %>%
+        fs[fs$adm_code == adm_code,]) %>%
         dplyr::select(-adm_code, -adm_name, -adm_level) %>%
         unique()
 
     ci_adm <- bind_rows(
-        ci[ci$adm_code == adm_code_sel,]) %>%
+        ci[ci$adm_code == adm_code,]) %>%
         dplyr::select(-adm_code, -adm_name, -adm_level) %>%
         unique()
 
@@ -64,15 +64,20 @@ prepare_pa_stat <- function(adm_code_sel, ha, fs, ci, param){
 
     # Calculate physical area broken down by farming systems
     pa_fs_adm <- pa_adm %>%
-        filter(adm_code == adm_code_sel) %>%
+        filter(adm_code == adm_code) %>%
         left_join(fs_adm, by = "crop") %>%
         mutate(pa = pa*fs) %>%
         dplyr::select(-fs) %>%
         ungroup()
 
-    # ADD CONSISTENCY CHECK
+    # consistency check
+    compare_adm2(pa_adm, pa_fs_adm, param$solve_level)
 
     # save
+    temp_path <- file.path(param$spam_path,
+                           glue::glue("processed_data/intermediate_output/{adm_code}"))
+    dir.create(temp_path, recursive = T, showWarnings = F)
+
     pa_adm <- pa_adm %>%
         spread(crop, pa) %>%
         arrange(adm_code, adm_name, adm_level)
@@ -81,9 +86,9 @@ prepare_pa_stat <- function(adm_code_sel, ha, fs, ci, param){
         spread(crop, pa) %>%
         arrange(adm_code, adm_name, adm_level)
 
-    write_csv(pa_adm, file.path(param$spam_path,
-                                glue("pa_{param$year}_{adm_code_sel}_{param$iso3c}.csv")))
-    write_csv(pa_fs_adm, file.path(param$spam_path,
-                                   glue("pa_fs_{param$year}_{adm_code_sel}_{param$iso3c}.csv")))
+    write_csv(pa_adm, file.path(temp_path,
+                                glue::glue("pa_{param$year}_{adm_code}_{param$iso3c}.csv")))
+    write_csv(pa_fs_adm, file.path(temp_path,
+                                   glue::glue("pa_fs_{param$year}_{adm_code}_{param$iso3c}.csv")))
 }
 
