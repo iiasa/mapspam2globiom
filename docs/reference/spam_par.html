@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • mapspam2globiom</title>
+<title>Sets spam parameters — spam_par • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,10 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Sets spam parameters — spam_par" />
+<meta property="og:description" content="spam_par sets all required parameters for spam to run, including core model
+folders, country code, year, spatial resolution, availability of subnational
+statistics, solve level, type of model and coordinate reference system." />
 
 
 
@@ -58,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -170,42 +173,115 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Sets spam parameters</h1>
+    
+    <div class="hidden name"><code>spam_par.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="appendix.html">Appendix: model equations</a></dt>
-        <dd></dt>
-        <dt><a href="appendix_b.html">appendix_b</a></dt>
-        <dd></dt>
-        <dt><a href="collect_input_data.html">Input data collection</a></dt>
-        <dd></dt>
-        <dt><a href="crop_distribution_maps.html">Crop distribution maps</a></dt>
-        <dd></dt>
-        <dt><a href="data.html">Input data</a></dt>
-        <dd></dt>
-        <dt><a href="installation.html">Installation</a></dt>
-        <dd></dt>
-        <dt><a href="model_setup.html">Model setup</a></dt>
-        <dd></dt>
-        <dt><a href="model_structure.html">Model structure</a></dt>
-        <dd></dt>
-        <dt><a href="post_process.html">Post processing</a></dt>
-        <dd></dt>
-        <dt><a href="process_spatial_data.html">Process spatial data</a></dt>
-        <dd></dt>
-        <dt><a href="process_subnat_stat.html">Processing of subnational statistics</a></dt>
-        <dd></dt>
-        <dt><a href="run_model.html">Running the model</a></dt>
-        <dd></dt>
-        <dt><a href="template.html">Template and examples</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p><code>spam_par</code> sets all required parameters for spam to run, including core model
+folders, country code, year, spatial resolution, availability of subnational
+statistics, solve level, type of model and coordinate reference system.</p>
     </div>
+
+    <pre class="usage"><span class='fu'>spam_par</span>(
+  <span class='kw'>spam_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>raw_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>iso3c</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>year</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>res</span> <span class='kw'>=</span> <span class='st'>"5min"</span>,
+  <span class='kw'>adm_level</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>solve_level</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"max_score"</span>,
+  <span class='kw'>crs</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat +datum=WGS84 +no_defs"</span>
+)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>spam_path</th>
+      <td><p>character string with the main SPAM folder. Note that R uses
+forward slash or double backslash to separate folder names.</p></td>
+    </tr>
+    <tr>
+      <th>raw_path</th>
+      <td><p>character string with the raw data folder. This makes it
+possible to store the raw data on a server. If <code>raw_path</code> is not specified
+it is automatically set to the default raw data folder in the main model
+folder.</p></td>
+    </tr>
+    <tr>
+      <th>iso3c</th>
+      <td><p>character string with the three letter ISO 3166-1 alpha-3 country
+code, also referred to as iso3c. A list of country codes can be found in
+<a href='https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3'>Wikipedia</a>.</p></td>
+    </tr>
+    <tr>
+      <th>year</th>
+      <td><p>numeric with the reference year for SPAM.</p></td>
+    </tr>
+    <tr>
+      <th>res</th>
+      <td><p>character with the resolution of SPAM. Accepted inputs are "5min"
+(default) and "30sec".</p></td>
+    </tr>
+    <tr>
+      <th>adm_level</th>
+      <td><p>integer with the level up to which subnational statistics are
+available. Accepted inputs are 0 (only national level data), 1 (national
+level and first level administrative unit - default) and 2 (national level,
+first and second level administrative unit).</p></td>
+    </tr>
+    <tr>
+      <th>solve_level</th>
+      <td><p>integer that indicates the level at which the model is
+solved. Accepted inputs are 0 (model is run at national level - default) and
+1 (model is solved for each first level administrative unit separately).
+level and first level administrative unit - default)</p></td>
+    </tr>
+    <tr>
+      <th>model</th>
+      <td><p>character that specifies the type of model that is run. Accepted
+inputs are "max_score" and "min_entropy". See package documentation for more
+information.</p></td>
+    </tr>
+    <tr>
+      <th>crs</th>
+      <td><p>coordinate reference system: integer with the EPSG code, or
+character with proj4string. The default is WGS 84 (+proj=longlat
++datum=WGS84 +no_defs).</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>spam_par object</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>spam_par</code> creates an object of class <code>spam_par</code>, which bundles all required
+spam parameters set by the user: SPAM folder, raw data folder, country alpha-3
+code and name, year, spatial resolution, most detailed level at which
+subnational statistics are available, administrative unit level at which the
+model is solved, type of model, coordinate reference system, three digit
+country code, FAO country code and continent.</p>
+<p><code><a href='https://rdrr.io/pkg/countrycode/man/countrycode.html'>countrycode</a></code> is used to determine the full country
+name, three digit country code, three digit FAO country code and continent on
+the basis of the alpha-3 country code. This information is required to extract
+country specific information from several datasets.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>spam_par</span>(<span class='kw'>spam_path</span> <span class='kw'>=</span> <span class='st'>"C:/Users/dijk158/Dropbox/mapspam2globiom_mwi"</span>,
+<span class='kw'>iso3c</span> <span class='kw'>=</span> <span class='st'>"MWI"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='st'>"5min"</span>, <span class='kw'>adm_level</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+<span class='kw'>solve_level</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"max_score"</span>,
+<span class='kw'>crs</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat +datum=WGS84 +no_defs"</span>)
+}</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

@@ -2,7 +2,7 @@
 title: "Processing of subnational statistics"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Process subnational data}
+  %\VignetteIndexEntry{Processing subnational statistics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:

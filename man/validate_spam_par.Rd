@@ -15,6 +15,3 @@ which the model is solved, type of model and coordinate reference system.}
 \description{
 Validates spam_par class
 }
-\examples{
-\dontrun{}
-}

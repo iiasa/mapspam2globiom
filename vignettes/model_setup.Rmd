@@ -2,7 +2,7 @@
 title: "Model setup"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{setup}
+  %\VignetteIndexEntry{Model setup}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:
@@ -45,13 +45,14 @@ Nearly all functions in `mapspam2globiom` need input on (1) key parameters that 
 
 ```{r}
 # Set SPAMc parameters
-par <- set_spam_par(spam_path = spamc_path,
- iso3c_sel = "MWI",
- year_sel = 2010,
- grid_sel = "5min",
- adm_sel = 1,
- solve_sel = 0,
- model_sel = "max_score")
+par <- spam_par(spam_path = spamc_path,
+ iso3c = "MWI",
+ year = 2010,
+ res = "5min",
+ adm_level = 1,
+ solve_level = 0,
+ model = "max_score",
+ crs = "+proj=longlat +datum=WGS84 +no_defs")
 
 # check class
 class(par)

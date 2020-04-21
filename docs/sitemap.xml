@@ -4,7 +4,16 @@
     <loc>https://iiasa.github.io/mapspam2globiom/index.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/check_stat.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/create_grid.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/create_spam_folders.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/load_input.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/mapspam2globiom-package.html</loc>
@@ -13,7 +22,16 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/plus.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/set_spam_par.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_pa_stat.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/rebalance_stat.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/spam_par.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/validate_spam_par.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix.html</loc>

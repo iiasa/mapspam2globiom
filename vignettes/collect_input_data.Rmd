@@ -2,7 +2,7 @@
 title: "Input data collection"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{appendix}
+  %\VignetteIndexEntry{Input data collections}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:

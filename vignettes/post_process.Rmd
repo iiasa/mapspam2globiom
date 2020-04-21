@@ -2,7 +2,7 @@
 title: "Post processing"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{mapspam2globiom}
+  %\VignetteIndexEntry{Post processing}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:

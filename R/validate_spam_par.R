@@ -3,8 +3,6 @@
 #'@param spam_par
 #'@inheritParams create_grid
 #'
-#'@examples
-#'\dontrun{}
 #'@export
 validate_spam_par <- function(param) {
   stopifnot(inherits(param, "spam_par"))

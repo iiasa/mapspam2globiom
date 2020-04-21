@@ -2,7 +2,7 @@
 title: "Appendix: model equations"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{appendix}
+  %\VignetteIndexEntry{Appendix: model equations}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:

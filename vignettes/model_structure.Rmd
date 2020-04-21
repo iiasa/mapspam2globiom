@@ -2,7 +2,7 @@
 title: "Model structure"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{model_dimensions}
+  %\VignetteIndexEntry{Model structure}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:

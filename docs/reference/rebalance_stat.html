@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • mapspam2globiom</title>
+<title>Rebalances subnational statistics so they are consistent — rebalance_stat • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,8 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Rebalances subnational statistics so they are consistent — rebalance_stat" />
+<meta property="og:description" content="Rebalances subnational statistics so they are consistent" />
 
 
 
@@ -58,7 +59,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -170,42 +171,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Rebalances subnational statistics so they are consistent</h1>
+    
+    <div class="hidden name"><code>rebalance_stat.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="appendix.html">Appendix: model equations</a></dt>
-        <dd></dt>
-        <dt><a href="appendix_b.html">appendix_b</a></dt>
-        <dd></dt>
-        <dt><a href="collect_input_data.html">Input data collection</a></dt>
-        <dd></dt>
-        <dt><a href="crop_distribution_maps.html">Crop distribution maps</a></dt>
-        <dd></dt>
-        <dt><a href="data.html">Input data</a></dt>
-        <dd></dt>
-        <dt><a href="installation.html">Installation</a></dt>
-        <dd></dt>
-        <dt><a href="model_setup.html">Model setup</a></dt>
-        <dd></dt>
-        <dt><a href="model_structure.html">Model structure</a></dt>
-        <dd></dt>
-        <dt><a href="post_process.html">Post processing</a></dt>
-        <dd></dt>
-        <dt><a href="process_spatial_data.html">Process spatial data</a></dt>
-        <dd></dt>
-        <dt><a href="process_subnat_stat.html">Processing of subnational statistics</a></dt>
-        <dd></dt>
-        <dt><a href="run_model.html">Running the model</a></dt>
-        <dd></dt>
-        <dt><a href="template.html">Template and examples</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>Rebalances subnational statistics so they are consistent</p>
     </div>
+
+    <pre class="usage"><span class='fu'>rebalance_stat</span>(<span class='no'>df</span>, <span class='no'>param</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df</th>
+      <td><p>tbl or data.frame</p></td>
+    </tr>
+    <tr>
+      <th>param</th>
+      <td><p>list that bundles SPAM parameters, including core model
+folders, alpha-3 country code, year, spatial resolution, most detailed level
+at which subnational statistics are available, administrative unit level at
+which the model is solved, type of model and coordinate reference system.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>same class as <code>df</code>.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

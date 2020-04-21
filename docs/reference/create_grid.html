@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • mapspam2globiom</title>
+<title>Create spam country grid — create_grid • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,10 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Create spam country grid — create_grid" />
+<meta property="og:description" content="Creates the spatial grid that is used by SPAM to allocate physical area shares
+for each crop and system. The border of the country is used as mask to
+determine the grid and each grid is given a gridID number." />
 
 
 
@@ -58,7 +61,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -170,42 +173,64 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Create spam country grid</h1>
+    
+    <div class="hidden name"><code>create_grid.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <dl>
-        <dt><a href="appendix.html">Appendix: model equations</a></dt>
-        <dd></dt>
-        <dt><a href="appendix_b.html">appendix_b</a></dt>
-        <dd></dt>
-        <dt><a href="collect_input_data.html">Input data collection</a></dt>
-        <dd></dt>
-        <dt><a href="crop_distribution_maps.html">Crop distribution maps</a></dt>
-        <dd></dt>
-        <dt><a href="data.html">Input data</a></dt>
-        <dd></dt>
-        <dt><a href="installation.html">Installation</a></dt>
-        <dd></dt>
-        <dt><a href="model_setup.html">Model setup</a></dt>
-        <dd></dt>
-        <dt><a href="model_structure.html">Model structure</a></dt>
-        <dd></dt>
-        <dt><a href="post_process.html">Post processing</a></dt>
-        <dd></dt>
-        <dt><a href="process_spatial_data.html">Process spatial data</a></dt>
-        <dd></dt>
-        <dt><a href="process_subnat_stat.html">Processing of subnational statistics</a></dt>
-        <dd></dt>
-        <dt><a href="run_model.html">Running the model</a></dt>
-        <dd></dt>
-        <dt><a href="template.html">Template and examples</a></dt>
-        <dd></dt>
-      </dl>
+    <div class="ref-description">
+    <p>Creates the spatial grid that is used by SPAM to allocate physical area shares
+for each crop and system. The border of the country is used as mask to
+determine the grid and each grid is given a gridID number.</p>
     </div>
+
+    <pre class="usage"><span class='fu'>create_grid</span>(<span class='kw'>border</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>param</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>border</th>
+      <td><p>sf or SpatialPolygonsDataFrame object with the country border of
+the SPAM target country.</p></td>
+    </tr>
+    <tr>
+      <th>param</th>
+      <td><p>list that bundles SPAM parameters, including core model
+folders, alpha-3 country code, year, spatial resolution, most detailed level
+at which subnational statistics are available, administrative unit level at
+which the model is solved, type of model and coordinate reference system.</p></td>
+    </tr>
+    <tr>
+      <th>crs</th>
+      <td><p>coordinate reference system: integer with the EPSG code, or
+character with proj4string. The default is WGS 84 (+proj=longlat
++datum=WGS84 +no_defs).</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>RasterLayer</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Only two resolutions are allowed for <code>create_grid</code>: 5 arcmin and 30 arcsec,
+which are set by <code>res</code>. For technical reasons, gridID values are set before
+the raster is masked with the country border, which means they are unique but
+non consecutive. The crs can be set to reproject the raster. The default
+projection is WGS 84 (+proj=longlat +datum=WGS84 +no_defs). Note that creating
+a SPAM grid at a resolution of 30 arcsec can be very large and might make some
+time to create, in particular if it also has to be reprojected.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>create_grid</span>(<span class='kw'>spam_par</span> <span class='kw'>=</span> <span class='no'>spam_par</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>adm</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat +datum=WGS84 +no_defs"</span>)
+}</div></pre>
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 

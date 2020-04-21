@@ -40,8 +40,8 @@
 
 
 <meta property="og:title" content="Create spam folder structure — create_spam_folders" />
-<meta property="og:description" content="create_spam_folders creates the folder structure that is needed store raw data,
-processed data and parameters for SPAM." />
+<meta property="og:description" content="create_spam_folders creates the folder structure that is needed store raw
+data, processed data and parameters for SPAM." />
 
 
 
@@ -178,8 +178,8 @@ processed data and parameters for SPAM." />
     </div>
 
     <div class="ref-description">
-    <p><code>create_spam_folders</code> creates the folder structure that is needed store raw data,
-processed data and parameters for SPAM.</p>
+    <p><code>create_spam_folders</code> creates the folder structure that is needed store raw
+data, processed data and parameters for SPAM.</p>
     </div>
 
     <pre class="usage"><span class='fu'>create_spam_folders</span>(<span class='kw'>spam_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
@@ -189,21 +189,21 @@ processed data and parameters for SPAM.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>spam_path</th>
-      <td><p>character string with the main SPAM folder. Note that R
-uses forward slash or double backslash to separate folder names.</p></td>
+      <td><p>character string with the main SPAM folder. Note that R uses
+forward slash or double backslash to separate folder names.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>create_spam_folders</code> creates three folders in the <code>spam_path</code> set by the user:
-parameters, processed_data and raw_data as well as a number of lower level
-folders. This structure is essential to run SPAM. If <code>spam_path</code> is missing,
-the folder will be created in the <code><a href='https://rdrr.io/r/base/path.expand.html'>path.expand("~")</a></code>.</p>
+    <p><code>create_spam_folders</code> creates three folders in the <code>spam_path</code> set by the
+user: parameters, processed_data and raw_data as well as a number of lower
+level folders. This structure is essential to run SPAM. If <code>spam_path</code> is
+missing, the folder will be created in the <code><a href='https://rdrr.io/r/base/path.expand.html'>path.expand("~")</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>create_spam_folders</span>(<span class='kw'>spam_path</span> <span class='kw'>=</span> <span class='st'>"C:/Users/dijk158/spam_mwi"</span>)
+<span class='fu'>create_spam_folders</span>(<span class='kw'>spam_path</span> <span class='kw'>=</span> <span class='st'>"C:/Users/dijk158/Dropbox/mapspam2globiom_mwi"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

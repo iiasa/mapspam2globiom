@@ -1,8 +1,8 @@
 ---
-title: "input_data"
+title: "Input data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{input_data}
+  %\VignetteIndexEntry{Input data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:

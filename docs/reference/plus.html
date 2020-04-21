@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Sum of vector elements with NA+NA=NA — plus • mapspam2globiom</title>
+<title>Sum of vector elements but now NA + NA = NA not 0 as in sum — plus • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Sum of vector elements with NA+NA=NA — plus" />
-<meta property="og:description" content="plus Returns the sum of all values provided as arguments but ensures
-NA + NA = NA." />
+<meta property="og:title" content="Sum of vector elements but now NA + NA = NA not 0 as in sum — plus" />
+<meta property="og:description" content="plus Returns the sum of all values provided as arguments but ensures NA +
+NA = NA." />
 
 
 
@@ -172,14 +172,14 @@ NA + NA = NA." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Sum of vector elements with NA+NA=NA</h1>
+    <h1>Sum of vector elements but now NA + NA = NA not 0 as in sum</h1>
     
     <div class="hidden name"><code>plus.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>plus</code> Returns the sum of all values provided as arguments but ensures
-NA + NA = NA.</p>
+    <p><code>plus</code> Returns the sum of all values provided as arguments but ensures NA +
+NA = NA.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plus</span>(<span class='no'>x</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='no'>F</span>)</pre>
@@ -202,11 +202,11 @@ NA + NA = NA.</p>
     <p>The sum of <code>x</code></p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function is the same as <code>sum</code> but if <code>na.rm</code> is <code>false</code>
-and all input values are <code>NA</code>, it will return <code>NA</code> instead of 0.</p>
+    <p>This function is the same as <code>sum</code> but if <code>na.rm</code> is <code>false</code> and all input
+values are <code>NA</code>, it will return <code>NA</code> instead of 0.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>plus</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plus(1:10): could not find function "plus"</span></div><div class='input'><span class='fu'>plus</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>NA</span>))</div><div class='output co'>#&gt; <span class='error'>Error in plus(c(NA, NA)): could not find function "plus"</span></div><div class='input'><span class='fu'>plus</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>NA</span>), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='no'>T</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plus(c(NA, NA), na.rm = T): could not find function "plus"</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>plus</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt; [1] 55</div><div class='input'><span class='fu'>plus</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>NA</span>))</div><div class='output co'>#&gt; [1] NA</div><div class='input'><span class='fu'>plus</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>NA</span>), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='no'>T</span>)</div><div class='output co'>#&gt; [1] NA</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
