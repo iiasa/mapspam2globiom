@@ -5,14 +5,9 @@
 \title{Prepares the physical area subnational statistics so they can be used as input
 for SPAM.}
 \usage{
-prepare_pa_stat(adm_code, ha, fs, ci, param)
+prepare_pa_stat(ha, fs, ci, param)
 }
 \arguments{
-\item{adm_code}{vector with administrative unit codes. This is either a single value
-equal to the country alpha-3 country code if model solve level is set to 0
-or a vector with all level 1 administrative unit codes if the model solve
-level is set to 1.}
-
 \item{ha}{tbl or data.frame with harvest area statistics}
 
 \item{fs}{tbl or data.frame with farming system shares}
