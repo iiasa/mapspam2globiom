@@ -13,7 +13,7 @@ spam_par(
   adm_level = 1,
   solve_level = 0,
   model = "max_score",
-  crs = "+proj=longlat +datum=WGS84 +no_defs"
+  crs = "+init=epsg:4326"
 )
 }
 \arguments{
@@ -49,8 +49,7 @@ inputs are "max_score" and "min_entropy". See package documentation for more
 information.}
 
 \item{crs}{coordinate reference system: integer with the EPSG code, or
-character with proj4string. The default is WGS 84 (+proj=longlat
-+datum=WGS84 +no_defs).}
+character with proj4string. The default is WGS84 (+init=epsg:4326).}
 }
 \value{
 spam_par object
@@ -78,6 +77,6 @@ country specific information from several datasets.
 spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
 iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
 solve_level = 0, model = "max_score",
-crs = "+proj=longlat +datum=WGS84 +no_defs")
+crs = "+init=epsg:4326")
 }
 }

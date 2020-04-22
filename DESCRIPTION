@@ -34,7 +34,8 @@ Imports:
     dplyr,
     glue,
     countrycode,
-    raster
+    raster,
+    magrittr
 Suggests: 
     knitr,
     rmarkdown,

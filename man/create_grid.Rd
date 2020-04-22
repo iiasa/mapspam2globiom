@@ -7,17 +7,17 @@
 create_grid(border = NULL, param = NULL)
 }
 \arguments{
-\item{border}{sf or SpatialPolygonsDataFrame object with the country border of
-the SPAM target country.}
+\item{border}{sf or SpatialPolygonsDataFrame object with the country borders
+of the SPAM target country, preferably the map with the locations of the
+administrative units.}
 
-\item{param}{list that bundles SPAM parameters, including core model
-folders, alpha-3 country code, year, spatial resolution, most detailed level
-at which subnational statistics are available, administrative unit level at
-which the model is solved, type of model and coordinate reference system.}
+\item{param}{list that bundles SPAM parameters, including core model folders,
+alpha-3 country code, year, spatial resolution, most detailed level at which
+subnational statistics are available, administrative unit level at which the
+model is solved, type of model and coordinate reference system.}
 
 \item{crs}{coordinate reference system: integer with the EPSG code, or
-character with proj4string. The default is WGS 84 (+proj=longlat
-+datum=WGS84 +no_defs).}
+character with proj4string. The default is WGS84 (+init=epsg:4326).}
 }
 \value{
 RasterLayer
@@ -32,12 +32,12 @@ Only two resolutions are allowed for \code{create_grid}: 5 arcmin and 30 arcsec,
 which are set by \code{res}. For technical reasons, gridID values are set before
 the raster is masked with the country border, which means they are unique but
 non consecutive. The crs can be set to reproject the raster. The default
-projection is WGS 84 (+proj=longlat +datum=WGS84 +no_defs). Note that creating
-a SPAM grid at a resolution of 30 arcsec can be very large and might make some
-time to create, in particular if it also has to be reprojected.
+projection is WGS 84. Note that creating a SPAM grid at a resolution of 30
+arcsec can be very large and might make some time to create, in particular if
+it also has to be reprojected.
 }
 \examples{
 \dontrun{
-create_grid(spam_par = spam_par, border = adm, crs = "+proj=longlat +datum=WGS84 +no_defs")
+create_grid(spam_par = spam_par, border = adm, crs = "+init=epsg:4326")
 }
 }

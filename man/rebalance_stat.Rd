@@ -9,10 +9,10 @@ rebalance_stat(df, param)
 \arguments{
 \item{df}{tbl or data.frame}
 
-\item{param}{list that bundles SPAM parameters, including core model
-folders, alpha-3 country code, year, spatial resolution, most detailed level
-at which subnational statistics are available, administrative unit level at
-which the model is solved, type of model and coordinate reference system.}
+\item{param}{list that bundles SPAM parameters, including core model folders,
+alpha-3 country code, year, spatial resolution, most detailed level at which
+subnational statistics are available, administrative unit level at which the
+model is solved, type of model and coordinate reference system.}
 }
 \value{
 same class as \code{df}.

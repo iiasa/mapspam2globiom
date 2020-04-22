@@ -40,8 +40,7 @@
 #'  inputs are "max_score" and "min_entropy". See package documentation for more
 #'  information.
 #'@param crs coordinate reference system: integer with the EPSG code, or
-#'  character with proj4string. The default is WGS 84 (+proj=longlat
-#'  +datum=WGS84 +no_defs).
+#'  character with proj4string. The default is WGS84 (+init=epsg:4326).
 #'
 #'@return spam_par object
 #'
@@ -50,7 +49,7 @@
 #'spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
 #'iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
 #'solve_level = 0, model = "max_score",
-#'crs = "+proj=longlat +datum=WGS84 +no_defs")
+#'crs = "+init=epsg:4326")
 #'}
 #'@export
 spam_par <-
@@ -62,7 +61,7 @@ spam_par <-
              adm_level = 1,
              solve_level = 0,
              model = "max_score",
-             crs = "+proj=longlat +datum=WGS84 +no_defs") {
+             crs = "+init=epsg:4326") {
 
         if (is.null(raw_path)) {
             message("raw_path is not defined, set to raw_data in main folder")
