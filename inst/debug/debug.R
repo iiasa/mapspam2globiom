@@ -5,3 +5,5 @@ param <- spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
 
 create_spam_folders(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi")
 
+
+d
