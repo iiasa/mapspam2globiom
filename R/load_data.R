@@ -117,7 +117,7 @@ load_data <- function(fl, param, local = FALSE){
     file <- file.path(param$spam_path,
                       glue::glue("processed_data/maps/cropland/cl_med_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
-      load_list[["cl_med"]] <- suppressMessages(raster::raster(file))
+      load_list[["cl_med"]] <- raster::raster(file)
       names(load_list[["cl_med"]]) <- "cl_med"
     } else {
       stop(paste(basename(file), "does not exist"),
@@ -130,7 +130,7 @@ load_data <- function(fl, param, local = FALSE){
     file <- file.path(param$spam_path,
                       glue::glue("processed_data/maps/cropland/cl_max_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
-      load_list[["cl_max"]] <- suppressMessages(raster::raster(file))
+      load_list[["cl_max"]] <- raster::raster(file)
       names(load_list[["cl_max"]]) <- "cl_max"
     } else {
       stop(paste(basename(file), "does not exist"),
@@ -142,7 +142,7 @@ load_data <- function(fl, param, local = FALSE){
     file <- file.path(param$spam_path,
                       glue::glue("processed_data/maps/cropland/cl_rank_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
-      load_list[["cl_rank"]] <- suppressMessages(raster::raster(file))
+      load_list[["cl_rank"]] <- raster::raster(file)
       names(load_list[["cl_rank"]]) <- "cl_rank"
     } else {
       stop(paste(basename(file), "does not exist"),
@@ -154,7 +154,7 @@ load_data <- function(fl, param, local = FALSE){
     file <- file.path(param$spam_path,
                       glue::glue("processed_data/maps/irrigated_area/ia_max_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
-      load_list[["ia_max"]] <- suppressMessages(raster::raster(file))
+      load_list[["ia_max"]] <- raster::raster(file)
       names(load_list[["ia_max"]]) <- "ia_max"
     } else {
       stop(paste(basename(file), "does not exist"),
@@ -166,13 +166,14 @@ load_data <- function(fl, param, local = FALSE){
     file <- file.path(param$spam_path,
                       glue::glue("processed_data/maps/irrigated_area/ia_rank_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
-      load_list[["ia_rank"]] <- suppressMessages(raster::raster(file))
+      load_list[["ia_rank"]] <- raster::raster(file)
       names(load_list[["ia_rank"]]) <- "ia_rank"
     } else {
       stop(paste(basename(file), "does not exist"),
            call. = FALSE)
     }
   }
+
   message(glue::glue("{fPaste(fl)} loaded"))
   if(local == TRUE) {
     invisible(list2env(load_list, envir = parent.frame()))

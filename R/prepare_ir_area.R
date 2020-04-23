@@ -23,14 +23,15 @@ prepare_ir_area <- function(param){
   grid_size <- grid_size * 100 # in ha
   names(grid_size) <- "grid_size"
 
+  # Combine and remove cells where gridID is missing
+  df <- as.data.frame(raster::rasterToPoints(raster::stack(grid, ia_rank, ia_max, grid_size))) %>%
+    dplyr::filter(!is.na(gridID))
+
   # Fix inconsistencies
   # Set ia_max to grid_size if it is larger than grid_size
   df <- df %>%
     dplyr::mutate(ia_max = ifelse(grid_size < ia_max, grid_size, ia_max))
 
-  # Combine and remove cells where gridID is missing
-  df <- as.data.frame(raster::rasterToPoints(raster::stack(grid, ia_rank, ia_max, grid_size))) %>%
-    dplyr::filter(!is.na(gridID))
 
   # Remove gridID where ia_rank is NA
   df <- df %>%
@@ -44,6 +45,6 @@ prepare_ir_area <- function(param){
   }
 
   # Save in line with solve level
-  purrr::walk(adm_code_list, split_spatial, ia_df, "ia", adm_map_r, param)
+  purrr::walk(adm_code_list, split_spatial, df, "ia", adm_map_r, param)
 }
 

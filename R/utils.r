@@ -79,78 +79,12 @@ compare_adm2 <- function(df1, df2, level, out = F){
 # Function to paste a vector but replace last one by and
 fPaste <- function(vec) sub(",\\s+([^,]+)$", " and \\1", toString(vec))
 
-# Function split and save ir_df and cl_df in line with solve_level
-split_spatial <- function(adm_code, df, var, adm_map_r, param){
-    message(glue::glue("Save {var} for {adm_code}"))
-    adm_sel <- paste0("adm", param$solve_level, "_code")
-    df <- dplyr::left_join(df, adm_map_r, by = c("gridID")) %>%
-        na.omit()
-    df <- df[df[[adm_sel]] == adm_code,]
-
-    temp_path <- file.path(param$spam_path,
-                           glue::glue("processed_data/intermediate_output/{adm_code}"))
-    dir.create(temp_path, recursive = T, showWarnings = F)
-    saveRDS(df, file.path(temp_path,
-                          glue::glue("{var}_{param$year}_{adm_code}_{param$iso3c}.rds")))
+# Function to create grid area
+calc_grid_size <- function(grid) {
+    grid_size <- raster::area(grid)
+    grid_size <- grid_size * 100 # in ha
+    names(grid_size) <- "grid_size"
+    return(grid)
 }
 
-# Function to combine ha, fs and ci and split
-# Need to split first and then combine as in split version, adm specific fs and ci are used
-split_stat <- function(adm_code, ha, fs, ci, param){
-    message(glue("Save pa and pa_fs statistics for {adm_code}"))
-
-    ha_adm <- bind_rows(
-        ha[ha$adm_code == adm_code,],
-        ha[ha$adm_code %in% adm_list$adm1_code[adm_list$adm0_code == adm_code],],
-        ha[ha$adm_code %in% adm_list$adm2_code[adm_list$adm1_code == adm_code],],
-        ha[ha$adm_code %in% adm_list$adm2_code[adm_list$adm0_code == adm_code],]) %>%
-        unique()
-
-    # Select fs and ci for top level ADM only. We apply these to lower levels.
-    fs_adm <- bind_rows(
-        fs[fs$adm_code == adm_code,]) %>%
-        dplyr::select(-adm_code, -adm_name, -adm_level) %>%
-        unique()
-
-    ci_adm <- bind_rows(
-        ci[ci$adm_code == adm_code,]) %>%
-        dplyr::select(-adm_code, -adm_name, -adm_level) %>%
-        unique()
-
-    # Calculate physical area using cropping intensity information.
-    pa_adm <- ha_adm %>%
-        left_join(ci_adm, by = "crop")  %>%
-        left_join(fs_adm, by = c("crop", "system")) %>%
-        mutate(pa = ha*fs/ci) %>%
-        group_by(adm_name, adm_code, crop, adm_level) %>%
-        summarize(pa = plus(pa, na.rm = T)) %>%
-        ungroup()
-
-    # Calculate physical area broken down by farming systems
-    pa_fs_adm <- pa_adm %>%
-        filter(adm_code == adm_code) %>%
-        left_join(fs_adm, by = "crop") %>%
-        mutate(pa = pa*fs) %>%
-        dplyr::select(-fs) %>%
-        ungroup()
-
-    # consistency check
-    compare_adm2(pa_adm, pa_fs_adm, param$solve_level)
-
-    pa_adm <- pa_adm %>%
-        spread(crop, pa) %>%
-        arrange(adm_code, adm_name, adm_level)
-
-    pa_fs_adm <- pa_fs_adm %>%
-        spread(crop, pa) %>%
-        arrange(adm_code, adm_name, adm_level)
-
-    temp_path <- file.path(param$spam_path,
-                           glue::glue("processed_data/intermediate_output/{adm_code}"))
-    dir.create(temp_path, recursive = T, showWarnings = F)
-    write_csv(pa_adm, file.path(temp_path,
-                                glue::glue("pa_{param$year}_{adm_code}_{param$iso3c}.csv")))
-    write_csv(pa_fs_adm, file.path(temp_path,
-                                   glue::glue("pa_fs_{param$year}_{adm_code}_{param$iso3c}.csv")))
-}
 

@@ -23,6 +23,8 @@
 #'
 #'@export
 prepare_pa_stat <- function(ha, fs, ci, param){
+    load_data("adm_list", param, local = TRUE)
+
     # Set adm_level
     if(param$solve_level == 0) {
         adm_code_list <- unique(adm_list$adm0_code)
