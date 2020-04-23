@@ -1,22 +1,52 @@
 # function to compare cl_med with pa, and replace by cl_max if needed
+# https://www.tidyverse.org/blog/2019/06/rlang-0-4-0/#a-simpler-interpolation-pattern-with
+
 #' @importFrom rlang .data
 #'
 adm_level_sel <- 2
 df <- cl2_df
+var <- "cl2"
 update_cl <- function(adm_level_sel, df, pa_adm_tot){
 
   # set adm
 }
-rm(adm_code)
-rename_var <- dplyr::quo(adm2_code)
-adm_code
 
+rename_var <- dplyr::quo(adm2_code)
+#rename_var <- dplyr::quo(adm1_code)
+var_sum <- "cl2"
+
+x <- function(df, var_sum, ren){
+  adm_check <- df %>%
+    dplyr::rename(adm_code = {{ren}}) %>%
+    dplyr::group_by(adm_code) %>%
+    dplyr::summarize(cl2 = sum(.data[[var_sum]], na.rm = T),
+                     cl_max = sum(cl_max, na.rm = T))
+  return(adm_check)
+}
+
+x(cl2_df, "cl2", adm2_code)
+
+
+starwars %>%
+  group_by(gender) %>%
+  summarise(mass_maximum = max(mass, na.rm = TRUE))
+
+data(starwars)
+max_by <- function(data, var, by) {
+  data %>%
+    group_by(!!enquo(by)) %>%
+    summarise(maximum = max(!!enquo(var), na.rm = TRUE))
+}
+
+starwars %>% max_by(mass, by = gender)
+
+x(cl2_df, var = cl2, ren = adm2_code)
 
 # Check for which adm cl < pa
 adm_check <- df %>%
   dplyr::rename(adm_code = !!rename_var) %>%
   dplyr::group_by(adm_code) %>%
-  dplyr::summarize(cl2 = sum(cl2, na.rm = T),
+  dplyr::summarize(cl2 = sum(!!dplyr::enquo(var_sum), na.rm = T),
                    cl_max = sum(cl_max, na.rm = T)) %>%
   dplyr::left_join(pa_adm_tot %>%
                      dplyr::filter(adm_level == adm_level_sel)) %>%
