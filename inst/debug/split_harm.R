@@ -1,12 +1,12 @@
 #'Harmonizes data in line with solve level
 #'
-#'@import magrittr
+#'@importFrom magrittr %>%
 #'
 #'
 #'
 #'
 
-adm_code <- "MI03"
+adm_code <- "MWI"
 
 split_harm <- function(adm_code, param)
 
@@ -47,7 +47,7 @@ split_harm <- function(adm_code, param)
   # is at the moment not supported in this version of spam.
   cl2_df <- cl1_df %>%
     dplyr::mutate(cl2 = cl1,
-           dt = "N",
+           #dt = "N",
            cl_rank2 = cl_rank)
 
   # Remove gridID where cl_rank is NA
@@ -55,156 +55,8 @@ split_harm <- function(adm_code, param)
     dplyr::filter(!is.na(cl_rank2))
 
 
-  ############### STEP 3A: COMPARE CL AND PA FOR ADM2 ###############
-  # adm2 where cl < pa
-  adm2_check <- cl2_df %>%
-    dplyr::group_by(adm2_name, adm2_code) %>%
-    dplyr::summarize(cl2 = sum(cl2, na.rm = T),
-              cl_max = sum(cl_max, na.rm = T)) %>%
-    dplyr::left_join(pa_adm_tot %>%
-                dplyr::filter(adm_level == 2) %>%
-                  dplyr::rename(adm2_name = adm_name)) %>%
-    dplyr::mutate(diff_cl = cl2-pa,
-           diff_cl_max = cl_max-pa) %>%
-    dplyr::filter(diff_cl < 0)
-
-  # replace cl_area with cl_area max apart for dt if needed
-  if(NROW(adm2_check) == 0) {
-    message("No adjustments needed for cl")
-    cl3_df <- cl2_df %>%
-      mutate(cl3 = cl2)
-  } else {
-    message("cl need to be set to cl_max for following adm2s")
-    print(adm2_check)
-    cl3_df <- cl2_df %>%
-      mutate(cl3 = ifelse(adm2_name %in% adm2_check$adm2_name & dt == "N", cl_max, cl2))
-
-    # check again
-    adm2_pa_gr_cl <- cl3_df %>%
-      group_by(adm2_name, adm2_code) %>%
-      summarize(cl3 = sum(cl3, na.rm = T),
-                grid_size = sum(grid_size, na.rm = T)) %>%
-      left_join(pa_adm_tot %>%
-                  filter(adm_level == 2) %>%
-                  rename(adm2_name = adm_name)) %>%
-      mutate(diff = cl3-pa,
-             exp_factor = pa/cl3) %>%
-      filter(diff < 0)
-
-    if(NROW(adm2_pa_gr_cl) == 0) {
-      message("No further adjustments needed for adm2s")
-    } else {
-      message("Further adjustments needed for the following adm2s after setting to cl_max")
-      print(adm2_pa_gr_cl)
-    }
-  }
-
-
-  ############### STEP 3b: INCREASE CL FURTHER FOR PROBLEMATIC ADM2 IF NEEDED ###############
-  #UPDATE ADD IF STATEMENT FOR THIS SECTION => if(!is.null(adm2_lu_gr_cl))
-
-  # # Estimate expansion factor
-  # exp_factor <- adm2_lu_gr_cl %>%
-  #   dplyr::select(fips2, adm2, exp_factor)
-  #
-  # # Expand cl with exp_factor x gamma to grid size excluding lu_det
-  # # cl cannot be larger than grid size
-  #
-  # # CHECK: add protected areas cannot expand
-  # # CHECK: should be itterative process for each problematic adm where cl is slowly increased towards grid size till lu is reached
-  # gamma <- 5
-  # adm_expand <- left_join(exp_factor, cl3_df) %>%
-  #   mutate(cl3 = ifelse(lu_det == "N", pmin(grid_size, cl3*exp_factor*gamma), cl3)) %>%
-  #   dplyr::select(-exp_factor)
-  #
-  # # Check whether the expansion is sufficient to cover lu
-  # adm_expand %>%
-  #   group_by(adm2, fips2) %>%
-  #   summarize(cl3 = plus(cl3),
-  #             grid_size = sum(grid_size)) %>%
-  #   left_join(lu_adm_tot %>%
-  #               filter(adm_level == 2) %>%
-  #               rename(adm2 = adm)) %>%
-  #   mutate(diff = cl3-lu,
-  #          share = lu/cl3)
-  #
-  # # Update cl3 of problematic adm MI04007
-  # cl3_df <- bind_rows(
-  #   cl3_df %>%
-  #     filter(fips2 != "MI04007"),
-  #   adm_expand)
-  #
-
-  ############### STEP 4: COMPARE CL AND PA FOR ADM1 ###############
-  # NOTE: if sum(adm1) = sum(adm2) this step is redundant
-  # adm1 where cl < lu
-  adm1_check <- cl3_df %>%
-    group_by(adm1_code, adm1_name) %>%
-    summarize(cl3 = sum(cl3, na.rm = T)) %>%
-    left_join(pa_adm_tot %>%
-                filter(adm_level == 1) %>%
-                rename(adm1_name = adm_name)) %>%
-    mutate(diff = cl3-pa) %>%
-    filter(diff < 0)
-
-  # replace cl_area with cl_area max apart for lu_det if needed
-  if(NROW(adm1_check) == 0) {
-    message("No adjustments needed for cl")
-    cl4_df <- cl3_df %>%
-      mutate(cl4 = cl3)
-  } else {
-    message("cl need to be set to cl_max for following adm1s")
-    print(adm1_check)
-    cl4_df <- cl3_df %>%
-      mutate(cl4 = ifelse(adm1_name %in% adm1_check$adm1_name & dt == "N", cl_max, cl3))
-
-    # check again
-    adm1_pa_gr_cl <- cl4_df %>%
-      group_by(adm1, fips1) %>%
-      summarize(cl4 = sum(cl4, na.rm = T),
-                grid_size = sum(grid_size, na.rm = T)) %>%
-      left_join(pa_adm_tot %>%
-                  filter(adm_level == 1) %>%
-                  rename(adm1_name = adm_name)) %>%
-      mutate(diff = cl4-lu,
-             exp_factor = lu/cl4) %>%
-      filter(diff < 0)
-
-    if(NROW(adm1_pa_gr_cl) == 0) {
-      message("No further adjustments needed for adm1s")
-    } else {
-      message("Further adjustments needed for the following adm2s after setting to cl_max")
-      print(adm1_pa_gr_cl)
-    }
-  }
-
-
-  ############### STEP 5: COMPARE CL AND PA FOR ADM0 ###############
-  # NOTE: if sum(adm0) = sum(adm1) this step is redundant
-  # adm0 where cl < lu
-  adm0_check <- cl4_df %>%
-    group_by(adm0_name, adm0_code) %>%
-    summarize(cl4 = sum(cl4, na.rm = T)) %>%
-    left_join(pa_adm_tot %>%
-                filter(adm_level == 0) %>%
-                rename(adm0_name = adm_name)) %>%
-    mutate(diff = cl4-pa) %>%
-    filter(diff < 0)
-
-  # replace cl_area with cl_area max if needed
-  cl5_df <- cl4_df %>%
-    mutate(cl5 = ifelse(adm0_name %in% adm0_check$adm0_name & dt == "N", cl_max, cl4))
-
-  # check again
-  adm0_pa_gr_cl <- cl5_df %>%
-    group_by(adm1_name, adm1_code) %>%
-    summarize(cl5 = sum(cl5, na.rm = T)) %>%
-    left_join(pa_adm_tot %>%
-                filter(adm_level == 1) %>%
-                rename(adm1_name = adm_name)) %>%
-    mutate(diff = cl5-pa) %>%
-    filter(diff < 0)
-
+  ############### STEP 3: UPDATE CL   ###############
+  cl3_df <- update_cl(cl2_df, param)
 
   ############### STEP 6: ADD IRRIGATION INFORMATION ###############
   # Slack is x times max grid size

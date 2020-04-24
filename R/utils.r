@@ -84,7 +84,7 @@ calc_grid_size <- function(grid) {
     grid_size <- raster::area(grid)
     grid_size <- grid_size * 100 # in ha
     names(grid_size) <- "grid_size"
-    return(grid)
+    return(grid_size)
 }
 
 

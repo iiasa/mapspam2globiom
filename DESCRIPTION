@@ -35,9 +35,9 @@ Imports:
     glue,
     countrycode,
     raster,
-    magrittr
+    magrittr,
+    knitr
 Suggests: 
-    knitr,
     rmarkdown,
     spelling,
     gdxrrw
