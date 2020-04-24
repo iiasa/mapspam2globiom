@@ -1,7 +1,7 @@
 # functions to compare cl_med with pa and replace where needed.
-check_cl <- function(df, adm_level){
-  message("adm level: ", adm_level)
-  rn <- paste0("adm", adm_level, "_code")
+check_cl <- function(df, adm_lvl){
+  message("adm level: ", adm_lvl)
+  rn <- paste0("adm", adm_lvl, "_code")
   cl_check <- df %>%
     dplyr::rename(adm_code = {{rn}}) %>%
     dplyr::group_by(adm_code) %>%
@@ -9,13 +9,14 @@ check_cl <- function(df, adm_level){
                      cl_tot_max = sum(cl_max, na.rm = T),
                      grid_tot = sum(grid_size, na.rm = T)) %>%
     dplyr::left_join(pa_adm_tot %>%
-                       dplyr::filter(adm_level == adm_level), by = "adm_code") %>%
+                       dplyr::filter(adm_level == adm_lvl), by = "adm_code") %>%
     dplyr::mutate(short = cl_tot-pa,
                   short_max = cl_tot_max-pa,
                   short_gs = grid_tot-pa) %>%
     dplyr::select(adm_code, adm_name, adm_level, cl_tot, cl_tot_max, grid_tot, pa, short, short_max,
                   short_gs) %>%
-    dplyr::arrange(adm_code, adm_name)
+    dplyr::arrange(adm_code, adm_name) %>%
+    dplyr::ungroup()
 
   problem_adm <- dplyr::filter(cl_check, short < 0)
   if(NROW(problem_adm) == 0) {
@@ -54,9 +55,9 @@ check_cl <- function(df, adm_level){
   return(problem_adm)
 }
 
-replace_cl <- function(df, problem_adm, adm_level) {
+update_cl <- function(df, problem_adm, adm_lvl) {
 
-  rn <- paste0("adm", adm_level, "_code")
+  rn <- paste0("adm", adm_lvl, "_code")
   if(NROW(problem_adm) > 0) {
     message("cl is updated to cl_max for the following adms")
     cl_max_rp <- problem_adm$adm_code[problem_adm$short_max > 0 & problem_adm$short_gs > 0]

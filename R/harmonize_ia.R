@@ -1,8 +1,6 @@
-df <- cl_df
-slackp <- 0.05
 
 #' Function to add irrigation information
-update_ia <- function(df, adm_code, slackp = 0.05) {
+harmonize_ia <- function(df, adm_code, slackp = 0.05) {
 
   # Rank irrigated grid cells till sum of cl under irrigation is at least equal
   # to the area of irrigated crops. We add the maximum of 1 grid_sell area or

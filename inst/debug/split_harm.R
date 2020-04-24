@@ -12,6 +12,8 @@ split_harm <- function(adm_code, param)
 
   adm_code <- "MWI"
 
+  ############### STEP 1: PREPARATIONS ###############
+  # Load data
   load_intermediate_data(c("adm_map", "adm_map_r", "grid", "cl", "ia", "pa", "pa_fs"), adm_code, param, local = T)
 
   # Put statistics in long format
@@ -34,7 +36,8 @@ split_harm <- function(adm_code, param)
     pa %>%
       dplyr::filter(adm_level == 0) %>%
       dplyr::group_by(adm_code, adm_name, adm_level) %>%
-      dplyr::summarise(pa = sum(pa, na.rm = T)))
+      dplyr::summarise(pa = sum(pa, na.rm = T))) %>%
+    dplyr::ungroup()
 
 
   ############### STEP 1: SET CL TO MEDIAN CROPLAND ###############
@@ -48,80 +51,15 @@ split_harm <- function(adm_code, param)
     dplyr::filter(!is.na(cl_rank))
 
 
-  ############### STEP 3: UPDATE CL   ###############
-  cl3_df <- update_cl(cl_df, param)
-
-  ############### STEP 4: UPDATE IA ###############
-  # Slack is x times max grid size
-  slack_ir = 10*max(cl1_df$grid_size)
-
-  # Rank irrigated grid cells till sum of cl under irrigation is slightly larger than irrigated pa
-  pa_I_tot <- sum(pa_fs$pa[pa_fs$system == "I"], na.rm = T)
-  cl_ir <- cl5_df %>%
-    dplyr::select(gridID, grid_size, cl5, cl_max) %>%
-    left_join(ir_area_raw) %>%
-    ungroup() %>%
-    filter(!is.na(ir_rank)) %>%
-    arrange(ir_rank, desc(cl5)) %>%
-    mutate(ir_tot = pa_I_tot,
-           cl_ir = cl5,
-           cl_cum = cumsum(cl_ir)) %>%
-    filter(cl_cum <= ir_tot + slack_ir)
-
-  if(max(cl_ir$cl_cum) > pa_I_tot){
-    message("Total irrigated area is sufficient.")
-  } else {
-    message("Not enough irrigated area, set cropland to max(cropland, irrigated area)")
-  }
-
-  # If total irrigated area is still smaller than irrigated pa, we set cl max(max(gia, gmia), cl).
-  if(max(cl_ir$cl_cum) < pa_I_tot){
-    cl_ir <- cl5_df %>%
-      dplyr::select(gridID, grid_size, cl5, cl_max) %>%
-      left_join(ir_area_raw) %>%
-      ungroup() %>%
-      filter(!is.na(ir_rank)) %>%
-      arrange(ir_rank, desc(cl5)) %>%
-      mutate(ir_tot = pa_I_tot,
-             cl_ir = pmax(cl5, ir_max, na.rm = T),
-             cl_cum = cumsum(cl_ir)) %>%
-      filter(cl_cum <= ir_tot + slack_ir)
-
-    if(max(cl_ir$cl_cum) > pa_I_tot){
-      message("Total irrigated area is sufficient.")
-    } else {
-      message("Still not enough irrigated area, set cropland to max(cropland_max, irrigated area)")
-    }
-  }
-
-  if(max(cl_ir$cl_cum) < pa_I_tot){
-    cl_ir <- cl5_df %>%
-      dplyr::select(gridID, grid_size, cl5, cl_max) %>%
-      left_join(ir_area_raw) %>%
-      ungroup() %>%
-      filter(!is.na(ir_rank)) %>%
-      arrange(ir_rank, desc(cl5)) %>%
-      mutate(ir_tot = pa_I_tot,
-             cl_ir = pmax(cl_max, ir_max, na.rm = T),
-             cl_cum = cumsum(cl_ir)) %>%
-      filter(cl_cum <= ir_tot + slack_ir)
-
-    if(max(cl_ir$cl_cum) > pa_I_tot){
-      message("Total irrigated area is sufficient.")
-    } else {
-      message(glue("There is a shortage of {ir_short} ha irrigated area, which will result in model slack.
-               Consider revising the irrigated area map"))}
-  }
-
-  # Add ir_area and update cl and rank
-  cl6_df <- cl5_df %>%
-    left_join(cl_ir %>%
-                dplyr::select(gridID, cl_ir)) %>%
-    mutate(cl6 = if_else(!is.na(cl_ir), cl_ir, cl5),
-           cl_rank3 = ifelse(!is.na(cl_ir), 0,  cl_rank2))
+  ############### STEP 2: HARMONIZE CL   ###############
+  cl_df <- harmonize_cl(cl_df, param)
 
 
-  ############### STEP 7: PREPARE FINAL CL MAP BY RANKING CELLS PER ADM ###############
+  ############### STEP 3: HARMONIZE IA ###############
+  cl_df <- harmonize_ia(cl_df, param)
+
+
+  ############### STEP 4: PREPARE FINAL CL MAP BY RANKING CELLS PER ADM ###############
   # We add 10 times the maximum grid_size as we need cl to equal cl or be slightly larger, not smaller. This will give a bit of slack.
   # If lu_adm = 0, which happens sometimes at the adm2 level, these adms are excluded from ranking.
   # TO_UPDATE/CHECK As there are many cells with  same rank, we also rank on area size from high to low so larger area is preferred over small
