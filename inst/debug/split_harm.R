@@ -6,9 +6,11 @@
 #'
 #'
 
-adm_code <- "MWI"
+
 
 split_harm <- function(adm_code, param)
+
+  adm_code <- "MWI"
 
   load_intermediate_data(c("adm_map", "adm_map_r", "grid", "cl", "ia", "pa", "pa_fs"), adm_code, param, local = T)
 
@@ -38,27 +40,18 @@ split_harm <- function(adm_code, param)
   ############### STEP 1: SET CL TO MEDIAN CROPLAND ###############
     # Create df of cl map,  set cl to median cropland
   # Remove few cells where gridID is missing, caused by masking grid with country borders using gdal.
-  cl1_df <- cl %>%
-    dplyr::mutate(cl1 = cl_med)
-
-
-  ############### STEP2: REPLACE CL WITH DT AND UPDATE RANK ###############
-  # Adding additional information from OpenStreetMap and/or machine learning products (See Van Dijk et al. 2020)
-  # is at the moment not supported in this version of spam.
-  cl2_df <- cl1_df %>%
-    dplyr::mutate(cl2 = cl1,
-           #dt = "N",
-           cl_rank2 = cl_rank)
+  cl_df <- cl %>%
+    dplyr::mutate(cl = cl_med)
 
   # Remove gridID where cl_rank is NA
-  cl2_df <- cl2_df %>%
-    dplyr::filter(!is.na(cl_rank2))
+  cl_df <- cl_df %>%
+    dplyr::filter(!is.na(cl_rank))
 
 
   ############### STEP 3: UPDATE CL   ###############
-  cl3_df <- update_cl(cl2_df, param)
+  cl3_df <- update_cl(cl_df, param)
 
-  ############### STEP 6: ADD IRRIGATION INFORMATION ###############
+  ############### STEP 4: UPDATE IA ###############
   # Slack is x times max grid size
   slack_ir = 10*max(cl1_df$grid_size)
 
