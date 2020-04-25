@@ -24,21 +24,16 @@ split_harm <- function(adm_code, param)
     tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level, -system)
 
   # Caclulate total pa for each adm
-  pa_adm_tot <- dplyr::bind_rows(
-    pa %>%
-      dplyr::filter(adm_level == 2) %>%
-      dplyr::group_by(adm_code, adm_name, adm_level) %>%
-      dplyr::summarise(pa = sum(pa, na.rm = T)),
-    pa %>%
-      dplyr::filter(adm_level == 1) %>%
-      dplyr::group_by(adm_code, adm_name, adm_level) %>%
-      dplyr::summarise(pa = sum(pa, na.rm = T)),
-    pa %>%
-      dplyr::filter(adm_level == 0) %>%
-      dplyr::group_by(adm_code, adm_name, adm_level) %>%
-      dplyr::summarise(pa = sum(pa, na.rm = T))) %>%
-    dplyr::ungroup()
 
+  calculate_adm_tot <- function(adm_lvl, df) {
+    df <- df %>%
+      dplyr::filter(adm_level == adm_lvl) %>%
+      dplyr::group_by(adm_code, adm_name, adm_level) %>%
+      dplyr::summarise(pa = sum(pa, na.rm = T))
+    return(df)
+  }
+
+  pa_adm_tot <- purrr::map_df(0:param$adm_level, calculate_adm_tot, pa)
 
   ############### STEP 1: SET CL TO MEDIAN CROPLAND ###############
     # Create df of cl map,  set cl to median cropland
