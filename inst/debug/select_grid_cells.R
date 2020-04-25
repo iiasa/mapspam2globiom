@@ -1,5 +1,19 @@
 df <- cl_df
 
+
+test <- data.frame(adm = c("adm0", "adm1", "adm2"),
+                   adm2 = c("adm0", "adm1", "adm1"),
+                   adm_tot = c(111, 110, 110),
+                   adm_level = c(0, 1, 2), stringsAsFactors = F
+)
+
+test %>%
+  dplyr::mutate(rank  = min_rank(adm_tot)) %>%
+  dplyr::group_by(rank) %>%
+  dplyr::arrange(desc(adm), .by_group = TRUE) %>%
+  dplyr::slice(1)
+
+
 select_cl <- function(df, param) {
   if (param$solve_level == 0) {
   grid_sel <- purrr::map_df(c(0:param$adm_level), rank_cl, df)
