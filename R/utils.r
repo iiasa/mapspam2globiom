@@ -87,4 +87,27 @@ calc_grid_size <- function(grid) {
     return(grid_size)
 }
 
+# Function to calculate total at given adm level
+calculate_adm_tot <- function(adm_lvl, adm_code, param) {
+    load_intermediate_data(c("pa"), adm_code, param, local = T,mess = F)
+
+    df <- pa %>%
+        tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level) %>%
+        dplyr::filter(adm_level == adm_lvl) %>%
+        dplyr::group_by(adm_code, adm_name, adm_level) %>%
+        dplyr::summarise(pa = sum(pa, na.rm = T)) %>%
+        dplyr::ungroup()
+    return(df)
+}
+
+# Function to create a map from gridID dataframe
+gridID2raster <- function(df, var, param){
+    load_data("grid", param, local = TRUE, mess = FALSE)
+    grid_df <- as.data.frame(raster::rasterToPoints(grid))
+    r <- dplyr::left_join(df, grid_df,  by = "gridID")
+    r <- raster::rasterFromXYZ(r[c("x", "y", var)], crs = param$crs)
+    return(r)
+}
+
+
 

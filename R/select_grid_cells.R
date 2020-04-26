@@ -29,8 +29,12 @@ select_grid_cells <- function(df, adm_code, param, cl_slackp, cl_slackn) {
                             param = param, cl_slackp = cl_slackp, cl_slackn = cl_slackn) %>%
     dplyr::filter(adm_level %in% adm_level_include) %>%
     dplyr::select(gridID, adm_level) %>%
-  dplyr::distinct()
+    dplyr::distinct()
   grid_sel <- grid_sel$gridID
-  return(grid_sel)
+
+  df_upd <- df %>%
+    dplyr::filter(gridID %in% grid_sel)
+
+  return(df_upd)
 }
 

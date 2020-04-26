@@ -11,7 +11,7 @@
 # Function to harmonize pa cl and ir according to solve_sel
 harmonize_inputs <- function(param){
 
-  load_data(c("adm_list", local = TRUE))
+  load_data(c("adm_list"), param, local = TRUE)
   if(param$solve_level == 0) {
     adm_code_list <- unique(adm_list$adm0_code)
   } else {

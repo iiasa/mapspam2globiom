@@ -4,7 +4,7 @@
 \alias{load_data}
 \title{Load input data for further processing}
 \usage{
-load_data(fl, param, local = FALSE)
+load_data(fl, param, local = FALSE, mess = T)
 }
 \description{
 Load input data for further processing

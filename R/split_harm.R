@@ -9,9 +9,13 @@ split_harm <- function(adm_code, param) {
 
   #https://stackoverflow.com/questions/7096989/how-to-save-all-console-output-to-file-in-r
 
+  message("\n\n--------------------------------------------------------------------------------------------------------------")
+  message(adm_code)
+  message("--------------------------------------------------------------------------------------------------------------")
+
   ############### STEP 1: LOAD DATA ###############
   # Load data
-  load_intermediate_data(c("cl"), adm_code, param, local = T)
+  load_intermediate_data(c("cl"), adm_code, param, local = T, mess = F)
 
   ############### STEP 2: SET CL TO MEDIAN CROPLAND ###############
     # Create df of cl map,  set cl to median cropland
@@ -22,7 +26,6 @@ split_harm <- function(adm_code, param) {
   # Remove gridID where cl_rank is NA
   cl_df <- cl_df %>%
     dplyr::filter(!is.na(cl_rank))
-
 
   ############### STEP 3: HARMONIZE CL   ###############
   cl_df <- harmonize_cl(df = cl_df, adm_code, param)
@@ -64,12 +67,12 @@ split_harm <- function(adm_code, param) {
 
   saveRDS(cl_harm_df, file.path(temp_path,
     glue::glue("cl_harm_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds")))
-  writeRaster(cl_harm_r, file.path(temp_path,
+  raster::writeRaster(cl_harm_r, file.path(temp_path,
     glue::glue("cl_harm_r_{param$res}_{param$year}_{adm_code}_{param$iso3c}.tif")), overwrite = T)
 
   # ia_harm
   saveRDS(ia_harm_df, file.path(temp_path,
     glue::glue("ia_harm_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds")))
-  writeRaster(ia_harm_r, file.path(temp_path,
+  raster::writeRaster(ia_harm_r, file.path(temp_path,
     glue::glue("ia_harm_r_{param$res}_{param$year}_{adm_code}_{param$iso3c}.tif")), overwrite = T)
 }

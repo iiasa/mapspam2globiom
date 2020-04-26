@@ -1,7 +1,7 @@
 #'Load input data for further processing
 #'
 #'@export
-load_data <- function(fl, param, local = FALSE){
+load_data <- function(fl, param, local = FALSE, mess = T){
   fl <- match.arg(fl, c("adm_list", "adm_map", "adm_map_r",
                         "cl_med", "cl_max", "cl_rank",
                         "ia_max", "ia_rank",
@@ -174,7 +174,9 @@ load_data <- function(fl, param, local = FALSE){
     }
   }
 
-  message(glue::glue("{fPaste(fl)} loaded"))
+  if(mess) {
+    message(glue::glue("{fPaste(fl)} loaded"))
+  }
   if(local == TRUE) {
     invisible(list2env(load_list, envir = parent.frame()))
   } else {

@@ -1,6 +1,6 @@
 #'Load intermediate output in line with solve level for further processing
 #'
-load_intermediate_data <- function(fl, adm_code, param, local = TRUE){
+load_intermediate_data <- function(fl, adm_code, param, local = TRUE, mess = TRUE){
   fl <- match.arg(fl, c("adm_map", "adm_map_r", "grid",
                         "cl", "ia", "ir", "pa", "pa_fs"),
                   several.ok = TRUE)
@@ -84,8 +84,11 @@ load_intermediate_data <- function(fl, adm_code, param, local = TRUE){
     }
   }
 
-  message(glue::glue("{fPaste(fl)} loaded"))
-  if(local == TRUE) {
+  if(mess) {
+    message(glue::glue("{fPaste(fl)} loaded"))
+  }
+
+  if(local) {
     invisible(list2env(load_list, envir = parent.frame()))
   } else {
     invisible(list2env(load_list, envir = .GlobalEnv))

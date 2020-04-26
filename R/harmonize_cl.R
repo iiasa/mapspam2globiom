@@ -1,17 +1,16 @@
 #'Function that iterates over adm level starting with the most detailed and
 #'update cl so it is in line with pa.
-harmonize_cl <- function(df, param) {
+harmonize_cl <- function(df, adm_code, param) {
   if (param$solve_level == 0) {
     for (i in param$adm_level:0) {
-      problem_adm <- check_cl(df, i)
-      df <- update_cl(df, problem_adm, i)
+      problem_adm <- check_cl(df = df, adm_lvl =  i, adm_code, param)
+      df <- update_cl(df, problem_adm = problem_adm, adm_lvl = i)
     }
   }
   if (param$solve_level == 1) {
-    for (i in seq_along(0:param$adm_level)) {
-      problem_adm <- check_cl(df, i)
-      df <-
-        update_cl(df, problem_adm, i)
+    for (i in seq_along(param$adm_level:1)) {
+      problem_adm <- check_cl(df = df, adm_lvl =  i, adm_code, param)
+      df <- update_cl(df, problem_adm = problem_adm, adm_lvl = i)
     }
   }
   return(df)
