@@ -8,7 +8,7 @@ harmonize_cl <- function(df, adm_code, param) {
     }
   }
   if (param$solve_level == 1) {
-    for (i in seq_along(param$adm_level:1)) {
+    for (i in param$adm_level:1) {
       problem_adm <- check_cl(df = df, adm_lvl =  i, adm_code, param)
       df <- update_cl(df, problem_adm = problem_adm, adm_lvl = i)
     }

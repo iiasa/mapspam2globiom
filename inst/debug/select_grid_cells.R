@@ -24,7 +24,7 @@ select_grid_cells <- function(df, adm_code, param, cl_slackp, cl_slackn) {
 
   # Rank and include grid cells at each adm level and select according to rule
   # as described above.
-  message("Grid cells of the following adm levels are included: ", fPaste(adm_level_include))
+  cat("\nGrid cells of the following adm levels are included: ", fPaste(adm_level_include))
   grid_sel <- purrr::map_df(c(0:param$adm_level), rank_cl, df = df, adm_code = adm_code,
                             param = param, cl_slackp = cl_slackp, cl_slackn = cl_slackn) %>%
     dplyr::filter(adm_level %in% adm_level_include) %>%

@@ -1,7 +1,7 @@
 # functions to compare cl_med with pa and replace where needed.
 check_cl <- function(df, adm_lvl, adm_code, param){
 
-  message("\nadm level: ", adm_lvl)
+  cat("\nadm level: ", adm_lvl)
 
   pa_adm_tot <- purrr::map_df(0:param$adm_level, calculate_adm_tot, adm_code, param)
   rn <- paste0("adm", adm_lvl, "_code")
@@ -24,14 +24,14 @@ check_cl <- function(df, adm_lvl, adm_code, param){
 
   problem_adm <- dplyr::filter(cl_check, short < 0)
   if(NROW(problem_adm) == 0) {
-    message("No adjustments needed for cropland")
+    cat("\nNo adjustments needed for cropland")
   } else {
     cl_max_rp <- problem_adm$adm_code[problem_adm$short_max > 0 & problem_adm$short_gs > 0]
     cl_not_rp1 <- problem_adm$adm_code[problem_adm$short_max < 0 & problem_adm$short_gs > 0]
     cl_not_rp2 <- problem_adm$adm_code[problem_adm$short_max < 0 & problem_adm$short_gs < 0]
 
     if(length(cl_max_rp) > 0) {
-      message("\nFor the following ADMs, cl is set to cl_max to solve inconsistencies.")
+      cat("\nFor the following ADMs, cl is set to cl_max to solve inconsistencies.")
       print(knitr::kable(problem_adm %>%
               dplyr::filter(adm_code %in% cl_max_rp),
               digits = 0,
@@ -39,8 +39,8 @@ check_cl <- function(df, adm_lvl, adm_code, param){
     }
 
     if(length(cl_not_rp1) > 0) {
-      message("\nFor the following ADMs, cl is larger than cl_max.",
-               "\nThis will result in slack if the statistics are not revised.")
+      cat("\nFor the following ADMs, cl is larger than cl_max.",
+          "\nThis will result in slack if the statistics are not revised.")
       print(knitr::kable(problem_adm %>%
               dplyr::filter(adm_code %in% cl_not_rp1),
               digits = 0,
@@ -48,8 +48,8 @@ check_cl <- function(df, adm_lvl, adm_code, param){
     }
 
     if(length(cl_not_rp2) > 0) {
-      message("\nFor the following ADMs, cl is larger than cl_max and even the grid size.",
-              "\nThis will result in slack if the statistics are not revised.")
+      cat("\nFor the following ADMs, cl is larger than cl_max and even the grid size.",
+          "\nThis will result in slack if the statistics are not revised.")
       print(knitr::kable(problem_adm %>%
               dplyr::filter(adm_code %in% cl_not_rp2),
               digits = 0,
@@ -63,7 +63,7 @@ update_cl <- function(df, problem_adm, adm_lvl) {
 
   rn <- paste0("adm", adm_lvl, "_code")
   if(NROW(problem_adm) > 0) {
-    message("cl is updated to cl_max for the following adms")
+    cat("\ncl is updated to cl_max for the following adms")
     cl_max_rp <- problem_adm$adm_code[problem_adm$short_max > 0 & problem_adm$short_gs > 0]
     solved_adm <- problem_adm %>%
       dplyr::filter(adm_code %in% cl_max_rp) %>%

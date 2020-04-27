@@ -2,7 +2,8 @@
 #'
 load_intermediate_data <- function(fl, adm_code, param, local = TRUE, mess = TRUE){
   fl <- match.arg(fl, c("adm_map", "adm_map_r", "grid",
-                        "cl", "ia", "ir", "pa", "pa_fs"),
+                        "cl", "ia", "ir", "pa", "pa_fs",
+                        "cl_harm"),
                   several.ok = TRUE)
   load_list <- list()
 
@@ -44,6 +45,17 @@ load_intermediate_data <- function(fl, adm_code, param, local = TRUE, mess = TRU
       glue::glue("processed_data/intermediate_output/{adm_code}/pa_fs_{param$year}_{adm_code}_{param$iso3c}.csv"))
     if(file.exists(file)) {
       load_list[["pa_fs"]] <- suppressMessages(readr::read_csv(file))
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("cl_harm" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/intermediate_output/{adm_code}/cl_harm_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds"))
+    if(file.exists(file)) {
+      load_list[["cl_harm"]] <- readRDS(file)
     } else {
       stop(paste(basename(file), "does not exist"),
            call. = FALSE)

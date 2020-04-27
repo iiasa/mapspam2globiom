@@ -28,21 +28,21 @@ harmonize_ia <- function(df, adm_code, param, ia_slackp) {
            cl_ia_cum3 = cumsum(cl_ia3))
 
   if (max(cl_ia$cl_ia_cum) >= pa_I_tot) {
-    message("Irrigated area is sufficient")
+    cat("\nIrrigated area is sufficient")
     cl_ia <- cl_ia %>%
       dplyr::filter(cl_ia_cum <= pa_I_tot)
   } else {
     if (max(cl_ia$cl_ia_cum2) >= pa_I_tot) {
-      message("Irrigated area is sufficient when full cl is assumed to be irrigated")
+      cat("\nIrrigated area is sufficient when full cl is assumed to be irrigated")
       cl_ia <- cl_ia %>%
         dplyr::filter(cl_ia_cum2 <= pa_I_tot)
     } else {
       if (max(cl_ia$cl_ia_cum3) >= pa_I_tot) {
-        message("Irrigated area is sufficient when full cl_max is assumed to be irrigated")
+        cat("\nIrrigated area is sufficient when full cl_max is assumed to be irrigated")
         cl_ia <- cl_ia %>%
           dplyr::filter(cl_ia_cum3 <= pa_I_tot)
       } else {
-        message("There is not enough irrigated area, which will result in slack.")
+        cat("\nThere is not enough irrigated area, which will result in slack.")
       }
     }
   }

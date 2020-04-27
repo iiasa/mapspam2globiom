@@ -8,10 +8,14 @@
 split_harm <- function(adm_code, param) {
 
   #https://stackoverflow.com/questions/7096989/how-to-save-all-console-output-to-file-in-r
-
-  message("\n\n--------------------------------------------------------------------------------------------------------------")
-  message(adm_code)
-  message("--------------------------------------------------------------------------------------------------------------")
+  log_file = file(file.path(param$spam_path,
+                       glue::glue("processed_data/intermediate_output/{adm_code}/log_{param$res}_{param$year}_{adm_code}_{param$iso3c}.log")))
+  #sink(file = log_file, append = TRUE)
+  #sink(file = log_file, append = TRUE, type="cat")
+  capture.output(file = log_file, append = FALSE, split = T,{
+  cat("\n\n--------------------------------------------------------------------------------------------------------------")
+  cat("\n", adm_code)
+  cat("\n--------------------------------------------------------------------------------------------------------------")
 
   ############### STEP 1: LOAD DATA ###############
   # Load data
@@ -75,4 +79,5 @@ split_harm <- function(adm_code, param) {
     glue::glue("ia_harm_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds")))
   raster::writeRaster(ia_harm_r, file.path(temp_path,
     glue::glue("ia_harm_r_{param$res}_{param$year}_{adm_code}_{param$iso3c}.tif")), overwrite = T)
+  })
 }

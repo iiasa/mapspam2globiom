@@ -1,6 +1,6 @@
 # Function split and save ir_df and cl_df in line with solve_level
 split_spatial <- function(adm_code, df, var, adm_map_r, param){
-  message(glue::glue("Save {var} for {adm_code}"))
+  cat(glue::glue("Save {var} for {adm_code}"))
   adm_sel <- paste0("adm", param$solve_level, "_code")
   df <- dplyr::left_join(df, adm_map_r, by = c("gridID")) %>%
     na.omit()
