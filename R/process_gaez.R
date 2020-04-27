@@ -1,25 +1,75 @@
 # Process gaez
-process_gaez <- function(file, adm_code, param) {
+process_gaez <- function(file, var, lookup, adm_code, param) {
 
+  # Prepare
   load_intermediate_data(c("grid", "cl_harm"), adm_code, param, local = TRUE, mess = FALSE)
-  r <- raster::raster(file)
-  names(r) <- "value"
+  crp_sys <- basename(file)
+  crp_sys <- unlist(lapply(strsplit(crp_sys, "_"), function(x) paste(x[1], x[2], sep="_")))
+  crp <- strsplit(crp_sys, split = "_")[[1]][1]
+  sys <- strsplit(crp_sys, split = "_")[[1]][2]
+  cat("\nProcessing: ", var, " ", crp_sys)
 
-  cs <- basename(file)
-  cs <- unlist(lapply(strsplit(cs, "_"), function(x) paste(x[1], x[2], sep="_")))
-  cat("\n", cs)
+  # Get replacement crops
+  rep_crops <- readxl::read_excel(file.path(param$spam_path,
+                                    "parameters/mappings_spam.xlsx"), sheet = "gaez_rc") %>%
+    tidyr::gather(number, rep_crop, -crop) %>%
+    dplyr::mutate(number = as.integer(gsub("rc_", "", number))) %>%
+    dplyr::filter(crop %in% crp)
+  rep_crops <- rep_crops$rep_crop
 
-  # Combine with grid, select only relevant gridID and add crop_system
-  df <- as.data.frame(raster::rasterToPoints(raster::stack(grid, r))) %>%
-    dplyr::filter(gridID %in% cl_harm$gridID) %>%
-    dplyr::mutate(crop_system = cs)
+  # Set initial values for repeat loop
+  cp_cnt <- 0
+  no_rc <- FALSE
+  crp_sys_rep <- crp_sys
+  target_rc <- crp
 
-  # Fix inconsistencies. Set any negative (some files have very small negative
-  # values) and NA values to zero
-  df <- df %>%
-    dplyr::mutate(value = ifelse(is.na(value) | value < 0, 0, value))
+  # Loop till gaez data are all non zero
+  repeat{
+    r <- raster::raster(file)
+    names(r) <- "value"
+
+    # Combine with grid, select only relevant gridID and add crop_system
+    df <- as.data.frame(raster::rasterToPoints(raster::stack(grid, r))) %>%
+      dplyr::filter(gridID %in% cl_harm$gridID) %>%
+      dplyr::mutate(crop_system = crp_sys)
+
+    # Fix inconsistencies. Set any negative (some files have very small negative
+    # values) and NA values to zero
+    df <- df %>%
+      dplyr::mutate(value = ifelse(is.na(value) | value < 0, 0, value))
+
+    # Break out of loop if all values are non-zero
+    if(!all(df$value == 0)) {
+      break
+      }
+
+    # Break out of loop if all values are still zero but there is no replacement crop
+    # anymore in the list.
+    if(is.na(target_rc)) {
+      no_rc <- TRUE
+      break
+    }
+
+    # Update values for next repeat
+    cp_cnt <- cp_cnt + 1
+    target_rc <- rep_crops[cp_cnt]
+    crp_sys_rep <- paste(target_rc, sys, sep = "_")
+    file <- lookup$files_full[lookup$crop_system == crp_sys_rep]
+  }
+
+  # Create log
+  log_file = file(file.path(param$spam_path,
+    glue::glue("processed_data/intermediate_output/{adm_code}/log_{param$res}_{param$year}_{adm_code}_{param$iso3c}.log")))
+  capture.output(file = log_file, append = TRUE, split = T,{
+    if (no_rc) {
+      cat("\nThere is no replacement crop for: ", crop_sys, "! All values are zero.")
+    } else {
+      if(crp_sys != crp_sys_rep) {
+        cat("\nAll values for ", crp_sys, " are zero, replaced by: ", crp_sys_rep)
+      }
+    }
+  })
 
   return(df)
 }
 
-file <- lookup$files_full[lookup$crop_system == "rice_I"]

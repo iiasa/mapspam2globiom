@@ -36,7 +36,8 @@ Imports:
     countrycode,
     raster,
     magrittr,
-    knitr
+    knitr,
+    readxl
 Suggests: 
     rmarkdown,
     spelling,

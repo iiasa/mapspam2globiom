@@ -1,13 +1,14 @@
 # Process_bs_py
-split_bs_py <- function(var, param, adm_code){
+split_bs_py <- function(var, adm_code, param){
 
+  cat("\n", adm_code)
   load_intermediate_data(c("grid", "cl_harm", "pa_fs"), adm_code, param, local = TRUE, mess = FALSE)
 
   # Select relevant crop_system combinations to process
   pa_fs <- pa_fs %>%
     tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level, -system)
 
-  crop_system_list <- pa_fs %>%
+  cs_list <- pa_fs %>%
     dplyr::group_by(crop, system) %>%
     dplyr::filter(!all(pa %in% c(0, NA))) %>%
     dplyr::mutate(crop_system = paste(crop, system , sep = "_")) %>%
@@ -26,11 +27,12 @@ split_bs_py <- function(var, param, adm_code){
     tidyr::separate(files, into = c("crop", "system", "variable", "res", "year", "iso3c"), sep = "_", remove = F) %>%
     tidyr::separate(iso3c, into = c("iso3c", "ext"), sep = "\\.") %>%
     dplyr::select(-ext) %>%
-    dplyr::mutate(crop_system = paste(crop, system, sep = "_")) %>%
-    dplyr::filter(crop_system %in% crop_system_list$crop_system)
+    dplyr::mutate(crop_system = paste(crop, system, sep = "_"))
+
+  cs_sel <- lookup$files_full[lookup$crop_system %in% cs_list$crop_system]
 
   # Process maps one-by-one
-  df <- purrr::map_df(lookup$files_full, process_gaez, adm_code = adm_code, param = param)
+  df <- purrr::map_df(cs_sel, process_gaez, var = var, lookup = lookup, adm_code = adm_code, param = param)
 
   #save
   if(var == "biophysical_suitability") {
@@ -43,4 +45,5 @@ split_bs_py <- function(var, param, adm_code){
     }
   }
 }
+
 

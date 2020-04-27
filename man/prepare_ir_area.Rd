@@ -11,17 +11,6 @@ prepare_ir_area(param)
 alpha-3 country code, year, spatial resolution, most detailed level at which
 subnational statistics are available, administrative unit level at which the
 model is solved, type of model and coordinate reference system.}
-
-\item{adm_code}{vector with administrative unit codes. This is either a single value
-equal to the country alpha-3 country code if model solve level is set to 0
-or a vector with all level 1 administrative unit codes if the model solve
-level is set to 1.}
-
-\item{ha}{tbl or data.frame with harvest area statistics}
-
-\item{fs}{tbl or data.frame with farming system shares}
-
-\item{ci}{tbl or data.frame with cropping intensity statistics}
 }
 \description{
 Prepares the synergy irrigated area for SPAM

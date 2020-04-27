@@ -8,7 +8,7 @@ prepare_bs_yg <- function(var, param) {
     adm_code_list <- unique(adm_list$adm1_code)
   }
 
-  purrr::walk(adm_code_list, split_bs_py, var = var, param = param)
+  purrr::walk(adm_code_list, split_score, param = param)
 }
 
 
