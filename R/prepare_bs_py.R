@@ -1,3 +1,4 @@
+#'@export
 prepare_bs_yg <- function(var, param) {
   load_data("adm_list", param, local = TRUE, mess = FALSE)
 

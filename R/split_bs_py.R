@@ -36,10 +36,12 @@ split_bs_py <- function(var, adm_code, param){
 
   #save
   if(var == "biophysical_suitability") {
+    df <- dplyr::rename(df, bs = value)
     saveRDS(df, file.path(param$spam_path,
       glue::glue("processed_data/intermediate_output/{adm_code}/bs_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds")))
   } else {
     if(var == "potential_yield") {
+      df <- dplyr::rename(df, py = value)
       saveRDS(df, file.path(param$spam_path,
         glue::glue("processed_data/intermediate_output/{adm_code}/py_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds")))
     }

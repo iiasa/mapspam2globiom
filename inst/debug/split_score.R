@@ -1,0 +1,212 @@
+# Process_bs_py
+split_score <- function(var, adm_cd, param){
+
+  #TODO adm_code is referred as adm_cd => not consistent
+  cat("\nPrepare score for", adm_cd)
+
+  # Load data
+  load_intermediate_data(c("pa", "pa_fs", "cl_harm", "ia_harm", "bs", "py"), adm_cd, param, local = TRUE, mess = FALSE)
+  load_data(c("adm_list", "adm_map", "adm_map_r", "grid", "pop", "acc", "urb", "price", "dm2fm"), param, local = TRUE, mess = FALSE)
+
+  ############### PREPARATIONS ###############
+  # Put statistics in long format
+  pa <- pa %>%
+    tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level)
+
+  pa_fs <- pa_fs %>%
+    dplyr::filter(adm_code == adm_cd) %>%
+    tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level, -system) %>%
+    dplyr::filter(!is.na(pa) & pa != 0) %>%
+    dplyr::mutate(crop_system = paste(crop, system , sep = "_"))
+
+  priors_base <- expand.grid(gridID = unique(cl_harm$gridID),
+                             crop_system = unique(pa_fs$crop_system), stringsAsFactors = F) %>%
+    tidyr::separate(crop_system, into = c("crop", "system"), sep = "_", remove = F)
+
+  # create gridID list
+  grid_df <- as.data.frame(raster::rasterToPoints(grid))
+
+  ## Rural population
+  # Note that we normalize over adms to distribute the crops more evenly over adms.
+  # If we would normalize over the whole country, crops for which we do not have adm information,
+  # might be pushed to a very limited area.
+  pop_rural <- raster::mask(pop, urb, inverse = T) # Remove urban areas
+  pop_rural <- as.data.frame(raster::rasterToPoints(raster::stack(grid, pop_rural))) %>%
+    dplyr::select(gridID, pop) %>%
+    dplyr::mutate(pop = ifelse(is.na(pop), 0, pop)) %>% # We assume zero population in case data is missing
+    dplyr::left_join(adm_map_r, by = "gridID") %>%
+    dplyr::rename(adm_code = glue::glue("adm{param$adm_level}_code")) %>%
+    dplyr::group_by(adm_code) %>%
+    dplyr::mutate(
+      pop_norm = 100*(pop-min(pop, na.rm = T))/(max(pop, na.rm = T)-min(pop, na.rm = T))) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(pop_norm = ifelse(is.nan(pop_norm) | is.na(pop_norm), 0, pop_norm)) %>%
+    dplyr::select(gridID, pop_norm) %>%
+    dplyr::filter(gridID %in% unique(cl_harm$gridID))
+
+  pop_rural_r <- rasterFromXYZ(
+    left_join(grid_df, pop_rural) %>%
+      dplyr::select(x, y, pop_norm), crs = crs(grid))
+  pop_rural_r[pop_rural_r == 0] <- NA
+  plot(pop_rural_r)
+
+  ## Accessibility
+  # NOTE that we normalize so that max = 0 and min = 1 as higher tt gives lower suitability
+  # NOTE that we normalize over the whole country as some cash crops are allocated at national level.
+  # We expected these crops to be located a most accessible areas from a national (not adm) perspective
+  # Hence we do not normalize using adm_sel as a basis.
+  acc <- as.data.frame(raster::rasterToPoints(raster::stack(grid, acc))) %>%
+    dplyr::select(gridID, acc) %>%
+    dplyr::left_join(adm_map_r, by = "gridID") %>%
+    dplyr::rename(adm_code = glue::glue("adm{param$adm_level}_code")) %>%
+    dplyr::mutate(
+      acc_norm = 100*(max(acc, na.rm = T)-acc)/(max(acc, na.rm = T)-min(acc, na.rm = T))) %>%
+    dplyr::mutate(acc_norm = ifelse(is.nan(acc_norm) | is.na(acc_norm), 0, acc_norm)) %>%
+    dplyr::select(gridID, acc_norm)  %>%
+    dplyr::filter(gridID %in% unique(cl_harm$gridID))
+
+  acc_r <- rasterFromXYZ(
+    left_join(grid_df, acc) %>%
+      dplyr::select(x, y, acc_norm), crs = crs(grid))
+  acc_r[acc_r == 0] <- NA
+  plot(acc_r)
+
+
+  ############### CREATE SCORE ###############
+  # We calculate potential revenue by:
+  # (1) Converting potential yield in dm to fm
+  # (2) Multiplying potential yield with national crop prices
+
+  # Convert to fm
+  rev <- py %>%
+    tidyr::separate(crop_system, into = c("crop", "system"), sep = "_", remove = F) %>%
+    dplyr::left_join(dm2fm, by = "crop") %>%
+    dplyr::mutate(py = py/t_factor) %>%
+    dplyr::select(-t_factor) %>%
+    dplyr::left_join(price, by = "crop") %>%
+    dplyr::mutate(rev = py*price)
+
+
+  ############### SCORE FOR EACH SYSTEM ###############
+  ## SUBSISTENCE
+  # We use the rural population share as prior but exclude areas where suitability is zero
+  # We also remove adm where crops are not allocated by definition because stat indicates zero ha.
+
+  # crop_s
+  crop_s <- unique(pa_fs$crop[pa_fs$system == "S"])
+
+  # select adm without crop_s
+  adm_code_crop_s <- dplyr::bind_rows(
+    pa[pa$adm_code == adm_cd,],
+    pa[pa$adm_code %in% adm_list$adm1_code[adm_list$adm0_code == adm_cd],],
+    pa[pa$adm_code %in% adm_list$adm2_code[adm_list$adm1_code == adm_cd],],
+    pa[pa$adm_code %in% adm_list$adm2_code[adm_list$adm0_code == adm_cd],]) %>%
+    unique() %>%
+    dplyr::filter(crop %in% crop_s, pa == 0) %>%
+    dplyr::select(crop, adm_code, adm_name, adm_level) %>%
+    dplyr::mutate(adm_code_crop = paste(adm_code, crop, sep = "_"))
+
+  rur_pop_share <-priors_base %>%
+    dplyr::filter(system == "S") %>%
+    dplyr::left_join(adm_map_r, by = "gridID") %>%
+    dplyr::select(-dplyr::ends_with("_name")) %>%
+    tidyr::gather(adm_code_level, adm_code, -gridID, -crop, -system, -crop_system) %>%
+    dplyr::mutate(adm_code_crop = paste(adm_code, crop, sep = "_")) %>%
+    dplyr::filter(!adm_code_crop %in% adm_code_crop_s$adm_code_crop) %>%
+    dplyr::select(gridID, crop, system, crop_system) %>%
+    dplyr::distinct() %>%
+    dplyr::left_join(pop_rural, by = "gridID") %>%
+    dplyr::left_join(bs, by = c("gridID", "crop_system")) %>%
+    dplyr::group_by(crop) %>%
+    dplyr::mutate(
+      pop_norm = ifelse(bs == 0, 0, pop_norm),
+      rur_pop_share = pop_norm/sum(pop_norm, na.rm = T),
+      crop_system = paste(crop, system, sep = "_")) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(gridID, crop_system, rur_pop_share)
+
+  ### LOW INPUT
+  # We use suitability for only for L
+  # We first remove adm where crops are not allocated by definition because stat indicates zero ha
+  # TODO: drop this for now as it seems irrelevant because of adm constraint. Moreover, in case of
+  # slack it probably ensures crops are allocated to places with higher score if it should go to adms
+  # where the crop is not present before.
+  # Then we normalize over all crops so that an overal ranking is created.
+  # This means that crops with higher suitability will get a higher score than crops with a lower suitability.
+  # The argument is that if there would be competition between crops, the crop with the highest suitability
+  # Will be allocated first
+
+  # crop_l
+  crop_l <- unique(pa_fs$crop[pa_fs$system == "L"])
+
+  # Score table.  We use suitability only for L
+  score_l <- priors_base %>%
+    dplyr::filter(system == "L") %>%
+    dplyr::left_join(adm_map_r, by = "gridID") %>%
+    dplyr::left_join(bs, by = c("gridID", "crop_system")) %>%
+    dplyr::mutate(score = 100*(bs-min(bs, na.rm = T))/(max(bs, na.rm = T)-min(bs, na.rm = T))) %>%
+    dplyr::select(gridID, crop_system, score)
+
+  ## HIGH INPUT
+  # We use revenue and accessibility
+  # We first remove adm where crops are not allocated by definition because stat indicates zero ha
+  # TODO: drop this for now as it seems irrelevant because of adm constraint. Moreover, in case of
+  # slack it probably ensures crops are allocated to places with higher score if it should go to adms
+  # where the crop is not present before.
+  # Then we normalize rev and acessibility over all crops so that an overal ranking is created.
+  # Next we use equal weight geometric average as the final ranking.
+  # This means that crops with higher revenue and accessibility will get a higher score than crops with a lower rankings.
+  # The argument is that if there would be competition between crops, the crop with the highest score
+  # Will be allocated first
+  # We rerank the combined rev and accessibility score again to it has the same scale as l and i priors.
+
+  # crop_h
+  crop_h <- unique(pa_fs$crop[pa_fs$system == "H"])
+
+  # Score table.  We use geometric average of rev and accessibility
+  score_h <- priors_base %>%
+    dplyr::filter(system == "H") %>%
+    dplyr::left_join(adm_map_r) %>%
+    dplyr::left_join(rev) %>%
+    dplyr::left_join(acc) %>%
+    dplyr::mutate(rev_norm = 100*(rev-min(rev, na.rm = T))/(max(rev, na.rm = T)-min(rev, na.rm = T)),
+           score = (rev_norm*acc_norm)^0.5,
+           score = 100*(score-min(score, na.rm = T))/(max(score, na.rm = T)-min(score, na.rm = T))) %>%
+    dplyr::select(gridID, crop_system, score)
+
+
+  ## IRRIGATION
+  # We use the same score as for H
+  # We select only ir gridID
+  # crop_i
+  crop_i <- unique(pa_fs$crop[pa_fs$system == "I"])
+
+  # Score table.  We use geometric average of suitability and accessibility
+  score_i <- priors_base %>%
+    dplyr::filter(system == "I") %>%
+    dplyr::left_join(ia) %>%
+    dplyr::filter(!is.na(ia_ir)) %>%
+    dplyr::left_join(rev) %>%
+    dplyr::left_join(acc) %>%
+    dplyr::mutate(rev_norm = 100*(rev-min(rev, na.rm = T))/(max(rev, na.rm = T)-min(rev, na.rm = T)),
+           score = (rev_norm*acc_norm)^0.5,
+           score = 100*(score-min(score, na.rm = T))/(max(score, na.rm = T)-min(score, na.rm = T))) %>%
+    dplyr::select(gridID, crop_system, score)
+  summary(score_i)
+
+
+  ############### COMBINE ###############
+  # score
+  score_df <- bind_rows(score_l, score_h, score_i) %>%
+    left_join(priors_base,.) %>%
+    mutate(score = replace_na(score, 0)) %>%
+    separate(crop_system, into = c("crop", "system"), sep = "_", remove = F)
+  summary(score_df)
+
+
+  ############### SAVE ###############
+  # save
+  saveRDS(rur_pop_share, file.path(proc_path, glue("harmonized/{adm_code_sel}/rur_pop_share_{grid_sel}_{year_sel}_{adm_code_sel}_{iso3c_sel}.rds")))
+  saveRDS(score_df, file.path(proc_path, glue("harmonized/{adm_code_sel}/score_{grid_sel}_{year_sel}_{adm_code_sel}_{iso3c_sel}.rds")))
+}
+

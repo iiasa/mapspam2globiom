@@ -30,6 +30,7 @@ process_gaez <- function(file, var, lookup, adm_code, param) {
 
     # Combine with grid, select only relevant gridID and add crop_system
     df <- as.data.frame(raster::rasterToPoints(raster::stack(grid, r))) %>%
+      dplyr::select(-x, -y) %>%
       dplyr::filter(gridID %in% cl_harm$gridID) %>%
       dplyr::mutate(crop_system = crp_sys)
 

@@ -5,7 +5,7 @@
 #'
 #'
 #'
-split_harm <- function(adm_code, param) {
+split_harmonized_inputs <- function(adm_code, param) {
 
   #https://stackoverflow.com/questions/7096989/how-to-save-all-console-output-to-file-in-r
   log_file = file(file.path(param$spam_path,

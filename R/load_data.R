@@ -6,7 +6,10 @@ load_data <- function(fl, param, local = FALSE, mess = T){
                         "cl_med", "cl_max", "cl_rank",
                         "ia_max", "ia_rank",
                         "grid", "gia", "gmia",
-                        "ha", "fs", "ci"),
+                        "pop", "acc", "urb",
+                        "ha", "fs", "ci",
+                        "price",
+                        "dm2fm"),
                   several.ok = TRUE)
   load_list <- list()
 
@@ -41,6 +44,64 @@ load_data <- function(fl, param, local = FALSE, mess = T){
     if(file.exists(file)) {
       load_list[["gmia"]] <- raster::raster(file)
       names(load_list[["gmia"]]) <- "gmia"
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("pop" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/maps/population/pop_{param$res}_{param$year}_{param$iso3c}.tif"))
+    if(file.exists(file)) {
+      load_list[["pop"]] <- raster::raster(file)
+      names(load_list[["pop"]]) <- "pop"
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("acc" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/maps/accessibility/acc_{param$res}_{param$year}_{param$iso3c}.tif"))
+    if(file.exists(file)) {
+      load_list[["acc"]] <- raster::raster(file)
+      names(load_list[["acc"]]) <- "acc"
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+
+  if("urb" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/maps/population/urb_{param$year}_{param$iso3c}.rds"))
+    if(file.exists(file)) {
+      load_list[["urb"]] <- readRDS(file)
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("price" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/agricultural_statistics/crop_prices_{param$year}_{param$iso3c}.csv"))
+    if(file.exists(file)) {
+      load_list[["price"]] <- suppressMessages(readr::read_csv(file))
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("dm2fm" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("parameters/mappings_spam.xlsx"))
+    if(file.exists(file)) {
+      load_list[["dm2fm"]] <- suppressMessages(readxl::read_excel(file, sheet = "gaez_dm2fm"))
     } else {
       stop(paste(basename(file), "does not exist"),
            call. = FALSE)

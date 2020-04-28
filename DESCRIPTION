@@ -37,7 +37,8 @@ Imports:
     raster,
     magrittr,
     knitr,
-    readxl
+    readxl,
+    sf
 Suggests: 
     rmarkdown,
     spelling,

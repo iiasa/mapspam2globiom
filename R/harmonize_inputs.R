@@ -17,5 +17,5 @@ harmonize_inputs <- function(param){
   } else {
     adm_code_list <- unique(adm_list$adm1_code)
   }
-  purrr::walk(adm_code_list, split_harm, param)
+  purrr::walk(adm_code_list, split_harmonized_inputs, param)
 }
