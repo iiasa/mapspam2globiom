@@ -5,7 +5,7 @@ param <- spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
 
 create_spam_folders(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi")
 
+adm_code <- "MI02"
+rm(adm_code)
 adm_cd <- "MI02"
-
-
-
+prepare_score(param)

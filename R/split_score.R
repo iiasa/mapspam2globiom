@@ -1,5 +1,5 @@
 # Process_bs_py
-split_score <- function(var, adm_cd, param){
+split_score <- function(adm_cd, param){
 
   #TODO adm_code is referred as adm_cd => not consistent
   cat("\nPrepare score for", adm_cd)
@@ -44,11 +44,6 @@ split_score <- function(var, adm_cd, param){
     dplyr::select(gridID, pop_norm) %>%
     dplyr::filter(gridID %in% unique(cl_harm$gridID))
 
-  pop_rural_r <- rasterFromXYZ(
-    left_join(grid_df, pop_rural) %>%
-      dplyr::select(x, y, pop_norm), crs = crs(grid))
-  pop_rural_r[pop_rural_r == 0] <- NA
-  plot(pop_rural_r)
 
   ## Accessibility
   # NOTE that we normalize so that max = 0 and min = 1 as higher tt gives lower suitability
@@ -65,14 +60,8 @@ split_score <- function(var, adm_cd, param){
     dplyr::select(gridID, acc_norm)  %>%
     dplyr::filter(gridID %in% unique(cl_harm$gridID))
 
-  acc_r <- rasterFromXYZ(
-    left_join(grid_df, acc) %>%
-      dplyr::select(x, y, acc_norm), crs = crs(grid))
-  acc_r[acc_r == 0] <- NA
-  plot(acc_r)
 
-
-  ############### CREATE SCORE ###############
+    ############### CREATE SCORE ###############
   # We calculate potential revenue by:
   # (1) Converting potential yield in dm to fm
   # (2) Multiplying potential yield with national crop prices
@@ -106,7 +95,7 @@ split_score <- function(var, adm_cd, param){
     dplyr::select(crop, adm_code, adm_name, adm_level) %>%
     dplyr::mutate(adm_code_crop = paste(adm_code, crop, sep = "_"))
 
-  rur_pop_share <-priors_base %>%
+  rps <-priors_base %>%
     dplyr::filter(system == "S") %>%
     dplyr::left_join(adm_map_r, by = "gridID") %>%
     dplyr::select(-dplyr::ends_with("_name")) %>%
@@ -205,8 +194,8 @@ split_score <- function(var, adm_cd, param){
 
   ############### SAVE ###############
   # save
-  saveRDS(rur_pop_share, file.path(param$spam_path,
-    glue::glue("processed_data/intermediate_output/{adm_cd}/rur_pop_share_{param$res}_{param$year}_{adm_cd}_{param$iso3c}.rds")))
+  saveRDS(rps, file.path(param$spam_path,
+    glue::glue("processed_data/intermediate_output/{adm_cd}/rps_{param$res}_{param$year}_{adm_cd}_{param$iso3c}.rds")))
   saveRDS(score_df, file.path(param$spam_path,
     glue::glue("processed_data/intermediate_output/{adm_cd}/score_{param$res}_{param$year}_{adm_cd}_{param$iso3c}.rds")))
 }

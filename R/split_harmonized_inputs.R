@@ -46,7 +46,7 @@ split_harmonized_inputs <- function(adm_code, param) {
   ############### STEP 6: PREPARE FILES ###############
   # Irrigation
   ia_harm_df <- cl_df %>%
-    dplyr::select(gridID, cl_ia) %>%
+    dplyr::select(gridID, ia) %>%
     na.omit
 
   # Cropland: rename adm_code to param$adm_level
@@ -61,7 +61,7 @@ split_harmonized_inputs <- function(adm_code, param) {
   cl_harm_r <- gridID2raster(cl_harm_df, "cl", param)
 
   # ia map
-  ia_harm_r <- gridID2raster(ia_harm_df, "cl_ia", param)
+  ia_harm_r <- gridID2raster(ia_harm_df, "ia", param)
 
 
   ############### STEP 7: SAVE ###############

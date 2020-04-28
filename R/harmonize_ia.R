@@ -20,29 +20,36 @@ harmonize_ia <- function(df, adm_code, param, ia_slackp) {
     dplyr::filter(!is.na(ia_rank)) %>%
     dplyr::arrange(ia_rank, desc(cl)) %>%
     dplyr::mutate(ir_tot = pa_I_tot,
-           cl_ia = pmin(cl, ia_max, na.rm = T),
-           cl_ia2 = pmax(cl, ia_max, na.rm = T),
-           cl_ia3 = pmax(cl_max, ia_max, na.rm = T),
-           cl_ia_cum = cumsum(cl_ia),
-           cl_ia_cum2 = cumsum(cl_ia2),
-           cl_ia_cum3 = cumsum(cl_ia3))
+           ia1 = pmin(cl, ia_max, na.rm = T),
+           ia2 = pmax(cl, ia_max, na.rm = T),
+           ia3 = pmax(cl_max, ia_max, na.rm = T),
+           ia1_cum = cumsum(ia1),
+           ia2_cum = cumsum(ia2),
+           ia3_cum = cumsum(ia3))
 
-  if (max(cl_ia$cl_ia_cum) >= pa_I_tot) {
+  if (max(cl_ia$ia1_cum) >= pa_I_tot) {
     cat("\nIrrigated area is sufficient")
     cl_ia <- cl_ia %>%
-      dplyr::filter(cl_ia_cum <= pa_I_tot)
+      dplyr::filter(ia1_cum <= pa_I_tot) %>%
+      dplyr::mutate(ia = ia1)
   } else {
-    if (max(cl_ia$cl_ia_cum2) >= pa_I_tot) {
+    if (max(cl_ia$ia2_cum) >= pa_I_tot) {
       cat("\nIrrigated area is sufficient when full cl is assumed to be irrigated")
       cl_ia <- cl_ia %>%
-        dplyr::filter(cl_ia_cum2 <= pa_I_tot)
+        dplyr::filter(ia2_cum <= pa_I_tot) %>%
+        dplyr::mutate(ia = ia2)
     } else {
-      if (max(cl_ia$cl_ia_cum3) >= pa_I_tot) {
+      if (max(cl_ia$ia3_cum) >= pa_I_tot) {
         cat("\nIrrigated area is sufficient when full cl_max is assumed to be irrigated")
         cl_ia <- cl_ia %>%
-          dplyr::filter(cl_ia_cum3 <= pa_I_tot)
+          dplyr::filter(ia3_cum <= pa_I_tot) %>%
+          dplyr::mutate(ia = ia3)
       } else {
-        cat("\nThere is not enough irrigated area, which will result in slack.")
+        cat("\nThere is not enough irrigated area, which will result in slack.",
+            "\nCl_max is assumed to be irrigated")
+        cl_ia <- cl_ia %>%
+          dplyr::filter(ia3_cum <= pa_I_tot) %>%
+          dplyr::mutate(ia = ia3)
       }
     }
   }
@@ -50,9 +57,9 @@ harmonize_ia <- function(df, adm_code, param, ia_slackp) {
   # Update cl and rank
   df <- df %>%
     dplyr::left_join(cl_ia %>%
-                       dplyr::select(gridID, cl_ia, ia_max), by = "gridID") %>%
-    dplyr::mutate(cl = ifelse(!is.na(cl_ia), cl_ia, cl),
-                  cl_rank = ifelse(!is.na(cl_ia), 0,  cl_rank))
+                       dplyr::select(gridID, ia, ia_max), by = "gridID") %>%
+    dplyr::mutate(cl = ifelse(!is.na(ia), ia, cl),
+                  cl_rank = ifelse(!is.na(ia), 0,  cl_rank))
   return(df)
 }
 
