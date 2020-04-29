@@ -118,51 +118,34 @@ if(adm_sel == 2 & solve_sel == 0){
   ### PREPARE DATA
   # Create dataframe with all adm crop combinations at lowest level = adm_lvl
   # associated lower level adms
+
+  rn <- glue::glue("adm{param$adm_level}_code")
   adm_list_at_lowest_level <- unique(pa$adm_code[pa$adm_level == param$adm_level])
   base <- expand.grid(adm_code = adm_list_at_lowest_level, crop = unique(pa$crop), stringsAsFactors = F) %>%
+    dplyr::rename({{rn}} := adm_code) %>%
     dplyr::mutate(adm_level = param$adm_level) %>%
-    dplyr::left_join(adm_code_list %>%
-                       dplyr::rename(adm_code = {{rn}}))
+    dplyr::left_join(adm_code_list)
 
 
 s <- param$solve_level
 e <- param$adm_level
 
-adm0_pa <- pa %>%
-  dplyr::filter(adm_level == 0) %>%
-  dplyr::rename(adm0_code = adm_code, pa_adm0 = pa) %>%
-  dplyr::select(-adm_name, -adm_level)
-
-adm1_pa <- pa %>%
-  dplyr::filter(adm_level == 1) %>%
-  dplyr::rename(adm1_code = adm_code, pa_adm1 = pa) %>%
-  dplyr::select(-adm_name, -adm_level)
-
-adm2_pa <- pa %>%
-  dplyr::filter(adm_level == 2) %>%
-  dplyr::rename(adm2_code = adm_code, pa_adm2 = pa) %>%
-  dplyr::select(-adm_name, -adm_level)
-
-
-
 
 create_pa_tot <- function(i, pa) {
+
   df <- pa %>%
     dplyr::filter(adm_level == i) %>%
-    dplyr::rename(adm0_code = adm_code, pa_adm0 = pa) %>%
+    dplyr::rename("adm{{i}}_code" := .data$adm_code,
+                  "pa_adm{{i}}" :=  .data$pa) %>%
     dplyr::select(-adm_name, -adm_level)
   return(df)
 }
 
 
+adm0_pa <- create_pa_tot(0, pa)
+adm1_pa <- create_pa_tot(1, pa)
+adm2_pa <- create_pa_tot(2, pa)
 
-
-
-# Combine adm 0_1 data
-adm0_1 <- dplyr::left_join(base, adm1_pa) %>%
-  dplyr::left_join(adm0_pa) %>%
-  dplyr::select(crop, adm0_code, adm1_code, pa_adm0, pa_adm1) %>%
-  unique
 
 
 adm0_art <- adm0_pa %>%
@@ -205,13 +188,13 @@ adm0_art <- adm0_pa %>%
     dplyr::mutate(adm2_av = sum(pa_adm2, na.rm = T),
            imp_adm2 = ifelse(is.na(pa_adm2), unique(imp_adm1) - adm2_av, pa_adm2)) %>%
     dplyr::ungroup() %>%
-    dlyr::mutate(adm2_code_art = ifelse(is.na(pa_adm2), paste(adm1_code_art, "ART2", crop, sep = "_"), adm2_code)) %>%
+    dplyr::mutate(adm2_code_art = ifelse(is.na(pa_adm2), paste(adm1_code_art, "ART2", crop, sep = "_"), adm2_code)) %>%
     unique()
 
   adm_art <- adm2_art %>%
     dplyr::select(crop, imp_adm2, adm2_code_art) %>%
     unique %>%
-    rename(adm_code = adm2_code_art, pa = imp_adm2)
+    dplyr::rename(adm_code = adm2_code_art, pa = imp_adm2)
 
   # artificial adm mapping
   adm_art_map <- adm2_art %>%
