@@ -3,7 +3,7 @@ check_cl <- function(df, adm_lvl, adm_code, param){
 
   cat("\nadm level: ", adm_lvl)
 
-  pa_adm_tot <- purrr::map_df(0:param$adm_level, calculate_adm_tot, adm_code, param)
+  pa_adm_tot <- purrr::map_df(0:param$adm_level, calculate_pa_tot, adm_code, param)
   rn <- paste0("adm", adm_lvl, "_code")
 
   cl_check <- df %>%

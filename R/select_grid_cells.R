@@ -10,7 +10,7 @@ select_grid_cells <- function(df, adm_code, param, cl_slackp, cl_slackn) {
   # ranking of cells grouped at the ADM2 level is different from that at ADM1
   # level. This function selects the highest level ADM if the total pa is the
   # same as the next level ADM.
-  adm_level_include <-  purrr::map_df(0:param$adm_level, calculate_adm_tot, adm_code, param) %>%
+  adm_level_include <-  purrr::map_df(0:param$adm_level, calculate_pa_tot, adm_code, param) %>%
     dplyr::group_by(adm_level) %>%
     dplyr::summarize(pa = sum(pa, na.rm = T)) %>%
     dplyr::mutate(rank  = dplyr::min_rank(pa)) %>%

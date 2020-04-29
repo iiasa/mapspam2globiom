@@ -11,16 +11,6 @@ combine_model_input <- function(adm_cd, param){
 
 
   ############### PREPARATIONS ###############
-  # only select adm_code
-  adm_code_list <- adm_list %>%
-    dplyr::select(adm0_code, adm1_code, adm2_code)
-
-  # create adm long list
-  adm_list_long <- pa %>%
-    tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level) %>%
-    dplyr::select(adm_code, adm_name, adm_level) %>%
-    unique()
-
   # Put statistics in long format and filter out crops where pa = 0
   # These crops create artificial adms, which created conflicts
   pa <- pa %>%
@@ -31,7 +21,18 @@ combine_model_input <- function(adm_cd, param){
     tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level, -system) %>%
     dplyr::filter(pa != 0)
 
-############### CREATE ARTIFICIAL ADMS   ###############
+  adm_list_at_lowest_level <- unique(pa$adm_code[pa$adm_level == param$adm_level])
+  base <- expand.grid(adm_code = adm_list_at_lowest_level, crop = unique(pa$crop), stringsAsFactors = F) %>%
+    dplyr::rename({{rn}} := adm_code) %>%
+    dplyr::mutate(adm_level = param$adm_level) %>%
+    dplyr::left_join(adm_list)
+
+  # only select adm_code
+  adm_code_list <- adm_list %>%
+    dplyr::select(adm0_code, adm1_code, adm2_code)
+
+
+  ############### CREATE ARTIFICIAL ADMS   ###############
 
   # Check if totals add up
   all.equal(sum(adm_art$pa), sum(pa$pa[pa$adm_code == adm_cd]))

@@ -1,24 +1,4 @@
-# Create artificial adms
-#####################################################################################################################
-#'
-#' From a theoretical perspective there are two ways to deal with incomplete adm information in the GAMS code.
-#' (1) Use a nested approach where constraints are added for adm2, adm1 and if adm1 is not complete, adm0 levels per crop.
-#' (2) Introduce artificial adms at adm2 level per crop that union adms with missing information.
-#'
-#'  We use the second approach that is also used by SPAM because the first approach seems difficult to implement in GAMS.
-#'  Problem is that the first approach requires that we introduce explicit constraints for adm1 crop combinations where
-#'  know that the area is zero. As GAMS does not allow for zeros in data files, this is quite cumbersome.
-#'  THe only way would be to filter out all gridID for adms where area is zero. This requires a lot of coding.
-#'  Hence it seems easier to introduce the artificial adms.
-#'
-#'  The approach is dependent on adm_sel. For now we simply add code for adm 0, 1 and 3
-#'  In the future this might be generalized for all possible adms (although max is probably 2)
-#'
-#####################################################################################################################
-
-
-
-### ARTIFICIAL ADM FOR adm_sel = 0
+# Function to create artificial adms
 
 if(adm_sel == 0){
 
