@@ -3,7 +3,8 @@
 load_intermediate_data <- function(fl, adm_code, param, local = TRUE, mess = TRUE){
   fl <- match.arg(fl, c("adm_map", "adm_map_r", "grid",
                         "cl", "ia", "ir", "pa", "pa_fs",
-                        "cl_harm", "ia_harm", "bs", "py"),
+                        "cl_harm", "ia_harm", "bs", "py",
+                        "rps", "score"),
                   several.ok = TRUE)
   load_list <- list()
 
@@ -89,6 +90,28 @@ load_intermediate_data <- function(fl, adm_code, param, local = TRUE, mess = TRU
                       glue::glue("processed_data/intermediate_output/{adm_code}/ia_harm_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds"))
     if(file.exists(file)) {
       load_list[["ia_harm"]] <- readRDS(file)
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("rps" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/intermediate_output/{adm_code}/rps_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds"))
+    if(file.exists(file)) {
+      load_list[["rps"]] <- readRDS(file)
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("score" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/intermediate_output/{adm_code}/score_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds"))
+    if(file.exists(file)) {
+      load_list[["score"]] <- readRDS(file)
     } else {
       stop(paste(basename(file), "does not exist"),
            call. = FALSE)
