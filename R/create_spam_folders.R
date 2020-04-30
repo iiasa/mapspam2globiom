@@ -55,7 +55,7 @@ create_spam_folders <- function(spam_path = NULL) {
                       "maps/population",
                       "maps/irrigated_area",
                       "maps/cropland",
-                      "output")
+                      "results")
     invisible(lapply(proc_folders, function(x)
         dir.create(
             file.path(spam_path, paste0("processed_data/", x)),

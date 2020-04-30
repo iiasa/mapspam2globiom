@@ -1,9 +1,9 @@
 # Function to combine all model input per adm_level
-combine_model_input <- function(ac, param){
+combine_inputs_adm_level <- function(ac, param){
 
   cat("\nPrepare model input for", ac)
 
-  # Function to test if gdxrrw is installed.
+  # Test if gdxrrw is installed.
   if (!requireNamespace("gdxrrw", quietly = TRUE)) {
     stop("Package gdxrrw needed for this function to work. Please install it (see vignette on installation for more information).",
          call. = FALSE)

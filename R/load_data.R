@@ -9,10 +9,11 @@ load_data <- function(fl, param, local = FALSE, mess = T){
                         "pop", "acc", "urb",
                         "ha", "fs", "ci",
                         "price",
-                        "dm2fm"),
+                        "dm2fm",
+                        "results"),
                   several.ok = TRUE)
-  load_list <- list()
 
+  load_list <- list()
 
   if("grid" %in% fl) {
     file <- file.path(param$spam_path,
@@ -135,6 +136,17 @@ load_data <- function(fl, param, local = FALSE, mess = T){
                       glue::glue("processed_data/lists/adm_list_{param$year}_{param$iso3c}.csv"))
     if(file.exists(file)) {
       load_list[["adm_list"]] <- suppressMessages(readr::read_csv(file))
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("results" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/results/results_{param$res}_{param$year}_{param$iso3c}.rds"))
+    if(file.exists(file)) {
+      load_list[["results"]] <-readRDS(file)
     } else {
       stop(paste(basename(file), "does not exist"),
            call. = FALSE)

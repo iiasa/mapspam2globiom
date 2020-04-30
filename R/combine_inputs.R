@@ -1,5 +1,5 @@
 #'@export
-prepare_model_input <- function(param) {
+combine_inputs <- function(param) {
   load_data("adm_list", param, local = TRUE, mess = FALSE)
 
   # Set adm_level
@@ -9,7 +9,7 @@ prepare_model_input <- function(param) {
     adm_code_list <- unique(adm_list$adm1_code)
   }
 
-  purrr::walk(adm_code_list, combine_model_input, param)
+  purrr::walk(adm_code_list, combine_inputs_adm_level, param)
 }
 
 
