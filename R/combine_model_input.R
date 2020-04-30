@@ -1,8 +1,13 @@
 # Function to combine all model input per adm_level
 combine_model_input <- function(ac, param){
 
-  #TODO adm_code is referred as ac => not consistent
   cat("\nPrepare model input for", ac)
+
+  # Function to test if gdxrrw is installed.
+  if (!requireNamespace("gdxrrw", quietly = TRUE)) {
+    stop("Package gdxrrw needed for this function to work. Please install it (see vignette on installation for more information).",
+         call. = FALSE)
+  }
 
   # Load data
   load_intermediate_data(c("pa", "pa_fs", "cl_harm", "ia_harm", "bs", "py", "rps", "score"),
@@ -26,7 +31,7 @@ combine_model_input <- function(ac, param){
   adm_art_raw <- prepare_artificial_adms(ac, param)
 
   # Finallize adm_art by selecting adm_level and removing duplicates
-  imp_rn <- glue::glue("imp_adm{param$adm_level}")
+  pa_rn <- glue::glue("imp_adm{param$adm_level}")
   ac_rn <- glue::glue("adm{param$adm_level}_code")
   ac_art_rn <- glue::glue("adm{param$adm_level}_code_art")
   adm_art <- adm_art_raw %>%
@@ -35,14 +40,16 @@ combine_model_input <- function(ac, param){
     dplyr::rename(pa = {{pa_rn}},
                   adm_code = {{ac_art_rn}})
 
-  # Remove artifical adms that are approximately zero, which are caused if data
-  # is not rebalanced.
+  # It is possible that the sum of lower adms is not exactly equal to the total
+  # of the higher level adm because of internal precision to deal with fractions.
+  # As a result artificial adms are created that are very small (e.g. 1e-10).
+  # These are set to zero
   adm_art <- adm_art %>%
-    dplyr::filter(!abs(pa) < 1e-6)
+    mutate(pa = ifelse(abs(pa) < 1e-6, 0, pa))
 
   # artificial adm mapping
   adm_art_map <- adm_art_raw %>%
-    dplyr::rename(adm_code_art = {{adm_rn}},
+    dplyr::rename(adm_code_art = {{ac_art_rn}},
                   adm_code = {{ac_rn}}) %>%
     dplyr::select(adm_code_art, adm_code) %>%
     unique()
@@ -190,14 +197,7 @@ combine_model_input <- function(ac, param){
                          glue::glue("processed_data/intermediate_output/{ac}"))
   dir.create(temp_path, recursive = T, showWarnings = F)
 
-  # Function to test if gdxrrw is installed.
-  test_gdxrrw <- function(a, b) {
-    if (!requireNamespace("gdxrrw", quietly = TRUE)) {
-      stop("Package gdxrrw needed for this function to work. Please install it (see vignette on installation for more information).",
-           call. = FALSE)
-    }
-  }
-  # GDX
+  # Prepare GDX
   gdxrrw::wgdx(file.path(temp_path, glue::glue("input_{param$res}_{param$year}_{ac}_{param$iso3c}.gdx")),
        cl_gdx,
        adm_area_gdx,
@@ -213,5 +213,6 @@ combine_model_input <- function(ac, param){
        adm_crop_s_gdx, crop_s_gdx,
        rps_gdx,
        scalef_gdx)
+  cat("\nGDX model input file saved for ", ac)
 }
 

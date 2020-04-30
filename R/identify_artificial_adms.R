@@ -45,17 +45,7 @@ identify_art_adms_per_level <- function(i, df_x_art, pa, base_xy) {
   return(df_y_art)
 }
 
-# Functio to calculate totals per adm level
-filter_out_pa <- function(i, pa) {
 
-    df <- pa %>%
-    dplyr::filter(adm_level == i) %>%
-    dplyr::rename("adm{{i}}_code" := .data$adm_code,
-                  "pa_adm{{i}}" :=  .data$pa) %>%
-    dplyr::select(-adm_name)
-
-    return(df)
-}
 
 
 

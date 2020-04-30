@@ -1,7 +1,7 @@
 #'Function to combine ha, fs and ci and split
 #'Need to split first and then combine as in split version, adm specific fs and ci are used
 #'@import magrittr
-split_stat <- function(adm_code, ha, fs, ci, param){
+split_statistics <- function(adm_code, ha, fs, ci, param){
   load_data("adm_list", param, local = TRUE)
   message(glue::glue("Save pa and pa_fs statistics for {adm_code}"))
 

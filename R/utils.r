@@ -1,14 +1,6 @@
 # Helper functions that are run inside other functions.
 # These functions are for internal use only and are not documented nor exported
 
-# Function to test if gdxrrw is installed.
-test_gdxrrw <- function(a, b) {
-    if (!requireNamespace("gdxrrw", quietly = TRUE)) {
-        stop("Package gdxrrw needed for this function to work. Please install it (see software article for help).",
-             call. = FALSE)
-    }
-}
-
 # Function to create a data.frame with subtotals per crop at set adm level.
 sum_adm_total <- function(df, level){
     unit <- names(df)[names(df) %in% c("ha", "pa")]
@@ -88,7 +80,7 @@ calc_grid_size <- function(grid) {
 }
 
 # Function to calculate total at given adm level
-calculate_adm_tot <- function(adm_lvl, adm_code, param) {
+calculate_pa_tot <- function(adm_lvl, adm_code, param) {
     load_intermediate_data(c("pa"), adm_code, param, local = T,mess = F)
 
     df <- pa %>%
@@ -109,7 +101,17 @@ gridID2raster <- function(df, var, param){
     return(r)
 }
 
+# Functio to calculate totals per adm level
+filter_out_pa <- function(i, pa) {
 
+    df <- pa %>%
+        dplyr::filter(adm_level == i) %>%
+        dplyr::rename("adm{{i}}_code" := .data$adm_code,
+                      "pa_adm{{i}}" :=  .data$pa) %>%
+        dplyr::select(-adm_name)
+
+    return(df)
+}
 
 
 

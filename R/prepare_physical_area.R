@@ -8,7 +8,7 @@
 #'(model solve level 0) or at the level 1 administrative unit level (model solve
 #'level 1).
 #'
-#'`prepare_ha_stat` combines ha, fs and ci statistics and saves two files in csv
+#'`prepare_physical_area` combines ha, fs and ci statistics and saves two files in csv
 #'format: (1) physical area (pa) and (2) physical area broken down by farming
 #'systems (pa_fs). Results are saved in the subfolders that are located in the
 #'the `processed_data/intermediate` folder.
@@ -22,7 +22,7 @@
 #'@examples
 #'
 #'@export
-prepare_pa_stat <- function(ha, fs, ci, param){
+prepare_physical_area <- function(ha, fs, ci, param){
     load_data("adm_list", param, local = TRUE)
 
     # Set adm_level
@@ -33,6 +33,6 @@ prepare_pa_stat <- function(ha, fs, ci, param){
     }
 
     # Save
-    purrr::walk(adm_code_list, split_stat, ha, fs, ci, param)
+    purrr::walk(adm_code_list, split_statistics, ha, fs, ci, param)
 }
 

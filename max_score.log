@@ -1,0 +1,12 @@
+--- Job max_score.gms Start 04/30/20 13:54:42 24.6.1 r55820 WEX-WEI x86 64bit/MS Windows
+GAMS 24.6.1   Copyright (C) 1987-2016 GAMS Development. All rights reserved
+Licensee: Small MUD - 5 User License                     S180619:0523AO-GEN
+          IIASA, Information and Communication Technologies Dep.      DC216
+          License for teaching and research at degree granting institutions
+          License_Admin:_Melanie_Weed-Wenighofer,_wenighof@iiasa.ac.at_____
+--- Starting compilation
+--- max_score.gms(94) 3 Mb
+--- GDXin=C:\Users\dijk158\Dropbox\mapspam2globiom_mwi\processed_data\intermediate_output\MWI\input_5min_2010_MWI_MWI.gdx
+--- max_score.gms(330) 5 Mb 3 Errors
+*** Status: Compilation error(s)
+--- Job max_score.gms Stop 04/30/20 13:54:42 elapsed 0:00:00.039

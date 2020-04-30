@@ -1,0 +1,421 @@
+GAMS 24.6.1  r55820 Released Jan 18, 2016 WEX-WEI x86 64bit/MS Windows                                                                                                                                                                 04/30/20 13:54:42 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  *******************************************************************************
+   2  ********************               SPAMc                   ********************
+   3  *******************************************************************************
+   4   
+      Basic model to run the Spatial Production Allocation Model (SPAM) for 
+      at Country level assessments at various resolutions.
+       
+      The input (gdx_input) and output data files are parameters and need to be set 
+      before the code can be run.  
+       
+      version 0.1
+  14   
+  15   
+  16  *******************************************************************************
+  17  * Sets, parameters, variables, scalars
+  18  *******************************************************************************
+  19   
+  21   
+  22  sets
+  23      i            grid cells
+  24      j            crop system combinations
+  25      j_s(j)       subsistence system
+  26      s            crop list
+  27      k            adm list
+  28   
+  29      n(s,j)       crops with corresponding systems
+  30      l(k,i)       adm with corresponding grid cells
+  31      m(k,s)       adm with corresponding crops
+  32      d(i,j)       grid cells and system for spatial detail
+  33      system_grid(i,j)  All system grid cell combinatons
+  34      sign sign for negative slacks /plus,minus/
+  35  ;
+  36   
+  37  scalars
+  38      scalef         scaling parameter for GAMS: number of grid cells
+  39      rps_factor     base value for alloc_s  /1/
+  40  ;
+  41   
+  42  parameters
+  43      report(*,*)     report on model performance
+  44      score(i,j)      score per grid cell and crop-system
+  45      adm_area(k,s)   crop area per adm
+  46      cl(i)           crop cover per grid cell
+  47      crop_area(j)    total area per crop-system
+  48      priors(i,j)     prior information about area shares
+  49      ir_area(i)      irrigated area per grid cell
+  50      ir_crop(j)      total irrigated crop area
+  51      det_area(i,j)   detailed land use information
+  52      rur_pop_share(i,j)  rural population share per grid cell
+  53      slackweights(k,s) weights for adm slacks
+  54  ;
+  55   
+  56  variables
+GAMS 24.6.1  r55820 Released Jan 18, 2016 WEX-WEI x86 64bit/MS Windows                                                                                                                                                                 04/30/20 13:54:42 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+  57      alloc(i,j)          allocation of crop j to plot i
+  58      adm_slack(k,s,sign) slack variable for adm area
+  59      sum_score           weighted sum of score
+  60      cl_slack(i)         slack for land cover
+  61      ir_slack(i)         slack for ir_area
+  62      s_slack(i,j,sign)   slack for subsistence allocation
+  63      sum_ir_slack        sum of ir slack
+  64      sum_cl_slack        sum of cl slack
+  65      sum_adm_slack       weighted sum of adm slacks
+  66      sum_all_slack       weighted sum of all slacks
+  67      sum_s_slack         sum of subsistence slack
+  68  ;
+  69   
+  70  equations
+  71      obj_max_score        objective function: maximize score
+  72      obj_min_ir_slack     objective function: minimize sum of ir slack
+  73      obj_min_adm_slack    objective function: minimize weighted sum of adm slack
+  74      obj_min_cl_slack     objective function: minimize sum of cl slack
+  75      obj_min_all_slack    objective function: minimize weighted sum of ir adm and ir slack
+  76      obj_min_s_slack      objective function: minimize sum of rur_pop coefficient slack for s system
+  77      sum_one(j)           sum of land allocation shares is 1
+  78      adm_stat(k,s)  adm statistics constraint without slack
+  79      adm_stat_slack(k,s)  adm statistics constraint with slack
+  80      ir_cover(i)          irrigated crops constraint with slack
+  81      ir_cover_slack(i)    irrigated crops constraint with slack
+  82      cl_cover(i)          land cover constraint without slack
+  83      cl_cover_slack(i)    land cover constraint with slack
+  84      det_alloc(i,j)       allocate shares for crops for which spatial data is available
+  85      s_alloc_slack(i,j)   allocate subsistence share proportional to rural population
+  86      rps_con(i,j)         ensure that s_alloc_slack is equal or larger than 1
+  87  ;
+  88   
+  89   
+  90  *******************************************************************************
+  91  * load data from GDX file
+  92  *******************************************************************************
+  93   
+GDXIN   C:\Users\dijk158\Dropbox\mapspam2globiom_mwi\processed_data\intermediate_output\MWI\input_5min_2010_MWI_MWI.gdx
+--- LOAD  i = 8:i
+--- LOAD  j = 9:j
+--- LOAD  s = 14:s
+--- LOAD  k = 10:k
+--- LOAD  j_s = 6:j_s
+--- LOAD  n = 11:n
+--- LOAD  l = 12:l
+**** Unique domain errors for symbol l
+ Dim  Elements
+   1  MI02_ART2_rice, MI02_ART2_sugc, MI04_ART2_rice, MI04_ART2_sugc, MI04_ART2_teas, MI04_ART2_toba, MWI_ART1_bana_ART2_bana, MWI_ART1_plnt_ART2_plnt, MWI_ART1_sugc_ART2_sugc, MWI_ART1_teas_ART2_teas
+
+--- LOAD  m = 13:m
+  96  $loaddc n l m
+****             $649
+--- LOAD  adm_area = 2:adm_area
+GAMS 24.6.1  r55820 Released Jan 18, 2016 WEX-WEI x86 64bit/MS Windows                                                                                                                                                                 04/30/20 13:54:42 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+--- LOAD  cl = 1:cl
+--- LOAD  crop_area = 5:crop_area
+--- LOAD  scalef = 16:scalef
+--- LOAD  ir_crop = 3:ir_crop
+--- LOAD  ir_area = 4:ir_area
+--- LOAD  score = 7:score
+--- LOAD  rur_pop_share = 15:rur_pop_share
+  98   
+  99  system_grid(i,j) = yes;
+ 100   
+ 101  * abort in case of negative values due to errors in pre processing
+ 102  abort$sum(j$(ir_crop(j) < 0), 1) "ir_crop should be positive", ir_crop;
+ 103  abort$sum(j$(crop_area(j) < 0), 1) "crop_area should be positive", crop_area;
+ 104  abort$sum(i$(cl(i) < 0), 1) "cl should be positive", cl;
+ 105  abort$sum(system_grid(i,j)$(score(i,j) < 0), 1) "score should be positive", score;
+ 106   
+ 107   
+ 108  *******************************************************************************
+ 109  * Prepare
+ 110  *******************************************************************************
+ 111   
+ 112  * Initialize report
+ 113  report('min_all_slack', 'mstat') = 13;
+ 114  report('min_all_slack', 'sstat') = 13;
+ 115  report('max_score', 'mstat') = 13;
+ 116  report('max_score', 'sstat') = 13;
+ 117   
+ 118   
+ 119  *******************************************************************************
+ 120  * Set boundary values
+ 121  *******************************************************************************
+ 122   
+ 123  * Ensure that variables are positive
+ 124  positive variable alloc, cl_slack, ir_slack, adm_slack, s_slack;
+ 125   
+ 126  * Alloc can not be higher than scalef (=100% or 1 after scaling)
+ 127  * meaning all crop_area in one grid cell i or scalef*cl(i)/crop_area(j),
+ 128  * or grid-cell area/total crop area when crop area is divided over more grid cells
+ 129  alloc.up(i,j) = min(scalef, scalef*cl(i)/crop_area(j))$crop_area(j);
+ 130   
+ 131  *******************************************************************************
+ 132  * Objective functions
+ 133  *******************************************************************************
+ 134   
+ 135  * Objective function to allocate using score including slack
+ 136  * We prefer to have s_slack over adm, cl and ir slack and therefore add weights.
+ 137  * Of these slacks with weights we would like to minize ir and cl slack so add
+ 138  * a higher weight than for adm.
+ 139  slackweights(k,s)$adm_area(k,s) = 1/adm_area(k,s);
+ 140  obj_max_score.. sum_score =e= sum(system_grid(i,j), (1/scalef)*alloc(i,j)*score(i,j)) -
+ 141  (sum(system_grid(i,j), (s_slack(i,j, 'plus') + s_slack(i,j, 'minus'))) +
+ 142      1e5*sum(m$adm_area(m), slackweights(m)*(adm_slack(m,'plus') + adm_slack(m,'minus'))) +
+ 143      1e6*sum(i,cl_slack(i)) +
+GAMS 24.6.1  r55820 Released Jan 18, 2016 WEX-WEI x86 64bit/MS Windows                                                                                                                                                                 04/30/20 13:54:42 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+ 144      1e6*sum(i,ir_slack(i)));
+ 145   
+ 146   
+ 147   
+ 148  *******************************************************************************
+ 149  * Constraints
+ 150  *******************************************************************************
+ 151  * Constraint 1
+ 152  * Allocated shares are in between 0 and 1
+ 153  * Set by postive values and alloc.up statements above.
+ 154  *
+ 155   
+ 156  * Constraint 2
+ 157  * sum of allocated shares for each crop over all grid cells is 1
+ 158  *
+ 159  sum_one(j)$crop_area(j)..
+ 160      (1/scalef)*sum(i, alloc(i,j)) =e= 1;
+ 161   
+ 162  * Constraint 3
+ 163  * Sum of allocated area over all crops should not exceed actual cropland in a grid cell.
+ 164  *
+ 165  cl_cover(i)..
+ 166      (1/scalef)*sum(system_grid(i,j), alloc(i,j)*crop_area(j)) =l= cl(i);
+ 167   
+ 168  cl_cover_slack(i)..
+ 169      (1/scalef)*sum(system_grid(i,j), alloc(i,j)*crop_area(j)) =l= cl(i) + cl_slack(i);
+ 170   
+ 171   
+ 172  * Contstraint 4
+ 173  * Irrigated grid cells are allocated
+ 174  *
+ 175  ir_cover(i)..
+ 176      (1/scalef)*sum(j, alloc(i,j)*ir_crop(j)) =l= ir_area(i);
+ 177   
+ 178  ir_cover_slack(i)..
+ 179      (1/scalef)*sum(j, alloc(i,j)*ir_crop(j)) =l= ir_area(i) + ir_slack(i);
+ 180   
+ 181   
+ 182  * Constraint 5
+ 183  * Total allocation per crop should be equal to land use in adm
+ 184  * allow slack between adm_area and total allocation into (k,s)
+ 185  * if adm_area = 0 then we don't allow any slack
+ 186  * CHECK: SPAM uses additional constraint on artificial adms, for which no slack is allowed
+ 187  *
+ 188  adm_stat(m(k,s))$(adm_area(k,s) > 0)..
+ 189   (1/scalef)*sum((l(k,i),n(s,j)), alloc(i,j)*crop_area(j)) =e=
+ 190      adm_area(k,s);
+ 191   
+ 192  adm_stat_slack(m(k,s))$(adm_area(k,s) > 0)..
+ 193   (1/scalef)*sum((l(k,i),n(s,j)), alloc(i,j)*crop_area(j)) =e=
+ 194      adm_area(k,s) + (adm_slack(k,s,'plus') - adm_slack(k,s,'minus'))$adm_area(k,s);
+ 195   
+ 196   
+GAMS 24.6.1  r55820 Released Jan 18, 2016 WEX-WEI x86 64bit/MS Windows                                                                                                                                                                 04/30/20 13:54:42 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+ 197  * Constraint 6
+ 198  * Subsistence allocation should be similar to rural population share in sample
+ 199  *
+ 200  * For S crops we want the crop area to be allocated in line with rural population.
+ 201  * If we do not use weights, the model will push the allocated area to zero
+ 202  * for crops with small total area = very low rural area starting values.
+ 203   
+ 204  parameters
+ 205      small_area_weights(i,j)  Large weight for crops with small S area
+ 206      max_area                 Maximum of area otherwise slack becomes very large;
+ 207   
+ 208  max_area = smax((j),crop_area(j));
+ 209  small_area_weights(i,j)$rur_pop_share(i,j) = 1/crop_area(j)*max_area;
+ 210   
+ 211  s_alloc_slack(i,j)$j_s(j)..
+ 212      alloc(i,j) =e= scalef*(rps_factor + small_area_weights(i,j)*(s_slack(i,j,'plus')- s_slack(i,j,'minus')))* rur_pop_share(i,j);
+ 213   
+ 214   
+ 215  *******************************************************************************
+ 216  * Model: mazimize suitability score
+ 217  *******************************************************************************
+ 218   
+ 219  * solver options
+ 220  option
+ 221      limrow = 5
+ 222      limcol = 5
+ 223      solprint = off
+ 224      sysout = off
+ 225      lp  = cplex
+ 226      reslim = 900000
+ 227      BRatio = 1
+ 228  *    LP=examiner
+ 229  ;
+ 230   
+ 231  * Initial values
+ 232  adm_slack.l(k,s,sign) = 0.0 ;
+ 233  ir_slack.l(i) = 0;
+ 234  cl_slack.l(i) = 0;
+ 235  alloc.l(i,j) = 0;
+ 236  s_slack.l(i,j,sign) = 0;
+ 237   
+ 238  * Model
+ 239  model max_score  /obj_max_score, sum_one, cl_cover_slack, adm_stat_slack, ir_cover_slack, s_alloc_slack/;
+ 240   
+ 241  * Fixes constant variables (where lower and upper bound is equal) and simplifies model
+ 242  max_score.holdfixed = 1;
+ 243   
+ 244  * Solve model
+ 245  solve max_score using lp maximize sum_score;
+****                                             $257
+ 246   
+ 247  * check sum_score
+ 248  parameters sum_score_l sum of weighted score;
+GAMS 24.6.1  r55820 Released Jan 18, 2016 WEX-WEI x86 64bit/MS Windows                                                                                                                                                                 04/30/20 13:54:42 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+ 249  sum_score_l = sum_score.l
+****                          $141
+ 250  display sum_score_l;
+ 251   
+ 252  * Abort if max_score model does not result in solution
+ 253  if (max_score.modelstat > 2,
+ 254      abort$1 "max_score was not solved!"
+ 255  );
+ 256   
+ 257   
+ 258  *******************************************************************************
+ 259  * Post-process
+ 260  *******************************************************************************
+ 261   
+ 262  parameters
+ 263      ir_slack_l(i)                ir_slack
+ 264      adm_slack_l(k,s,sign)        adm_slack
+ 265      cl_slack_l(i)                cl_slack
+ 266      s_slack_l(i,j,sign)          s_slack
+ 267      sum_ir_slack_l               sum of ir_slack
+ 268      sum_adm_slack_l              sum of adm_slack
+ 269      sum_cl_slack_l               sum of cl_slack
+ 270      sum_s_slack_l                sum of s_slack
+ 271      sum_all_slack_l              sum of all_slack
+ 272  ;
+ 273   
+ 274   
+ 275  * Extract slacks
+ 276  ir_slack_l(i) = ir_slack.l(i);
+ 277  adm_slack_l(k,s,sign) = adm_slack.l(k,s,sign);
+ 278  cl_slack_l(i) = cl_slack.l(i);
+ 279  s_slack_l(i,j, sign) = s_slack.l(i,j, sign);
+ 280   
+ 281  * Calculate sum of slacks
+ 282  sum_ir_slack_l = sum(i, ir_slack.l(i));
+ 283  sum_cl_slack_l = sum(i, cl_slack.l(i));
+ 284  sum_s_slack_l = sum(system_grid(i,j),
+ 285                   small_area_weights(i,j)*(s_slack.l(i,j, 'plus') + s_slack.l(i,j, 'minus')));
+ 286   
+ 287  * we sum up plus and min. Normally plus and min slack are the same.
+ 288  * However in case of statistical inconsistencies in the adm data there might be differences.
+ 289  sum_adm_slack_l = sum(m,
+ 290                (adm_slack.l(m,'plus')+ adm_slack.l(m,'minus')));
+ 291  sum_all_slack_l = sum_s_slack_l + sum_ir_slack_l + sum_cl_slack_l + sum_adm_slack_l;
+ 292   
+ 293  display sum_all_slack_l;
+ 294  display sum_s_slack_l;
+ 295  display sum_ir_slack_l;
+ 296  display sum_cl_slack_l;
+ 297  display sum_adm_slack_l;
+ 298   
+ 299   
+ 300  parameters
+GAMS 24.6.1  r55820 Released Jan 18, 2016 WEX-WEI x86 64bit/MS Windows                                                                                                                                                                 04/30/20 13:54:42 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+ 301      palloc(i,j)           Allocations
+ 302      rur_pop_alloc(i,j)    Allocation based on rural population
+ 303  ;
+ 304   
+ 305  * Allocation
+ 306  palloc(i,j) = alloc.l(i,j)*crop_area(j)/scalef;
+ 307  rur_pop_alloc(i,j) = rur_pop_share(i,j)*crop_area(j);
+ 308   
+ 309   
+ 310  * Reporting
+ 311  report('max_score', 'mstat') = max_score.modelstat;
+ 312  report('max_score', 'sstat') = max_score.solvestat;
+ 313  report('max_score', 'resusd') = max_score.resusd;
+ 314  report('min_all_slack', 'sum_all_slack') = sum_all_slack_l;
+ 315  report('min_all_slack', 'sum_adm_slack') = sum_adm_slack_l;
+ 316  report('min_all_slack', 'sum_cl_slack') = sum_cl_slack_l;
+ 317  report('min_all_slack', 'sum_ir_slack') = sum_ir_slack_l;
+ 318  report('min_all_slack', 'sum_s_slack') = sum_s_slack_l;
+ 319   
+ 320   
+ 321  *******************************************************************************
+ 322  * Save
+ 323  *******************************************************************************
+ 324   
+ 325  execute_unload "C:\Users\dijk158\Dropbox\mapspam2globiom_mwi\processed_data\intermediate_output\MWI\output_5min_2010_MWI_MWI.gdx",
+ 326  adm_area, cl crop_area, scalef, ir_crop, det_area, ir_area, score, rur_pop_share,
+ 327  alloc, palloc, report, sum_cl_slack_l, sum_adm_slack_l, sum_ir_slack_l, sum_s_slack_l, sum_score_l,
+ 328  ir_slack_l, adm_slack_l, s_slack_l, cl_slack_l, rur_pop_alloc;
+ 329   
+GAMS 24.6.1  r55820 Released Jan 18, 2016 WEX-WEI x86 64bit/MS Windows                                                                                                                                                                 04/30/20 13:54:42 Page 8
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Error Messages
+
+
+141  Symbol declared but no values have been assigned. Check for missing
+        data definition, assignment, data loading or implicit assignment
+        via a solve statement.
+        A wild shot: You may have spurious commas in the explanatory
+        text of a declaration. Check symbol reference list.
+257  Solve statement not checked because of previous errors
+649  Domain violation when loading from GDX file
+
+**** 3 ERROR(S)   0 WARNING(S)
+GAMS 24.6.1  r55820 Released Jan 18, 2016 WEX-WEI x86 64bit/MS Windows                                                                                                                                                                 04/30/20 13:54:42 Page 9
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Include File Summary
+
+
+   SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
+
+     1        1 INPUT          0       0  D:\Github\mapspam_dev\code\08_model\max_score.gms
+     2       94 GDXIN          1      94  C:\Users\dijk158\Dropbox\mapspam2globiom_mwi\processed_data\intermediate_output\MWI\input_5min_2010_MWI_MWI.gdx
+
+
+COMPILATION TIME     =        0.015 SECONDS      5 MB  24.6.1 r55820 WEX-WEI
+
+
+USER: Small MUD - 5 User License                     S180619:0523AO-GEN
+      IIASA, Information and Communication Technologies Dep.      DC216
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      D:\Github\mapspam_dev\code\08_model\max_score.gms
+Output     D:\Github\mapspam2globiom\max_score.lst
+
+**** USER ERROR(S) ENCOUNTERED
