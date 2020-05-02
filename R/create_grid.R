@@ -16,11 +16,6 @@
 #'  alpha-3 country code, year, spatial resolution, most detailed level at which
 #'  subnational statistics are available, administrative unit level at which the
 #'  model is solved, type of model and coordinate reference system.
-#'@param border sf or SpatialPolygonsDataFrame object with the country borders
-#'  of the SPAM target country, preferably the map with the locations of the
-#'  administrative units.
-#'@param crs coordinate reference system: integer with the EPSG code, or
-#'  character with proj4string. The default is WGS84 (+init=epsg:4326).
 #'
 #'@return RasterLayer
 #'
@@ -29,7 +24,9 @@
 #'create_grid(spam_par = spam_par, border = adm, crs = "+init=epsg:4326")
 #'}
 #'@export
-create_grid <- function(border = NULL, param = NULL){
+create_grid <- function(param = NULL){
+
+  load_data("adm_map", param, mess = FALSE, local = TRUE)
   stopifnot(inherits(param, "spam_par"))
   if(param$res == "5min") {
     grid_fact <- 12
@@ -43,13 +40,16 @@ create_grid <- function(border = NULL, param = NULL){
   # user set crs
   grid <- raster::raster() # 1 degree raster
   grid <- raster::disaggregate(grid, fact = grid_fact)
-  border <- border %>%
-    st_transform(crs = "+init=epsg:4326")
-  grid <- raster::crop(grid, border)
+  adm_map <- adm_map %>%
+    sf::st_transform(crs = "+init=epsg:4326")
+  grid <- raster::crop(grid, adm_map)
   values(grid) <- 1:ncell(grid) # Add ID numbers
-  grid <- raster::mask(grid, border)
-  grid <- raster::projectRaster(grid, crs = param$crs, method = "ngb")
+  grid <- raster::mask(grid, adm_map)
   grid <- trim(grid)
   names(grid) <- "gridID"
-  return(grid)
+
+  temp_path <- file.path(param$spam_path, glue::glue("processed_data/maps/grid/{param$res}"))
+  dir.create(temp_path, showWarnings = F, recursive = T)
+  writeRaster(grid, file.path(temp_path, glue::glue("grid_{param$res}_{param$year}_{param$iso3c}.tif")),
+              overwrite = T)
 }

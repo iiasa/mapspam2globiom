@@ -38,7 +38,8 @@ Imports:
     magrittr,
     knitr,
     readxl,
-    sf
+    sf,
+    mapview
 Suggests: 
     rmarkdown,
     spelling,

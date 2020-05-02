@@ -12,8 +12,7 @@ spam_par(
   res = "5min",
   adm_level = 1,
   solve_level = 0,
-  model = "max_score",
-  crs = "+init=epsg:4326"
+  model = "max_score"
 )
 }
 \arguments{
@@ -47,9 +46,6 @@ level and first level administrative unit - default)}
 \item{model}{character that specifies the type of model that is run. Accepted
 inputs are "max_score" and "min_entropy". See package documentation for more
 information.}
-
-\item{crs}{coordinate reference system: integer with the EPSG code, or
-character with proj4string. The default is WGS84 (+init=epsg:4326).}
 }
 \value{
 spam_par object
@@ -64,8 +60,9 @@ statistics, solve level, type of model and coordinate reference system.
 spam parameters set by the user: SPAM folder, raw data folder, country alpha-3
 code and name, year, spatial resolution, most detailed level at which
 subnational statistics are available, administrative unit level at which the
-model is solved, type of model, coordinate reference system, three digit
-country code, FAO country code and continent.
+model is solved, type of model, three digit country code, FAO country code and
+continent. The coordinate reference system is automatically set to WGS84
+(epsg:4326).
 
 \code{\link[countrycode]{countrycode}} is used to determine the full country
 name, three digit country code, three digit FAO country code and continent on
@@ -76,7 +73,6 @@ country specific information from several datasets.
 \dontrun{
 spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
 iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
-solve_level = 0, model = "max_score",
-crs = "+init=epsg:4326")
+solve_level = 0, model = "max_score")
 }
 }

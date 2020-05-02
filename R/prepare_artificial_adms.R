@@ -1,6 +1,7 @@
 # Function to prepare artificial adms
 prepare_artificial_adms <- function(ac, param) {
 
+  cat("\nPrepare artificial administrative units for", ac)
   load_intermediate_data(c("pa"), ac, param, local = TRUE, mess = FALSE)
   load_data(c("adm_list"), param, local = TRUE, mess = FALSE)
 

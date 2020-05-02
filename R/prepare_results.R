@@ -1,5 +1,5 @@
 #'@export
-extract_results <- function(param) {
+prepare_results <- function(param) {
   load_data(c("adm_list", "ci"), param, local = TRUE, mess = FALSE)
 
   # Set adm_level
@@ -9,12 +9,11 @@ extract_results <- function(param) {
     adm_code_list <- unique(adm_list$adm1_code)
   }
 
- df <- purrr::map_df(adm_code_list, extract_results_adm_level, param) %>%
+ df <- purrr::map_df(adm_code_list, prepare_results_adm_level, param) %>%
    dplyr::mutate(year = param$year,
           resolution = param$res,
           model = param$model,
           solve_level = param$solve_level)
-
 
  ac_rn <- glue::glue("adm{param$solve_level}_code")
  an_rn <- glue::glue("adm{param$solve_level}_name")
@@ -28,10 +27,13 @@ extract_results <- function(param) {
 
  df <- df %>%
    dplyr::left_join(ci) %>%
-   dplyr::mutate(ha = pa*ci)
+   dplyr::mutate(ha = pa*ci) %>%
+   dplyr::select(gridID, crop, system, ha, pa, everything(), pa, ha)
 
- saveRDS(df, file.path(param$spam_path,
- glue::glue("processed_data/results/results_{param$res}_{param$year}_{param$iso3c}.rds")))
+ temp_path <- file.path(param$spam_path,
+                        glue::glue("processed_data/results/{param$res}"))
+ dir.create(temp_path, showWarnings = F, recursive = T)
+ saveRDS(df, file.path(temp_path, glue::glue("results_{param$res}_{param$year}_{param$iso3c}.rds")))
 }
 
 

@@ -52,7 +52,7 @@ split_statistics <- function(adm_code, ha, fs, ci, param){
     dplyr::arrange(adm_code, adm_name, adm_level)
 
   temp_path <- file.path(param$spam_path,
-                         glue::glue("processed_data/intermediate_output/{adm_code}"))
+                         glue::glue("processed_data/intermediate_output/{adm_code}/{param$res}"))
   dir.create(temp_path, recursive = T, showWarnings = F)
   readr::write_csv(pa_adm, file.path(temp_path,
                               glue::glue("pa_{param$year}_{adm_code}_{param$iso3c}.csv")))

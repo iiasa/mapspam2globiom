@@ -1,8 +1,9 @@
 # Process_bs_py
-split_bs_py <- function(var, adm_code, param){
+split_bs_py <- function(var, ac, param){
 
-  cat("\n", adm_code)
-  load_intermediate_data(c("grid", "cl_harm", "pa_fs"), adm_code, param, local = TRUE, mess = FALSE)
+  cat("\n", ac)
+  load_intermediate_data(c("cl_harm", "pa_fs"), ac, param, local = TRUE, mess = FALSE)
+  load_data(c("grid"), param, local = TRUE, mess = FALSE)
 
   # Select relevant crop_system combinations to process
   pa_fs <- pa_fs %>%
@@ -19,9 +20,9 @@ split_bs_py <- function(var, adm_code, param){
   # Process bs_py
   lookup <- dplyr::bind_rows(
     data.frame(files_full = list.files(file.path(param$spam_path,
-                  glue::glue("processed_data/maps/{var}")), full.names = TRUE, pattern = glob2rx("*.tif")),
+                  glue::glue("processed_data/maps/{var}/{param$res}")), full.names = TRUE, pattern = glob2rx("*.tif")),
                files = list.files(file.path(param$spam_path,
-                  glue::glue("processed_data/maps/{var}")), full.names = FALSE, pattern = glob2rx("*.tif")),
+                  glue::glue("processed_data/maps/{var}/{param$res}")), full.names = FALSE, pattern = glob2rx("*.tif")),
                stringsAsFactors = FALSE)
   ) %>%
     tidyr::separate(files, into = c("crop", "system", "variable", "res", "year", "iso3c"), sep = "_", remove = F) %>%
@@ -32,18 +33,22 @@ split_bs_py <- function(var, adm_code, param){
   cs_sel <- lookup$files_full[lookup$crop_system %in% cs_list$crop_system]
 
   # Process maps one-by-one
-  df <- purrr::map_df(cs_sel, process_gaez, var = var, lookup = lookup, adm_code = adm_code, param = param)
+  df <- purrr::map_df(cs_sel, process_gaez, var = var, lookup = lookup, ac = ac, param = param)
 
   #save
   if(var == "biophysical_suitability") {
     df <- dplyr::rename(df, bs = value)
-    saveRDS(df, file.path(param$spam_path,
-      glue::glue("processed_data/intermediate_output/{adm_code}/bs_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds")))
+    temp_path <- file.path(param$spam_path,
+                           glue::glue("processed_data/intermediate_output/{ac}/{param$res}"))
+    dir.create(temp_path, showWarnings = FALSE, recursive = TRUE)
+    saveRDS(df, file.path(temp_path, glue::glue("bs_{param$res}_{param$year}_{ac}_{param$iso3c}.rds")))
   } else {
     if(var == "potential_yield") {
       df <- dplyr::rename(df, py = value)
-      saveRDS(df, file.path(param$spam_path,
-        glue::glue("processed_data/intermediate_output/{adm_code}/py_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds")))
+      temp_path <- file.path(param$spam_path,
+                             glue::glue("processed_data/intermediate_output/{ac}/{param$res}"))
+      dir.create(temp_path, showWarnings = FALSE, recursive = TRUE)
+      saveRDS(df, file.path(temp_path, glue::glue("py_{param$res}_{param$year}_{ac}_{param$iso3c}.rds")))
     }
   }
 }

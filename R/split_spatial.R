@@ -7,7 +7,7 @@ split_spatial <- function(ac, df, var, adm_map_r, param){
   df <- df[df[[adm_sel]] == ac,]
 
   temp_path <- file.path(param$spam_path,
-                         glue::glue("processed_data/intermediate_output/{ac}"))
+                         glue::glue("processed_data/intermediate_output/{ac}/{param$res}"))
   dir.create(temp_path, recursive = T, showWarnings = F)
   saveRDS(df, file.path(temp_path,
                         glue::glue("{var}_{param$res}_{param$year}_{ac}_{param$iso3c}.rds")))

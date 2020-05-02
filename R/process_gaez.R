@@ -1,8 +1,10 @@
 # Process gaez
-process_gaez <- function(file, var, lookup, adm_code, param) {
+process_gaez <- function(file, var, lookup, ac, param) {
 
   # Prepare
-  load_intermediate_data(c("grid", "cl_harm"), adm_code, param, local = TRUE, mess = FALSE)
+  load_intermediate_data(c("cl_harm"), ac, param, local = TRUE, mess = FALSE)
+  load_data(c("grid"), param, local = TRUE, mess = FALSE)
+
   crp_sys <- basename(file)
   crp_sys <- unlist(lapply(strsplit(crp_sys, "_"), function(x) paste(x[1], x[2], sep="_")))
   crp <- strsplit(crp_sys, split = "_")[[1]][1]
@@ -60,7 +62,7 @@ process_gaez <- function(file, var, lookup, adm_code, param) {
 
   # Create log
   log_file = file(file.path(param$spam_path,
-    glue::glue("processed_data/intermediate_output/{adm_code}/log_{param$res}_{param$year}_{adm_code}_{param$iso3c}.log")))
+    glue::glue("processed_data/intermediate_output/{ac}/{param$res}/log_{param$res}_{param$year}_{ac}_{param$iso3c}.log")))
   capture.output(file = log_file, append = TRUE, split = T,{
     if (no_rc) {
       cat("\nThere is no replacement crop for: ", crop_sys, "! All values are zero.")

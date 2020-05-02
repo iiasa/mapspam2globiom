@@ -4,7 +4,7 @@
 \alias{split_harmonized_inputs}
 \title{Harmonizes data in line with solve level}
 \usage{
-split_harmonized_inputs(adm_code, param)
+split_harmonized_inputs(ac, param)
 }
 \description{
 Harmonizes data in line with solve level

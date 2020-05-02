@@ -1,11 +1,10 @@
 # Process_bs_py
-split_score <- function(adm_cd, param){
+split_score <- function(ac, param){
 
-  #TODO adm_code is referred as adm_cd => not consistent
-  cat("\nPrepare score for", adm_cd)
+  cat("\nPrepare score for", ac)
 
   # Load data
-  load_intermediate_data(c("pa", "pa_fs", "cl_harm", "ia_harm", "bs", "py"), adm_cd, param, local = TRUE, mess = FALSE)
+  load_intermediate_data(c("pa", "pa_fs", "cl_harm", "ia_harm", "bs", "py"), ac, param, local = TRUE, mess = FALSE)
   load_data(c("adm_list", "adm_map", "adm_map_r", "grid", "pop", "acc", "urb", "price", "dm2fm"), param, local = TRUE, mess = FALSE)
 
   ############### PREPARATIONS ###############
@@ -14,7 +13,7 @@ split_score <- function(adm_cd, param){
     tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level)
 
   pa_fs <- pa_fs %>%
-    dplyr::filter(adm_code == adm_cd) %>%
+    dplyr::filter(adm_code == ac) %>%
     tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level, -system) %>%
     dplyr::filter(!is.na(pa) & pa != 0) %>%
     dplyr::mutate(crop_system = paste(crop, system , sep = "_"))
@@ -86,10 +85,10 @@ split_score <- function(adm_cd, param){
 
   # select adm without crop_s
   adm_code_crop_s <- dplyr::bind_rows(
-    pa[pa$adm_code == adm_cd,],
-    pa[pa$adm_code %in% adm_list$adm1_code[adm_list$adm0_code == adm_cd],],
-    pa[pa$adm_code %in% adm_list$adm2_code[adm_list$adm1_code == adm_cd],],
-    pa[pa$adm_code %in% adm_list$adm2_code[adm_list$adm0_code == adm_cd],]) %>%
+    pa[pa$adm_code == ac,],
+    pa[pa$adm_code %in% adm_list$adm1_code[adm_list$adm0_code == ac],],
+    pa[pa$adm_code %in% adm_list$adm2_code[adm_list$adm1_code == ac],],
+    pa[pa$adm_code %in% adm_list$adm2_code[adm_list$adm0_code == ac],]) %>%
     unique() %>%
     dplyr::filter(crop %in% crop_s, pa == 0) %>%
     dplyr::select(crop, adm_code, adm_name, adm_level) %>%
@@ -195,8 +194,8 @@ split_score <- function(adm_cd, param){
   ############### SAVE ###############
   # save
   saveRDS(rps, file.path(param$spam_path,
-    glue::glue("processed_data/intermediate_output/{adm_cd}/rps_{param$res}_{param$year}_{adm_cd}_{param$iso3c}.rds")))
+    glue::glue("processed_data/intermediate_output/{ac}/{param$res}/rps_{param$res}_{param$year}_{ac}_{param$iso3c}.rds")))
   saveRDS(score_df, file.path(param$spam_path,
-    glue::glue("processed_data/intermediate_output/{adm_cd}/score_{param$res}_{param$year}_{adm_cd}_{param$iso3c}.rds")))
+    glue::glue("processed_data/intermediate_output/{ac}/{param$res}/score_{param$res}_{param$year}_{ac}_{param$iso3c}.rds")))
 }
 

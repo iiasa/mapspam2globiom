@@ -5,21 +5,19 @@
 #'
 #'
 #'
-split_harmonized_inputs <- function(adm_code, param) {
+split_harmonized_inputs <- function(ac, param) {
 
   #https://stackoverflow.com/questions/7096989/how-to-save-all-console-output-to-file-in-r
   log_file = file(file.path(param$spam_path,
-                       glue::glue("processed_data/intermediate_output/{adm_code}/log_{param$res}_{param$year}_{adm_code}_{param$iso3c}.log")))
-  #sink(file = log_file, append = TRUE)
-  #sink(file = log_file, append = TRUE, type="cat")
+                       glue::glue("processed_data/intermediate_output/{ac}/{param$res}/log_{param$res}_{param$year}_{ac}_{param$iso3c}.log")))
   capture.output(file = log_file, append = FALSE, split = T,{
   cat("\n\n--------------------------------------------------------------------------------------------------------------")
-  cat("\n", adm_code)
+  cat("\n", ac)
   cat("\n--------------------------------------------------------------------------------------------------------------")
 
   ############### STEP 1: LOAD DATA ###############
   # Load data
-  load_intermediate_data(c("cl"), adm_code, param, local = T, mess = F)
+  load_intermediate_data(c("cl"), ac, param, local = T, mess = F)
 
   ############### STEP 2: SET CL TO MEDIAN CROPLAND ###############
     # Create df of cl map,  set cl to median cropland
@@ -32,15 +30,15 @@ split_harmonized_inputs <- function(adm_code, param) {
     dplyr::filter(!is.na(cl_rank))
 
   ############### STEP 3: HARMONIZE CL   ###############
-  cl_df <- harmonize_cl(df = cl_df, adm_code, param)
+  cl_df <- harmonize_cl(df = cl_df, ac, param)
 
 
   ############### STEP 4: HARMONIZE IA ###############
-  cl_df <- harmonize_ia(cl_df, adm_code, param, ia_slackp = 0.05)
+  cl_df <- harmonize_ia(cl_df, ac, param, ia_slackp = 0.05)
 
 
   ############### STEP 5: PREPARE FINAL CL MAP BY RANKING CELLS PER ADM ###############
-  cl_df <- select_grid_cells(cl_df, adm_code, param, cl_slackp = 0.05, cl_slackn = 5)
+  cl_df <- select_grid_cells(cl_df, ac, param, cl_slackp = 0.05, cl_slackn = 5)
 
 
   ############### STEP 6: PREPARE FILES ###############
@@ -66,18 +64,18 @@ split_harmonized_inputs <- function(adm_code, param) {
 
   ############### STEP 7: SAVE ###############
   temp_path <- file.path(param$spam_path,
-                         glue::glue("processed_data/intermediate_output/{adm_code}"))
+                         glue::glue("processed_data/intermediate_output/{ac}/{param$res}"))
   dir.create(temp_path, recursive = T, showWarnings = F)
 
   saveRDS(cl_harm_df, file.path(temp_path,
-    glue::glue("cl_harm_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds")))
+    glue::glue("cl_harm_{param$res}_{param$year}_{ac}_{param$iso3c}.rds")))
   raster::writeRaster(cl_harm_r, file.path(temp_path,
-    glue::glue("cl_harm_r_{param$res}_{param$year}_{adm_code}_{param$iso3c}.tif")), overwrite = T)
+    glue::glue("cl_harm_r_{param$res}_{param$year}_{ac}_{param$iso3c}.tif")), overwrite = T)
 
   # ia_harm
   saveRDS(ia_harm_df, file.path(temp_path,
-    glue::glue("ia_harm_{param$res}_{param$year}_{adm_code}_{param$iso3c}.rds")))
+    glue::glue("ia_harm_{param$res}_{param$year}_{ac}_{param$iso3c}.rds")))
   raster::writeRaster(ia_harm_r, file.path(temp_path,
-    glue::glue("ia_harm_r_{param$res}_{param$year}_{adm_code}_{param$iso3c}.tif")), overwrite = T)
+    glue::glue("ia_harm_r_{param$res}_{param$year}_{ac}_{param$iso3c}.tif")), overwrite = T)
   })
 }

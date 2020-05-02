@@ -17,7 +17,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("grid" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/grid/grid_{param$res}_{param$year}_{param$iso3c}.tif"))
+                      glue::glue("processed_data/maps/grid/{param$res}/grid_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
       load_list[["grid"]] <- raster::raster(file)
       names(load_list[["grid"]]) <- "gridID"
@@ -29,7 +29,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("gia" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/irrigated_area/gia_{param$res}_{param$year}_{param$iso3c}.tif"))
+                      glue::glue("processed_data/maps/irrigated_area/{param$res}/gia_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
       load_list[["gia"]] <- raster::raster(file)
       names(load_list[["gia"]]) <- "gia"
@@ -41,7 +41,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("gmia" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/irrigated_area/gmia_{param$res}_{param$year}_{param$iso3c}.tif"))
+                      glue::glue("processed_data/maps/irrigated_area/{param$res}/gmia_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
       load_list[["gmia"]] <- raster::raster(file)
       names(load_list[["gmia"]]) <- "gmia"
@@ -53,7 +53,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("pop" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/population/pop_{param$res}_{param$year}_{param$iso3c}.tif"))
+                      glue::glue("processed_data/maps/population/{param$res}/pop_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
       load_list[["pop"]] <- raster::raster(file)
       names(load_list[["pop"]]) <- "pop"
@@ -65,7 +65,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("acc" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/accessibility/acc_{param$res}_{param$year}_{param$iso3c}.tif"))
+                      glue::glue("processed_data/maps/accessibility/{param$res}/acc_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
       load_list[["acc"]] <- raster::raster(file)
       names(load_list[["acc"]]) <- "acc"
@@ -78,7 +78,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("urb" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/population/urb_{param$year}_{param$iso3c}.rds"))
+                      glue::glue("processed_data/maps/population/{param$res}/urb_{param$year}_{param$iso3c}.rds"))
     if(file.exists(file)) {
       load_list[["urb"]] <- readRDS(file)
     } else {
@@ -111,7 +111,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("adm_map" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/adm/adm_map_{param$year}_{param$iso3c}.rds"))
+                      glue::glue("processed_data/maps/adm/{param$res}/adm_map_{param$year}_{param$iso3c}.rds"))
     if(file.exists(file)) {
       load_list[["adm_map"]] <- readRDS(file)
     } else {
@@ -122,7 +122,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("adm_map_r" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/adm/adm_map_r_{param$res}_{param$year}_{param$iso3c}.rds"))
+                      glue::glue("processed_data/maps/adm/{param$res}/adm_map_r_{param$res}_{param$year}_{param$iso3c}.rds"))
     if(file.exists(file)) {
       load_list[["adm_map_r"]] <- readRDS(file)
     } else {
@@ -144,7 +144,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("results" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/results/results_{param$res}_{param$year}_{param$iso3c}.rds"))
+                      glue::glue("processed_data/results/{param$res}/results_{param$res}_{param$year}_{param$iso3c}.rds"))
     if(file.exists(file)) {
       load_list[["results"]] <-readRDS(file)
     } else {
@@ -188,7 +188,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("cl_med" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/cropland/cl_med_{param$res}_{param$year}_{param$iso3c}.tif"))
+                      glue::glue("processed_data/maps/cropland/{param$res}/cl_med_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
       load_list[["cl_med"]] <- raster::raster(file)
       names(load_list[["cl_med"]]) <- "cl_med"
@@ -201,7 +201,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("cl_max" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/cropland/cl_max_{param$res}_{param$year}_{param$iso3c}.tif"))
+                      glue::glue("processed_data/maps/cropland/{param$res}/cl_max_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
       load_list[["cl_max"]] <- raster::raster(file)
       names(load_list[["cl_max"]]) <- "cl_max"
@@ -213,7 +213,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("cl_rank" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/cropland/cl_rank_{param$res}_{param$year}_{param$iso3c}.tif"))
+                      glue::glue("processed_data/maps/cropland/{param$res}/cl_rank_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
       load_list[["cl_rank"]] <- raster::raster(file)
       names(load_list[["cl_rank"]]) <- "cl_rank"
@@ -225,7 +225,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("ia_max" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/irrigated_area/ia_max_{param$res}_{param$year}_{param$iso3c}.tif"))
+                      glue::glue("processed_data/maps/irrigated_area/{param$res}/ia_max_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
       load_list[["ia_max"]] <- raster::raster(file)
       names(load_list[["ia_max"]]) <- "ia_max"
@@ -237,7 +237,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
 
   if("ia_rank" %in% fl) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/maps/irrigated_area/ia_rank_{param$res}_{param$year}_{param$iso3c}.tif"))
+                      glue::glue("processed_data/maps/irrigated_area/{param$res}/ia_rank_{param$res}_{param$year}_{param$iso3c}.tif"))
     if(file.exists(file)) {
       load_list[["ia_rank"]] <- raster::raster(file)
       names(load_list[["ia_rank"]]) <- "ia_rank"

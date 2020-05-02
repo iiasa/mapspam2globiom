@@ -3,11 +3,8 @@ combine_inputs_adm_level <- function(ac, param){
 
   cat("\nPrepare model input for", ac)
 
-  # Test if gdxrrw is installed.
-  if (!requireNamespace("gdxrrw", quietly = TRUE)) {
-    stop("Package gdxrrw needed for this function to work. Please install it (see vignette on installation for more information).",
-         call. = FALSE)
-  }
+  # Test if gdxrrw and gams are installed.
+  setup_gams()
 
   # Load data
   load_intermediate_data(c("pa", "pa_fs", "cl_harm", "ia_harm", "bs", "py", "rps", "score"),
@@ -194,7 +191,7 @@ combine_inputs_adm_level <- function(ac, param){
 
   ############### SAVE ###############
   temp_path <- file.path(param$spam_path,
-                         glue::glue("processed_data/intermediate_output/{ac}"))
+                         glue::glue("processed_data/intermediate_output/{ac}/{param$res}"))
   dir.create(temp_path, recursive = T, showWarnings = F)
 
   # Prepare GDX

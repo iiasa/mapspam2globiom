@@ -8,8 +8,9 @@
 #'spam parameters set by the user: SPAM folder, raw data folder, country alpha-3
 #'code and name, year, spatial resolution, most detailed level at which
 #'subnational statistics are available, administrative unit level at which the
-#'model is solved, type of model, coordinate reference system, three digit
-#'country code, FAO country code and continent.
+#'model is solved, type of model, three digit country code, FAO country code and
+#'continent. The coordinate reference system is automatically set to WGS84
+#'(epsg:4326).
 #'
 #'\code{\link[countrycode]{countrycode}} is used to determine the full country
 #'name, three digit country code, three digit FAO country code and continent on
@@ -39,8 +40,6 @@
 #'@param model character that specifies the type of model that is run. Accepted
 #'  inputs are "max_score" and "min_entropy". See package documentation for more
 #'  information.
-#'@param crs coordinate reference system: integer with the EPSG code, or
-#'  character with proj4string. The default is WGS84 (+init=epsg:4326).
 #'
 #'@return spam_par object
 #'
@@ -48,8 +47,7 @@
 #'\dontrun{
 #'spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
 #'iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
-#'solve_level = 0, model = "max_score",
-#'crs = "+init=epsg:4326")
+#'solve_level = 0, model = "max_score")
 #'}
 #'@export
 spam_par <-
@@ -60,8 +58,7 @@ spam_par <-
              res = "5min",
              adm_level = 1,
              solve_level = 0,
-             model = "max_score",
-             crs = "+init=epsg:4326") {
+             model = "max_score") {
 
         if (is.null(raw_path)) {
             message("raw_path is not defined, set to raw_data in main folder")
@@ -81,7 +78,7 @@ spam_par <-
             model = model,
             spam_path = spam_path,
             raw_path = raw_path,
-            crs = crs)
+            crs = "+init=epsg:4326")
         class(param) <- "spam_par"
         validate_spam_par(param)
         return(param)

@@ -113,5 +113,18 @@ filter_out_pa <- function(i, pa) {
     return(df)
 }
 
+setup_gams <- function() {
+    if (!requireNamespace("gdxrrw", quietly = TRUE)) {
+        stop("Package gdxrrw is not installed!",
+             "\nPlease install it (see vignette on installation for more information).",
+             call. = FALSE)
+    }
+    gams <- gdxrrw::igdx("", silent = TRUE)
+    if(!gams) {
+        stop("GAMS is not installed!",
+             "\nPlease install it (see vignette on installation for more information).",
+             call. = FALSE)
+    }
+}
 
 

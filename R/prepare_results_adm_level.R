@@ -1,16 +1,14 @@
 # function to prepare output file, combining ADM results
-extract_results_adm_level <- function(ac, param) {
-  # Test if gdxrrw is installed.
-  if (!requireNamespace("gdxrrw", quietly = TRUE)) {
-    stop("Package gdxrrw needed for this function to work. Please install it (see vignette on installation for more information).",
-         call. = FALSE)
-  }
+prepare_results_adm_level <- function(ac, param) {
+
+  # Test if gdxrrw and gams are installed.
+  setup_gams()
 
   cat("\nExtract results for ", ac)
   load_data(c("grid", "adm_map_r"), param, mess = F)
 
   results_file <- file.path(param$spam_path,
-    glue::glue("processed_data/intermediate_output/{ac}/output_{param$res}_{param$year}_{ac}_{param$iso3c}"))
+    glue::glue("processed_data/intermediate_output/{ac}/{param$res}/output_{param$res}_{param$year}_{ac}_{param$iso3c}"))
 
   grid_df <- as.data.frame(raster::rasterToPoints(grid)) %>%
     setNames(c("x", "y", "gridID"))
