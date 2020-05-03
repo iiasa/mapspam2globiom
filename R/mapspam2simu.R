@@ -1,4 +1,5 @@
-# function to create tif files with mapspam output aggregated to simu
+# function to aggregate mapspam output to simu
+#'@export
 mapspam2simu <- function(var, param) {
 
   load_data("crop2globiom", param, mess = F, local = T)

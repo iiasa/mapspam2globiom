@@ -7,7 +7,7 @@ load_data <- function(fl, param, local = FALSE, mess = T){
                         "ia_max", "ia_rank",
                         "grid", "gia", "gmia",
                         "pop", "acc", "urb",
-                        "simu_r",
+                        "simu_r", "simu",
                         "ha", "fs", "ci",
                         "price",
                         "dm2fm", "crop2globiom",
@@ -270,6 +270,18 @@ load_data <- function(fl, param, local = FALSE, mess = T){
            call. = FALSE)
     }
   }
+
+  if("simu" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/maps/simu/{param$res}/simu_{param$res}_{param$year}_{param$iso3c}.rds"))
+    if(file.exists(file)) {
+      load_list[["simu"]] <- readRDS(file)
+      } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
   if(mess) {
     message(glue::glue("{fPaste(fl)} loaded"))
   }
