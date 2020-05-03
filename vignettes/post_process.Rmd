@@ -20,3 +20,23 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(mapspam2globiom)
 ```
+
+## Replacing land cover and land use information  in GLOBIOM
+
+With respect to the distribution of crops, GLOBIOM uses two related data layers. A table with area information on the land cover per simu, distinguishing six different land use classes:
+
+- Total agricultural land (CrpLnd, OthAgri)
+- Grassland (Grass)
+- Forest (Forest)
+- Wetlands (WetLnd)
+- Other natural vegetation (OthNatLnd)
+- Not relevant land cover (NotRel)
+
+And a corresponding table with more detailed information on the crop area per simu. The land cover class Total agricultural area is divided into two parts: (1) Cropland (CrpLnd), which presents the location of the 20 crops that are modelled by GLOBIOM and (2) Other agricultural land, which presents the location of all the other crops.
+
+More information on the construction of the land cover and land use layers can be found in @Skalsky
+
+Two files are needed to update the land use and land cover maps in GLOBIOM:
+
+* A new land cover map that shows the location of 
+*

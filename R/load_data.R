@@ -7,9 +7,10 @@ load_data <- function(fl, param, local = FALSE, mess = T){
                         "ia_max", "ia_rank",
                         "grid", "gia", "gmia",
                         "pop", "acc", "urb",
+                        "simu_r",
                         "ha", "fs", "ci",
                         "price",
-                        "dm2fm",
+                        "dm2fm", "crop2globiom",
                         "results"),
                   several.ok = TRUE)
 
@@ -103,6 +104,17 @@ load_data <- function(fl, param, local = FALSE, mess = T){
                       glue::glue("parameters/mappings_spam.xlsx"))
     if(file.exists(file)) {
       load_list[["dm2fm"]] <- suppressMessages(readxl::read_excel(file, sheet = "gaez_dm2fm"))
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("crop2globiom" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("parameters/mappings_spam.xlsx"))
+    if(file.exists(file)) {
+      load_list[["crop2globiom"]] <- suppressMessages(readxl::read_excel(file, sheet = "crop2globiom"))
     } else {
       stop(paste(basename(file), "does not exist"),
            call. = FALSE)
@@ -247,6 +259,17 @@ load_data <- function(fl, param, local = FALSE, mess = T){
     }
   }
 
+  if("simu_r" %in% fl) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/maps/simu/{param$res}/simu_r_{param$res}_{param$year}_{param$iso3c}.tif"))
+    if(file.exists(file)) {
+      load_list[["simu_r"]] <- raster::raster(file)
+      names(load_list[["simu_r"]]) <- "simu_r"
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
   if(mess) {
     message(glue::glue("{fPaste(fl)} loaded"))
   }
