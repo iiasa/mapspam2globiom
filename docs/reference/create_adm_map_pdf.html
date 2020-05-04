@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • mapspam2globiom</title>
+<title>Creates a pdf file with maps of administrative unit locations — create_adm_map_pdf • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,13 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Creates a pdf file with maps of administrative unit locations — create_adm_map_pdf" />
+<meta property="og:description" content="The function will create and save a pdf file with the location of the
+administrative units in the /processed_data/maps/adm folder. Depening on the
+adm level, maps are produced for level 1 and/or level 2 administrative units.
+The function will automatically load the file with the polygon information on
+the location of administrative units, that needs to be created first by the
+user (see Articles)." />
 
 
 
@@ -58,7 +64,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -168,147 +174,50 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Creates a pdf file with maps of administrative unit locations</h1>
+    
+    <div class="hidden name"><code>create_adm_map_pdf.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>The function will create and save a pdf file with the location of the
+administrative units in the <code>/processed_data/maps/adm</code> folder. Depening on the
+adm level, maps are produced for level 1 and/or level 2 administrative units.
+The function will automatically load the file with the polygon information on
+the location of administrative units, that needs to be created first by the
+user (see Articles).</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>create_adm_map_pdf</span>(<span class='no'>param</span>, <span class='kw'>font_size</span> <span class='kw'>=</span> <span class='fl'>3</span>)</pre>
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="check_stat.html">check_stat()</a></code> </p>
-        </td>
-        <td><p>Checks consistency of subnational statistics</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_adm_map_pdf.html">create_adm_map_pdf()</a></code> </p>
-        </td>
-        <td><p>Creates a pdf file with maps of administrative unit locations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_grid.html">create_grid()</a></code> </p>
-        </td>
-        <td><p>Create spam country grid</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_spam_folders.html">create_spam_folders()</a></code> </p>
-        </td>
-        <td><p>Create spam folder structure</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="harmonize_cl.html">harmonize_cl()</a></code> </p>
-        </td>
-        <td><p>Function that iterates over adm level starting with the most detailed and
-update cl so it is in line with pa.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="harmonize_ia.html">harmonize_ia()</a></code> </p>
-        </td>
-        <td><p>Function to add irrigation information</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="harmonize_inputs.html">harmonize_inputs()</a></code> </p>
-        </td>
-        <td><p>Harmonizes the subnational statistics, the cropland extent and the irrigated area</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="load_data.html">load_data()</a></code> </p>
-        </td>
-        <td><p>Load input data for further processing</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="load_intermediate_data.html">load_intermediate_data()</a></code> </p>
-        </td>
-        <td><p>Load intermediate output in line with solve level for further processing</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plus.html">plus()</a></code> </p>
-        </td>
-        <td><p>Sum of vector elements but now NA + NA = NA not 0 as in sum</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="prepare_cropland.html">prepare_cropland()</a></code> </p>
-        </td>
-        <td><p>Prepares the synergy cropland area for SPAM</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="prepare_ir_area.html">prepare_ir_area()</a></code> </p>
-        </td>
-        <td><p>Prepares the synergy irrigated area for SPAM</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="prepare_physical_area.html">prepare_physical_area()</a></code> </p>
-        </td>
-        <td><p>Prepares the physical area subnational statistics so they can be used as input
-for SPAM.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rebalance_stat.html">rebalance_stat()</a></code> </p>
-        </td>
-        <td><p>Rebalances subnational statistics so they are consistent</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="spam_par.html">spam_par()</a></code> </p>
-        </td>
-        <td><p>Sets spam parameters</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="split_harmonized_inputs.html">split_harmonized_inputs()</a></code> </p>
-        </td>
-        <td><p>Harmonizes data in line with solve level</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="split_statistics.html">split_statistics()</a></code> </p>
-        </td>
-        <td><p>Function to combine ha, fs and ci and split
-Need to split first and then combine as in split version, adm specific fs and ci are used</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="validate_spam_par.html">validate_spam_par()</a></code> </p>
-        </td>
-        <td><p>Validates spam_par class</p></td>
-      </tr>
-    </tbody>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>param</th>
+      <td><p>Object of type <code>spam_par</code> that bundles all SPAM parameters,
+including core model folders, alpha-3 country code, year, spatial
+resolution, most detailed level at which subnational statistics are
+available, administrative unit level at which the model is solved, type of
+model and coordinate reference system.</p></td>
+    </tr>
+    <tr>
+      <th>font_size</th>
+      <td><p>Parameter to specify the font size of administrative unit name that
+is plotted on the map (default size = 3). If names are long or administrative unit polygons are
+small, the labels may get cluttered. Better results can be obtained by
+decreasing the font size.</p></td>
+    </tr>
     </table>
-  </div>
 
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>create_adm_map_pdf</span>(<span class='no'>param</span>)
+}</div></pre>
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
