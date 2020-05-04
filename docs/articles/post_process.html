@@ -141,11 +141,33 @@
     
     
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mapspam2globiom</span>)</pre></body></html></div>
+<div id="replacing-land-cover-and-land-use-information-in-globiom" class="section level2">
+<h2 class="hasAnchor">
+<a href="#replacing-land-cover-and-land-use-information-in-globiom" class="anchor"></a>Replacing land cover and land use information in GLOBIOM</h2>
+<p>With respect to the distribution of crops, GLOBIOM uses two related data layers. A table with area information on the land cover per simu, distinguishing six different land use classes:</p>
+<ul>
+<li>Total agricultural land (CrpLnd, OthAgri)</li>
+<li>Grassland (Grass)</li>
+<li>Forest (Forest)</li>
+<li>Wetlands (WetLnd)</li>
+<li>Other natural vegetation (OthNatLnd)</li>
+<li>Not relevant land cover (NotRel)</li>
+</ul>
+<p>And a corresponding table with more detailed information on the crop area per simu. The land cover class Total agricultural area is divided into two parts: (1) Cropland (CrpLnd), which presents the location of the 20 crops that are modelled by GLOBIOM and (2) Other agricultural land, which presents the location of all the other crops.</p>
+<p>More information on the construction of the land cover and land use layers can be found in <span class="citation">(<span class="citeproc-not-found" data-reference-id="Skalsky"><strong>???</strong></span>)</span></p>
+<p>Two files are needed to update the land use and land cover maps in GLOBIOM:</p>
+<ul>
+<li>A new land cover map that shows the location of</li>
+<li>
+</ul>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 

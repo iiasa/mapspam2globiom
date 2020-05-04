@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create spam country grid — create_grid • mapspam2globiom</title>
+<title>Function that iterates over adm level starting with the most detailed and
+update cl so it is in line with pa. — harmonize_cl • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,10 +40,10 @@
 
 
 
-<meta property="og:title" content="Create spam country grid — create_grid" />
-<meta property="og:description" content="Creates the spatial grid that is used by SPAM to allocate physical area shares
-for each crop and system. The border of the country is used as mask to
-determine the grid and each grid is given a gridID number." />
+<meta property="og:title" content="Function that iterates over adm level starting with the most detailed and
+update cl so it is in line with pa. — harmonize_cl" />
+<meta property="og:description" content="Function that iterates over adm level starting with the most detailed and
+update cl so it is in line with pa." />
 
 
 
@@ -173,48 +174,21 @@ determine the grid and each grid is given a gridID number." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create spam country grid</h1>
+    <h1>Function that iterates over adm level starting with the most detailed and
+update cl so it is in line with pa.</h1>
     
-    <div class="hidden name"><code>create_grid.Rd</code></div>
+    <div class="hidden name"><code>harmonize_cl.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Creates the spatial grid that is used by SPAM to allocate physical area shares
-for each crop and system. The border of the country is used as mask to
-determine the grid and each grid is given a gridID number.</p>
+    <p>Function that iterates over adm level starting with the most detailed and
+update cl so it is in line with pa.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_grid</span>(<span class='kw'>param</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>harmonize_cl</span>(<span class='no'>df</span>, <span class='no'>adm_code</span>, <span class='no'>param</span>)</pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>param</th>
-      <td><p>list that bundles SPAM parameters, including core model folders,
-alpha-3 country code, year, spatial resolution, most detailed level at which
-subnational statistics are available, administrative unit level at which the
-model is solved, type of model and coordinate reference system.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>RasterLayer</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Only two resolutions are allowed for <code>create_grid</code>: 5 arcmin and 30 arcsec,
-which are set by <code>res</code>. For technical reasons, gridID values are set before
-the raster is masked with the country border, which means they are unique but
-non consecutive. The crs can be set to reproject the raster. The default
-projection is WGS 84. Note that creating a SPAM grid at a resolution of 30
-arcsec can be very large and might make some time to create, in particular if
-it also has to be reprojected.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>create_grid</span>(<span class='kw'>spam_par</span> <span class='kw'>=</span> <span class='no'>spam_par</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>adm</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='st'>"+init=epsg:4326"</span>)
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -192,8 +192,7 @@ statistics, solve level, type of model and coordinate reference system.</p>
   <span class='kw'>res</span> <span class='kw'>=</span> <span class='st'>"5min"</span>,
   <span class='kw'>adm_level</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>solve_level</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"max_score"</span>,
-  <span class='kw'>crs</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat +datum=WGS84 +no_defs"</span>
+  <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"max_score"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -246,12 +245,6 @@ level and first level administrative unit - default)</p></td>
 inputs are "max_score" and "min_entropy". See package documentation for more
 information.</p></td>
     </tr>
-    <tr>
-      <th>crs</th>
-      <td><p>coordinate reference system: integer with the EPSG code, or
-character with proj4string. The default is WGS 84 (+proj=longlat
-+datum=WGS84 +no_defs).</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -263,8 +256,9 @@ character with proj4string. The default is WGS 84 (+proj=longlat
 spam parameters set by the user: SPAM folder, raw data folder, country alpha-3
 code and name, year, spatial resolution, most detailed level at which
 subnational statistics are available, administrative unit level at which the
-model is solved, type of model, coordinate reference system, three digit
-country code, FAO country code and continent.</p>
+model is solved, type of model, three digit country code, FAO country code and
+continent. The coordinate reference system is automatically set to WGS84
+(epsg:4326).</p>
 <p><code><a href='https://rdrr.io/pkg/countrycode/man/countrycode.html'>countrycode</a></code> is used to determine the full country
 name, three digit country code, three digit FAO country code and continent on
 the basis of the alpha-3 country code. This information is required to extract
@@ -274,8 +268,7 @@ country specific information from several datasets.</p>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='fu'>spam_par</span>(<span class='kw'>spam_path</span> <span class='kw'>=</span> <span class='st'>"C:/Users/dijk158/Dropbox/mapspam2globiom_mwi"</span>,
 <span class='kw'>iso3c</span> <span class='kw'>=</span> <span class='st'>"MWI"</span>, <span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>2010</span>, <span class='kw'>res</span> <span class='kw'>=</span> <span class='st'>"5min"</span>, <span class='kw'>adm_level</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-<span class='kw'>solve_level</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"max_score"</span>,
-<span class='kw'>crs</span> <span class='kw'>=</span> <span class='st'>"+proj=longlat +datum=WGS84 +no_defs"</span>)
+<span class='kw'>solve_level</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"max_score"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

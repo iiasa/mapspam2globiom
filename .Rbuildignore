@@ -9,3 +9,5 @@
 ^pkgdown$
 ^vignettes/articles$
 ^data-raw$
+^doc$
+^Meta$
