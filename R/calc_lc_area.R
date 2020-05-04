@@ -1,6 +1,7 @@
-# Function to calculate share of simu that is covered by specific land cover class
+# Function to area of simu that is covered by specific land cover class
 #'@export
-calc_lc_area <- function(mapping, lc_map) {
+calc_lc_area <- function(mapping, lc_map, param) {
+  cat("\n############### Calculate land cover class area per simu ###############")
   mp <- mapping %>%
     dplyr::group_by(globiom_lc_code) %>%
     dplyr::summarize(lc_code = list(unique(lc_code)))
@@ -8,7 +9,7 @@ calc_lc_area <- function(mapping, lc_map) {
   load_data("simu", param, mess = F, local = T)
   simu <- simu %>%
     dplyr::group_by(SimUID) %>%
-    dplyr::summarize(simu_area = sum(simu_area, na.rm = T)) %>%
+    dplyr::summarize(simu_area = sum(simu_area, na.rm = T)/1000) %>% # to 1000 ha, which is used by GLOBIOM
     dplyr::mutate(geometry = sf::st_cast(geometry, "MULTIPOLYGON")) %>% # Cast to MP for exactextract
     dplyr::ungroup()
 
