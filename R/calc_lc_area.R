@@ -15,8 +15,8 @@ calc_lc_area <- function(mapping, lc_map, param) {
 
   simu_area_df <- simu %>%
     sf::st_drop_geometry(.) %>%
-    dplyr::select(SimUID, area = simu_area) %>%
-    dplyr::mutate(globiom_lc_code = "simu_area")
+    dplyr::select(SimUID, value = simu_area) %>%
+    dplyr::mutate(globiom_lc_code = "SimUarea")
 
   calc_share <- function(i, r, mp, simu) {
 
@@ -40,7 +40,7 @@ calc_lc_area <- function(mapping, lc_map, param) {
       sf::st_drop_geometry(.) %>%
       dplyr::mutate(globiom_lc_code = globiom_lc_code,
                     area = n_lc/n_all*simu_area) %>%
-      dplyr::select(SimUID, globiom_lc_code, area)
+      dplyr::select(SimUID, globiom_lc_code, value = area)
 
 
     return(df)

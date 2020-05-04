@@ -14,10 +14,11 @@ prepare_physical_area(ha, fs, ci, param)
 
 \item{ci}{tbl or data.frame with cropping intensity statistics}
 
-\item{param}{list that bundles SPAM parameters, including core model folders,
-alpha-3 country code, year, spatial resolution, most detailed level at which
-subnational statistics are available, administrative unit level at which the
-model is solved, type of model and coordinate reference system.}
+\item{param}{Object of type \code{spam_par} that bundles all SPAM parameters,
+including core model folders, alpha-3 country code, year, spatial
+resolution, most detailed level at which subnational statistics are
+available, administrative unit level at which the model is solved, type of
+model and coordinate reference system.}
 }
 \description{
 To estimate the physical crop area for each farming system harvest area (ha)
