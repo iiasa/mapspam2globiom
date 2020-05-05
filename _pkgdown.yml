@@ -40,7 +40,7 @@ navbar:
       - text: Preparation
         menu:
         - text: Input data collection
-          href: articles/collect_input_data.html
+          href: articles/input_data_collection.html
         - text: Download template
           href: articles/template.html
       - text: Run SPAMc
@@ -64,3 +64,19 @@ navbar:
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/iiasa/mapspam2globiom
+
+reference:
+- title: "Model setup"
+- contents:
+  - spam_par
+  - create_spam_folders
+  - create_grid
+  - rasterize_adm_map
+- title: "Processing subnational statistics"
+- contents:
+- title: "Process spatial data"
+- contents:
+- title: "Run model"
+- contents:
+- title "Post processing""
+- contents:

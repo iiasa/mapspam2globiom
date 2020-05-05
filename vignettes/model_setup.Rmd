@@ -14,19 +14,16 @@ bibliography: bib/mapspam.bib
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>")
-  
-# Presetup as it cannot be done in relevant chunk because that one is not evaluated.
-library("mapspam2globiom")
-spamc_path <- "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi"
 ```
 
-To setup SPAMc two steps need to be taken (the order is important!). It is assumed that all required software is already installed and working (see [software and hardware](software.html)). As [mentioned](template.html), it is by far the easiest to install the template in an RStudio project first and then start to work on your own country SPAMc version as all the steps discussed from now on are already pre-coded in the template.
+To setup SPAMc two steps need to be taken. It is assumed that all required software is already [installed](installation.html) and working. It is by far the easiest to create a new RStudio project and use the mapspam2globiom_mwi for Malawi [template](template.rmd) as a basis of your country SPAMc version. All the steps described in the Run SPAMc section use the code in mapspam2globiom_mwi repository as an example code so there is no need to start from scratch. The most important is that you change the location on your hard disk where the model will be stored and the model parameters, which is described below. And, off course, [subnational statistics and spatial data](input_data_collection.htm) needs to be collected as well.
 
-## Create SPAMc folder structure
 
-`mapspam2globiom` includes a function to create all necessary folders `create_spam_folders()`. The only input it requires is a path on your harddisk. We do not recommend using a server to store the model as the potential increase in file access time might seriously affect the time it takes to process some of the spatial datasets which can be very large. Note that it is perfectly fine to store large *raw data* files on a server (see below). 
+## Set model parameters and location of files
 
-```{r eval=FALSE}
+Nearly all functions in `mapspam2globiom` need input on (1) key parameters that determine the design of the model and how will be solved and (2) the location of raw and intermediate data, which will be further processed. Both pieces of information are bundled and stored by the function `set_spam_par()` in a `spam_par` object. The example below does this for Malawi and stores the parameters in `param`. Param is an arbitrary name but we recommend not to change it as we use `param` as input in nearly all functions that are described next. One piece of information that is also stored in the `spam_par` object is the coordinate reference system of the maps. This is automatically set to WSG84 (epsg:4326).
+
+```{r}
 # Load mapspam2globiom
 library("mapspam2globiom")
 
@@ -34,18 +31,8 @@ library("mapspam2globiom")
 # Note that R uses forward slashes even in Windows!!
 spamc_path <- "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi"
 
-# Create SPAMc folder structure in the spamc_path
-create_spam_folders(spamc_path)
-```
-
-
-## Set model parameters and location of files
-
-Nearly all functions in `mapspam2globiom` need input on (1) key parameters that determine the design of the model and how will be solved and (2) the location of raw and intermediate data, which will be processed (see [model structure](model_structure.html). Both pieces of information are bundled and stored by the function `set_spam_par()` in a `spam_par` object. 
-
-```{r}
 # Set SPAMc parameters
-par <- spam_par(spam_path = spamc_path,
+param <- spam_par(spam_path = spamc_path,
  iso3c = "MWI",
  year = 2010,
  res = "5min",
@@ -53,18 +40,133 @@ par <- spam_par(spam_path = spamc_path,
  solve_level = 0,
  model = "max_score")
 
-# check class
-class(par)
-
 # Show parameters
-print(par)
+print(param)
 ```
 
-This object need to be saved in the `parameters` folder that was created together with all the other folders when running `create_spam_folders`. Elements in a `spam_par` object class can be extracted by using the dollar sign ($). This feature is used to save `par` the temporary object of class `spam_par` into the relevant folder.
+
+## Create SPAMc folder structure
+
+`mapspam2globiom` includes a function to create all necessary folders `create_spam_folders()`. The only input it requires is the `param` which contains all the model parameters. The function will create three folders (1) `raw_data` is created in the main `spam_path` unless indicated otherwise by the user and serves to store all the raw input data, (2) `processed_data` will be created in the main `spam_path` and is used to save all the intermediary data products as well as the final results and (3) `mappings` will be created in the main `spam_path` and contains all the lists and mappings that are needed to define the model (e.g. number crops) and harmonize various data sources (concordance tables). All tables are in csv format and will be copied automatically into the `mappings` folder. Note that as some of these tables can be adjusted by the user if needed (e.g. adding a new crop), they are only copied if the files do not exist. If for some reason you want to replace or regenerate them, simply remove the folder and it will be created again when `create_spam_folders` is run. 
 
 ```{r eval=FALSE}
-# Save 
-saveRDS(par, file.path(par$spam_path, "parameters/spam_par.rds"))
+# Create SPAMc folder structure in the spamc_path
+create_spam_folders(param)
 ```
 
-That is all it takes to set up the SPAMc model! The next step is processing the [raw subnational statistics](process_subnat_stat.html) and [spatial data](process_spatial_data.html).
+
+## Prepare subnational administrative unit map
+
+```{r}
+
+############### LOAD DATA ###############
+# set name file
+iso3c_shp <- "adm_2010_MWI.shp"
+
+# load shapefile
+adm_map_raw <- read_sf(file.path(param$spam_path, glue("raw_data/adm/{iso3c_shp}")))
+
+# plot
+plot(adm_map_raw$geometry)
+```
+
+
+```{r}
+############### PROCESS ###############
+# Project to standard global projection
+adm_map <- adm_map_raw %>%
+  st_transform(param$crs)
+
+# Check names
+head(adm_map)
+names(adm_map)
+
+# Change names In order to use the country polygon as input, the column names of
+# the attribute table have to be set. 
+# The names of the administrative units should be set to admX_name, where X is the adm level.
+# The codes of the administrative units should be set to admX_code, where X is the adm code.
+
+# Set the original names, i.e. the ones that will be replaced. Remove adm1
+# and/or adm2 entries if such data is not available.
+adm0_name_orig <- "ADM0_NAME"
+adm0_code_orig <- "FIPS0"
+adm1_name_orig <- "ADM1_NAME"
+adm1_code_orig <- "FIPS1"
+adm2_name_orig <- "ADM2_NAME"
+adm2_code_orig <- "FIPS2"
+
+# Replace the names
+names(adm_map)[names(adm_map) == adm0_name_orig] <- "adm0_name"
+names(adm_map)[names(adm_map) == adm0_code_orig] <- "adm0_code"
+names(adm_map)[names(adm_map) == adm1_name_orig] <- "adm1_name"
+names(adm_map)[names(adm_map) == adm1_code_orig] <- "adm1_code"
+names(adm_map)[names(adm_map) == adm2_name_orig] <- "adm2_name"
+names(adm_map)[names(adm_map) == adm2_code_orig] <- "adm2_code"
+
+# Only select relevant columns
+adm_map <- adm_map %>%
+  dplyr::select(adm0_name, adm0_code, adm1_name, adm1_code, adm2_name, adm2_code)
+
+# Check names
+head(adm_map)
+names(adm_map)
+
+```
+
+```{r}
+# Union separate polygons that belong to the same adm    
+adm_map <- adm_map %>%
+  group_by(adm0_name, adm0_code, adm1_name, adm1_code, adm2_name, adm2_code) %>%
+  summarize() %>%
+  ungroup() %>%
+  mutate(adm0_name = param$country,
+         adm0_code = param$iso3c)
+
+par(mfrow=c(1,2))
+plot(adm_map$geometry, main = "ADM all polygons")
+
+# Set names of ADMs that need to be removed from the polygon. 
+# These are ADMs where no crop should be allocated. Here we remove 
+# Area under National Administration, which is the part of Lake Malawi that belongs to Malawi
+# and Likoma, several small islands in the lake that are not covered by the statistics.
+# Set the adm_name by ADM level which need to be removed. Otherwise remove the script.
+adm1_to_remove <- c("Area under National Administration")
+adm2_to_remove <- c("Likoma")
+
+# Remove ADM1s
+adm_map <- adm_map %>%
+  filter(adm1_name != adm1_to_remove) %>%
+  filter(adm2_name != adm2_to_remove)
+
+plot(adm_map$geometry, main = "ADM polygons removed")
+par(mfrow=c(1,1))
+
+# Save adm maps
+temp_path <- file.path(param$spam_path, glue("processed_data/maps/adm/{param$res}"))
+dir.create(temp_path, showWarnings = FALSE, recursive = TRUE)
+
+saveRDS(adm_map, file.path(temp_path, glue("adm_map_{param$year}_{param$iso3c}.rds")))
+write_sf(adm_map, file.path(temp_path, glue("adm_map_{param$year}_{param$iso3c}.shp")))
+
+
+```
+
+
+```{r}
+# Create adm_list
+adm_list <- adm_map %>%
+  as.data.frame() %>%
+  dplyr::select(-geometry)
+
+write_csv(adm_list, file.path(param$spam_path, glue("processed_data/lists/adm_list_{param$year}_{param$iso3c}.csv")))
+
+
+```
+
+
+
+## Create grid and rasterize subnational administrative unit map
+
+
+
+This is all it takes to set up the SPAMc model! The next step is processing the [raw subnational statistics](process_subnat_stat.html) and [spatial data](process_spatial_data.html).

@@ -4,25 +4,29 @@
 \alias{create_spam_folders}
 \title{Create spam folder structure}
 \usage{
-create_spam_folders(spam_path = NULL)
+create_spam_folders(param = NULL)
 }
 \arguments{
-\item{spam_path}{character string with the main SPAM folder. Note that R uses
-forward slash or double backslash to separate folder names.}
+\item{param}{Object of type \code{spam_par} that bundles all SPAM parameters,
+including core model folders, alpha-3 country code, year, spatial
+resolution, most detailed level at which subnational statistics are
+available, administrative unit level at which the model is solved and type of
+model.}
 }
 \description{
 \code{create_spam_folders} creates the folder structure that is needed store raw
 data, processed data and parameters for SPAM.
 }
 \details{
-\code{create_spam_folders} creates three folders in the \code{spam_path} set by the
-user: parameters, processed_data and raw_data as well as a number of lower
-level folders. This structure is essential to run SPAM. If \code{spam_path} is
-missing, the folder will be created in the \code{path.expand("~")}.
+\code{create_spam_folders} creates two folders in the \code{spam_path} set by the user:
+mappings and processed_data, and creates a \code{raw_data} folder in the location
+as set in \code{spam_par}. In addition, it copies a number of cvs files into the
+mappings folder, which contain several data tables that are needed to run the
+model and, if needed can be adjusted by the user.
 }
 \examples{
 \dontrun{
-create_spam_folders(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi")
+create_spam_folders(param)
 }
 
 }

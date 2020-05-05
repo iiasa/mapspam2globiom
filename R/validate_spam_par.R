@@ -1,9 +1,4 @@
 #'Validates spam_par class
-#'
-#'@param spam_par
-#'@inheritParams create_grid
-#'
-#'@export
 validate_spam_par <- function(param) {
   stopifnot(inherits(param, "spam_par"))
   if (is.null(param$spam_path))

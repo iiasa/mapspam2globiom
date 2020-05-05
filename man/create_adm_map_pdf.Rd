@@ -10,8 +10,8 @@ create_adm_map_pdf(param, font_size = 3)
 \item{param}{Object of type \code{spam_par} that bundles all SPAM parameters,
 including core model folders, alpha-3 country code, year, spatial
 resolution, most detailed level at which subnational statistics are
-available, administrative unit level at which the model is solved, type of
-model and coordinate reference system.}
+available, administrative unit level at which the model is solved and type of
+model.}
 
 \item{font_size}{Parameter to specify the font size of administrative unit name that
 is plotted on the map (default size = 3). If names are long or administrative unit polygons are

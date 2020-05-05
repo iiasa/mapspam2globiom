@@ -1,5 +1,4 @@
 #'@export
-
 print.spam_par <- function(x, ...) {
     cat("iso3c: ", x$iso3c, "\n")
     cat("year: ", x$year, "\n")

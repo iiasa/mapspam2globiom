@@ -10,8 +10,8 @@ prepare_cropland(param)
 \item{param}{Object of type \code{spam_par} that bundles all SPAM parameters,
 including core model folders, alpha-3 country code, year, spatial
 resolution, most detailed level at which subnational statistics are
-available, administrative unit level at which the model is solved, type of
-model and coordinate reference system.}
+available, administrative unit level at which the model is solved and type of
+model.}
 }
 \description{
 Prepares the synergy cropland area for SPAM

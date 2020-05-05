@@ -5,7 +5,7 @@
 #'
 #'@examples
 #'
-#'@import magrittr
+#'@importFrom magrittr %>%
 #'@export
 
 # Function to harmonize pa cl and ir according to solve_sel

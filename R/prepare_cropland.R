@@ -5,7 +5,7 @@
 #'
 #'@examples
 #'
-#'@import magrittr
+#'@importFrom magrittr %>%
 #'@export
 prepare_cropland <- function(param){
   # load data

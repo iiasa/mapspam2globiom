@@ -6,13 +6,6 @@
 \usage{
 validate_spam_par(param)
 }
-\arguments{
-\item{param}{Object of type \code{spam_par} that bundles all SPAM parameters,
-including core model folders, alpha-3 country code, year, spatial
-resolution, most detailed level at which subnational statistics are
-available, administrative unit level at which the model is solved, type of
-model and coordinate reference system.}
-}
 \description{
 Validates spam_par class
 }

@@ -4,7 +4,7 @@
 #'
 #'@param df tbl or data.frame
 #'@param param
-#'@inheritParams create_grid
+#'@inheritParams create_spam_folders
 #'@param logical
 #'
 #'@return data.frame `df`.
