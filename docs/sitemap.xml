@@ -46,6 +46,9 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_physical_area.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/rasterize_adm_map.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/rebalance_stat.html</loc>
   </url>
   <url>
@@ -67,13 +70,13 @@
     <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix_b.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/collect_input_data.html</loc>
-  </url>
-  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/crop_distribution_maps.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/data.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/input_data_collection.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/installation.html</loc>

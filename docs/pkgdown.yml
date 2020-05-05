@@ -4,9 +4,9 @@ pkgdown_sha: ~
 articles:
   appendix: appendix.html
   appendix_b: appendix_b.html
-  collect_input_data: collect_input_data.html
   crop_distribution_maps: crop_distribution_maps.html
   data: data.html
+  input_data_collection: input_data_collection.html
   installation: installation.html
   model_setup: model_setup.html
   model_structure: model_structure.html
@@ -15,7 +15,7 @@ articles:
   process_subnat_stat: process_subnat_stat.html
   run_model: run_model.html
   template: template.html
-last_built: 2020-05-05T13:16Z
+last_built: 2020-05-05T19:46Z
 urls:
   reference: https://iiasa.github.io/mapspam2globiom/reference
   article: https://iiasa.github.io/mapspam2globiom/articles

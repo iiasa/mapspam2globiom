@@ -4,23 +4,19 @@
 #'for each crop and system. The border of the country is used as mask to
 #'determine the grid and each grid is given a gridID number.
 #'
-#'Only two resolutions are allowed for `create_grid`: 5 arcmin and 30 arcsec,
-#'which are set by `res`. For technical reasons, gridID values are set before
-#'the raster is masked with the country border, which means they are unique but
-#'non consecutive. The crs can be set to reproject the raster. The default
-#'projection is WGS 84. Note that creating a SPAM grid at a resolution of 30
-#'arcsec can be very large and might make some time to create, in particular if
-#'it also has to be reprojected.
+#'For technical reasons, gridID values are set before the raster is masked with
+#'the country border, which means they are unique but non consecutive. Note that
+#'grids at a resolution of 30 arcsec can become very large and might make some
+#'time to create. The file is saved in `/processed_data/maps/grid/`
 #'
 #'@param param
 #'@inheritParams create_spam_folders
 #'
-#'@return RasterLayer
-#'
 #'@examples
 #'\dontrun{
-#'create_grid(spam_par = spam_par, border = adm, crs = "+init=epsg:4326")
+#'create_grid(param)
 #'}
+#'
 #'@export
 create_grid <- function(param = NULL){
 
@@ -28,10 +24,10 @@ create_grid <- function(param = NULL){
   stopifnot(inherits(param, "spam_par"))
   if(param$res == "5min") {
     grid_fact <- 12
-    message(glue::glue("Resolution is {param$res}"))
+    cat("\nResolution is", param$res)
   } else if (param$res == "30sec"){
     grid_fact <- 120
-    message(glue::glue("Resolution is {param$res}"))
+    cat("Resolution is", param$res)
   }
 
   # Create grid masked to country using +init=epsg:4326 and then reproject to

@@ -9,10 +9,10 @@
 #'
 #'@param
 #'@inheritParams create_grid
-#'@param font_size Parameter to specify the font size of administrative unit name that
-#'  is plotted on the map (default size = 3). If names are long or administrative unit polygons are
-#'  small, the labels may get cluttered. Better results can be obtained by
-#'  decreasing the font size.
+#'@param font_size Parameter to specify the font size of administrative unit
+#'  name that is plotted on the map (default size = 3). If names are long or
+#'  administrative unit polygons are small, the labels may get cluttered. Better
+#'  results can be obtained by decreasing the font size.
 #'
 #'@examples
 #'\dontrun{

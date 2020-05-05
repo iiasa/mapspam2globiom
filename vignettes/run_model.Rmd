@@ -20,3 +20,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(mapspam2globiom)
 ```
+
+
+FAOSTAT prices
+3. Run the script [@UPDATE] `agricultural_statistics\1_process_faostat_prices.r` Before you run the script make sure to set the `faostat_version`, corresponding to the date the FAOSTAT files were downloaded, in this case `20200303`. The script will produce country specific files for price statistics and saves them in the `data\processed\agricultural_statistics` folder, in our example: `faostat_crop_prices_2010_CHN.rds`. 

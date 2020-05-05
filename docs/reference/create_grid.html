@@ -117,7 +117,7 @@ determine the grid and each grid is given a gridID number." />
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Preparation</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="../articles/collect_input_data.html">Input data collection</a>
+          <a href="../articles/input_data_collection.html">Input data collection</a>
         </li>
         <li>
           <a href="../articles/template.html">Download template</a>
@@ -194,8 +194,8 @@ determine the grid and each grid is given a gridID number.</p>
       <td><p>Object of type <code>spam_par</code> that bundles all SPAM parameters,
 including core model folders, alpha-3 country code, year, spatial
 resolution, most detailed level at which subnational statistics are
-available, administrative unit level at which the model is solved, type of
-model and coordinate reference system.</p></td>
+available, administrative unit level at which the model is solved and type of
+model.</p></td>
     </tr>
     </table>
 
@@ -204,13 +204,10 @@ model and coordinate reference system.</p></td>
     <p>RasterLayer</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Only two resolutions are allowed for <code>create_grid</code>: 5 arcmin and 30 arcsec,
-which are set by <code>res</code>. For technical reasons, gridID values are set before
-the raster is masked with the country border, which means they are unique but
-non consecutive. The crs can be set to reproject the raster. The default
-projection is WGS 84. Note that creating a SPAM grid at a resolution of 30
-arcsec can be very large and might make some time to create, in particular if
-it also has to be reprojected.</p>
+    <p>For technical reasons, gridID values are set before the raster is masked with
+the country border, which means they are unique but non consecutive. Note that
+grids at a resolution of 30 arcsec can become very large and might make some
+time to create. The file is saved in <code>/processed_data/maps/grid/</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {

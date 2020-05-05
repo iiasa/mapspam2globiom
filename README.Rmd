@@ -40,7 +40,7 @@ Apart from the mapspam2globiom package, several other pieces of software are ess
 
 It takes some preparation before SPAMc can be run. Most important and propbably most time consuming is the collection of input data. SPAMc is a data-driven model and therefore requires a large variety of input data, which can be grouped under two headers: (1) (Sub)national agricultural statistics and (2) spatial information. The availability of data strongly affects the structure of the model and how can be solved. Hence, we highly recommend to start collecting input data before running the model. The articles in the Preparation section give an overview of all the information that is requited by SPAMc and shows were to download templates/examples that can be used as a framework to apply SPAMc to other countries:
 
-- [Input data collection](articles/collect_input_data.html).
+- [Input data collection](articles/input_data_collection.html).
 - [Download templates](articles/template.html)
 
 

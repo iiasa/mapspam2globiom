@@ -1,7 +1,8 @@
-#'Rasterizes the map with the location of the subnational administrative units '
+#'Rasterizes the map with the location of the subnational administrative units
+#'
 #'For several internal operations, SPAMc needs a rasterized version of the map
 #'with locations of the subnational administrative units. This function creates
-#'this map and saves it into the `/processed_data/maps/adm` folder.
+#'this map and saves it into the `/processed_data/maps/adm/` folder.
 #'
 #'@param
 #'@inheritParams create_spam_folders

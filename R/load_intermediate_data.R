@@ -1,5 +1,4 @@
-#'Load intermediate output in line with solve level for further processing
-#'
+# FUnction to load intermediate output in line with solve level for further processing
 load_intermediate_data <- function(fl, adm_code, param, local = TRUE, mess = TRUE){
   fl <- match.arg(fl, c("cl", "ia", "ir", "pa", "pa_fs",
                         "cl_harm", "ia_harm", "bs", "py",

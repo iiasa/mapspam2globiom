@@ -22,6 +22,10 @@ To create crop distribution maps with SPAMc, various [sources of data](data.html
 
 ## Location of raw data
 
+A crucial input for SPAMc to improve the spatial allocation of crop area is information on harvested area at the subnational administrative unit level. Apart from these statistics, which are discussed in the [next section](proces_subnat_stat.html), a complementary map is needed that shows the location of the administrative units.  
+
+---
+
 Raw data is stored in the `raw_data` folder. When the SPAMc is [setup](setup_model.html), you can specify the location of this folder. The default setting is to put it in the main SPAMc folder but you also have the possibility to create anywhere else(e.g. a data server or external drive). This might be convenient when you have limited capacity on your local harddrive to store the often large global spatial data (i.e. several gigabytes!) files from which country data is clipped.
 
 For practical reasons, we use separate subfolders for each data source (Table 1). The only exception is the subnational agricultural statistics, which are all stored in one folder. The raw data subfolders are automatically created when SPAMc is setup and therefore the names cannot be changed. However, if alternative and more detailed information is available from national sources (e.g. cropland map) a new folder can be created in the `raw_data` folder to store the data.  
@@ -78,6 +82,7 @@ Availability of subnational statistics greatly improve the crop allocation proce
 3. Information on farming system shares per crop and preferably at administrative unit level.
 4. Information on cropping intensity (e.g. the number of crop rotations in case of multicropping) per crop, preferably at the subnational level. 
 
+To further process the statistics, they need to be aggregated to the SPAMc crops and crop groups and organized in a certain way. We highly recommend the use the wide format, where the first @X columns are: followed by the harvested area for each crop. In this way it is immediately clear for which crops and administrative units data is available/missing. For examples, have a look at the `subnational_harvested_area_2010_MWI.csv`, `farming_system_shares_2010_MWI.csv` and `cropping_intensity_2010_MWI.csv` in the `data/raw/subnational_statistics` folder. We prefer and recommend to code all the steps that are needed to prepare the raw statistics In R so everything is nicely documented and reproducible. However, if you are more familiar and prefer to use Excel that is also fine. 
 
 
 ## Cropland extent

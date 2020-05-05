@@ -2,10 +2,57 @@
 % Please edit documentation in R/load_data.R
 \name{load_data}
 \alias{load_data}
-\title{Load input data for further processing}
+\title{Load model input data for further processing}
 \usage{
-load_data(fl, param, local = FALSE, mess = T)
+load_data(data, param, local = FALSE, mess = TRUE)
+}
+\arguments{
+\item{data}{character vector that refers to the data that is loaded. See
+details for allowed input.}
+
+\item{param}{Object of type \code{spam_par} that bundles all SPAM parameters,
+including core model folders, alpha-3 country code, year, spatial
+resolution, most detailed level at which subnational statistics are
+available, administrative unit level at which the model is solved and type of
+model.}
+
+\item{local}{logical; should the data be loaded into the global (\code{TRUE}) or
+local environment (`FALSE). Loading data into the local environment is only
+relevant when the function is used in internal package functions.}
+
+\item{mess}{logical; should a message be printed to the screen that indicates
+which dataset is loaded?}
 }
 \description{
-Load input data for further processing
+\code{load_data()} can be used to quickly load input data (e.g. subnational
+statistics, maps and mappings). This can be useful to quickly inspect the
+statistics or visualize a map. The following inputs are allowed:
+}
+\details{
+\itemize{
+\item adm_list: subnational administrative units are nested
+\item adm_map:
+\item adm_map_r:
+\item cl_med:
+\item cl_max:
+\item cl_rank:
+\item ia_max:
+\item ia_rank:
+\item grid:
+\item gia:
+\item gmia:
+\item pop:
+\item acc:
+\item urb:
+\item simu
+\item simu_r:
+\item ha:
+\item fs:
+\item ci:
+\item price:
+\item dm2fm:
+\item crop2globiom:
+\item faostat2crop:
+\item results:
+}
 }

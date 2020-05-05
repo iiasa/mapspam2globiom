@@ -114,7 +114,7 @@
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Preparation</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="../articles/collect_input_data.html">Input data collection</a>
+          <a href="../articles/input_data_collection.html">Input data collection</a>
         </li>
         <li>
           <a href="../articles/template.html">Download template</a>
@@ -184,7 +184,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-model-setup" class="hasAnchor"><a href="#section-model-setup" class="anchor"></a>Model setup</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -196,9 +196,15 @@
       <tr>
         
         <td>
-          <p><code><a href="check_stat.html">check_stat()</a></code> </p>
+          <p><code><a href="spam_par.html">spam_par()</a></code> </p>
         </td>
-        <td><p>Checks consistency of subnational statistics</p></td>
+        <td><p>Sets spam parameters</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_spam_folders.html">create_spam_folders()</a></code> </p>
+        </td>
+        <td><p>Create spam folder structure</p></td>
       </tr><tr>
         
         <td>
@@ -214,96 +220,71 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="create_spam_folders.html">create_spam_folders()</a></code> </p>
+          <p><code><a href="rasterize_adm_map.html">rasterize_adm_map()</a></code> </p>
         </td>
-        <td><p>Create spam folder structure</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="harmonize_cl.html">harmonize_cl()</a></code> </p>
-        </td>
-        <td><p>Function that iterates over adm level starting with the most detailed and
-update cl so it is in line with pa.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="harmonize_ia.html">harmonize_ia()</a></code> </p>
-        </td>
-        <td><p>Function to add irrigation information</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="harmonize_inputs.html">harmonize_inputs()</a></code> </p>
-        </td>
-        <td><p>Harmonizes the subnational statistics, the cropland extent and the irrigated area</p></td>
-      </tr><tr>
+        <td><p>Rasterizes the map with the location of the subnational administrative units</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-processing-subnational-statistics" class="hasAnchor"><a href="#section-processing-subnational-statistics" class="anchor"></a>Processing subnational statistics</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-process-spatial-data" class="hasAnchor"><a href="#section-process-spatial-data" class="anchor"></a>Process spatial data</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-run-model" class="hasAnchor"><a href="#section-run-model" class="anchor"></a>Run model</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      
+    </tbody><tbody>
+      
+      
+      
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-general" class="hasAnchor"><a href="#section-general" class="anchor"></a>General</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="load_data.html">load_data()</a></code> </p>
         </td>
         <td><p>Load input data for further processing</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="load_intermediate_data.html">load_intermediate_data()</a></code> </p>
-        </td>
-        <td><p>Load intermediate output in line with solve level for further processing</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plus.html">plus()</a></code> </p>
-        </td>
-        <td><p>Sum of vector elements but now NA + NA = NA not 0 as in sum</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="prepare_cropland.html">prepare_cropland()</a></code> </p>
-        </td>
-        <td><p>Prepares the synergy cropland area for SPAM</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="prepare_ir_area.html">prepare_ir_area()</a></code> </p>
-        </td>
-        <td><p>Prepares the synergy irrigated area for SPAM</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="prepare_physical_area.html">prepare_physical_area()</a></code> </p>
-        </td>
-        <td><p>Prepares the physical area subnational statistics so they can be used as input
-for SPAM.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rebalance_stat.html">rebalance_stat()</a></code> </p>
-        </td>
-        <td><p>Rebalances subnational statistics so they are consistent</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="spam_par.html">spam_par()</a></code> </p>
-        </td>
-        <td><p>Sets spam parameters</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="split_harmonized_inputs.html">split_harmonized_inputs()</a></code> </p>
-        </td>
-        <td><p>Harmonizes data in line with solve level</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="split_statistics.html">split_statistics()</a></code> </p>
-        </td>
-        <td><p>Function to combine ha, fs and ci and split
-Need to split first and then combine as in split version, adm specific fs and ci are used</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="validate_spam_par.html">validate_spam_par()</a></code> </p>
-        </td>
-        <td><p>Validates spam_par class</p></td>
       </tr>
     </tbody>
     </table>

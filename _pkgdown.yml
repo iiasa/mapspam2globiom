@@ -70,13 +70,20 @@ reference:
 - contents:
   - spam_par
   - create_spam_folders
+  - create_adm_map_pdf
+  - create_adm_list
   - create_grid
   - rasterize_adm_map
 - title: "Processing subnational statistics"
 - contents:
+  - create_statistics_template
+  - rebalance_statistics
 - title: "Process spatial data"
 - contents:
 - title: "Run model"
 - contents:
 - title "Post processing""
 - contents:
+- title: "General"
+- contents:
+  - load_data

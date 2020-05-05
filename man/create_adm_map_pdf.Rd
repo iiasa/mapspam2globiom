@@ -13,10 +13,10 @@ resolution, most detailed level at which subnational statistics are
 available, administrative unit level at which the model is solved and type of
 model.}
 
-\item{font_size}{Parameter to specify the font size of administrative unit name that
-is plotted on the map (default size = 3). If names are long or administrative unit polygons are
-small, the labels may get cluttered. Better results can be obtained by
-decreasing the font size.}
+\item{font_size}{Parameter to specify the font size of administrative unit
+name that is plotted on the map (default size = 3). If names are long or
+administrative unit polygons are small, the labels may get cluttered. Better
+results can be obtained by decreasing the font size.}
 }
 \description{
 The function will create and save a pdf file with the location of the

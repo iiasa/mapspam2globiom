@@ -1,4 +1,4 @@
-#'Validates spam_par class
+# Function to validate spam_par class
 validate_spam_par <- function(param) {
   stopifnot(inherits(param, "spam_par"))
   if (is.null(param$spam_path))

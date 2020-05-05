@@ -2,10 +2,7 @@
 % Please edit documentation in R/rasterize_adm_map.R
 \name{rasterize_adm_map}
 \alias{rasterize_adm_map}
-\title{Rasterizes the map with the location of the subnational administrative units '
-For several internal operations, SPAMc needs a rasterized version of the map
-with locations of the subnational administrative units. This function creates
-this map and saves it into the \verb{/processed_data/maps/adm} folder.}
+\title{Rasterizes the map with the location of the subnational administrative units}
 \usage{
 rasterize_adm_map(param)
 }
@@ -20,14 +17,12 @@ model.}
 RasterLayer
 }
 \description{
-Rasterizes the map with the location of the subnational administrative units '
 For several internal operations, SPAMc needs a rasterized version of the map
 with locations of the subnational administrative units. This function creates
-this map and saves it into the \verb{/processed_data/maps/adm} folder.
+this map and saves it into the \verb{/processed_data/maps/adm/} folder.
 }
 \examples{
 \dontrun{
 rasterize_adm_map(param)
 }
-
 }

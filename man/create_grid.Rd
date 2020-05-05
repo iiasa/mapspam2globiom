@@ -22,13 +22,10 @@ for each crop and system. The border of the country is used as mask to
 determine the grid and each grid is given a gridID number.
 }
 \details{
-Only two resolutions are allowed for \code{create_grid}: 5 arcmin and 30 arcsec,
-which are set by \code{res}. For technical reasons, gridID values are set before
-the raster is masked with the country border, which means they are unique but
-non consecutive. The crs can be set to reproject the raster. The default
-projection is WGS 84. Note that creating a SPAM grid at a resolution of 30
-arcsec can be very large and might make some time to create, in particular if
-it also has to be reprojected.
+For technical reasons, gridID values are set before the raster is masked with
+the country border, which means they are unique but non consecutive. Note that
+grids at a resolution of 30 arcsec can become very large and might make some
+time to create. The file is saved in \verb{/processed_data/maps/grid/}
 }
 \examples{
 \dontrun{

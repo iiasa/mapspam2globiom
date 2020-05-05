@@ -116,7 +116,7 @@ data, processed data and parameters for SPAM." />
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Preparation</a>
       <ul class="dropdown-menu" role="menu">
         <li>
-          <a href="../articles/collect_input_data.html">Input data collection</a>
+          <a href="../articles/input_data_collection.html">Input data collection</a>
         </li>
         <li>
           <a href="../articles/template.html">Download template</a>
@@ -182,28 +182,32 @@ data, processed data and parameters for SPAM." />
 data, processed data and parameters for SPAM.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>create_spam_folders</span>(<span class='kw'>spam_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>create_spam_folders</span>(<span class='kw'>param</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>spam_path</th>
-      <td><p>character string with the main SPAM folder. Note that R uses
-forward slash or double backslash to separate folder names.</p></td>
+      <th>param</th>
+      <td><p>Object of type <code>spam_par</code> that bundles all SPAM parameters,
+including core model folders, alpha-3 country code, year, spatial
+resolution, most detailed level at which subnational statistics are
+available, administrative unit level at which the model is solved and type of
+model.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>create_spam_folders</code> creates three folders in the <code>spam_path</code> set by the
-user: parameters, processed_data and raw_data as well as a number of lower
-level folders. This structure is essential to run SPAM. If <code>spam_path</code> is
-missing, the folder will be created in the <code><a href='https://rdrr.io/r/base/path.expand.html'>path.expand("~")</a></code>.</p>
+    <p><code>create_spam_folders</code> creates two folders in the <code>spam_path</code> set by the user:
+mappings and processed_data, and creates a <code>raw_data</code> folder in the location
+as set in <code>spam_par</code>. In addition, it copies a number of cvs files into the
+mappings folder, which contain several data tables that are needed to run the
+model and, if needed can be adjusted by the user.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>create_spam_folders</span>(<span class='kw'>spam_path</span> <span class='kw'>=</span> <span class='st'>"C:/Users/dijk158/Dropbox/mapspam2globiom_mwi"</span>)
+<span class='fu'>create_spam_folders</span>(<span class='no'>param</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -16,7 +16,10 @@ knitr::opts_chunk$set(
   comment = "#>")
 ```
 
-To setup SPAMc two steps need to be taken. It is assumed that all required software is already [installed](installation.html) and working. It is by far the easiest to create a new RStudio project and use the mapspam2globiom_mwi for Malawi [template](template.rmd) as a basis of your country SPAMc version. All the steps described in the Run SPAMc section use the code in mapspam2globiom_mwi repository as an example code so there is no need to start from scratch. The most important is that you change the location on your hard disk where the model will be stored and the model parameters, which is described below. And, off course, [subnational statistics and spatial data](input_data_collection.htm) needs to be collected as well.
+To setup SPAMc several steps need to be taken. By now, we assume that all required software is [installed](installation.html) and working. It is by far the easiest to create a new RStudio project and use the mapspam2globiom_mwi for Malawi [template](template.rmd) as a basis of your country SPAMc version. All the steps described in the Run SPAMc section use the code in mapspam2globiom_mwi repository as an example code so there is no need to start from scratch. All scripts related to model setup can be found in the `01_model_setup` folder of the template. 
+
+
+The most important is that you change the location on your hard disk where the model will be stored and the model parameters, which is described below. And, off course, [subnational statistics and spatial data](input_data_collection.htm) needs to be collected as well.
 
 
 ## Set model parameters and location of files
@@ -47,7 +50,7 @@ print(param)
 
 ## Create SPAMc folder structure
 
-`mapspam2globiom` includes a function to create all necessary folders `create_spam_folders()`. The only input it requires is the `param` which contains all the model parameters. The function will create three folders (1) `raw_data` is created in the main `spam_path` unless indicated otherwise by the user and serves to store all the raw input data, (2) `processed_data` will be created in the main `spam_path` and is used to save all the intermediary data products as well as the final results and (3) `mappings` will be created in the main `spam_path` and contains all the lists and mappings that are needed to define the model (e.g. number crops) and harmonize various data sources (concordance tables). All tables are in csv format and will be copied automatically into the `mappings` folder. Note that as some of these tables can be adjusted by the user if needed (e.g. adding a new crop), they are only copied if the files do not exist. If for some reason you want to replace or regenerate them, simply remove the folder and it will be created again when `create_spam_folders` is run. 
+`mapspam2globiom` includes a function to create all necessary folders `create_spam_folders()`. The only input it requires is the `param` which contains all the model parameters. The function will create three folders (1) `raw_data` is created in the main `spam_path` unless indicated otherwise by the user and serves to store all the raw input data, (2) `processed_data` will be created in the main `spam_path` and is used to save all the intermediary data products as well as the final results and (3) `mappings` will be created in the main `spam_path` and contains all the lists and mappings that are needed to define the model (e.g. number crops) and harmonize various data sources (concordance tables). All tables are in csv format and will be copied automatically into the `mappings` folder. Note that you can adjust as some of these tables if needed (e.g. adding a new crop), they are only copied if the files do not exist. If for some reason you want to replace or regenerate them, simply remove the folder and it will be created again when `create_spam_folders` is run. 
 
 ```{r eval=FALSE}
 # Create SPAMc folder structure in the spamc_path
@@ -57,10 +60,12 @@ create_spam_folders(param)
 
 ## Prepare subnational administrative unit map
 
-```{r}
+To allocate the subnational crop area information, a complementary map (most likely in the form of a shapefile) with the location of the subnational administrative units is needed. The processing of this map cannot be captured by a single function as it involves several decisions that need to be made by the user. These are explained next. 
 
-############### LOAD DATA ###############
-# set name file
+Before the shapefile can be processed you need to load it into R by setting the name (in this case `adm_2010_MWI.shp`), which is stored in the `raw_data/adm/` folder. The `st_transform` command projects the map to WSG84 so that it is consistent with all the other spatial data. 
+
+```{r eval = FALSE}
+# replace the name of the shapefile with that of your own country.
 iso3c_shp <- "adm_2010_MWI.shp"
 
 # load shapefile
@@ -68,23 +73,18 @@ adm_map_raw <- read_sf(file.path(param$spam_path, glue("raw_data/adm/{iso3c_shp}
 
 # plot
 plot(adm_map_raw$geometry)
-```
 
-
-```{r}
-############### PROCESS ###############
 # Project to standard global projection
 adm_map <- adm_map_raw %>%
   st_transform(param$crs)
+```
 
+For the model to work, it is essential that the attribute table with the names and codes of the administrative units has the correct column names. To make this easier, you only have to add the current header of the names and the codem, which will be stored in `admX_name_orig` and `admX_code_orig`, respectively, where X is the administrative unit level. If you only have data at level 0 and 1, simply delete the lines of script that refer to administrative unit level 2, etc. In case of Malawi, we have data at level 0-1 so all lines of script are relevant. Columns in the attribute table that are not relevent will be automatically deleted. We also union all polygons with the same name and code. Hence, if you only have statistics for the combination of two or more subnational regions, you can simply give them the same name and code and they will automatically be merged.
+
+```{r eval = FALSE}
 # Check names
 head(adm_map)
 names(adm_map)
-
-# Change names In order to use the country polygon as input, the column names of
-# the attribute table have to be set. 
-# The names of the administrative units should be set to admX_name, where X is the adm level.
-# The codes of the administrative units should be set to admX_code, where X is the adm code.
 
 # Set the original names, i.e. the ones that will be replaced. Remove adm1
 # and/or adm2 entries if such data is not available.
@@ -107,13 +107,6 @@ names(adm_map)[names(adm_map) == adm2_code_orig] <- "adm2_code"
 adm_map <- adm_map %>%
   dplyr::select(adm0_name, adm0_code, adm1_name, adm1_code, adm2_name, adm2_code)
 
-# Check names
-head(adm_map)
-names(adm_map)
-
-```
-
-```{r}
 # Union separate polygons that belong to the same adm    
 adm_map <- adm_map %>%
   group_by(adm0_name, adm0_code, adm1_name, adm1_code, adm2_name, adm2_code) %>%
@@ -122,18 +115,22 @@ adm_map <- adm_map %>%
   mutate(adm0_name = param$country,
          adm0_code = param$iso3c)
 
+# Check names
+head(adm_map)
+names(adm_map)
+```
+
+Polygons of administrative units where no crops should be allocated must be removed. If this is not done, in rare cases when the area statistics are larger than the cropland exent, the model might still allocate crops in these regions.^[@ADD].The Malawi polygon includes two of such regions. One is the Area under National Administration, which is the part of Lake Malawi that belongs to Malawi and Likoma, several small islands in the lake that are not covered by the statistics. The script below shows how to remove them. It there is no reason to remove polygons, delete the lines of script. By running `create_adm_map_pdf()` a pdf file with maps of the subnational regions is created in the `processed_data/maps/adm`  folder. Finally, you need to save the maps in shapefile and rds format in the relevant folder.
+
+```{r eval = FALSE}
 par(mfrow=c(1,2))
 plot(adm_map$geometry, main = "ADM all polygons")
 
 # Set names of ADMs that need to be removed from the polygon. 
-# These are ADMs where no crop should be allocated. Here we remove 
-# Area under National Administration, which is the part of Lake Malawi that belongs to Malawi
-# and Likoma, several small islands in the lake that are not covered by the statistics.
-# Set the adm_name by ADM level which need to be removed. Otherwise remove the script.
 adm1_to_remove <- c("Area under National Administration")
 adm2_to_remove <- c("Likoma")
 
-# Remove ADM1s
+# Remove ADMs
 adm_map <- adm_map %>%
   filter(adm1_name != adm1_to_remove) %>%
   filter(adm2_name != adm2_to_remove)
@@ -141,32 +138,35 @@ adm_map <- adm_map %>%
 plot(adm_map$geometry, main = "ADM polygons removed")
 par(mfrow=c(1,1))
 
+# Create pdf file with the location of administrative units
+create_adm_map_pdf(param)
+
 # Save adm maps
 temp_path <- file.path(param$spam_path, glue("processed_data/maps/adm/{param$res}"))
 dir.create(temp_path, showWarnings = FALSE, recursive = TRUE)
 
 saveRDS(adm_map, file.path(temp_path, glue("adm_map_{param$year}_{param$iso3c}.rds")))
 write_sf(adm_map, file.path(temp_path, glue("adm_map_{param$year}_{param$iso3c}.shp")))
-
-
 ```
 
+To link the subnational statistics to other spatial data a table is needed (`adm_list`) that contains information on how the administrative units at various levels are nested, which is exactly the information that is stored in the attribute table of the administrative unit map. The following code, extracts the list from the shapefile and saves it as csv file in the `processed_data/lists` folder. 
 
-```{r}
+```{r eval = FALSE}
 # Create adm_list
-adm_list <- adm_map %>%
-  as.data.frame() %>%
-  dplyr::select(-geometry)
-
-write_csv(adm_list, file.path(param$spam_path, glue("processed_data/lists/adm_list_{param$year}_{param$iso3c}.csv")))
-
-
+create_adm_list(adm_map, param)
 ```
-
 
 
 ## Create grid and rasterize subnational administrative unit map
 
+The package comes with `create_grid()` a function that creates a spatial grid at selected spatial resolution (i.e. 30 arcsec or 5 arcmin). The grid is subsequently used by `rasterize_adm_map()`, which rasterizes the administrative unit map at the selected resolution. Both the grid and the rasterized map are required by the model as input.
 
+```{r eval = FALSE}
+# Create grid
+create_grid(param)
+
+# Rasterize administrative unit map
+rasterize_adm_map(param)
+```
 
 This is all it takes to set up the SPAMc model! The next step is processing the [raw subnational statistics](process_subnat_stat.html) and [spatial data](process_spatial_data.html).
