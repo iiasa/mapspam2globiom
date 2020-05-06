@@ -85,10 +85,26 @@ reference:
   - reaggregate_statistics
 - title: "Process spatial data"
 - contents:
+- title: "Create synergy cropland map"
+- contents:
+  - prepare_cropland
+- title: "Create synergy irrigated area map"
+- contents:
+  - prepare_ir_area
+- contents:
 - title: "Run model"
 - contents:
-- title "Post processing""
+  - harmonize_inputs
+  - harvest_results
+  - prepare_bs_yg
+  - prepare_physical_area
+  - prepare_score
+  - run_spam
+- title "Post processing"
 - contents:
+  - create_all_tif
+  - create_globiom_input
+  - view4p
 - title: "General"
 - contents:
   - load_data

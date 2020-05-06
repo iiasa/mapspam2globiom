@@ -1,5 +1,7 @@
+#' Harvest results created after running SPAMc with GAMS
+#'
 #'@export
-prepare_results <- function(param) {
+harvest_results <- function(param) {
   load_data(c("adm_list", "ci"), param, local = TRUE, mess = FALSE)
 
   # Set adm_level

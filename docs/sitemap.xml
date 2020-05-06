@@ -13,6 +13,12 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/create_adm_map_pdf.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/create_all_tif.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/create_globiom_input.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/create_grid.html</loc>
   </url>
   <url>
@@ -22,13 +28,10 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/create_statistics_template.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/harmonize_cl.html</loc>
-  </url>
-  <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/harmonize_ia.html</loc>
-  </url>
-  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/harmonize_inputs.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/harvest_results.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/load_data.html</loc>
@@ -40,6 +43,9 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/plus.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_bs_yg.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_cropland.html</loc>
   </url>
   <url>
@@ -49,16 +55,19 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_physical_area.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_score.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/rasterize_adm_map.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/reaggregate_statistics.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/spam_par.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/run_spam.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/split_harmonized_inputs.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/spam_par.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix.html</loc>

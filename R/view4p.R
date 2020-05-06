@@ -1,5 +1,6 @@
-# Function to compare crop maps per system in a panel
-view_4p_f <- function(crp, vr, sy = c("S", "L", "H", "I"), df = db){
+#' Function to compare crop maps per system in a panel
+#' @export
+view4p <- function(crp, vr, sy = c("S", "L", "H", "I"), df = db){
   ext <- extent(grid)
   df <- df %>%
     filter(crop == crp, system %in% sy) %>%

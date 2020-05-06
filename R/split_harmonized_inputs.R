@@ -1,9 +1,6 @@
-#'Harmonizes data in line with solve level
-#'
+# Harmonizes data in line with solve level
+#
 #'@importFrom magrittr %>%
-#'
-#'
-#'
 #'
 split_harmonized_inputs <- function(ac, param) {
 

@@ -1,3 +1,5 @@
+#' Run SPAMc
+#'
 #'@export
 run_spam <- function(param) {
   load_data("adm_list", param, local = TRUE, mess = FALSE)

@@ -1,3 +1,5 @@
+#' Prepares score for all farming systems, crops and grid cells
+#'
 #'@export
 prepare_score <- function(param) {
   cat("\n############### PREPARE SCORE ###############")

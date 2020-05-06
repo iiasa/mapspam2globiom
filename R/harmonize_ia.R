@@ -1,5 +1,4 @@
-
-#' Function to add irrigation information
+# Function to add irrigation information
 harmonize_ia <- function(df, adm_code, param, ia_slackp) {
 
   # Rank irrigated grid cells till sum of cl under irrigation is at least equal

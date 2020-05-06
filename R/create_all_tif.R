@@ -1,3 +1,5 @@
+#' Create tif files of all SPAMc maps
+#'
 #'@export
 create_all_tif <- function(param) {
   load_data("results", param, mess = F)

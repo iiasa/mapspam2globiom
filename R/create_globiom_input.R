@@ -1,4 +1,5 @@
-# Function to create land cover and crop distribution gdx files
+#' Create land cover and crop distribution gdx files for use with GLOBIOM
+#'
 #'@export
 create_globiom_input <- function(mapping, lc_map, param) {
 

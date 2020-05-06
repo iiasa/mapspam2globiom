@@ -1,5 +1,5 @@
-#'Function that iterates over adm level starting with the most detailed and
-#'update cl so it is in line with pa.
+#Function that iterates over adm level starting with the most detailed and
+#update cl so it is in line with pa.
 harmonize_cl <- function(df, adm_code, param) {
   if (param$solve_level == 0) {
     for (i in param$adm_level:0) {
