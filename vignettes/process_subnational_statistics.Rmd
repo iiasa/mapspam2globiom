@@ -1,8 +1,8 @@
 ---
-title: "Processing of subnational statistics"
+title: "Process subnational statistics"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Processing of subnational statistics}
+  %\VignetteIndexEntry{Process subnational statistics}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:
@@ -35,6 +35,7 @@ param <- spam_par(spam_path = spamc_path,
  solve_level = 0,
  model = "max_score")
 
+ha_df <- mapspam2globiom:::ha_df
 ```
 
 Subnational statistics on harvested area are a key input into SPAMc. Before they can be used they need to be put in the right format, made consistent and aggregated (or split) to the crops and farming systems that are used by SPAMc. Unfortunately, the level of detail (e.g. many detailed crops or a few crop groups, at the administrative level 0, 1 or 2 level), coverage (full crop and administrative unit coverage or many missing values) and quality (do lower levels of administrative unit data add up to higher levels?) of these statistics may differ enormeously between countries. Cleaning, harmonizing and preparing the subnational statistics is probably the most time consuming and difficult part of running SPAMc. In many cases the researcher has to make a value judgement on which statistics to keep and which to discard to make them consistent. Which data is more reliable if they do not add up? Administrative unit level 1 or 2? If, the harvested area for say vegetables seems exceptionally and perhaps unrealisticaly large in a certain administrative region, is this a data entry error or is it really that hight? These are decisions that often need to be taken when preparing the data if the quality is poor. Hence, there is no simple formula or function that makes it possible to (semi) automatically prepare the raw subnational statistics so that they can be used by SPAMc. It requires a lot of user input and ad hoc coding to get the data ready. 
@@ -126,28 +127,24 @@ Data should be always consistent and add up, meaning that the sum of harvested a
 
 ## Check and calibrate subnational statistics
 
-Now most hard work is done, the ha, fs and cs files need to be checked for consistency and calibrated to the FAOSTAT national statistics. This is done in `03_check_and_calibrate_statistics.r`. 
+Now most hard work is done, the ha, fs and cs files need to be checked for consistency and calibrated to the FAOSTAT national statistics. This is done in `03_check_and_calibrate_statistics.r`. The first step is to check if the data is consistent, which is done by ` check_statistics()`. If `out = TRUE` is set a report is returned which shows where the inconsistencies occur.  
 
--  use rebalance 
-- combine with FAOSTAT
-- ??
-
-As GLOBIOM is fully calibrated to FAOSTAT, 
-- The crops for which subnational data is available should be consistent with the list of crops for which FAOSTAT presents data. We use FAOSTAT as main source for the national statistics and all subnational information will be scaled to FAOSTAT.^[We might make this an option in updates of the package.]. Hence, if the subnational statistics indicate a certain crop is produced, say, sweet potato, and FAOSTAT indicates there is no harvested area for this crop, there is an inconsistency.  
-
-
-Make sure the totals at higher levels are the same as subtotals
-We start at the lowest level, assuming lower levels are preferred if more than one level
-of data is available and data is complete.
-TOADD. In case of inconsistencies: incomplete data at lower level but with a higher subtotal,
-data is also replaced and all data with NA at the lower level is set to 0.
-
-
-```{r eval = FALSE}
-ha_df <- rebalance_statistics(ha_df, param)
+```{r}
+# Check the consistency of the ha statistics
+check_statistics(ha_df, param, out = TRUE)
 ```
 
+To reaggreate the statistics from the bottom up, use `reaggregate_statistics()`. 
 
+```{r eval = FALSE}
+# Reaggreate from the bottom up.
+ha_df <- reaggregate_statistics(ha_df, param)
+
+# Check again.
+check_statistics(ha_df, param, out = T)
+```
+
+Next, the statistics are calibrated to the national FAOSTAT statistics. The code below shows how this is implemented. First, the code checks if there are still crops included which are not in the FAOSTAT data and removed them if needed. Next, the crops are identified that are not present in the statisitics and the national total is added from the FAOSTAT database. Finally all the subnational statistics are proportionally scaled so the total is equal to the FAOSTAT figures. 
 
 ```{r eval = FALSE}
 # Identify crops that are present in ha_df but not in fao and remove them from ha_df.
@@ -166,7 +163,6 @@ ha_df <- ha_df %>%
         fips = unique(ha_df$adm_code[ha_df$adm_level==0]),
         adm_level = 0,
         adm = unique(ha_df$adm_name[ha_df$adm_level==0])))
-
 
 # Calculate scaling factor
 fao_stat_sf <-bind_rows(
@@ -187,16 +183,7 @@ ha_df <- ha_df %>%
   dplyr::select(-sf)
 ```
 
-
-
-
-```{r eval = FALSE}
-check_statistics()
-```
-
-# Save the ha, fs and ci csv files in the Processed_data/agricultural_statistics folder
-# Note that they have to be saved in this folder using the names below so do not change this!
-
+Finally the three files (ha, fs and ci), need to be save in the `processed_data/agricultural_statistics folders. It is important to use the correct names otherwise other functions cannot find the data. 
 
 ```{r eval = FALSE}
 write_csv(ha_df, file.path(param$spam_path, glue("processed_data/agricultural_statistics/ha_adm_{param$year}_{param$iso3c}.csv")))
@@ -205,4 +192,4 @@ write_csv(ci_df, file.path(param$spam_path, glue("processed_data/agricultural_st
 
 ```
 
-
+Now most of the hard work is done, the next step is to [process the spatial data](process_spatial_data.html).

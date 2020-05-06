@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Load input data for further processing — load_data • mapspam2globiom</title>
+<title>Load model input data for further processing — load_data • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,12 @@
 
 
 
-<meta property="og:title" content="Load input data for further processing — load_data" />
-<meta property="og:description" content="Load input data for further processing" />
+<meta property="og:title" content="Load model input data for further processing — load_data" />
+<meta property="og:description" content="load_data() can be used to quickly load input data (e.g. subnational
+statistics, maps and mappings). This can be useful to quickly inspect the
+statistics or visualize a map. Data can only be loaded after the
+create_spam_folders() has been run and data has been created by running
+pre-processing steps. See details for allowed input." />
 
 
 
@@ -129,16 +133,22 @@
           <a href="../articles/model_setup.html">1. Model setup</a>
         </li>
         <li>
-          <a href="../articles/process_subnat_stat.html">2. Process subnational statistics</a>
+          <a href="../articles/process_subnational_statistics.html">2. Process subnational statistics</a>
         </li>
         <li>
           <a href="../articles/process_spatial_data.html">3. Process spatial data</a>
         </li>
         <li>
-          <a href="../articles/run_model.html">4. Run model</a>
+          <a href="../articles/create_synergy_cropland.html">4. Create synergy cropland map</a>
         </li>
         <li>
-          <a href="../articles/post_process.html">5. Post-processing</a>
+          <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
+        </li>
+        <li>
+          <a href="../articles/run_model.html">6. Run model</a>
+        </li>
+        <li>
+          <a href="../articles/post_process.html">7. Post-processing</a>
         </li>
       </ul>
     </li>
@@ -171,17 +181,78 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Load input data for further processing</h1>
+    <h1>Load model input data for further processing</h1>
     
     <div class="hidden name"><code>load_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Load input data for further processing</p>
+    <p><code>load_data()</code> can be used to quickly load input data (e.g. subnational
+statistics, maps and mappings). This can be useful to quickly inspect the
+statistics or visualize a map. Data can only be loaded after the
+<code><a href='create_spam_folders.html'>create_spam_folders()</a></code> has been run and data has been created by running
+pre-processing steps. See details for allowed input.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>load_data</span>(<span class='no'>fl</span>, <span class='no'>param</span>, <span class='kw'>local</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mess</span> <span class='kw'>=</span> <span class='no'>T</span>)</pre>
+    <pre class="usage"><span class='fu'>load_data</span>(<span class='no'>data</span>, <span class='no'>param</span>, <span class='kw'>local</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mess</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>character vector that refers to the data that is loaded. See
+details for allowed input.</p></td>
+    </tr>
+    <tr>
+      <th>param</th>
+      <td><p>Object of type <code>spam_par</code> that bundles all SPAM parameters,
+including core model folders, alpha-3 country code, year, spatial
+resolution, most detailed level at which subnational statistics are
+available, administrative unit level at which the model is solved and type of
+model.</p></td>
+    </tr>
+    <tr>
+      <th>local</th>
+      <td><p>logical; should the data be loaded into the global (<code>TRUE</code>) or
+local environment (`FALSE). Loading data into the local environment is only
+relevant when the function is used in internal package functions.</p></td>
+    </tr>
+    <tr>
+      <th>mess</th>
+      <td><p>logical; should a message be printed to the screen that indicates
+which dataset is loaded?</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The following inputs are allowed:</p><ul>
+<li><p>adm_list:</p></li>
+<li><p>adm_map:</p></li>
+<li><p>adm_map_r:</p></li>
+<li><p>cl_med:</p></li>
+<li><p>cl_max:</p></li>
+<li><p>cl_rank:</p></li>
+<li><p>ia_max:</p></li>
+<li><p>ia_rank:</p></li>
+<li><p>grid:</p></li>
+<li><p>gia:</p></li>
+<li><p>gmia:</p></li>
+<li><p>pop:</p></li>
+<li><p>acc:</p></li>
+<li><p>urb:</p></li>
+<li><p>simu:</p></li>
+<li><p>simu_r:</p></li>
+<li><p>ha:</p></li>
+<li><p>fs:</p></li>
+<li><p>ci:</p></li>
+<li><p>price:</p></li>
+<li><p>dm2fm:</p></li>
+<li><p>crop2globiom:</p></li>
+<li><p>faostat2crop:</p></li>
+<li><p>results:</p></li>
+</ul>
 
 
   </div>

@@ -4,7 +4,10 @@
     <loc>https://iiasa.github.io/mapspam2globiom/index.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/check_stat.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/check_statistics.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/create_adm_list.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/create_adm_map_pdf.html</loc>
@@ -14,6 +17,9 @@
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/create_spam_folders.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/create_statistics_template.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/harmonize_cl.html</loc>
@@ -26,9 +32,6 @@
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/load_data.html</loc>
-  </url>
-  <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/load_intermediate_data.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/mapspam2globiom-package.html</loc>
@@ -49,7 +52,7 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/rasterize_adm_map.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/rebalance_stat.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/reaggregate_statistics.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/spam_par.html</loc>
@@ -58,16 +61,16 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/split_harmonized_inputs.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/split_statistics.html</loc>
-  </url>
-  <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/validate_spam_par.html</loc>
-  </url>
-  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix_b.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/create_synergy_cropland.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/create_synergy_ir_area.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/crop_distribution_maps.html</loc>
@@ -94,7 +97,7 @@
     <loc>https://iiasa.github.io/mapspam2globiom/articles/process_spatial_data.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/process_subnat_stat.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/process_subnational_statistics.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/run_model.html</loc>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Harmonizes the subnational statistics, the cropland extent and the irrigated area — harmonize_inputs • mapspam2globiom</title>
+<title>create file with information on how administrative units are nested — create_adm_list • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,13 @@
 
 
 
-<meta property="og:title" content="Harmonizes the subnational statistics, the cropland extent and the irrigated area — harmonize_inputs" />
-<meta property="og:description" content="Harmonizes the subnational statistics, the cropland extent and the irrigated area" />
+<meta property="og:title" content="create file with information on how administrative units are nested — create_adm_list" />
+<meta property="og:description" content="To organize and process the subnational statistics, a data.frame is needed
+that lists all administrative units at all available levels and how they are
+nested. The data.frame should have columns with the name and code for each
+level of administrative unit data using the following format: admX_name and
+admX_code, where X corresponds with the administrative unit level for which
+data is available." />
 
 
 
@@ -177,20 +182,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Harmonizes the subnational statistics, the cropland extent and the irrigated area</h1>
+    <h1>create file with information on how administrative units are nested</h1>
     
-    <div class="hidden name"><code>harmonize_inputs.Rd</code></div>
+    <div class="hidden name"><code>create_adm_list.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Harmonizes the subnational statistics, the cropland extent and the irrigated area</p>
+    <p>To organize and process the subnational statistics, a data.frame is needed
+that lists all administrative units at all available levels and how they are
+nested. The data.frame should have columns with the name and code for each
+level of administrative unit data using the following format: admX_name and
+admX_code, where X corresponds with the administrative unit level for which
+data is available.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>harmonize_inputs</span>(<span class='no'>param</span>)</pre>
+    <pre class="usage"><span class='fu'>create_adm_list</span>(<span class='no'>x</span>, <span class='no'>param</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>object of class sf with the location of the administrative units
+including an attribute table with information on how they are nested</p></td>
+    </tr>
     <tr>
       <th>param</th>
       <td><p>Object of type <code>spam_par</code> that bundles all SPAM parameters,
@@ -201,10 +216,18 @@ model.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>All the required information should be contained in the atribute table of the
+polygon file with the location of the administrative units. This function
+strips the attribute table from the polygon file and saves it as
+<code>adm_list.csv</code> in the <code>processed_data/lists/</code> folder. The package
+documentation provides information on how to create the polygon file.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>create_adm_list</span>(<span class='no'>adm_map</span>, <span class='no'>param</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

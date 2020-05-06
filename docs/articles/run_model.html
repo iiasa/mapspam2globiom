@@ -88,16 +88,22 @@
           <a href="../articles/model_setup.html">1. Model setup</a>
         </li>
         <li>
-          <a href="../articles/process_subnat_stat.html">2. Process subnational statistics</a>
+          <a href="../articles/process_subnational_statistics.html">2. Process subnational statistics</a>
         </li>
         <li>
           <a href="../articles/process_spatial_data.html">3. Process spatial data</a>
         </li>
         <li>
-          <a href="../articles/run_model.html">4. Run model</a>
+          <a href="../articles/create_synergy_cropland.html">4. Create synergy cropland map</a>
         </li>
         <li>
-          <a href="../articles/post_process.html">5. Post-processing</a>
+          <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
+        </li>
+        <li>
+          <a href="../articles/run_model.html">6. Run model</a>
+        </li>
+        <li>
+          <a href="../articles/post_process.html">7. Post-processing</a>
         </li>
       </ul>
 </li>
@@ -141,6 +147,7 @@
     
     
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mapspam2globiom</span>)</pre></body></html></div>
+<p>FAOSTAT prices 3. Run the script <span class="citation">(<span class="citeproc-not-found" data-reference-id="UPDATE"><strong>???</strong></span>)</span> <code>agricultural_statistics\1_process_faostat_prices.r</code> Before you run the script make sure to set the <code>faostat_version</code>, corresponding to the date the FAOSTAT files were downloaded, in this case <code>20200303</code>. The script will produce country specific files for price statistics and saves them in the <code>data\processed\agricultural_statistics</code> folder, in our example: <code>faostat_crop_prices_2010_CHN.rds</code>.</p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

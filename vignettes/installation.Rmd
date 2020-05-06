@@ -97,6 +97,8 @@ Apart from mapspam and GDXRRW, a number of R packages are needed to peform the t
 
 - [raster package](https://cran.r-project.org/web/packages/raster/index.html) [@Hijmans2020]
 
+- [gdalUtils package](https://cran.r-project.org/web/packages/gdalUtils/index.html)[@ADD]
+
 
 ## Hardware
 

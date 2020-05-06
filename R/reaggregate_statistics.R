@@ -1,19 +1,20 @@
-#'Rebalances subnational statistics so they are consistent
+#'Reaggregates subnational statistics from the bottom up so they are consistent
 #'
 #'@param df tbl or data.frame
 #'@param param
-#'@inheritParams create_grid
+#'@inheritParams create_spam_folders
 #'
 #'@return same class as `df`.
 #'
 #'@examples
 #'
 #'@export
-rebalance_statistics <- function(df, param){
+reaggregate_statistics <- function(df, param){
     stopifnot(inherits(param, "spam_par"))
     unit <- names(df)[names(df) %in% c("ha", "pa")]
     names(df)[names(df) %in% c("ha", "pa")] <- "value"
 
+    load_data("adm_list", param, local = TRUE, mess = FALSE)
     if(param$adm_level == 2) {
 
         # Aggregate adm2

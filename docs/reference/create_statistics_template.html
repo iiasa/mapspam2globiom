@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Harmonizes the subnational statistics, the cropland extent and the irrigated area — harmonize_inputs • mapspam2globiom</title>
+<title>Create template for raw subnational crop statistics — create_statistics_template • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,14 @@
 
 
 
-<meta property="og:title" content="Harmonizes the subnational statistics, the cropland extent and the irrigated area — harmonize_inputs" />
-<meta property="og:description" content="Harmonizes the subnational statistics, the cropland extent and the irrigated area" />
+<meta property="og:title" content="Create template for raw subnational crop statistics — create_statistics_template" />
+<meta property="og:description" content="To support the preparation of the subnational statistics,
+create_raw_statistics_template() can create three types of data templates:
+ha for harvest area statistics
+fs for farming system share
+ci for cropping intensity.
+
+" />
 
 
 
@@ -177,20 +183,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Harmonizes the subnational statistics, the cropland extent and the irrigated area</h1>
+    <h1>Create template for raw subnational crop statistics</h1>
     
-    <div class="hidden name"><code>harmonize_inputs.Rd</code></div>
+    <div class="hidden name"><code>create_statistics_template.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Harmonizes the subnational statistics, the cropland extent and the irrigated area</p>
+    <p>To support the preparation of the subnational statistics,
+<code>create_raw_statistics_template()</code> can create three types of data templates:</p><ul>
+<li><p>ha for harvest area statistics</p></li>
+<li><p>fs for farming system share</p></li>
+<li><p>ci for cropping intensity.</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>harmonize_inputs</span>(<span class='no'>param</span>)</pre>
+    <pre class="usage"><span class='fu'>create_statistics_template</span>(<span class='no'>type</span>, <span class='no'>param</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>type</th>
+      <td><p>Character vector that refers to the type of template that needs to
+be created. See details for allowed input.</p></td>
+    </tr>
     <tr>
       <th>param</th>
       <td><p>Object of type <code>spam_par</code> that bundles all SPAM parameters,
@@ -201,9 +218,17 @@ model.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The function requires information on how the different administrative unit
+levels are nested. This file needs to be created first by running
+<code><a href='create_adm_list.html'>create_adm_list()</a></code>.</p>
+<p>The dimensions of the ha template are determined by adm level set by
+<code><a href='spam_par.html'>spam_par()</a></code>, while the dimensions of the fs and cs templates (which are
+identical) are determined by the solve level parameter.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>create_statistics_template</span>(<span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"ha"</span>, <span class='no'>param</span>)</div><div class='output co'>#&gt; <span class='error'>Error in stopifnot(inherits(param, "spam_par")): object 'param' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -1,0 +1,19 @@
+---
+title: "Create synergy irrigated area map"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Create synergy irrigated area map}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(mapspam2globiom)
+```

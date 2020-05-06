@@ -88,16 +88,22 @@
           <a href="../articles/model_setup.html">1. Model setup</a>
         </li>
         <li>
-          <a href="../articles/process_subnat_stat.html">2. Process subnational statistics</a>
+          <a href="../articles/process_subnational_statistics.html">2. Process subnational statistics</a>
         </li>
         <li>
           <a href="../articles/process_spatial_data.html">3. Process spatial data</a>
         </li>
         <li>
-          <a href="../articles/run_model.html">4. Run model</a>
+          <a href="../articles/create_synergy_cropland.html">4. Create synergy cropland map</a>
         </li>
         <li>
-          <a href="../articles/post_process.html">5. Post-processing</a>
+          <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
+        </li>
+        <li>
+          <a href="../articles/run_model.html">6. Run model</a>
+        </li>
+        <li>
+          <a href="../articles/post_process.html">7. Post-processing</a>
         </li>
       </ul>
 </li>
@@ -140,12 +146,10 @@
 
     
     
-<p>To create crop distribution maps with SPAMc, various <a href="data.html">sources of data</a> are required, including national and subnational agricultural statistics, cropland exent, map of irrigated areas and spatially explicit information on economic and bio-physical suitability. This Section provides an overview of which raw data needs to be collected and where to store them so the can be used by SPAMc as input. Details on how this data will be processed so they can be used as input into SPAMc are discussed in the articles on <a href="process_subnat_stat.html">Processing subnational statistics</a> and <a href="process_spatial_data.html">Processing spatial data</a>.</p>
+<p>To create crop distribution maps with SPAMc, various <a href="data.html">sources of data</a> are required, including national and subnational agricultural statistics, cropland exent, map of irrigated areas and spatially explicit information on economic and bio-physical suitability. This Section provides an overview of which raw data needs to be collected, from where and where to store the datasets so the can be used by SPAMc as input. Details on how this data will be processed are discussed in the articles on <a href="process_subnational_statistics.html">Processing subnational statistics</a> and <a href="process_spatial_data.html">Processing spatial data</a>.</p>
 <div id="location-of-raw-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#location-of-raw-data" class="anchor"></a>Location of raw data</h2>
-<p>A crucial input for SPAMc to improve the spatial allocation of crop area is information on harvested area at the subnational administrative unit level. Apart from these statistics, which are discussed in the <a href="proces_subnat_stat.html">next section</a>, a complementary map is needed that shows the location of the administrative units.</p>
-<hr>
 <p>Raw data is stored in the <code>raw_data</code> folder. When the SPAMc is <a href="setup_model.html">setup</a>, you can specify the location of this folder. The default setting is to put it in the main SPAMc folder but you also have the possibility to create anywhere else(e.g. a data server or external drive). This might be convenient when you have limited capacity on your local harddrive to store the often large global spatial data (i.e. several gigabytes!) files from which country data is clipped.</p>
 <p>For practical reasons, we use separate subfolders for each data source (Table 1). The only exception is the subnational agricultural statistics, which are all stored in one folder. The raw data subfolders are automatically created when SPAMc is setup and therefore the names cannot be changed. However, if alternative and more detailed information is available from national sources (e.g. cropland map) a new folder can be created in the <code>raw_data</code> folder to store the data.</p>
 <p>As you probably have not gone through the process of setting up the model, you can either create a temporary raw data folder structure (Table 1) and copy the data to the SPAMc folder later or <a href="setup_model.html">setup the model</a> first and save all the data directly in the correct location. In any case, the location of the raw data folder can be changed at any times so there is some flexibility.</p>
@@ -194,6 +198,7 @@
 <li>Information on farming system shares per crop and preferably at administrative unit level.</li>
 <li>Information on cropping intensity (e.g. the number of crop rotations in case of multicropping) per crop, preferably at the subnational level.</li>
 </ol>
+<p>To further process the statistics, they need to be aggregated to the SPAMc crops and crop groups and organized in a certain way. We highly recommend the use the wide format, where the first <span class="citation">(<span class="citeproc-not-found" data-reference-id="X"><strong>???</strong></span>)</span> columns are: followed by the harvested area for each crop. In this way it is immediately clear for which crops and administrative units data is available/missing. For examples, have a look at the <code>subnational_harvested_area_2010_MWI.csv</code>, <code>farming_system_shares_2010_MWI.csv</code> and <code>cropping_intensity_2010_MWI.csv</code> in the <code>data/raw/subnational_statistics</code> folder. We prefer and recommend to code all the steps that are needed to prepare the raw statistics In R so everything is nicely documented and reproducible. However, if you are more familiar and prefer to use Excel that is also fine.</p>
 </div>
 <div id="cropland-extent" class="section level2">
 <h2 class="hasAnchor">

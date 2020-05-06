@@ -88,16 +88,22 @@
           <a href="../articles/model_setup.html">1. Model setup</a>
         </li>
         <li>
-          <a href="../articles/process_subnat_stat.html">2. Process subnational statistics</a>
+          <a href="../articles/process_subnational_statistics.html">2. Process subnational statistics</a>
         </li>
         <li>
           <a href="../articles/process_spatial_data.html">3. Process spatial data</a>
         </li>
         <li>
-          <a href="../articles/run_model.html">4. Run model</a>
+          <a href="../articles/create_synergy_cropland.html">4. Create synergy cropland map</a>
         </li>
         <li>
-          <a href="../articles/post_process.html">5. Post-processing</a>
+          <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
+        </li>
+        <li>
+          <a href="../articles/run_model.html">6. Run model</a>
+        </li>
+        <li>
+          <a href="../articles/post_process.html">7. Post-processing</a>
         </li>
       </ul>
 </li>
@@ -140,7 +146,7 @@
 
     
     
-<p>To setup SPAMc two steps need to be taken. It is assumed that all required software is already <a href="installation.html">installed</a> and working. It is by far the easiest to create a new RStudio project and use the mapspam2globiom_mwi for Malawi <a href="template.rmd">template</a> as a basis of your country SPAMc version. All the steps described in the Run SPAMc section use the code in mapspam2globiom_mwi repository as an example code so there is no need to start from scratch. The most important is that you change the location on your hard disk where the model will be stored and the model parameters, which is described below. And, off course, <a href="input_data_collection.htm">subnational statistics and spatial data</a> needs to be collected as well.</p>
+<p>To setup SPAMc several steps need to be taken. By now, we assume that all required software is <a href="installation.html">installed</a> and working. It is by far the easiest to create a new RStudio project and use the mapspam2globiom_mwi for Malawi <a href="template.rmd">template</a> as a basis of your country SPAMc version. All the steps described in the Run SPAMc section use the code in mapspam2globiom_mwi repository as an example code so there is no need to start from scratch. All scripts related to model setup can be found in the <code>01_model_setup</code> folder of the template. The most important is that you change the location on your hard disk where the model will be stored and set the model parameters (see below), which is done in the script <code>01_model_setup.r</code> in the template. As the model parameters are needed as input in nearly all functions, this particular script is always loaded at the beginning of all the other scripts using the the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> command. In this way, you only have to setup up the model once. It also ensures all the necessary packages are loaded into R.</p>
 <div id="set-model-parameters-and-location-of-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#set-model-parameters-and-location-of-files" class="anchor"></a>Set model parameters and location of files</h2>
@@ -264,12 +270,9 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span>(<span class="no">adm_map</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">temp_path</span>, <span class="fu">glue</span>(<span class="st">"adm_map_{param$year}_{param$iso3c}.rds"</span>)))
 <span class="fu">write_sf</span>(<span class="no">adm_map</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">temp_path</span>, <span class="fu">glue</span>(<span class="st">"adm_map_{param$year}_{param$iso3c}.shp"</span>)))</pre></body></html></div>
-<p>To link the subnational statistics to other spatial data a table is needed (<code>adm_list</code>) that contains information on how the administrative units at various levels are nested, which is exactly the information that is stored in the attribute table of the administrative unit map. The following code, extracts the list from the shapefile and saves it as csv file in the correct folder.</p>
+<p>To link the subnational statistics to other spatial data a table is needed (<code>adm_list</code>) that contains information on how the administrative units at various levels are nested, which is exactly the information that is stored in the attribute table of the administrative unit map. The following code, extracts the list from the shapefile and saves it as csv file in the <code>processed_data/lists</code> folder.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># Create adm_list</span>
-<span class="no">adm_list</span> <span class="kw">&lt;-</span> <span class="no">adm_map</span> <span class="kw">%&gt;%</span>
-  <span class="fu">st_drop_geometry</span>()
-
-<span class="fu">write_csv</span>(<span class="no">adm_list</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">param</span>$<span class="no">spam_path</span>, <span class="fu">glue</span>(<span class="st">"processed_data/lists/adm_list_{param$year}_{param$iso3c}.csv"</span>)))</pre></body></html></div>
+<span class="fu"><a href="../reference/create_adm_list.html">create_adm_list</a></span>(<span class="no">adm_map</span>, <span class="no">param</span>)</pre></body></html></div>
 </div>
 <div id="create-grid-and-rasterize-subnational-administrative-unit-map" class="section level2">
 <h2 class="hasAnchor">
@@ -280,7 +283,7 @@
 
 <span class="co"># Rasterize administrative unit map</span>
 <span class="fu"><a href="../reference/rasterize_adm_map.html">rasterize_adm_map</a></span>(<span class="no">param</span>)</pre></body></html></div>
-<p>This is all it takes to set up the SPAMc model! The next step is processing the <a href="process_subnat_stat.html">raw subnational statistics</a> and <a href="process_spatial_data.html">spatial data</a>.</p>
+<p>This is all it takes to set up the SPAMc model! The next step is processing the <a href="process_subnational_statistics.html">raw subnational statistics</a> and <a href="process_spatial_data.html">spatial data</a>.</p>
 </div>
 <div class="footnotes">
 <hr>

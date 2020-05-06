@@ -131,16 +131,22 @@ determine the grid and each grid is given a gridID number." />
           <a href="../articles/model_setup.html">1. Model setup</a>
         </li>
         <li>
-          <a href="../articles/process_subnat_stat.html">2. Process subnational statistics</a>
+          <a href="../articles/process_subnational_statistics.html">2. Process subnational statistics</a>
         </li>
         <li>
           <a href="../articles/process_spatial_data.html">3. Process spatial data</a>
         </li>
         <li>
-          <a href="../articles/run_model.html">4. Run model</a>
+          <a href="../articles/create_synergy_cropland.html">4. Create synergy cropland map</a>
         </li>
         <li>
-          <a href="../articles/post_process.html">5. Post-processing</a>
+          <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
+        </li>
+        <li>
+          <a href="../articles/run_model.html">6. Run model</a>
+        </li>
+        <li>
+          <a href="../articles/post_process.html">7. Post-processing</a>
         </li>
       </ul>
     </li>
@@ -199,9 +205,6 @@ model.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>RasterLayer</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>For technical reasons, gridID values are set before the raster is masked with
@@ -211,7 +214,7 @@ time to create. The file is saved in <code>/processed_data/maps/grid/</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>create_grid</span>(<span class='kw'>spam_par</span> <span class='kw'>=</span> <span class='no'>spam_par</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='no'>adm</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='st'>"+init=epsg:4326"</span>)
+<span class='fu'>create_grid</span>(<span class='no'>param</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

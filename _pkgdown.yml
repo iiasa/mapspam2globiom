@@ -51,9 +51,13 @@ navbar:
           href: articles/process_subnational_statistics.html
         - text: 3. Process spatial data
           href: articles/process_spatial_data.html
-        - text: 4. Run model
+        - text: 4. Create synergy cropland map
+          href: articles/create_synergy_cropland.html
+        - text: 5. Create synergy irrigated area map
+          href: articles/create_synergy_ir_area.html
+        - text: 6. Run model
           href: articles/run_model.html
-        - text: 5. Post-processing
+        - text: 7. Post-processing
           href: articles/post_process.html
     reference:
       text: Functions
@@ -74,11 +78,11 @@ reference:
   - create_spam_folders
   - rasterize_adm_map
   - spam_par
-- title: "Processing subnational statistics"
+- title: "Proces subnational statistics"
 - contents:
   - check_statistics
   - create_statistics_template
-  - rebalance_statistics
+  - reaggregate_statistics
 - title: "Process spatial data"
 - contents:
 - title: "Run model"

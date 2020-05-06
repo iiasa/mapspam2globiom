@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Harmonizes the subnational statistics, the cropland extent and the irrigated area — harmonize_inputs • mapspam2globiom</title>
+<title>Reaggregates subnational statistics from the bottom up so they are consistent — reaggregate_statistics • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Harmonizes the subnational statistics, the cropland extent and the irrigated area — harmonize_inputs" />
-<meta property="og:description" content="Harmonizes the subnational statistics, the cropland extent and the irrigated area" />
+<meta property="og:title" content="Reaggregates subnational statistics from the bottom up so they are consistent — reaggregate_statistics" />
+<meta property="og:description" content="Reaggregates subnational statistics from the bottom up so they are consistent" />
 
 
 
@@ -177,20 +177,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Harmonizes the subnational statistics, the cropland extent and the irrigated area</h1>
+    <h1>Reaggregates subnational statistics from the bottom up so they are consistent</h1>
     
-    <div class="hidden name"><code>harmonize_inputs.Rd</code></div>
+    <div class="hidden name"><code>reaggregate_statistics.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Harmonizes the subnational statistics, the cropland extent and the irrigated area</p>
+    <p>Reaggregates subnational statistics from the bottom up so they are consistent</p>
     </div>
 
-    <pre class="usage"><span class='fu'>harmonize_inputs</span>(<span class='no'>param</span>)</pre>
+    <pre class="usage"><span class='fu'>reaggregate_statistics</span>(<span class='no'>df</span>, <span class='no'>param</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>df</th>
+      <td><p>tbl or data.frame</p></td>
+    </tr>
     <tr>
       <th>param</th>
       <td><p>Object of type <code>spam_par</code> that bundles all SPAM parameters,
@@ -201,6 +205,9 @@ model.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>same class as <code>df</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

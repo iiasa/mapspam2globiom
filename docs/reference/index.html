@@ -128,16 +128,22 @@
           <a href="../articles/model_setup.html">1. Model setup</a>
         </li>
         <li>
-          <a href="../articles/process_subnat_stat.html">2. Process subnational statistics</a>
+          <a href="../articles/process_subnational_statistics.html">2. Process subnational statistics</a>
         </li>
         <li>
           <a href="../articles/process_spatial_data.html">3. Process spatial data</a>
         </li>
         <li>
-          <a href="../articles/run_model.html">4. Run model</a>
+          <a href="../articles/create_synergy_cropland.html">4. Create synergy cropland map</a>
         </li>
         <li>
-          <a href="../articles/post_process.html">5. Post-processing</a>
+          <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
+        </li>
+        <li>
+          <a href="../articles/run_model.html">6. Run model</a>
+        </li>
+        <li>
+          <a href="../articles/post_process.html">7. Post-processing</a>
         </li>
       </ul>
     </li>
@@ -196,21 +202,15 @@
       <tr>
         
         <td>
-          <p><code><a href="spam_par.html">spam_par()</a></code> </p>
-        </td>
-        <td><p>Sets spam parameters</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_spam_folders.html">create_spam_folders()</a></code> </p>
-        </td>
-        <td><p>Create spam folder structure</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="create_adm_map_pdf.html">create_adm_map_pdf()</a></code> </p>
         </td>
         <td><p>Creates a pdf file with maps of administrative unit locations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_adm_list.html">create_adm_list()</a></code> </p>
+        </td>
+        <td><p>create file with information on how administrative units are nested</p></td>
       </tr><tr>
         
         <td>
@@ -220,14 +220,26 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="create_spam_folders.html">create_spam_folders()</a></code> </p>
+        </td>
+        <td><p>Create spam folder structure</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="rasterize_adm_map.html">rasterize_adm_map()</a></code> </p>
         </td>
         <td><p>Rasterizes the map with the location of the subnational administrative units</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="spam_par.html">spam_par()</a></code> </p>
+        </td>
+        <td><p>Sets spam parameters</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-processing-subnational-statistics" class="hasAnchor"><a href="#section-processing-subnational-statistics" class="anchor"></a>Processing subnational statistics</h2>
+          <h2 id="section-proces-subnational-statistics" class="hasAnchor"><a href="#section-proces-subnational-statistics" class="anchor"></a>Proces subnational statistics</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -236,7 +248,25 @@
     </tbody><tbody>
       
       
-      
+      <tr>
+        
+        <td>
+          <p><code><a href="check_statistics.html">check_statistics()</a></code> </p>
+        </td>
+        <td><p>Checks the consistency of the subnational statistics</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="create_statistics_template.html">create_statistics_template()</a></code> </p>
+        </td>
+        <td><p>Create template for raw subnational crop statistics</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="reaggregate_statistics.html">reaggregate_statistics()</a></code> </p>
+        </td>
+        <td><p>Reaggregates subnational statistics from the bottom up so they are consistent</p></td>
+      </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
@@ -284,7 +314,13 @@
         <td>
           <p><code><a href="load_data.html">load_data()</a></code> </p>
         </td>
-        <td><p>Load input data for further processing</p></td>
+        <td><p>Load model input data for further processing</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plus.html">plus()</a></code> </p>
+        </td>
+        <td><p>Sum of vector elements but now NA + NA = NA not 0 as in sum</p></td>
       </tr>
     </tbody>
     </table>
