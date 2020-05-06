@@ -15,11 +15,11 @@ plus(x, na.rm = F)
 The sum of \code{x}
 }
 \description{
-\code{plus} Returns the sum of all values provided as arguments but ensures NA +
-NA = NA.
+\code{plus} Returns the sum of all values provided as arguments but ensures \code{NA} +
+\code{NA} = \code{NA}.
 }
 \details{
-This function is the same as \code{sum} but if \code{na.rm} is \code{false} and all input
+This function is the same as \code{sum}() but if \code{na.rm} is \code{FALSE} and all input
 values are \code{NA}, it will return \code{NA} instead of 0.
 }
 \examples{

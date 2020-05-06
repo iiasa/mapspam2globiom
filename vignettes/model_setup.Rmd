@@ -16,10 +16,7 @@ knitr::opts_chunk$set(
   comment = "#>")
 ```
 
-To setup SPAMc several steps need to be taken. By now, we assume that all required software is [installed](installation.html) and working. It is by far the easiest to create a new RStudio project and use the mapspam2globiom_mwi for Malawi [template](template.rmd) as a basis of your country SPAMc version. All the steps described in the Run SPAMc section use the code in mapspam2globiom_mwi repository as an example code so there is no need to start from scratch. All scripts related to model setup can be found in the `01_model_setup` folder of the template. 
-
-
-The most important is that you change the location on your hard disk where the model will be stored and the model parameters, which is described below. And, off course, [subnational statistics and spatial data](input_data_collection.htm) needs to be collected as well.
+To setup SPAMc several steps need to be taken. By now, we assume that all required software is [installed](installation.html) and working. It is by far the easiest to create a new RStudio project and use the mapspam2globiom_mwi for Malawi [template](template.rmd) as a basis of your country SPAMc version. All the steps described in the Run SPAMc section use the code in mapspam2globiom_mwi repository as an example code so there is no need to start from scratch. All scripts related to model setup can be found in the `01_model_setup` folder of the template. The most important is that you change the location on your hard disk where the model will be stored and set the model parameters (see below), which is done in the script `01_model_setup.r` in the template. As the model parameters are needed as input in nearly all functions, this particular script is always loaded at the beginning of all the other scripts using the the `source()` command. In this way, you only have to setup up the model once. It also ensures all the necessary packages are loaded into R. 
 
 
 ## Set model parameters and location of files
@@ -169,4 +166,4 @@ create_grid(param)
 rasterize_adm_map(param)
 ```
 
-This is all it takes to set up the SPAMc model! The next step is processing the [raw subnational statistics](process_subnat_stat.html) and [spatial data](process_spatial_data.html).
+This is all it takes to set up the SPAMc model! The next step is processing the [raw subnational statistics](process_subnational_statistics.html) and [spatial data](process_spatial_data.html).

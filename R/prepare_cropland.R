@@ -1,3 +1,4 @@
+#'@title
 #'Prepares the synergy cropland area for SPAM
 #'
 #'@param param

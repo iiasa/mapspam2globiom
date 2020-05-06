@@ -9,7 +9,7 @@
 #'@examples
 #'
 #'@export
-rebalance_stat <- function(df, param){
+rebalance_statistics <- function(df, param){
     stopifnot(inherits(param, "spam_par"))
     unit <- names(df)[names(df) %in% c("ha", "pa")]
     names(df)[names(df) %in% c("ha", "pa")] <- "value"

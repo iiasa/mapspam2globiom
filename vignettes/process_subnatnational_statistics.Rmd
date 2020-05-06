@@ -1,0 +1,208 @@
+---
+title: "Processing of subnational statistics"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Processing of subnational statistics}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+resource_files:
+  bib/mapspam.bib
+bibliography: bib/mapspam.bib
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+# Code not displayed but needed for showing examples
+library(mapspam2globiom)
+library(dplyr)
+library(tidyr)
+library(magrittr)
+
+# Set the folder where the model will be stored
+# Note that R uses forward slashes even in Windows!!
+spamc_path <- "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi"
+
+# Set SPAMc parameters
+param <- spam_par(spam_path = spamc_path,
+ iso3c = "MWI",
+ year = 2010,
+ res = "5min",
+ adm_level = 1,
+ solve_level = 0,
+ model = "max_score")
+
+```
+
+Subnational statistics on harvested area are a key input into SPAMc. Before they can be used they need to be put in the right format, made consistent and aggregated (or split) to the crops and farming systems that are used by SPAMc. Unfortunately, the level of detail (e.g. many detailed crops or a few crop groups, at the administrative level 0, 1 or 2 level), coverage (full crop and administrative unit coverage or many missing values) and quality (do lower levels of administrative unit data add up to higher levels?) of these statistics may differ enormeously between countries. Cleaning, harmonizing and preparing the subnational statistics is probably the most time consuming and difficult part of running SPAMc. In many cases the researcher has to make a value judgement on which statistics to keep and which to discard to make them consistent. Which data is more reliable if they do not add up? Administrative unit level 1 or 2? If, the harvested area for say vegetables seems exceptionally and perhaps unrealisticaly large in a certain administrative region, is this a data entry error or is it really that hight? These are decisions that often need to be taken when preparing the data if the quality is poor. Hence, there is no simple formula or function that makes it possible to (semi) automatically prepare the raw subnational statistics so that they can be used by SPAMc. It requires a lot of user input and ad hoc coding to get the data ready. 
+
+We prefer to break down the processing and preparation of the subnational statistics into two steps:
+
+1. **Processing of raw subnational statistics.** In this step, the raw statistics, meaning the various data files that were downloaded from the national statistical office or taken from any other source, are reshaped, reaggregated and cleaned so they are nearly ready to be used by SPAMc.
+2. **Checking of calibrating processed subnational statistics.**: In this step, the processed statistics are checked for consistency, adjusted where needed and calibrated to the FAOSTAT national statistics.
+
+The scripts that we used how to prepare the data for Malawi offer some guidance and can be adapted where needed. They are located in the  `02_subnational_statistics` folder of the template. They also illustrate the use of several functions and tools that we developed to support the process. We prefer and highly recommend to code all the steps that are needed to process statistics in R so everything is nicely documented and fully reproducible. The [tidyr](https://tidyr.tidyverse.org/) and  [dplyr](https://dplyr.tidyverse.org/) packages offer a variety of functions that are specially designed to clean up and process 'messy' data.. It is also possible to use Excel or any other software to process the raw national statistics as long as the statistics are saved in the correct format so they can be used for further processing. Obviously a major disadvantage is that it will be very difficult to track changes or quickly make adjustments when new data becomes available and needs to be added.
+
+## Support scripts
+Apart from the main scripts that clean and check the statistics, which will be discussed below, the template contains three other scripts that support these processes. 
+
+- `001_process_aquastat.r`
+- `001_calculate_irrigated_area_share.r`
+- `01_process_faostat_crops.r`
+
+The first two scripts select relevant country data from the AQUASTAT database and use this to calculate the share of irrigated area per crop. This information can be used to as input to inform the irrigated area shares that are needed for the farming system shares data table (See below). We will not discuss these scripts here. Please have a look and try by yourself. 
+
+The third script prepares the national FAOSTAT statistics. These are used for two purposes. The first is for calibration of the subnational statistics so they are in line with FAOSTAT. As FAOSTAT is the leading source on agricultural data, it is useful to ensure that the subnational data adds up to the FAOSTAT national totals. Also, GLOBIOM is fully calibrated to FAOSTAT. For many countries the totals will already be the same or at least in the same range as subnational agricultural statistics are often the basis for construction national statistics, which in turn are used as input by FAOSTAT. However, for some countries there might be large differences. The second purpose is to determine the list of crops that is needed to prepare the subnational agricultural statistics. We will discuss this further below. Make sure to run `01_process_faostat_crops.r` before starting with preparing the subnational statistics. Do not forget to set the `faostat_version` variable in the script, which corresponds with the date you added when you downloaded the data (`20200303` in the Malawi example). 
+
+
+## Processing of raw subnational statistics
+
+The `02_process_raw_national_statistics.r` file shows all the steps we took to process the raw SPAM2010 statistics, turn it into the right format and make it consistent with the shapefile with the locations of the administrative units. We highlight several key steps, that you probably also need to implement to process your country data.
+
+
+### Format of the processed statistics files
+
+You need to create three files with subnational statistical information that will be combined later:
+
+1. A file with **Harvest area statistics (ha)** in hectares for all subnational administrative unit at each level.
+2. A file with  **Farming system shares (fs)** (not percentages!) for each subnational administrative unit at the national level. If the model is solved at the subnational level 1 (by setting the model level to 1), also farming system share data need to be provided for that level. 
+3. A file with the **Cropping intensity (ci)** for each subnational administrative unit at the national and subnational 1 (similar to the farming system shares).
+
+All Crop statistics need to be stored using in the **wide** format. With this we mean that the first three or four columns of the data table list the administrative unit code (`adm_code`), name (`adm_name`), level (`adm_level`) and potentially the farming system (`system`) in case of farming system shares or cropping intensity data, followed by named columns, one for each crop, with harvested area, farming system shares or cropping intensity per subnational unit. `adm_name` and `adm_code` must be provided up to the most detailed administrative unit for which data is available. Hence, in case level 2 data is available, data should be supplied for level 0, 1 and 2. In case only level 1 data is available, data should be supplied for level 0 and level 1.  
+
+`create_statistics_template()` will create templates for the ha, fs and ci data files - also see the Malawi ha, fs and ci files for examples.  The number and depth of the administrative units will be determined by the model parameters stored in the `spam_par` object as well as the `adm_list` file that is created with `create_adm_list()`. By defauls, the template will have columns for all 40 SPAMc crops. 
+
+You can save the template as csv file and use it as a basis to prepare the statistics. Note that is is essential that you follow the template closely! Adding or removing administrative units will result in errors as the data no longer matches with the map that contains the location of the administrative units. See below for more information how to deal with missing crop information. In case of Malawi, we use raw data from [global SPAM for 2010](https://www.mapspam.info). Most of the data was already in the right format so we did not use them.
+
+```{r}
+# Create template for ha. Replace "ha" by "fs" or "ci" for other templates.
+create_statistics_template("ha", param)
+```
+
+For processing it is easier to transform the data into the **long** format, which is similar to the [**tidy** data format](https://tidyr.tidyverse.org/) as implemented by the tidyverse packages. In our case this means that the 40 crop columns are squeezed into two columns, one with the crop code and another with the data. The `gather()` and `spread()` in the [tidyr](https://tidyr.tidyverse.org/) package were designed to help you switch between wide and long tables.^[Note that these functions have recently been replaced by `pivot_long()` and `pivot_wide()`. In a next update we will use these as well.] See below and the Malawi scripts for examples.
+
+
+### Aggregating to SPAMc crop classes
+
+The raw statistics need to be mapped to the 40 crop and crop groups used by SPAMc. The list of crops can be found in `crop.csv`, which is automatically copied to the `mappings` folder after running `create_spam_folders()`. In practice, almost none of the countries produces all 40 crops. To determine the set of relevant crops, use the list of crops for which FAOSTAT presents data. Running `01_process_faostat_crops.r` will save a `faostat_crop_list.csv` file in the `processed_data/lists folder`. Note that it is no problem to keep all the 40 crops in your database as long as you set their values to `NA` or `-999` (see below) so they are automatically removed in the next processing step.
+
+The easiest way to aggregate the raw subnational statistics to the FAOSTAT crop list is to create a `orig2crop` mapping table, relates the two lists of crops. It might happen that the subnational statistics contain crops that are not present in FAOSTAT. In these cases you have to either not consider them at all, or add them to one of the crops for which FAOSTAT presents data. 
+
+The script below illustrates how to aggregate the raw statistics to the SPAMc crops. Note that it important to use sum with `na.rm = FALSE` as otherwise `NA+NA` will result in `0` not `NA`. This is crucial as missing data in the statistics need to be set to `NA` for SPAMc in order to process them correctly. If administrative units need to be aggregated a similar approach using a mapping table can be used. 
+
+```{r eval = FALSE}
+# NB: use sum with na.rm = F as we want NA+NA = NA, not NA+NA = 0!
+stat <- stat %>%
+  left_join(orig2crop) %>%
+  group_by(crop, adm_code, adm_name, adm_level) %>%
+  summarize(value_ha = sum(value_ha, na.rm = F)) %>% 
+  ungroup()
+```
+
+
+### Treatment of missing data
+
+It is unlikely that you will find subnational statistics for all the relevant crops in a country. As a minimum requirement, SPAMc needs  full national level statistics for each crop. This is generally no problem as harvested area statistics can be taken from FAOSTAT. Farming system shares and cropping intensity data might be more difficult to get and often require making some strong assumptions. At the subnational level, it is no problem to have missing values for harvested area as this will simply put less constraints on how national data is allocated to the grid cells. Full farming system share and cropping intensity data is only needed at administrative level 1 if the model is run at level 1 (solve level = 1) and never at administrative level 2. 
+
+In case data on harvested area is missing for a certain administrative unit, you can indicate this by using `NA` or `-999`. We highly recommend using the latter, particularly if you are using Excel to process the data as it avoids potential errors that may result between an `NA` and an empty string `""` value. These are both displayed as empty cells in Excel but will be treated differently by R after loading the file. Replacing `NA` values by `-999` can be done simultaneously when putting the data in the wide format. 
+
+```{r eval = FALSE}
+# Put in preferred mapspam format, adding -999 for missing values
+stat_mapspam <- stat %>%
+  spread(crop, value_ha, fill = -999) %>%
+  arrange(adm_code, adm_code, adm_level) 
+```
+
+As pointed out above, it is safe to set all values for a crop to `NA` or `-999` when the crop is not relevant for the country. Also not that having information on regions where a crop is not grown is also informative! If this is the case, simply set the physical area values to 0 for these regions and the rest to `NA` or `-999`. In this way the model will only allocate statistics to the regions where data is missing.
+
+
+### Data consistency
+
+Data should be always consistent and add up, meaning that the sum of harvested area for all administrative units and a given crop is the same or smaller (in case of missing information) as the corresponding higher level unit. The script to check the statistics includes a function to reaggregate the data from the bottom up and check for consistency. It is however, essential that you check for consistency yourself before as otherwise a large bias might be introduced resulting in completely erroneous data. For example if there is error in the raw harvested area statistics for maize at a certain administrative level 2 region. AS a result the sum of harvested maize area of all level 2 units is much higher than the maize area of the corresponding level 1 unit, which is a clear inconsistency. The function that reaggregates the statistics will simply take the level 2 total for maize and substitute the level 1 maize data. This error is subsequently carried forward when the maize area for all level 1 unit are aggregated to the national total. The final data table will have maize data that is strongly biased upwards. 
+
+
+## Check and calibrate subnational statistics
+
+Now most hard work is done, the ha, fs and cs files need to be checked for consistency and calibrated to the FAOSTAT national statistics. This is done in `03_check_and_calibrate_statistics.r`. 
+
+-  use rebalance 
+- combine with FAOSTAT
+- ??
+
+As GLOBIOM is fully calibrated to FAOSTAT, 
+- The crops for which subnational data is available should be consistent with the list of crops for which FAOSTAT presents data. We use FAOSTAT as main source for the national statistics and all subnational information will be scaled to FAOSTAT.^[We might make this an option in updates of the package.]. Hence, if the subnational statistics indicate a certain crop is produced, say, sweet potato, and FAOSTAT indicates there is no harvested area for this crop, there is an inconsistency.  
+
+
+Make sure the totals at higher levels are the same as subtotals
+We start at the lowest level, assuming lower levels are preferred if more than one level
+of data is available and data is complete.
+TOADD. In case of inconsistencies: incomplete data at lower level but with a higher subtotal,
+data is also replaced and all data with NA at the lower level is set to 0.
+
+
+```{r eval = FALSE}
+ha_df <- rebalance_statistics(ha_df, param)
+```
+
+
+
+```{r eval = FALSE}
+# Identify crops that are present in ha_df but not in fao and remove them from ha_df.
+crop_rem <- setdiff(unique(ha_df$crop), unique(fao$crop))
+ha_df <- ha_df %>%
+  filter(!crop %in% crop_rem)
+
+# Identify crops that are present in fao but not in ha_df.
+# We will add then to ha_df
+crop_add <- setdiff(unique(fao$crop), unique(ha_df$crop))
+ha_df <- ha_df %>%
+  bind_rows(
+    fao %>%
+      filter(crop %in% crop_add) %>%
+      mutate(
+        fips = unique(ha_df$adm_code[ha_df$adm_level==0]),
+        adm_level = 0,
+        adm = unique(ha_df$adm_name[ha_df$adm_level==0])))
+
+
+# Calculate scaling factor
+fao_stat_sf <-bind_rows(
+  fao %>%
+    mutate(source = "fao"),
+  ha_df %>%
+    filter(adm_level == 0) %>%
+    mutate(source = "ha_df")) %>%
+  dplyr::select(crop, source, ha) %>%
+  spread(source, ha) %>%
+  mutate(sf = fao/ha_df) %>%
+  dplyr::select(crop, sf)
+
+# rescale ha_df
+ha_df <- ha_df %>%
+  left_join(fao_stat_sf) %>%
+  mutate(ha = ha * sf) %>%
+  dplyr::select(-sf)
+```
+
+
+
+
+```{r eval = FALSE}
+check_statistics()
+```
+
+# Save the ha, fs and ci csv files in the Processed_data/agricultural_statistics folder
+# Note that they have to be saved in this folder using the names below so do not change this!
+
+
+```{r eval = FALSE}
+write_csv(ha_df, file.path(param$spam_path, glue("processed_data/agricultural_statistics/ha_adm_{param$year}_{param$iso3c}.csv")))
+write_csv(fs_df, file.path(param$spam_path, glue("processed_data/agricultural_statistics/fs_adm_{param$year}_{param$iso3c}.csv")))
+write_csv(ci_df, file.path(param$spam_path, glue("processed_data/agricultural_statistics/ci_adm_{param$year}_{param$iso3c}.csv")))
+
+```
+
+

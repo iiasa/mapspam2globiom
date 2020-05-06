@@ -49,7 +49,7 @@ It takes some preparation before SPAMc can be run. Most important and propbably 
 Running SPAMc can be divided into seven steps, which are described in the articles in the Run SPAMc section:
 
 - [Model setup](articles/model_structure.html)
-- [Processing of subnational statistics](articles/process_subnat_stat.html)
+- [Processing of subnational statistics](articles/process_subnational_statistics.html)
 - [Processing of spatial data](articles/process_spatial_data.html)
 - Create cropland extent
 - Create irrigated area extend

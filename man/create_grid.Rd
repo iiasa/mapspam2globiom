@@ -13,9 +13,6 @@ resolution, most detailed level at which subnational statistics are
 available, administrative unit level at which the model is solved and type of
 model.}
 }
-\value{
-RasterLayer
-}
 \description{
 Creates the spatial grid that is used by SPAM to allocate physical area shares
 for each crop and system. The border of the country is used as mask to
@@ -29,6 +26,7 @@ time to create. The file is saved in \verb{/processed_data/maps/grid/}
 }
 \examples{
 \dontrun{
-create_grid(spam_par = spam_par, border = adm, crs = "+init=epsg:4326")
+create_grid(param)
 }
+
 }

@@ -1,15 +1,40 @@
+#'@title
 #'Load model input data for further processing
 #'
+#'@description
 #'`load_data()` can be used to quickly load input data (e.g. subnational
 #'statistics, maps and mappings). This can be useful to quickly inspect the
 #'statistics or visualize a map. Data can only be loaded after the
 #'`create_spam_folders()` has been run and data has been created by running
-#'pre-procssing steps. The following inputs are allowed:
+#'pre-processing steps. See details for allowed input.
 #'
-#'- adm_list: subnational administrative units are nested - adm_map: -
-#'adm_map_r: - cl_med: - cl_max: - cl_rank: - ia_max: - ia_rank: - grid: - gia:
-#'- gmia: - pop: - acc: - urb: - simu - simu_r: - ha: - fs: - ci: - price: -
-#'dm2fm: - crop2globiom: - faostat2crop: - results:
+#'@details
+#'The following inputs are allowed:
+#'
+#'- adm_list:
+#'- adm_map:
+#'- adm_map_r:
+#'- cl_med:
+#'- cl_max:
+#'- cl_rank:
+#'- ia_max:
+#'- ia_rank:
+#'- grid:
+#'- gia:
+#'- gmia:
+#'- pop:
+#'- acc:
+#'- urb:
+#'- simu:
+#'- simu_r:
+#'- ha:
+#'- fs:
+#'- ci:
+#'- price:
+#'- dm2fm:
+#'- crop2globiom:
+#'- faostat2crop:
+#'- results:
 #'
 #'@param data character vector that refers to the data that is loaded. See
 #'  details for allowed input.
@@ -23,7 +48,8 @@
 #'
 #'@export
 load_data <- function(data, param, local = FALSE, mess = TRUE){
-  data <- match.arg(data, c("adm_list", "adm_map", "adm_map_r",
+  stopifnot(inherits(param, "spam_par"))
+  stopifnot(all(data %in% c("adm_list", "adm_map", "adm_map_r",
                         "cl_med", "cl_max", "cl_rank",
                         "ia_max", "ia_rank",
                         "grid", "gia", "gmia",
@@ -31,9 +57,8 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
                         "simu_r", "simu",
                         "ha", "fs", "ci",
                         "price",
-                        "dm2fm", "crop2globiom", "faostat2crop",
-                        "results"),
-                  several.ok = TRUE)
+                        "dm2fm", "crop2globiom", "faostat2crop", "crop",
+                        "results")))
 
   load_list <- list()
 
@@ -131,6 +156,16 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
     }
   }
 
+  if("crop" %in% data) {
+    file <- file.path(param$spam_path,
+                      glue::glue("mappings/crop.csv"))
+    if(file.exists(file)) {
+      load_list[["crop"]] <- suppressMessages(readr::read_csv(file))
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
 
   if("dm2fm" %in% data) {
     file <- file.path(param$spam_path,
@@ -212,7 +247,7 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
 
   if("fs" %in% data) {
     file <- file.path(param$raw_path,
-                      glue::glue("subnational_statistics/farming_system_shares_{param$year}_{param$iso3c}.csv"))
+                      glue::glue("processed_data/agricultural_statistics/fs_adm_{param$year}_{param$iso3c}.csv"))
     if(file.exists(file)) {
       load_list[["fs"]] <- suppressMessages(readr::read_csv(file))
     } else {
@@ -223,7 +258,7 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
 
   if("ci" %in% data) {
     file <- file.path(param$raw_path,
-                      glue::glue("subnational_statistics/cropping_intensity_{param$year}_{param$iso3c}.csv"))
+                      glue::glue("processed_data/agricultural_statistics/ci_adm_{param$year}_{param$iso3c}.csv"))
     if(file.exists(file)) {
       load_list[["ci"]] <- suppressMessages(readr::read_csv(file))
     } else {

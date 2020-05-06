@@ -1,5 +1,7 @@
+#'@title
 #'Creates a pdf file with maps of administrative unit locations
 #'
+#'@description
 #'The function will create and save a pdf file with the location of the
 #'administrative units in the `/processed_data/maps/adm` folder. Depening on the
 #'adm level, maps are produced for level 1 and/or level 2 administrative units.
@@ -13,6 +15,9 @@
 #'  name that is plotted on the map (default size = 3). If names are long or
 #'  administrative unit polygons are small, the labels may get cluttered. Better
 #'  results can be obtained by decreasing the font size.
+#'
+#'@return
+#'An rds file with the created grid is saved in the `processed_data/maps/grid` folder.
 #'
 #'@examples
 #'\dontrun{

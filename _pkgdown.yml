@@ -48,7 +48,7 @@ navbar:
         - text: 1. Model setup
           href: articles/model_setup.html
         - text: 2. Process subnational statistics
-          href: articles/process_subnat_stat.html
+          href: articles/process_subnational_statistics.html
         - text: 3. Process spatial data
           href: articles/process_spatial_data.html
         - text: 4. Run model
@@ -68,14 +68,15 @@ navbar:
 reference:
 - title: "Model setup"
 - contents:
-  - spam_par
-  - create_spam_folders
   - create_adm_map_pdf
   - create_adm_list
   - create_grid
+  - create_spam_folders
   - rasterize_adm_map
+  - spam_par
 - title: "Processing subnational statistics"
 - contents:
+  - check_statistics
   - create_statistics_template
   - rebalance_statistics
 - title: "Process spatial data"
@@ -87,3 +88,4 @@ reference:
 - title: "General"
 - contents:
   - load_data
+  - plus

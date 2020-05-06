@@ -1,5 +1,5 @@
-#'Function to combine ha, fs and ci and split
-#'Need to split first and then combine as in split version, adm specific fs and ci are used
+# Function to combine ha, fs and ci and split
+# Need to split first and then combine as in split version, adm specific fs and ci are used
 #'@importFrom magrittr %>%
 split_statistics <- function(adm_code, ha, fs, ci, param){
   load_data("adm_list", param, local = TRUE)

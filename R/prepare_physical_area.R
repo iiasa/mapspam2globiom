@@ -23,6 +23,7 @@
 #'
 #'@export
 prepare_physical_area <- function(ha, fs, ci, param){
+    stopifnot(inherits(param, "spam_par"))
     load_data("adm_list", param, local = TRUE)
 
     # Set adm_level

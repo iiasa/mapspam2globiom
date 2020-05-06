@@ -18,6 +18,9 @@ name that is plotted on the map (default size = 3). If names are long or
 administrative unit polygons are small, the labels may get cluttered. Better
 results can be obtained by decreasing the font size.}
 }
+\value{
+An rds file with the created grid is saved in the \code{processed_data/maps/grid} folder.
+}
 \description{
 The function will create and save a pdf file with the location of the
 administrative units in the \verb{/processed_data/maps/adm} folder. Depening on the

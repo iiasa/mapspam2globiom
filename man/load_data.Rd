@@ -26,11 +26,14 @@ which dataset is loaded?}
 \description{
 \code{load_data()} can be used to quickly load input data (e.g. subnational
 statistics, maps and mappings). This can be useful to quickly inspect the
-statistics or visualize a map. The following inputs are allowed:
+statistics or visualize a map. Data can only be loaded after the
+\code{create_spam_folders()} has been run and data has been created by running
+pre-processing steps. See details for allowed input.
 }
 \details{
+The following inputs are allowed:
 \itemize{
-\item adm_list: subnational administrative units are nested
+\item adm_list:
 \item adm_map:
 \item adm_map_r:
 \item cl_med:
@@ -44,7 +47,7 @@ statistics or visualize a map. The following inputs are allowed:
 \item pop:
 \item acc:
 \item urb:
-\item simu
+\item simu:
 \item simu_r:
 \item ha:
 \item fs:
