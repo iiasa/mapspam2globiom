@@ -17,16 +17,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-To create crop distribution maps with SPAMc, various [sources of data](data.html) are required, including national and subnational agricultural statistics, cropland exent, map of irrigated areas and spatially explicit information on economic and bio-physical suitability. This Section provides an overview of which raw data needs to be collected, from where and where to store the datasets so the can be used by SPAMc as input. Details on how this data will be processed are discussed in the articles on [Processing subnational statistics](process_subnational_statistics.html) and [Processing spatial data](process_spatial_data.html). 
+To create crop distribution maps with SPAMc, various [sources of data](data.html) are required, including national and subnational agricultural statistics, cropland exent, map of irrigated areas and spatially explicit information on economic and bio-physical suitability. This Section provides an overview of which raw data needs to be collected and where to store the datasets so the can be used by SPAMc as input. Details on how this data will be processed are discussed in the articles on [Processing subnational statistics](process_subnational_statistics.html) and [Processing spatial data](process_spatial_data.html). 
 
 
 ## Location of raw data
 
-Raw data is stored in the `raw_data` folder. When the SPAMc is [setup](setup_model.html), you can specify the location of this folder. The default setting is to put it in the main SPAMc folder but you also have the possibility to create anywhere else(e.g. a data server or external drive). This might be convenient when you have limited capacity on your local harddrive to store the often large global spatial data (i.e. several gigabytes!) files from which country data is clipped.
+Raw data is stored in the `raw_data` folder. When the SPAMc is [setup](setup_model.html), you can specify the location of this folder. The default setting is to put it in the main SPAMc folder but you also have the possibility to create it somewhere else (e.g. a data server or external drive). This might be convenient when you have limited capacity on your local harddrive to store the required global maps, which can be large (i.e. several gigabytes!).
 
-For practical reasons, we use separate subfolders for each data source (Table 1). The only exception is the subnational agricultural statistics, which are all stored in one folder. The raw data subfolders are automatically created when SPAMc is setup and therefore the names cannot be changed. However, if alternative and more detailed information is available from national sources (e.g. cropland map) a new folder can be created in the `raw_data` folder to store the data.  
+For practical reasons, we use separate subfolders for each data source (Table 1). The only exception is the subnational agricultural statistics, which are all stored in one folder. The raw data subfolders for the core global datasets are automatically created when SPAMc is setup and therefore the names cannot be changed. However, if alternative and more detailed information is available from national sources (e.g. cropland map) you can create new folders in the `raw_data` folder to store the data.  
 
-As you probably have not gone through the process of setting up the model, you can either create a temporary raw data folder structure (Table 1) and copy the data to the SPAMc folder later or [setup the model](setup_model.html) first and save all the data directly in the correct location. In any case, the location of the raw data folder can be changed at any times so there is some flexibility.   
+As you probably have not gone through the process of setting up the model yet, you can either create a temporary raw data folder structure (Table 1) now and copy the data to the SPAMc folder later or [setup the model](setup_model.html) first and save all the data directly in the correct location. In any case, the location of the raw data folder can be changed at any time so there is flexibility.   
 
 ```{r}
 # TODO ADD raw_data structure.
@@ -44,62 +44,83 @@ National crop and price statistics are taken from [FAOSTAT](http://www.fao.org/f
 
 ### FAOSTAT crops database
 
-The FAOSTAT crops database is used as a source of data for all crops for which no subnational statistics are available. It is also used to scale all the subnational information so that they add up to the FAOSTAT national totals, which is useful when SPAMc output is used in simulation models like GLOBIOM, which use FAOSTAT as primary source of information and require a consistent data approach.  
+The FAOSTAT crops database is used as a source of data for all crops for which no subnational statistics are available. It is also used to scale all the subnational information so that they add up to the FAOSTAT national totals.  
 
-1. Download the _All Data Normalized_ file (`Production_Crops_E_All_Data_(Normalized).zip`) from the FAOSTAT Crops statistics website [here](http://www.fao.org/faostat/en/#data/QC) and save it in the `data\raw\faostat` folder.
+- Download the _All Data Normalized_ file (`Production_Crops_E_All_Data_(Normalized).zip`) from the [FAOSTAT Crops statistics website]((http://www.fao.org/faostat/en/#data/QC) and save it in the `data\raw\faostat` folder.
 
-2. Unzip the file, which creates the file `Production_Crops_E_All_Data_(Normalized).csv`. Rename the file using the following format `YYYYMMDD_faostat_crops.csv` In the Malawi example we use: `20200303_faostat_crops.csv` 
+- Unzip the file, which creates the file `Production_Crops_E_All_Data_(Normalized).csv`. Rename the file using the following format `YYYYMMDD_faostat_crops.csv` In the Malawi example we use: `20200303_faostat_crops.csv` 
 
 
 ### FAOSTAT Prices database
 
-The FAOSTAT Prices database is used to calculate the potential revenue at each grid cell, which is uses to determine the fitness score/priors.   
+The FAOSTAT Prices database is used to calculate the potential revenue at each grid cell, which is uses to determine the fitness score an priors.   
 
-1. Download the _All Data Normalized_ file (`Prices_E_All_Data_(Normalized).zip`) from the FAOSTAT Producer Prices Anual statistics website [here](http://www.fao.org/faostat/en/#data/PP) and save it in the `data/raw/faostat` folder.
+- Download the _All Data Normalized_ file (`Prices_E_All_Data_(Normalized).zip`) from the [FAOSTAT Producer Prices Anual statistics website](http://www.fao.org/faostat/en/#data/PP) and save it in the `data/raw/faostat` folder.
 
-2. Unzip the file, which creates the file `Prices_E_All_Data_(Normalized).csv`. Rename the file using the following format `YYYYMMDD_faostat_prices.csv` In this case we use: `20200303_faostat_prices.csv`
+- Unzip the file, which creates the file `Prices_E_All_Data_(Normalized).csv`. Rename the file using the following format `YYYYMMDD_faostat_prices.csv` In this case we use: `20200303_faostat_prices.csv`
 
 
 ### AQUASTAT irrigation statistics 
 
 Data from AQUASTAT is used to inform the share of irrigated crops in a country. If there are better (national) sources of information to determine this, they can be used as a substitute for the AQUASTAT data.
 
-1. Download the irrigation data from AQUASTAT. As AQUASTAT does not offer a bulk download option, the the easiest way is to go the AQUASTAT database [here](http://www.fao.org/nr/water/aquastat/data/query/index.html?lang=en), tick the `irrigation and drainage development` box under variables and tick the target country. Click `submit` and then save the file by selecting `csv (flat)` on top of the page. Save this file in the `data/aquastat` folder. The name is not relevant so you can pick any name.
+- Download the irrigation data from AQUASTAT. As AQUASTAT does not offer a bulk download option, the the easiest way is to go the [AQUASTAT](http://www.fao.org/nr/water/aquastat/data/query/index.html?lang=en) database, tick the **irrigation and drainage development** box under variables and tick the target country. Click **submit** and then save the file by selecting **csv (flat)** on top of the page. Save this file in the `data/aquastat` folder. This is a temporary file so you use any name you like.
 
-2. Unfortunately, the AQUASTAT csv file contains several empty lines and mixes up statistics and meta-data, which requires a bit of manual cleaning. Open the csv file in Excel and copy all contents to a new file, remove the empty lines in the beginning (the contents of cell A1 should now be `Area`) and remove the all rows starting with `metadata:` at the bottom of the file or (even better) copy the meta-data to a new worksheet called `metadata`. Rename the worksheet with the cleaned AQUASTAT data `data` and save it in using the following format, `YYYYMMDD_aquastat_irrigation.xlsx`, in the Malawi case `20200303_aquastat_irrigation.xlsx`
+- Unfortunately, the AQUASTAT csv file contains several empty lines and mixes up statistics and meta-data, which requires a bit of manual cleaning. Open the csv file in Excel or similar software and copy all contents to a new file, remove the empty lines in the beginning (the contents of cell A1 should now be **Area**) and remove the all rows starting with **metadata:** at the bottom of the file or (even better) copy the meta-data to a new worksheet called **metadata**. Rename the worksheet with the cleaned AQUASTAT data **data** and save it in using the following format, `YYYYMMDD_aquastat_irrigation.xlsx`, in the Malawi case `20200303_aquastat_irrigation.xlsx`
 
 
-## Subnational agricultural statistics 
+## Subnational agricultural statistics
 
-Availability of subnational statistics greatly improve the crop allocation process in SPAMc. Four pieces of information are needed:
+Availability of subnational statistics greatly improve the crop allocation process in SPAMc. Four pieces of information are required:
 
-1. Data on crop level harvested area at the most detaild administrative unit level.
-2. A matching country polygon or shapefile that shows the location of these units using names/id that are consistent with the subnational harvested area statistics.
-3. Information on farming system shares per crop and preferably at administrative unit level.
-4. Information on cropping intensity (e.g. the number of crop rotations in case of multicropping) per crop, preferably at the subnational level. 
+- **Harvested area statistics.** Data on crop level harvested area at administrative unit level 1 and, if possible, level 2. SPAMc is designed to handle missing information at the subnational level so any data you can get is useful.
 
-To further process the statistics, they need to be aggregated to the SPAMc crops and crop groups and organized in a certain way. We highly recommend the use the wide format, where the first @X columns are: followed by the harvested area for each crop. In this way it is immediately clear for which crops and administrative units data is available/missing. For examples, have a look at the `subnational_harvested_area_2010_MWI.csv`, `farming_system_shares_2010_MWI.csv` and `cropping_intensity_2010_MWI.csv` in the `data/raw/subnational_statistics` folder. We prefer and recommend to code all the steps that are needed to prepare the raw statistics In R so everything is nicely documented and reproducible. However, if you are more familiar and prefer to use Excel that is also fine. 
+- **Subnational administrative unit map.**. It is essential to have a map (e.g. shapefile or any other polygon format) with the location of the subnational administrative units that corresponds with the subnational statistics. These two sources of information need to be perfectly consistent or made consistent.
+
+- **Cropping intensity statistics.** Information on the cropping intensity (e.g. the number of crop rotations in case of multicropping) per crop at the national level and, if available, at the subnational 1 level. This information will be combined with the harvested area statistics to estimate the physical crop area at the national and subnational level. 
+
+- **Farming system area shares.** Data on the area share for each crop and all four farming systems, preferably at the national and, if available, subnational 1 level. This information will be combined with physical area estimation to calculate the physical crop area for each of the four farming systems times crop combinations at the national and subnational level.
+
+The section on [Model setup](model_setup.html) explains how to process the subnational administrative unit map. The section on [Process subnational statistics](process_subnational_statistics.html) provides guidance on how tp process the subnational statistics, including which data format to use, how to aggregate the crops to the 40 crops and crop groups, treatment of missing data and checking for internal consistency of the data. It also describes several scripts that processes the AQUASTAT data to estimate the share of irrigated farming system area. 
+
+Finding subnational information on harvested area is not easy as they are not always collected and/or published by national statistical agencies and if they are available they often cover a selection of crops and might have many missing values. Cropping intensity and farming system shares are probably even much more difficult to find and often requires making a lot of assumptions to fill data gaps (e.g. assuming the same cropping intensity for similar crops).
+
+Some suggestion to help you find the data:
+
+- National stastical agencies and agricultural research institutes are the best places to find subnational agricultural statistics.
+
+- [CountryStat](http://www.fao.org/economic/ess/countrystat) is database with Food and agriculture statistics at the subnational level. Its predecessor [Agro-Maps](http://kids.fao.org/agromaps/) with older data can also still be accessed. Coverage of both databases is, however, limited.
+
+- Knowing in which regions crops are not produced is also very useful. By setting the harvested area to 0 for some regions the model will be forced to allocate the (national) statistics in other subnational units. 
+
+- Agricultural trade statistics in FAOSTAT might give you an idea about the farmings system shares. If most crop production is exported, a large share of the farmers can probably be categorized as high-input (or irrigated) farming. 
+
+- As mentioned above, the [AQUASTAT]((http://www.fao.org/nr/water/aquastat/data/query/index.html?lang=en) database provides information on irrigated area shares.
+- There are several global databases which present global multi-cropping maps [@ADD]. 
+
+For the moment simply try to collect as much relevant information as you and store the files in the `raw_data/subnational_statistics` folder. 
 
 
 ## Cropland extent
 
-As explained in Chapter \@ref(blocks), to demarcate the area where crops can be allocated a cropland extent is needed. To account for the uncertainty in the cropland extent, a synergy cropland map is constructed. There are two options to obtain this type of map. The first is to take an existing product that is available for 2010, which can be readily used as input. A second option is to construct a country specific synergy cropland extent. The latter might be preferred if high-quality country specific cropland maps are available. We explain both options below. 
+To demarcate the area where crops can be allocated a cropland extent is needed. To account for the uncertainty in the cropland extent, we need a so-called synergy cropland map. There are two options to obtain this type of map. The first is to take an existing product that is available for 2010, which can be readily used as input. A second option is to construct a country specific synergy cropland extent. The latter might be preferred if high-quality country specific cropland maps are available. We explain both options below. 
 
 
 ### Global synergy cropland map for 2010
 
-If SPAM is used to produce crop distribution maps for around 2010, it is possible to use a global synergy map produced by @Lu2020. This map was also used by for the global SPAM2010 [@@Yu2020]. The map, with a resolution of 500x500 meter, is constructed by means of the Self-adapting statistics allocation model (SASAM), which combines and ranks five different global cropland products: GlobeLand30, CCI-LC, GlobCover 2009, MODIS C5, and the Unified Cropland Layer, as well as several region cropland products, e.g. CORINE land cover for Europe for cropland maps for Australia and China. After harmonization of cropland classes, resolution and projection, cropland area statistics from FAOSTAT are used to rank the cropland maps and construct a scoring table that reflects the agreement among the datasets. In addition, maps are produced that contain the medium and maximum cropland area per grid cell.
+If SPAMc is used to produce crop distribution maps for around 2010, it is possible to use a global synergy map produced by @Lu2020. This map was also used by for the global SPAM2010 [@@Yu2020]. The map, with a resolution of 500x500 meter, is constructed by means of the Self-adapting statistics allocation model (SASAM), which combines and ranks five different global cropland products: GlobeLand30, CCI-LC, GlobCover 2009, MODIS C5, and the Unified Cropland Layer, as well as several region cropland products, e.g. CORINE land cover for Europe for cropland maps for Australia and China. After harmonization of cropland classes, resolution and projection, cropland area statistics from FAOSTAT are used to rank the cropland maps and construct a scoring table that reflects the agreement among the datasets. In addition, maps are produced that contain the medium and maximum cropland area per grid cell.
 
-- Download the [@UPDATE] maps from the Harvard Dataverse that can be found [here](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZWSFAA). 
+- Download the [@UPDATE] maps from the [Harvard Dataverse](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/ZWSFAA) and save the files in the `raw_data/sasam` folder.
+
 
 ### Creating a synergy cropland from scratch
 
-Sources:
-http://data.ess.tsinghua.edu.cn/ data at 250 m for 2001 and 2010!
-Wang, J., C. Li., P. Gong. 2015. "Adaptively weighted decision fusion in 30 m land-cover mapping with Landsat and MODIS data." International Journal of Remote Sensing 36 (14): 3659-3674.
-
-JRC dataset mentioned by ulrike and Yating
-
+@TODO
+- http://data.ess.tsinghua.edu.cn/ data at 250 m for 2001 and 2010!
+- Wang, J., C. Li., P. Gong. 2015. "Adaptively weighted decision fusion in 30 m land-cover mapping with Landsat and MODIS data." International Journal of Remote Sensing 36 (14): 3659-3674.
+- JRC dataset mentioned by ulrike and Yating
+- ESA
+- GLC2000
 
 ## Irrigated area
 
@@ -108,33 +129,32 @@ SPAM requires spatially-explicit information on the location of irrigated area o
 
 ### Global map of irrigated areas (GMIA)
 
-1. To download the GMIA Visit the GMIA website [here](http://www.fao.org/aquastat/en/geospatial-information/global-maps-irrigated-areas/latest-version/) and click the `Download the Global Map of Irrigation Areas - version 5.0 - area equipped for irrigation expressed in hectares per cell`.
+- To download the GMIA Visit the [GMIA](http://www.fao.org/aquastat/en/geospatial-information/global-maps-irrigated-areas/latest-version/) website and click the `Download the Global Map of Irrigation Areas - version 5.0 - area equipped for irrigation expressed in hectares per cell`.
 
-2. Unzip and save the file in the `data/raw/gmia` folder. The name of the file should be @ADD.
+- Unzip and save the file in the `raw_data/gmia` folder. The name of the file should be @ADD.
 
 
 ### Global irrigated area map (GIA)
 
-1 To download the GIA, visit the gia data repository [here](https://doi.pangaea.de/10.1594/PANGAEA.884744) and download the zip file. 
+- To download the GIA, visit the [GIA data repository](https://doi.pangaea.de/10.1594/PANGAEA.884744) and download the zip file. 
 
-2. Unzip the file and make sure that all files [@ADD names of files] are in the `data/raw/gia` folder, not in a subfolder.
+- Unzip the file and make sure that all files [@ADD names of files] are in the `data_raw/gia` folder. Make sure not to use any subfolders!
 
 
 ## Biophysical suitability
 
-Spatially explicit information on the biophysical suitability and related potential yield of crops is a key factor to inform the allocation of crops in SPAM. We use data the latest version of the global agro-ecological zones (GAEZ) data (version 3.0) as a source of information.^[It is expected that the results for GAEZv4 will be published soon. We will update this section when new data is available.] More information about the GAEZ can be found [here](http://www.fao.org/nr/gaez/en/). As downloading bulk information from this website is problematic, we stored the relevant GAEZ maps in a data repository.
+Spatially explicit information on the biophysical suitability and related potential yield of crops is a key factor to inform the allocation of crops in SPAMc. We use data the latest version of the global agro-ecological zones (GAEZ) data (version 3.0) as a source of information.^[It is expected that the results for GAEZv4 will be published soon. We will update this section when new data is available.] The [GAEZ](http://www.fao.org/nr/gaez/en/) website provides background data on the data. As downloading bulk information from this website is problematic, we stored the relevant GAEZ maps in a data repository [@ADD].
 
-
-1. Download the biophysical suitability and potential yield maps [here]@ADD and save the files in the `data/raw/gaez` folder.
+- Download the biophysical suitability and potential yield maps [here]@ADD and save the files in the `raw_data/gaez` folder.
 
 
 ## Accessibility
 
-We use global maps of travel time to major cities as a proxy for accesibility of cropland. To take into account changes in infrastructure over time, we use two products that each represent a different period. @Nelson2008 presents a global travel time map for 2000 and @Weiss2018 presents a comparable product for 2015. SPAM selects the older product if the model is run for using data before 2008, the midpoint between the two maps. So in case SPAM is run for 2008 or later, there is no need to download the map produced by @Nelson2008.
+We use global maps of travel time to major cities as a proxy for accesibility of cropland. To take into account changes in infrastructure over time, we use two products that each represent a different period. @Nelson2008 presents a global travel time map for 2000 and @Weiss2018 presents a comparable product for 2015. SPAMc selects the older product if the model is run for using data before 2008, the midpoint between the two maps. So in case the model is run for 2008 or later, there is no need to download the map produced by @Nelson2008.
 
-1. Download the Accessibility to cities 2015  map (raster format) from [here](https://malariaatlas.org/research-project/accessibility_to_cities), unzip and save all files it in the `processed/data/travel_time_2015` folder (make sure to remove any subfolder). 
+- Download the Accessibility to cities 2015  map (raster format) from [here](https://malariaatlas.org/research-project/accessibility_to_cities), unzip and save all files it in the `raw_data/travel_time_2015` folder. Make sure not to use any subfolders! 
 
-2 If relevant, download the Accessibility to cities 2000  map from [here](https://forobs.jrc.ec.europa.eu/products/gam), unzip and all files in in the `processed/data/travel_time_2000` folder (make sure to remove any subfolder).
+- If relevant, download the Accessibility to cities 2000  map from [here](https://forobs.jrc.ec.europa.eu/products/gam), unzip and all files in in the `raw_data/travel_time_2000` folder. Make sure not to use any subfolders!
 
 
 ## Rural population
@@ -144,11 +164,12 @@ We use to two sources of information to create a map of a country's rural popula
 
 ### Gridded population
 
-1. Download the WorldPop Global mosaics 2000-2020 dataset, which can be downloaded [here](https://www.worldpop.org/project/categories?id=3). The global map present the number of people per pixel a resolution of 1kmx1km. ^[WordPop also offers the possibility to download individual country maps at a resolution of 100mx100m. These files are relatively much larger, in particular for large countries like China and are not required as we will aggregate the population maps to 30 arcsec - the current highest SPAM resolution.] Save the file in the `processed/data/worldpop` folder.
+- Download the [WorldPop Global mosaics 2000-2020](https://www.worldpop.org/project/categories?id=3) dataset. The global map presents the number of people per pixel a resolution of 1kmx1km. ^[WordPop also offers the possibility to download individual country maps at a resolution of 100mx100m. These files are relatively much larger, in particular for large countries like China and are not required as we will aggregate the population maps to 30 arcsec - the current highest SPAM resolution.] Save the file in the `raw_data/data/worldpop` folder.
 
 
 ### Urban extent
 
-1. Download GRUMPS [here](https://sedac.ciesin.columbia.edu/data/set/grump-v1-urban-ext-polygons-rev01/data-download). Note than one needs to register before file can be downloaded. Save the file in the `processed/data/grump` folder. 
+- Download GRUMPS [here](https://sedac.ciesin.columbia.edu/data/set/grump-v1-urban-ext-polygons-rev01/data-download). Note than one needs to register before file can be downloaded. Save the file in the `raw_data/grump` folder. 
+
 
 ## References

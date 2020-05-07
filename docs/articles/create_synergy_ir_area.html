@@ -60,7 +60,7 @@
           <a href="../articles/crop_distribution_maps.html">Crop distribution maps</a>
         </li>
         <li>
-          <a href="../articles/model_structure.html">Model structure</a>
+          <a href="../articles/model_description.html">Model description</a>
         </li>
         <li>
           <a href="../articles/data.html">Input data</a>
@@ -100,10 +100,13 @@
           <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
         </li>
         <li>
-          <a href="../articles/run_model.html">6. Run model</a>
+          <a href="../articles/harmonize_input_data.html">6. Harmonize input data</a>
         </li>
         <li>
-          <a href="../articles/post_process.html">7. Post-processing</a>
+          <a href="../articles/run_model.html">7. Run model</a>
+        </li>
+        <li>
+          <a href="../articles/post_process.html">8. Post-processing</a>
         </li>
       </ul>
 </li>
@@ -146,7 +149,46 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mapspam2globiom</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># Create id_df, combining gia and gmia. Remove values &lt; 0.01, most of which are</span>
+<span class="co"># probably caused by reprojecting the maps</span>
+<span class="no">ir_df</span> <span class="kw">&lt;-</span>   <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="fu">rasterToPoints</span>(<span class="fu"><a href="https://rdrr.io/r/utils/stack.html">stack</a></span>(<span class="no">grid</span>, <span class="no">grid_size</span>, <span class="no">gmia</span>, <span class="no">gia</span>))) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">gridID</span>)) <span class="kw">%&gt;%</span>
+  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">x</span>, -<span class="no">y</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(<span class="kw">gia</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">gia</span> <span class="kw">&lt;</span> <span class="fl">0.01</span>, <span class="fl">0</span>, <span class="no">gia</span>),
+         <span class="kw">gmia</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">gmia</span> <span class="kw">&lt;</span> <span class="fl">0.01</span>, <span class="fl">0</span>, <span class="no">gmia</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Create ranking by first taking the maximum of the irrigated area share,</span>
+<span class="co"># calculate irrigated area, and then rank. In this way we prefer the largest</span>
+<span class="co"># area, and hence prefer GIA over GMIA when the resolution is 30 arcsec (GIA is</span>
+<span class="co"># 1 or 0). At a resolution of 5 arcmin the GMIA and grid cells with a lot of GIA</span>
+<span class="co"># observations get a high rank, which is also desirable.</span>
+
+<span class="no">ir_df</span> <span class="kw">&lt;-</span> <span class="no">ir_df</span> <span class="kw">%&gt;%</span>
+  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="kw">ir_max</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">pmax</a></span>(<span class="no">gmia</span>, <span class="no">gia</span>, <span class="kw">na.rm</span> <span class="kw">=</span> <span class="no">T</span>),
+                <span class="kw">ir_rank</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span>(<span class="no">ir_max</span>, <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>:<span class="fl">10</span>), <span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span>(<span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.1</span>),
+                              <span class="kw">include.lowest</span> <span class="kw">=</span> <span class="no">T</span>),
+                <span class="kw">ir_rank</span> <span class="kw">=</span> <span class="fu">dense_rank</span>(<span class="fu">desc</span>(<span class="no">ir_rank</span>)),
+                <span class="kw">ir_max</span> <span class="kw">=</span> <span class="no">ir_max</span> * <span class="no">grid_size</span>) <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">ir_rank</span>), <span class="no">ir_max</span> <span class="kw">&gt;</span> <span class="fl">0</span>) <span class="kw">%&gt;%</span>
+  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">gmia</span>, -<span class="no">gia</span>, -<span class="no">grid_size</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="co">############### CREATE IR MAX AND IR RANK MAPS ###############</span>
+<span class="co"># ir_max</span>
+<span class="no">ir_max_map</span> <span class="kw">&lt;-</span> <span class="no">ir_df</span> <span class="kw">%&gt;%</span>
+  <span class="fu">left_join</span>(<span class="no">grid_df</span>,<span class="no">.</span>) <span class="kw">%&gt;%</span>
+  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">x</span>, <span class="no">y</span>, <span class="no">ir_max</span>)
+<span class="no">ir_max_map</span> <span class="kw">&lt;-</span> <span class="fu">rasterFromXYZ</span>(<span class="no">ir_max_map</span>)
+<span class="fu">crs</span>(<span class="no">ir_max_map</span>) <span class="kw">&lt;-</span> <span class="fu">crs</span>(<span class="no">param</span>$<span class="no">crs</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">ir_max_map</span>)
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">adm_map</span>$<span class="no">geometry</span>, <span class="kw">add</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="co">############### SAVE ###############</span>
+<span class="no">temp_path</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">param</span>$<span class="no">spam_path</span>, <span class="fu">glue</span>(<span class="st">"processed_data/maps/irrigated_area/{param$res}"</span>))
+<span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(<span class="no">temp_path</span>, <span class="kw">showWarnings</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">recursive</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+
+<span class="fu">writeRaster</span>(<span class="no">ir_max_map</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">temp_path</span>,
+                                  <span class="kw pkg">glue</span><span class="kw ns">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span>(<span class="st">"ia_max_{param$res}_{param$year}_{param$iso3c}.tif"</span>)),<span class="kw">overwrite</span> <span class="kw">=</span> <span class="no">T</span>)
+
+<span class="fu">writeRaster</span>(<span class="no">ir_rank_map</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">temp_path</span>,
+                                  <span class="kw pkg">glue</span><span class="kw ns">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span>(<span class="st">"ia_rank_{param$res}_{param$year}_{param$iso3c}.tif"</span>)),<span class="kw">overwrite</span> <span class="kw">=</span> <span class="no">T</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/prepare_ir_area.html">prepare_ir_area</a></span>(<span class="no">param</span>)</pre></body></html></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

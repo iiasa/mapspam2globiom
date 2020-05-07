@@ -41,6 +41,8 @@ The following inputs are allowed:
 \item cl_rank:
 \item ia_max:
 \item ia_rank:
+\item gaez2crop:
+\item gaez_replace:
 \item grid:
 \item gia:
 \item gmia:

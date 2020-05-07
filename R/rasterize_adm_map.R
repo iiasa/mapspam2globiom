@@ -18,20 +18,21 @@
 #'
 rasterize_adm_map <- function(param) {
 
+  cat("\n############# Rasterize Adm map ###############")
   load_data(c("adm_map", "grid"), param, mess = FALSE, local = TRUE)
   adm_map_r <- raster::rasterize(adm_map, grid)
   names(adm_map_r) <- "ID"
-  plot(adm_map_r)
+  raster::plot(adm_map_r)
 
   # Get adm info
   if(param$adm_level == 0){
-    adm_df <- levels(adm_map_r)[[1]] %>%
+    adm_df <- raster::levels(adm_map_r)[[1]] %>%
       dplyr::transmute(ID, adm0_name, adm0_code)
   } else if(param$adm_level == 1){
-    adm_df <- levels(adm_map_r)[[1]] %>%
+    adm_df <- raster::levels(adm_map_r)[[1]] %>%
       dplyr::transmute(ID, adm0_name, adm0_code, adm1_name, adm1_code)
   } else if(param$adm_level == 2){
-    adm_df <- levels(adm_map_r)[[1]] %>%
+    adm_df <- raster::levels(adm_map_r)[[1]] %>%
       dplyr::transmute(ID, adm0_name, adm0_code, adm1_name, adm1_code, adm2_name, adm2_code)
   }
 

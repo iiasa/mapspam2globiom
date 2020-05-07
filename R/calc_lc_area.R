@@ -1,4 +1,4 @@
-# Function to area of simu that is covered by specific land cover class
+# Function to determine area of simu that is covered by specific land cover class
 #'@export
 calc_lc_area <- function(mapping, lc_map, param) {
   cat("\n############### Calculate land cover class area per simu ###############")
@@ -47,7 +47,7 @@ calc_lc_area <- function(mapping, lc_map, param) {
   }
 
   df <- dplyr::bind_rows(
-    purrr::map_df(1:nrow(mp), calc_share, r = r, mp = mp, simu = simu),
+    purrr::map_df(1:nrow(mp), calc_share, r = lc_map, mp = mp, simu = simu),
     simu_area_df)
   return(df)
 }

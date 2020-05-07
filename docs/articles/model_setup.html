@@ -60,7 +60,7 @@
           <a href="../articles/crop_distribution_maps.html">Crop distribution maps</a>
         </li>
         <li>
-          <a href="../articles/model_structure.html">Model structure</a>
+          <a href="../articles/model_description.html">Model description</a>
         </li>
         <li>
           <a href="../articles/data.html">Input data</a>
@@ -100,10 +100,13 @@
           <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
         </li>
         <li>
-          <a href="../articles/run_model.html">6. Run model</a>
+          <a href="../articles/harmonize_input_data.html">6. Harmonize input data</a>
         </li>
         <li>
-          <a href="../articles/post_process.html">7. Post-processing</a>
+          <a href="../articles/run_model.html">7. Run model</a>
+        </li>
+        <li>
+          <a href="../articles/post_process.html">8. Post-processing</a>
         </li>
       </ul>
 </li>
@@ -146,11 +149,26 @@
 
     
     
-<p>To setup SPAMc several steps need to be taken. By now, we assume that all required software is <a href="installation.html">installed</a> and working. It is by far the easiest to create a new RStudio project and use the mapspam2globiom_mwi for Malawi <a href="template.rmd">template</a> as a basis of your country SPAMc version. All the steps described in the Run SPAMc section use the code in mapspam2globiom_mwi repository as an example code so there is no need to start from scratch. All scripts related to model setup can be found in the <code>01_model_setup</code> folder of the template. The most important is that you change the location on your hard disk where the model will be stored and set the model parameters (see below), which is done in the script <code>01_model_setup.r</code> in the template. As the model parameters are needed as input in nearly all functions, this particular script is always loaded at the beginning of all the other scripts using the the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> command. In this way, you only have to setup up the model once. It also ensures all the necessary packages are loaded into R.</p>
+<p>To setup SPAMc several steps need to be taken. By now, we assume that all required software is <a href="installation.html">installed</a> and working. It is by far the easiest to create a new RStudio project and use the mapspam2globiom_mwi for Malawi <a href="template.rmd">template</a> as a basis of your country SPAMc version. All the steps described in the Run SPAMc section use the code in mapspam2globiom_mwi repository as an example code so there is no need to start from scratch. All scripts related to model setup can be found in the <code>01_model_setup</code> folder of the template. The most important is that you change the location on your hard disk where the model will be stored and set the model parameters (see below), which is done in the script <code>01_model_setup.r</code> in the template. As the model parameters are needed as input in nearly all functions, this particular script is always loaded at the beginning of all the other scripts using the <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> command. In this way, you only have to setup up the model once. It also ensures all the necessary packages are loaded into R.</p>
 <div id="set-model-parameters-and-location-of-files" class="section level2">
 <h2 class="hasAnchor">
 <a href="#set-model-parameters-and-location-of-files" class="anchor"></a>Set model parameters and location of files</h2>
-<p>Nearly all functions in <code>mapspam2globiom</code> need input on (1) key parameters that determine the design of the model and how will be solved and (2) the location of raw and intermediate data, which will be further processed. Both pieces of information are bundled and stored by the function <code>set_spam_par()</code> in a <code>spam_par</code> object. The example below does this for Malawi and stores the parameters in <code>param</code>. Param is an arbitrary name but we recommend not to change it as we use <code>param</code> as input in nearly all functions that are described next. One piece of information that is also stored in the <code>spam_par</code> object is the coordinate reference system of the maps. This is automatically set to WSG84 (epsg:4326).</p>
+<p>Nearly all functions in <code>mapspam2globiom</code> need input on (1) key parameters that determine the design of the model and how will be solved and (2) the location of raw and intermediate data, which will be further processed. Both pieces of information are bundled and stored by the function <code>set_spam_par()</code> in a <code>spam_par</code> object. One piece of information that is also stored in the <code>spam_par</code> object is the coordinate reference system of the maps. This is automatically set to WSG84 (epsg:4326).</p>
+<p>The following model parameters need to be set before SPAMc can be run:</p>
+<ul>
+<li><p><strong>iso3c country code (<code>iso3c</code>).</strong> The three letter ISO 3166-1 alpha-3 country code, also referred to as iso3c is used to extract national statistics from global datasets. A list of country codes can be found in #’ <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">Wikipedia</a>.</p></li>
+<li><p><strong>Year (<code>year</code>).</strong> The year (four digits) will be used to select relevant global datasets when data is available for multiple years, in particular the FAOSTAT national statistics, population maps and and travel time maps. It is also useful to distinguish SPAM output when the model is used to create crop distribution maps for multiple years. (see <a href="process_subnat_stat.html">spatial data</a>.</p></li>
+<li><p><strong>Spatial resolution (<code>res</code>)</strong>. The user can choose between two spatial resolutions: 30 arcsec (~1x1 km at the equator) by selecting <code>"30sec"</code> and 5 arcmin (~10x10 km at the equator) by selecting <code>"5min"</code>. Note that selecting a resolution of 30 arcsec increases the number of grid cells and hence the model dimensions by a factor 100! This might mean the model becomes too big to solved and/or your computer runs out of memory. We recommend experimenting with the 5 arcmin resolution first.</p></li>
+<li><p><strong>Depth of subnational statistics (<code>adm_level</code>)</strong> Which is the most detailed level at which subnational administrative statistics are available. Accepted inputs are <code>0</code> (only national level data), <code>1</code> (national level and first level subnational data and <code>2</code> (national level, first and second level subnational data). In most cases first level data refers to states and province and level 2 data indicates districts, counties and departments. However, in the unusual case that you would have only national and county level data for a country (i.e. there is no state or province data available), you should set the adm_level parameter to 1 as the depth of your subnational statistics is 1.</p></li>
+<li><p><strong>Level at which the model is solved (<code>solve_level</code>).</strong> The model can be solved at the national level (<code>0</code>) or at the subnational level 1 (<code>1</code>). In the first case, all grid cells are optimized using national level constraints. This means that for crops for which no subnational level information is available, the national physical crop area will be distributed over the whole country, subject to the standard model constraints. In the latter case, the model is split into smaller administrative level 1 models, which are solved separately. Breaking up the model in smaller pieces will result in less complex and less memory intensive models, which are easier to solve. The disadvantage is that the subnatonal level models require <strong>full information</strong> at administrative unit level 1. For most countries, this data is normally incomplete and full crop information is only available at the national level (from FAOSTAT). Hence, the only way to run the model at administrative unit level 1 is to impute the missing crop area values, for isntance by assuming similar shares as for comparable crops for which information is available, use the share of cropland as a proxy or find secondary information where certain crops are concentrated. Running the model at administrative unit 1 level is most useful for larger countries, such as China, Brazil and the USA, for which subnational statistics coverage is high and models tend to be large and complex due to the size of the country,</p></li>
+<li><p>**Type of model (“model’).** You can choose between two types of models: (1) minimization of cross-entropy (’”min_entropy"`) and (2) maximization of fitness score. See the section on <a href="model_description.html">Model description</a> for details.</p></li>
+</ul>
+<p>Similarly, the following two folders need to be defined when setting up the model:</p>
+<ul>
+<li><p><strong>SPAM main folder location (<code>spam_path</code>)</strong> This folder will be used to store all model related data, including processed data, mapping tables, intermediate output, final results and, unless specified otherwise by the user, the raw data.</p></li>
+<li><p><strong>Raw data folder (<code>raw_path</code>)</strong> Optionally the user can set a folder for the raw data. This might be convenient if hard disk capacity would be insufficient to store the several gigabyte of data that is needed to store the global spatial datasets. In this case, a data server could be used to store the data.</p></li>
+</ul>
+<p>The example below sets the SPAMc parameters for Malawi and stores them in an object called <code>param</code>. Param is an arbitrary name but we recommend not to change it as refer to <code>param</code> in nearly all functions that are described in the documentation.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># Load mapspam2globiom</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="st">"mapspam2globiom"</span>)
 
@@ -261,15 +279,15 @@
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">adm_map</span>$<span class="no">geometry</span>, <span class="kw">main</span> <span class="kw">=</span> <span class="st">"ADM polygons removed"</span>)
 <span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span>(<span class="kw">mfrow</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">1</span>))
 
-<span class="co"># Create pdf file with the location of administrative units</span>
-<span class="fu"><a href="../reference/create_adm_map_pdf.html">create_adm_map_pdf</a></span>(<span class="no">param</span>)
-
 <span class="co"># Save adm maps</span>
 <span class="no">temp_path</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">param</span>$<span class="no">spam_path</span>, <span class="fu">glue</span>(<span class="st">"processed_data/maps/adm/{param$res}"</span>))
 <span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span>(<span class="no">temp_path</span>, <span class="kw">showWarnings</span> <span class="kw">=</span> <span class="fl">FALSE</span>, <span class="kw">recursive</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 
 <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span>(<span class="no">adm_map</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">temp_path</span>, <span class="fu">glue</span>(<span class="st">"adm_map_{param$year}_{param$iso3c}.rds"</span>)))
-<span class="fu">write_sf</span>(<span class="no">adm_map</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">temp_path</span>, <span class="fu">glue</span>(<span class="st">"adm_map_{param$year}_{param$iso3c}.shp"</span>)))</pre></body></html></div>
+<span class="fu">write_sf</span>(<span class="no">adm_map</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">temp_path</span>, <span class="fu">glue</span>(<span class="st">"adm_map_{param$year}_{param$iso3c}.shp"</span>)))
+
+<span class="co"># Create pdf file with the location of administrative units</span>
+<span class="fu"><a href="../reference/create_adm_map_pdf.html">create_adm_map_pdf</a></span>(<span class="no">param</span>)</pre></body></html></div>
 <p>To link the subnational statistics to other spatial data a table is needed (<code>adm_list</code>) that contains information on how the administrative units at various levels are nested, which is exactly the information that is stored in the attribute table of the administrative unit map. The following code, extracts the list from the shapefile and saves it as csv file in the <code>processed_data/lists</code> folder.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># Create adm_list</span>
 <span class="fu"><a href="../reference/create_adm_list.html">create_adm_list</a></span>(<span class="no">adm_map</span>, <span class="no">param</span>)</pre></body></html></div>

@@ -31,8 +31,8 @@ navbar:
         menu:
         - text: Crop distribution maps
           href: articles/crop_distribution_maps.html
-        - text: Model structure
-          href: articles/model_structure.html
+        - text: Model description
+          href: articles/model_description.html
         - text: Input data
           href: articles/data.html
         - text: Appendix
@@ -55,9 +55,11 @@ navbar:
           href: articles/create_synergy_cropland.html
         - text: 5. Create synergy irrigated area map
           href: articles/create_synergy_ir_area.html
-        - text: 6. Run model
+        - text: 6. Harmonize input data
+          href: articles/harmonize_input_data.html
+        - text: 7. Run model
           href: articles/run_model.html
-        - text: 7. Post-processing
+        - text: 8. Post-processing
           href: articles/post_process.html
     reference:
       text: Functions
@@ -95,7 +97,7 @@ reference:
 - title: "Run model"
 - contents:
   - harmonize_inputs
-  - harvest_results
+  - combine_results
   - prepare_bs_yg
   - prepare_physical_area
   - prepare_score

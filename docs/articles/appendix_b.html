@@ -60,7 +60,7 @@
           <a href="../articles/crop_distribution_maps.html">Crop distribution maps</a>
         </li>
         <li>
-          <a href="../articles/model_structure.html">Model structure</a>
+          <a href="../articles/model_description.html">Model description</a>
         </li>
         <li>
           <a href="../articles/data.html">Input data</a>
@@ -100,10 +100,13 @@
           <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
         </li>
         <li>
-          <a href="../articles/run_model.html">6. Run model</a>
+          <a href="../articles/harmonize_input_data.html">6. Harmonize input data</a>
         </li>
         <li>
-          <a href="../articles/post_process.html">7. Post-processing</a>
+          <a href="../articles/run_model.html">7. Run model</a>
+        </li>
+        <li>
+          <a href="../articles/post_process.html">8. Post-processing</a>
         </li>
       </ul>
 </li>
@@ -151,6 +154,33 @@
 <a href="#storage-and-formats-of-model-input-and-output" class="anchor"></a>Storage and formats of model input and output</h2>
 <p>Depending on the resolution of the model and the size of the country, the size of the input (raw and processed) and output files can become quite large. Hence it is important to ensure sufficient disk space to store the files. To give you an idea, all files related to the China example have a total size of <span class="citation">[@ADD]</span>, while the total size for the Malawi example is <span class="citation">[@ADD]</span>. We also encountered some problems when performing some of the GDAL operations using DropBox, probably related to the synchronization of files. If you encounter problems when saving to Dropbox, try saving to a folder that is not being synchronizated automatically.</p>
 <p>In most cases we use the following file formats to store data: - Raster maps are stored using Geotiff (*.tif). - Shape files (i.e. vector/polygon data) are stored in the R .rds data format, which ensures the data structure is maintained and data can be quickly loaded into R. The shapefile with ADM information is also saved in .shp format as this is needed for GDAL. - Data files are stored in the R .rds data format. For files with lists of information (e.g. list of crops and ADMs in the country) we use .csv files for quick referencing (e.g. using Excel). - GAMS code is saved in .gms <span class="citation">[@UPDATE]</span> - GAMS data files are stored in .gdx <span class="citation">[@UPDATE]</span></p>
+</div>
+<div id="predefined-dimensions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#predefined-dimensions" class="anchor"></a>Predefined dimensions</h2>
+<div id="number-of-crops" class="section level3">
+<h3 class="hasAnchor">
+<a href="#number-of-crops" class="anchor"></a>Number of crops</h3>
+<p>SPAMc models 40 different crop (and crop groups) that together cover the full agricultural sector and are each identified by a four letter code (Table 1).<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> The main reason for this classification is the limited availability of crop-specific biophysical suitability maps, which form a key element in the crop allocation process (see <a href="process_spatial_data.html">spatial data</a> for more information). It would be relatively easy to add new crops by splitting them off from broader crop groups (e.g. tropical and temperate fruits, and vegetables) if appropriate agricultural statistics and suitability maps would be available. We plan to add an example on how to do this in future updates. The actual number of crops in the model is determined by the number of crops that are actually grown in the target country and identified by the availability of national statistics.</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"># Add 40 crop table</pre></body></html></div>
+</div>
+<div id="number-of-farming-systems" class="section level3">
+<h3 class="hasAnchor">
+<a href="#number-of-farming-systems" class="anchor"></a>Number of farming systems</h3>
+<p>Also similar to global SPAM, SPAMc distinguises between four different farming systems:</p>
+<ul>
+<li>Rainfed subsistence</li>
+<li>Rainfed low-input</li>
+<li>Rainfed high-input</li>
+<li>Irrigated</li>
+</ul>
+</div>
+</div>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Global SPAM uses 42 different crops because it includes two types of millet and two types of coffee <span class="citation">[@Wood-Sichra2016]</span>. As this level of detail is not supported by most national statistics and FAOSTAT, the have been merged into millet and coffee, respectively.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
   </div>
 

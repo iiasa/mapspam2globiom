@@ -41,7 +41,8 @@ Imports:
     sf,
     mapview,
     scales,
-    ggplot2
+    ggplot2,
+    exactextractr
 Suggests: 
     rmarkdown,
     spelling,

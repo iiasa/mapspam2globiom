@@ -32,7 +32,7 @@ SPAMc was specifically developed to support country level analysis and
 makes it possible to incorporate national sources of information and
 create maps at a higher resolution of 30 arcsec (Van Dijk et al. 2020).
 The articles in the Background section provide more information on the
-model, including [model structure](articles/model_structure.html),
+model, including [model description](articles/model_description.html),
 overview of [input data](articles/data.html) and an
 [appendix](articles/appendix.html) with the equations. Apart from
 implementing SPAMc, mapspam2globiom includes functions to aggregate the

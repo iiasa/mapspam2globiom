@@ -7,6 +7,9 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/check_statistics.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/combine_results.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/create_adm_list.html</loc>
   </url>
   <url>
@@ -29,9 +32,6 @@
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/harmonize_inputs.html</loc>
-  </url>
-  <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/harvest_results.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/load_data.html</loc>
@@ -70,6 +70,12 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/spam_par.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/view_4panel.html</loc>
+  </url>
+  <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/view_stack.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix.html</loc>
   </url>
   <url>
@@ -88,16 +94,19 @@
     <loc>https://iiasa.github.io/mapspam2globiom/articles/data.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/harmonize_input_data.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/input_data_collection.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/installation.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/model_setup.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/model_description.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/model_structure.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/model_setup.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/post_process.html</loc>

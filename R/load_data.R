@@ -19,6 +19,8 @@
 #'- cl_rank:
 #'- ia_max:
 #'- ia_rank:
+#'- gaez2crop:
+#'- gaez_replace:
 #'- grid:
 #'- gia:
 #'- gmia:
@@ -57,7 +59,8 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
                         "simu_r", "simu",
                         "ha", "fs", "ci",
                         "price",
-                        "dm2fm", "crop2globiom", "faostat2crop", "crop",
+                        "dm2fm", "crop2globiom", "faostat2crop", "crop", "gaez2crop",
+                        "gaez_replace",
                         "results")))
 
   load_list <- list()
@@ -189,6 +192,27 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
     }
   }
 
+  if("gaez2crop" %in% data) {
+    file <- file.path(param$spam_path,
+                      glue::glue("mappings/gaez2crop.csv"))
+    if(file.exists(file)) {
+      load_list[["gaez2crop"]] <- suppressMessages(readr::read_csv(file))
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("gaez_replace" %in% data) {
+    file <- file.path(param$spam_path,
+                      glue::glue("mappings/gaez_replace.csv"))
+    if(file.exists(file)) {
+      load_list[["gaez_replace"]] <- suppressMessages(readr::read_csv(file))
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
 
   if("adm_map" %in% data) {
     file <- file.path(param$spam_path,
@@ -246,7 +270,7 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
   }
 
   if("fs" %in% data) {
-    file <- file.path(param$raw_path,
+    file <- file.path(param$spam_path,
                       glue::glue("processed_data/agricultural_statistics/fs_adm_{param$year}_{param$iso3c}.csv"))
     if(file.exists(file)) {
       load_list[["fs"]] <- suppressMessages(readr::read_csv(file))
@@ -257,7 +281,7 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
   }
 
   if("ci" %in% data) {
-    file <- file.path(param$raw_path,
+    file <- file.path(param$spam_path,
                       glue::glue("processed_data/agricultural_statistics/ci_adm_{param$year}_{param$iso3c}.csv"))
     if(file.exists(file)) {
       load_list[["ci"]] <- suppressMessages(readr::read_csv(file))

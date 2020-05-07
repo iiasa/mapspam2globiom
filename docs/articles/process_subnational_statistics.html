@@ -60,7 +60,7 @@
           <a href="../articles/crop_distribution_maps.html">Crop distribution maps</a>
         </li>
         <li>
-          <a href="../articles/model_structure.html">Model structure</a>
+          <a href="../articles/model_description.html">Model description</a>
         </li>
         <li>
           <a href="../articles/data.html">Input data</a>
@@ -100,10 +100,13 @@
           <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
         </li>
         <li>
-          <a href="../articles/run_model.html">6. Run model</a>
+          <a href="../articles/harmonize_input_data.html">6. Harmonize input data</a>
         </li>
         <li>
-          <a href="../articles/post_process.html">7. Post-processing</a>
+          <a href="../articles/run_model.html">7. Run model</a>
+        </li>
+        <li>
+          <a href="../articles/post_process.html">8. Post-processing</a>
         </li>
       </ul>
 </li>
@@ -160,26 +163,27 @@
 <a href="#support-scripts" class="anchor"></a>Support scripts</h2>
 <p>Apart from the main scripts that clean and check the statistics, which will be discussed below, the template contains three other scripts that support these processes.</p>
 <ul>
-<li><code>001_process_aquastat.r</code></li>
-<li><code>001_calculate_irrigated_area_share.r</code></li>
 <li><code>01_process_faostat_crops.r</code></li>
+<li><code>04_process_aquastat.r</code></li>
+<li><code>05_calculate_irrigated_area_share.r</code></li>
 </ul>
-<p>The first two scripts select relevant country data from the AQUASTAT database and use this to calculate the share of irrigated area per crop. This information can be used to as input to inform the irrigated area shares that are needed for the farming system shares data table (See below). We will not discuss these scripts here. Please have a look and try by yourself.</p>
-<p>The third script prepares the national FAOSTAT statistics. These are used for two purposes. The first is for calibration of the subnational statistics so they are in line with FAOSTAT. As FAOSTAT is the leading source on agricultural data, it is useful to ensure that the subnational data adds up to the FAOSTAT national totals. Also, GLOBIOM is fully calibrated to FAOSTAT. For many countries the totals will already be the same or at least in the same range as subnational agricultural statistics are often the basis for construction national statistics, which in turn are used as input by FAOSTAT. However, for some countries there might be large differences. The second purpose is to determine the list of crops that is needed to prepare the subnational agricultural statistics. We will discuss this further below. Make sure to run <code>01_process_faostat_crops.r</code> before starting with preparing the subnational statistics. Do not forget to set the <code>faostat_version</code> variable in the script, which corresponds with the date you added when you downloaded the data (<code>20200303</code> in the Malawi example).</p>
+<p>The first script prepares the national FAOSTAT statistics. These are used for two purposes. The first is for calibration of the subnational statistics so they are in line with FAOSTAT. As FAOSTAT is the leading source on agricultural data, it is useful to ensure that the subnational data adds up to the FAOSTAT national totals. Also, GLOBIOM is fully calibrated to FAOSTAT. For many countries the totals will already be the same or at least in the same range as subnational agricultural statistics are often the basis for construction national statistics, which in turn are used as input by FAOSTAT. However, for some countries there might be large differences. The second purpose is to determine the list of crops that is needed to prepare the subnational agricultural statistics. We will discuss this further below. Make sure to run <code>01_process_faostat_crops.r</code> before starting with preparing the subnational statistics. Do not forget to set the <code>faostat_version</code> variable in the script, which corresponds with the date you added when you downloaded the data (<code>20200303</code> in the Malawi example).</p>
+<p>The second and third scripts select relevant country data from the AQUASTAT database and use this to calculate the share of irrigated area per crop. This information can be used to as input to inform the irrigated area shares that are needed for the farming system shares data table (See below). We will not discuss these scripts here. Note that <code>05_calculate_irrigated_area_share.r</code> needs the processed harvest area statistics as input so it can only by run at the end, denoted by the number 05 in the name of the script. Please have a look and try by yourself.</p>
 </div>
 <div id="processing-of-raw-subnational-statistics" class="section level2">
 <h2 class="hasAnchor">
 <a href="#processing-of-raw-subnational-statistics" class="anchor"></a>Processing of raw subnational statistics</h2>
 <p>The <code>02_process_raw_national_statistics.r</code> file shows all the steps we took to process the raw SPAM2010 statistics, turn it into the right format and make it consistent with the shapefile with the locations of the administrative units. We highlight several key steps, that you probably also need to implement to process your country data.</p>
-<div id="format-of-the-processed-statistics-files" class="section level3">
-<h3 class="hasAnchor">
-<a href="#format-of-the-processed-statistics-files" class="anchor"></a>Format of the processed statistics files</h3>
 <p>You need to create three files with subnational statistical information that will be combined later:</p>
 <ol style="list-style-type: decimal">
 <li>A file with <strong>Harvest area statistics (ha)</strong> in hectares for all subnational administrative unit at each level.</li>
-<li>A file with <strong>Farming system shares (fs)</strong> (not percentages!) for each subnational administrative unit at the national level. If the model is solved at the subnational level 1 (by setting the model level to 1), also farming system share data need to be provided for that level.</li>
 <li>A file with the <strong>Cropping intensity (ci)</strong> for each subnational administrative unit at the national and subnational 1 (similar to the farming system shares).</li>
+<li>A file with <strong>Farming system area shares (fs)</strong> (not percentages!) for each subnational administrative unit at the national level. If the model is solved at the subnational level 1 (by setting the model level to 1), also farming system share data need to be provided for that level.</li>
 </ol>
+<p>It is the best to start with processing the harvest area statistics and then work on the cropping intensity and farming system shares files. Data for these three files is most likely coming from different sources and can be processed independently. Also cropping intensity and to a lesser extent farming system shares data sometimes needs to be adjusted after running the model as it happens that there is not enough cropland to allocate all the harvested area from the statistics, which suggests that the cropping intensity is too low for some regions.</p>
+<div id="putting-the-subnational-statistics-in-the-right-format" class="section level3">
+<h3 class="hasAnchor">
+<a href="#putting-the-subnational-statistics-in-the-right-format" class="anchor"></a>Putting the subnational statistics in the right format</h3>
 <p>All Crop statistics need to be stored using in the <strong>wide</strong> format. With this we mean that the first three or four columns of the data table list the administrative unit code (<code>adm_code</code>), name (<code>adm_name</code>), level (<code>adm_level</code>) and potentially the farming system (<code>system</code>) in case of farming system shares or cropping intensity data, followed by named columns, one for each crop, with harvested area, farming system shares or cropping intensity per subnational unit. <code>adm_name</code> and <code>adm_code</code> must be provided up to the most detailed administrative unit for which data is available. Hence, in case level 2 data is available, data should be supplied for level 0, 1 and 2. In case only level 1 data is available, data should be supplied for level 0 and level 1.</p>
 <p><code><a href="../reference/create_statistics_template.html">create_statistics_template()</a></code> will create templates for the ha, fs and ci data files - also see the Malawi ha, fs and ci files for examples. The number and depth of the administrative units will be determined by the model parameters stored in the <code>spam_par</code> object as well as the <code>adm_list</code> file that is created with <code><a href="../reference/create_adm_list.html">create_adm_list()</a></code>. By defauls, the template will have columns for all 40 SPAMc crops.</p>
 <p>You can save the template as csv file and use it as a basis to prepare the statistics. Note that is is essential that you follow the template closely! Adding or removing administrative units will result in errors as the data no longer matches with the map that contains the location of the administrative units. See below for more information how to deal with missing crop information. In case of Malawi, we use raw data from <a href="https://www.mapspam.info">global SPAM for 2010</a>. Most of the data was already in the right format so we did not use them.</p>
@@ -228,7 +232,7 @@
 <span class="no">stat_mapspam</span> <span class="kw">&lt;-</span> <span class="no">stat</span> <span class="kw">%&gt;%</span>
   <span class="fu">spread</span>(<span class="no">crop</span>, <span class="no">value_ha</span>, <span class="kw">fill</span> <span class="kw">=</span> -<span class="fl">999</span>) <span class="kw">%&gt;%</span>
   <span class="fu">arrange</span>(<span class="no">adm_code</span>, <span class="no">adm_code</span>, <span class="no">adm_level</span>)</pre></body></html></div>
-<p>As pointed out above, it is safe to set all values for a crop to <code>NA</code> or <code>-999</code> when the crop is not relevant for the country. Also not that having information on regions where a crop is not grown is also informative! If this is the case, simply set the physical area values to 0 for these regions and the rest to <code>NA</code> or <code>-999</code>. In this way the model will only allocate statistics to the regions where data is missing.</p>
+<p>As pointed out above, it is safe to set all values for a crop to <code>NA</code> or <code>-999</code> when the crop is not relevant for the country. These will be filtered out in the script that is described in the next section.</p>
 </div>
 <div id="data-consistency" class="section level3">
 <h3 class="hasAnchor">

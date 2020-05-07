@@ -25,3 +25,25 @@ In most cases we use the following file formats to store data:
 - GAMS code is saved in .gms [@UPDATE]
 - GAMS data files are stored in .gdx [@UPDATE]
 
+
+## Predefined dimensions
+
+### Number of crops
+
+SPAMc models 40 different crop (and crop groups) that together cover the full agricultural sector and are each identified by a four letter code (Table 1).^[Global SPAM uses 42 different crops because it includes two types of millet and two types of coffee [@Wood-Sichra2016]. As this level of detail is not supported by most national statistics and FAOSTAT, the have been merged into millet and coffee, respectively.] The main reason for this classification is the limited availability of crop-specific biophysical suitability maps, which form a key element in the crop allocation process (see [spatial data](process_spatial_data.html) for more information). It would be relatively easy to add new crops by splitting them off from broader crop groups  (e.g. tropical and temperate fruits, and vegetables) if appropriate agricultural statistics and suitability maps would be available. We plan to add an example on how to do this in future updates. The actual number of crops in the model is determined by the number of crops that are actually grown in the target country and identified by the availability of national statistics.
+
+```{r}
+# Add 40 crop table
+```
+
+
+### Number of farming systems
+
+Also similar to global SPAM, SPAMc distinguises between four different farming systems:
+
+- Rainfed subsistence
+- Rainfed low-input
+- Rainfed high-input
+- Irrigated
+
+

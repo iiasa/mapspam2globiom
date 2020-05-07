@@ -8,16 +8,17 @@ articles:
   create_synergy_ir_area: create_synergy_ir_area.html
   crop_distribution_maps: crop_distribution_maps.html
   data: data.html
+  harmonize_input_data: harmonize_input_data.html
   input_data_collection: input_data_collection.html
   installation: installation.html
+  model_description: model_description.html
   model_setup: model_setup.html
-  model_structure: model_structure.html
   post_process: post_process.html
   process_spatial_data: process_spatial_data.html
   process_subnational_statistics: process_subnational_statistics.html
   run_model: run_model.html
   template: template.html
-last_built: 2020-05-06T22:44Z
+last_built: 2020-05-07T22:11Z
 urls:
   reference: https://iiasa.github.io/mapspam2globiom/reference
   article: https://iiasa.github.io/mapspam2globiom/articles

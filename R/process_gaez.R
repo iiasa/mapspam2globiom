@@ -12,8 +12,9 @@ process_gaez <- function(file, var, lookup, ac, param) {
   cat("\nProcessing: ", var, " ", crp_sys)
 
   # Get replacement crops
-  rep_crops <- readxl::read_excel(file.path(param$spam_path,
-                                    "parameters/mappings_spam.xlsx"), sheet = "gaez_rc") %>%
+  load_data("gaez_replace", param, local = TRUE, mess = FALSE)
+
+  rep_crops <- gaez_replace %>%
     tidyr::gather(number, rep_crop, -crop) %>%
     dplyr::mutate(number = as.integer(gsub("rc_", "", number))) %>%
     dplyr::filter(crop %in% crp)
