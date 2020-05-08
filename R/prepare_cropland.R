@@ -9,8 +9,9 @@
 #'@importFrom magrittr %>%
 #'@export
 prepare_cropland <- function(param){
-  # load data
-  load_data(c("adm_map_r", "adm_list","cl_med", "cl_max", "cl_rank", "grid"), param, local = TRUE)
+  stopifnot(inherits(param, "spam_par"))
+  cat("\n\n############### PREPARE CROPLAND ###############")
+  load_data(c("adm_map_r", "adm_list","cl_med", "cl_max", "cl_rank", "grid"), param, local = TRUE, mess = FALSE)
 
   # Grid size
   grid_size <- calc_grid_size(grid)

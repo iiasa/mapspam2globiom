@@ -5,15 +5,9 @@
 \title{Prepares the physical area subnational statistics so they can be used as input
 for SPAM.}
 \usage{
-prepare_physical_area(ha, fs, ci, param)
+prepare_physical_area(param)
 }
 \arguments{
-\item{ha}{tbl or data.frame with harvest area statistics}
-
-\item{fs}{tbl or data.frame with farming system shares}
-
-\item{ci}{tbl or data.frame with cropping intensity statistics}
-
 \item{param}{Object of type \code{spam_par} that bundles all SPAM parameters,
 including core model folders, alpha-3 country code, year, spatial
 resolution, most detailed level at which subnational statistics are
@@ -24,7 +18,7 @@ model.}
 To estimate the physical crop area for each farming system harvest area (ha)
 statistics are combined with information on farmings sytem shares (fs) and
 cropping intensity (ci). Depending on how the model is solved, the physical
-area statistics are saved at the administrative unit level 0/country level
+area statistics are saved at the administrative unit level 0 (country) level
 (model solve level 0) or at the level 1 administrative unit level (model solve
 level 1).
 }

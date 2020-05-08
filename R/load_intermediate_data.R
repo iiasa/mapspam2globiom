@@ -117,7 +117,7 @@ load_intermediate_data <- function(fl, adm_code, param, local = TRUE, mess = TRU
   }
 
   if(mess) {
-    message(glue::glue("{fPaste(fl)} loaded"))
+    cat("\n", fPaste(fl), "loaded")
   }
 
   if(local) {

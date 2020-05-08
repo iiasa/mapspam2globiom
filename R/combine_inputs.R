@@ -1,5 +1,7 @@
 #'@export
 combine_inputs <- function(param) {
+  stopifnot(inherits(param, "spam_par"))
+  cat("\n\n############### COMBINE INPUTS ###############")
   load_data("adm_list", param, local = TRUE, mess = FALSE)
 
   # Set adm_level

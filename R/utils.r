@@ -24,10 +24,10 @@ compare_adm <- function(df, level_1, level_2, out = F){
     if(!isTRUE(all.equal(tot1$value[tot1$crop %in% inter],
                          tot2$value[tot2$crop %in% inter]))){
         message(
-            glue::glue("adm{level_1} and adm{level_2} are not equal!. Did you run rebalance_stat?")
+            glue::glue("\nadm{level_1} and adm{level_2} are not equal!. Did you run rebalance_stat?")
         )
     } else {
-        message(glue::glue("adm{level_1} and adm{level_2} are equal"))
+        cat(glue::glue("\nadm{level_1} and adm{level_2} are equal"))
     }
 
     out_df <- dplyr::bind_rows(
@@ -49,12 +49,11 @@ compare_adm2 <- function(df1, df2, level, out = F){
     inter <- intersect(tot1$crop, tot2$crop)
     if(!isTRUE(all.equal(tot1$value[tot1$crop %in% inter],
                          tot2$value[tot2$crop %in% inter]))){
-        stop(
-            glue::glue("df1 and df2 are not equal!",
+        stop(glue::glue("\ndf1 and df2 are not equal!",
                        call. = FALSE)
         )
     } else {
-        message(glue::glue("df1 and df2 are equal"))
+        cat("\ndf1 and df2 are equal")
     }
 
     out_df <- dplyr::bind_rows(

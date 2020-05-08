@@ -1,7 +1,7 @@
 # Process_bs_py
 split_bs_py <- function(var, ac, param){
 
-  cat("\n", ac)
+  cat(paste0("\n", ac))
   load_intermediate_data(c("cl_harm", "pa_fs"), ac, param, local = TRUE, mess = FALSE)
   load_data(c("grid"), param, local = TRUE, mess = FALSE)
 

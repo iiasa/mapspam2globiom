@@ -376,7 +376,7 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
   }
 
   if(mess) {
-    message(glue::glue("{fPaste(data)} loaded"))
+    cat("\n", fPaste(data), "loaded")
   }
   if(local == TRUE) {
     invisible(list2env(load_list, envir = parent.frame()))

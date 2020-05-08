@@ -122,9 +122,9 @@ If SPAMc is used to produce crop distribution maps for around 2010, it is possib
 - ESA
 - GLC2000
 
-## Irrigated area
+## Irrigated area extent
 
-SPAM requires spatially-explicit information on the location of irrigated area or areas equipped for irrigation. We combine two sources of information: (1) the Global Map of Irrigated Areas (GMIA) version 5 [@ADD], which presents the location of the area equipped for irrigation at the 5 arcmin resolution and the Global Irrigation Areas map (GIA) [@ADD], which depicts irrigated area at a resolution of 30 arcsec. 
+Similar to the synergy cropland map, we need information on the location of irrigated areas to construct a synergy irrigated cropland extent. We use two global products as input: (1) the Global Map of Irrigated Areas (GMIA) version 5 [@ADD], which presents the location of the area equipped for irrigation at the 5 arcmin resolution and the Global Irrigation Areas map (GIA) [@ADD], which depicts irrigated area at a resolution of 30 arcsec. 
 
 
 ### Global map of irrigated areas (GMIA)

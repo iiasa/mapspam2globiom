@@ -1,7 +1,6 @@
-#' Prepare biophysical suitability and potential yield input
-#'
-#'@export
+# Function to prepare bs and yg data per raster file
 prepare_bs_yg <- function(var, param) {
+  cat("\n\n############### PREPARE", toupper(var), "###############")
   load_data("adm_list", param, local = TRUE, mess = FALSE)
 
   # Set adm_level

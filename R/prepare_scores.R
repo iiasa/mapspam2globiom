@@ -1,8 +1,12 @@
 #' Prepares score for all farming systems, crops and grid cells
 #'
 #'@export
-prepare_score <- function(param) {
-  cat("\n############### PREPARE SCORE ###############")
+prepare_scores <- function(param) {
+  stopifnot(inherits(param, "spam_par"))
+  prepare_bs_yg("biophysical_suitability", param)
+  prepare_bs_yg("potential_yield", param)
+
+  cat("\n\n############### PREPARE SCORE ###############")
   load_data("adm_list", param, local = TRUE, mess = FALSE)
 
   # Set adm_level
