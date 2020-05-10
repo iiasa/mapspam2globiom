@@ -21,6 +21,10 @@ Now you have created all the necessary input, it is time to combine and reshape 
 
 All the intermediate data output is saved in the `processed_data/intermediate_output` folder. In case you have set `solve_level = 1`, the various functions split the data in administrative level 1 chunks, which are saved in subfolders using the administrative unit level 1 as name. If `solve_level = 0` there wil be only one subfolder that used the country iso3c code as name.
  
+## Prepare FAOSTAT crop prices
+
+Potential revenue at the grid cell level is used to construct the scores/priors for the high-input and irrigated farming systems (see [Model description](model_description.html) for details). `00_prepare_faostat_crop_prices` extracts and prepares this using the FAOSTAT price database you downloaded before (see [Input data collection](input_data_collection)). As price data is often incomplete at the country level, we decided to use continental averaged prices instead. Make sure sure to set the `faostat_version` in the script, which corresponds to the date the FAOSTAT files were downloaded.
+
 
 ## Prepare cropland
 
