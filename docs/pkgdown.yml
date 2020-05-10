@@ -3,12 +3,11 @@ pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   appendix: appendix.html
-  appendix_b: appendix_b.html
+  combine_input_data: combine_input_data.html
   create_synergy_cropland: create_synergy_cropland.html
-  create_synergy_ir_area: create_synergy_ir_area.html
+  create_synergy_irrigated_area: create_synergy_irrigated_area.html
   crop_distribution_maps: crop_distribution_maps.html
   data: data.html
-  harmonize_input_data: harmonize_input_data.html
   input_data_collection: input_data_collection.html
   installation: installation.html
   model_description: model_description.html
@@ -18,7 +17,7 @@ articles:
   process_subnational_statistics: process_subnational_statistics.html
   run_model: run_model.html
   template: template.html
-last_built: 2020-05-08T06:30Z
+last_built: 2020-05-10T13:55Z
 urls:
   reference: https://iiasa.github.io/mapspam2globiom/reference
   article: https://iiasa.github.io/mapspam2globiom/articles

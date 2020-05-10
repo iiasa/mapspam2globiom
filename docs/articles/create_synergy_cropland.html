@@ -97,10 +97,10 @@
           <a href="../articles/create_synergy_cropland.html">4. Create synergy cropland map</a>
         </li>
         <li>
-          <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
+          <a href="../articles/create_synergy_irrigated_area.html">5. Create synergy irrigated area map</a>
         </li>
         <li>
-          <a href="../articles/harmonize_input_data.html">6. Harmonize input data</a>
+          <a href="../articles/combine_input_data.html">6. Combine input data</a>
         </li>
         <li>
           <a href="../articles/run_model.html">7. Run model</a>
@@ -150,10 +150,13 @@
     
     
 <p>A key feature of SPAMc is to allocate the crop statistics to areas identified as cropland on a map - the cropland extent. As described in the section on <a href="data.html">Input data</a>, we use a so-called synergy cropland map to account for the uncertainty in the location of cropland. The synergy cropland map combines different cropland products to construct one map that presents the mean and maximum available crop area per grid cell as well as a ranking that measures the agreement between the various cropland products. A ranking of 1 means that all sources agree there is cropland in a grid cell, while higher rankings signals more disagreement. The highest ranking depends on the number of cropland products that are compared.</p>
-<p>[TODO add example on how to construct a synergy cropland map for 2010]</p>
-<p>For 2010, we can make use of the global synergy map that was prepared for SPAM2010 <span class="citation">[@Lu2020]</span>. The function <code><a href="../reference/prepare_cropland.html">prepare_cropland()</a></code> combines the three synergy cropland components (medium and maximum cropland and cropland ranking map) and, in case <code>solve_level = 1</code> is selected, breaks up the data in to administrative level 1 chunks. The resulting files are saved in subfolders in the<code>processed_data/intermediate_output</code> folder, using either the iso3c code as name (<code>solve_level = 0</code>) or administrative unit level 1 names (<code>solve_level = 1</code>).</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># Function to process the synergy cropland components.</span>
-<span class="fu"><a href="../reference/prepare_cropland.html">prepare_cropland</a></span>(<span class="no">param</span>)</pre></body></html></div>
+<p><span class="citation">(<span class="citeproc-not-found" data-reference-id="TODO"><strong>???</strong></span>)</span> add illustration how to make a synergy cropland map. To create the cropland extent, we followed a comparable approach as was used to construct the global synergy cropland map for 2010. Only three global products with cropland information were available for 2000: GLC2000, ESA-CCI-LC and GlobeLand30. We combined the three maps to create the median, maximum and score maps for 2010. We considered the following order of increasing importance when creating the scoring table: (1) ESA-CCI-LC, (2) GlobeLand30, (3) 2010 cropland extent and (4) GLC2000. The ESA-CGI-LC receives the highest score because it is the only product with consistent information for both 2000 and 2010. GlobeLand30 is second because it has a much higher resolution (30x30 meter) than GLC2000 1x1 kilometer), which can be considered somewhat outdated. Grid cells that show cropland in all four layers receive the highest score.</p>
+<p>For 2010, we can make use of SASAM, the global synergy map that was prepared for SPAM2010 <span class="citation">(Lu et al. 2020)</span>.</p>
+<div id="refs" class="references">
+<div id="ref-Lu2020">
+<p>Lu, Miao, Wenbin Wu, Liangzhi You, Linda See, Steffen Fritz, Qiangyi Yu, Yanbing Wei, Di Chen, Peng Yang, and Bing Xue. 2020. “A cultivated planet in 2010: 1. the global synergy cropland map.” <em>Earth System Science Data</em>. <a href="https://doi.org/doi.org/10.5194/essd-2020-12">https://doi.org/doi.org/10.5194/essd-2020-12</a>.</p>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

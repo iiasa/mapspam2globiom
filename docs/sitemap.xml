@@ -43,19 +43,16 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/plus.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_bs_yg.html</loc>
-  </url>
-  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_cropland.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_ir_area.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_irrigated_area.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_physical_area.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_score.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_scores.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/rasterize_adm_map.html</loc>
@@ -79,22 +76,19 @@
     <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/appendix_b.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/combine_input_data.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/create_synergy_cropland.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/create_synergy_ir_area.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/articles/create_synergy_irrigated_area.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/crop_distribution_maps.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/data.html</loc>
-  </url>
-  <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/articles/harmonize_input_data.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/articles/input_data_collection.html</loc>

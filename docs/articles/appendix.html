@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Appendix: model equations • mapspam2globiom</title>
+<title>Appendix • mapspam2globiom</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Appendix: model equations">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Appendix">
 <meta property="og:description" content="mapspam2globiom">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -97,10 +97,10 @@
           <a href="../articles/create_synergy_cropland.html">4. Create synergy cropland map</a>
         </li>
         <li>
-          <a href="../articles/create_synergy_ir_area.html">5. Create synergy irrigated area map</a>
+          <a href="../articles/create_synergy_irrigated_area.html">5. Create synergy irrigated area map</a>
         </li>
         <li>
-          <a href="../articles/harmonize_input_data.html">6. Harmonize input data</a>
+          <a href="../articles/combine_input_data.html">6. Combine input data</a>
         </li>
         <li>
           <a href="../articles/run_model.html">7. Run model</a>
@@ -139,7 +139,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Appendix: model equations</h1>
+      <h1 data-toc-skip>Appendix</h1>
             
       
       
@@ -149,91 +149,9 @@
 
     
     
-<p>The spatial allocation model outlined in this paper builds on SPAM, which technical details can be found in <span class="citation">Wood-Sichra, Joglekar, and You (2016)</span> (also see the <a href="www.mapSPAM.org">SPAM</a> website). One major difference between both model versions is the use of an alternative objective function, which maximizes the total average ‘fitness’ score’ of the allocated crops (see below for a comparison of the two versions of the models) instead of using a cross-entropy framework. A key starting point for the cross-entropy framework is prior estimates of physical area for each crop-farming system combination at the grid cell level. The final solution of the model will be in the neighborhood of the priors but taking into account a number of constraints. Using this approach at the 30 arcsec resolution resulted in very fragmented allocation, in which the area of a large number of crop-farming system combinations will be allocated to single 30 arcsec grid cells. A more realistic distribution would result in clusters of 30 arcsec grid cells that are populated by a limited number of crop-farming system combinations and determined by biophysical and economic suitability. The objective function in SPAMc is better suited to simulate this process.</p>
-<div id="objective-functions" class="section level2">
+<div id="solving-spamc" class="section level2">
 <h2 class="hasAnchor">
-<a href="#objective-functions" class="anchor"></a>Objective functions</h2>
-<p>The actual location of crops will be determined by a combination of economic (e.g. market access and population density) and biophysical factors (e.g growing conditions determined by soil, temperature and precipitation). To simulate this process, we calculate a ‘fitness’ score between 0 and 100, which measures the economic and biophysical suitability at the grid cell level for each crop-farming system combination. The spatial allocation model is defined as a linear optimization problem in which the weighted score over all grid cells, crops and farming systems is maximized. This implies that on average all crops will be allocated to locations, which are considered as most appropriate from both an economic and biophysical viewpoint. The objective function is defined as follows:</p>
-<p><span class="math display">\[\begin{equation}
-\max\sum_{i} \sum_{j} \sum_{l}s_{ijl} \times score_{ijl}
-(\#eq:obj)
-\end{equation}\]</span></p>
-<p>where, <span class="math inline">\(s_{ijl}\)</span> is the share of total physical area of crop <span class="math inline">\(j\)</span> and farming system <span class="math inline">\(l\)</span> allocated to grid cell <span class="math inline">\(i\)</span>, and <span class="math inline">\(score_{ijl}\)</span> is the fitness score for all <span class="math inline">\(j\)</span> and <span class="math inline">\(l\)</span> combinations.</p>
-<p>The second channel is the use of priors. Instead of using the fitness score to allocate crop area, we use the cross-entropy (<span class="math inline">\(CE\)</span>) objective function used by SPAM, which minimizes the error between the prior information on physical area shares (<span class="math inline">\(\pi_{ijl}\)</span>) and the allocated shares of physical area (<span class="math inline">\(s_{ijl}\)</span>) for each grid cell <span class="math inline">\(i\)</span>, crop <span class="math inline">\(j\)</span> and farming system <span class="math inline">\(l\)</span>:</p>
-<p><span class="math display">\[\begin{equation}
-\min\ CE(s_{ijl}, \pi_{ijl})= \sum_{i} \sum_{j} \sum_{l}s_{ijl} \ lns_{ijl}- \sum_{i} \sum_{j} \sum_{l}s_{ijl} \ ln\pi_{ijl}
-\end{equation}\]</span></p>
-</div>
-<div id="fitness-score-and-priors" class="section level2">
-<h2 class="hasAnchor">
-<a href="#fitness-score-and-priors" class="anchor"></a>Fitness score and priors</h2>
-<p>Similar to SPAM, we assume that subsistence farmers mainly grow crops for their own consumption and therefore the rural population density is a reasonable proxy for the allocation of subsistence farming systems. As we are not using the crop-entropy approach, the allocation of subsistence farmers is modelled by means of a constraint (see next section). For the other three systems, the allocation is determined by maximizing the objective function. The fitness scores are very similar to the calculation of the priors that are used to inform the cross-entropy model in SPAM.</p>
-<p>Low-input rainfed systems are characterized by smallholder farms that mostly sell their products on local markets. Farmers will specialize in growing crops for which environmental conditions are best, while market access plays a limited role. We therefore assume that the fitness core can be informed by an index of biophysical suitability:</p>
-<p><span class="math display">\[\begin{equation}
-score_{ijl} = suit\_index_{ijl} \quad l = low\ input \quad \forall i\ \forall j
-\end{equation}\]</span></p>
-<p>where <span class="math inline">\(score_{ijl}\)</span> and <span class="math inline">\(suit\_index_{ijl}\)</span> are the fitness score and the biophysical suitability score for grid cell <span class="math inline">\(i\)</span>, crop <span class="math inline">\(j\)</span> and farming system <span class="math inline">\(l\)</span>, respectively.</p>
-<p>We assume that high-input rainfed and irrigated farming systems mostly consist of medium to large commercial farms, which location is largely determined by profit maximization. To simulate this, the fitness core is defined as the square root of potential revenue and market access:</p>
-<p><span class="math display">\[\begin{equation}
-score_{ijl} =  \sqrt{access_{i} \times rev_{ijl}} \quad l \in high\ input,\ irrigated \quad \forall i\ \forall j
-\end{equation}\]</span></p>
-<p>where <span class="math inline">\(access_{ijl}\)</span> is market access approximated by travel distance to large cities and <span class="math inline">\(rev_{ijl}\)</span> is potential revenue, calculated as the product of potential yield (<span class="math inline">\(yield_{ijl}\)</span>) for grid cell <span class="math inline">\(i\)</span>, crop <span class="math inline">\(j\)</span> and system <span class="math inline">\(l\)</span> and national level crop price (<span class="math inline">\(price_j\)</span>):</p>
-<p><span class="math display">\[\begin{equation}
-rev_{ijl} = pot\_yield_{ijl} \times price_{i}
-\end{equation}\]</span></p>
-</div>
-<div id="constraints" class="section level2">
-<h2 class="hasAnchor">
-<a href="#constraints" class="anchor"></a>Constraints</h2>
-<p>The allocation of crop area is determined by maximizing the objective function in equation @ref(eq:obj) subject to a set of constraints:</p>
-<ol style="list-style-type: lower-roman">
-<li>A constraint defining the range of permitted physical area shares:</li>
-</ol>
-<p><span class="math display">\[\begin{equation}
-0 \leq s_{ijl} \leq 1
-\end{equation}\]</span></p>
-<ol start="2" style="list-style-type: lower-roman">
-<li>A constraint, which forces that the sum of allocated physical area shares for each crop <span class="math inline">\(j\)</span> and farming system <span class="math inline">\(l\)</span> over all grid cells <span class="math inline">\(i\)</span> is equal to one. This ensures all physical crop area is allocated to grid cells.</li>
-</ol>
-<p><span class="math display">\[\begin{equation}
-\sum_{i}s_{ij}=1 \qquad \forall j\ \forall l
-\end{equation}\]</span></p>
-<ol start="3" style="list-style-type: lower-roman">
-<li>A constraint, which specifies that the total physical area allocated to a grid cell <span class="math inline">\(i\)</span> is lower or equal than the available cropland (<span class="math inline">\(avail_{i}\)</span>) in grid cell <span class="math inline">\(i\)</span>.</li>
-</ol>
-<p><span class="math display">\[\begin{equation}
-\sum_{j} \sum_{l}crop\_area_{jl} \times s_{ijl} \leq avail_{i} \qquad \forall i
-\end{equation}\]</span></p>
-<p> where <span class="math inline">\(crop\_area_{jl}\)</span> is total national-level physical area for crop <span class="math inline">\(j\)</span> and farming system <span class="math inline">\(j\)</span>.</p>
-<ol start="4" style="list-style-type: lower-roman">
-<li>A constraint, which ensures that the allocated physical area is equal to the sub-national statistics (<span class="math inline">\(sub\_crop\_area_{jk}\)</span>) that are available for statistical reporting unit <span class="math inline">\(k\)</span> (i.e. a region or province) and crops <span class="math inline">\(J\)</span>. Crops for which only national level information is available are not affected by this constraint.</li>
-</ol>
-<p><span class="math display">\[\begin{equation}
-\sum_{i \in k} \sum_{l}crop\_area_{jl} \times s_{ijl} = sub\_crop\_area_{jk} \qquad \forall j \in J\
-\forall k
-\end{equation}\]</span></p>
-<ol start="22" style="list-style-type: lower-alpha">
-<li>A constraint, which specifies that the total allocated physical area for all irrigated crops <span class="math inline">\(L\)</span> in grid cell <span class="math inline">\(i\)</span> does not exceed the total available irrigated area (<span class="math inline">\(irr\_area_{i}\)</span>) in that grid cell.</li>
-</ol>
-<p><span class="math display">\[\begin{equation}
-\sum_{j \in L}crop\_area_{jl} \times s_{ijl} \leq irr\_area_{i} \qquad \forall i
-\end{equation}\]</span></p>
-<ol start="4" style="list-style-type: lower-roman">
-<li>A constraint, that allocates the subsistence farming system crops proportional to rural population density. In cases, where the biophysical conditions are considered not suitable for a certain crop, we assume a zero allocation:</li>
-</ol>
-<p><span class="math display">\[\begin{equation}
-\bar{s}_{ijl} = \frac{rur\_pop_i}{\sum_{i}{rur\_pop_i}} \quad l = subsistence \quad \forall i\ \forall j
-\end{equation}\]</span></p>
-<p>where <span class="math inline">\(\bar{s}_{ijl}\)</span> is the share of physical area allocated to grid cell <span class="math inline">\(i\)</span> for crop <span class="math inline">\(j\)</span> and farming system <span class="math inline">\(l\)</span> and <span class="math inline">\(Pop_i\)</span> is the rural population density in grid cell <span class="math inline">\(i\)</span>.</p>
-<p>(iiv) A constraint, which specifies the allocation of crops <span class="math inline">\(N\)</span> and farming systems <span class="math inline">\(O\)</span> for which detailed location information <span class="math inline">\(M\)</span> is available (<span class="math inline">\(det_{ijl}\)</span>), for example large commercial estates that produce sugarcane, tea or coffee. The constraint, ‘fixes’ the location of such estates on the map, while at the same time allowing the model to allocate the rest of the crop-farming systems ‘around’ them using the optimization routine. It extends the SPAM model, where this type of information was not used.</p>
-<p><span class="math display">\[\begin{equation}
-crop\_area_{jl} \times s_{ijl}= det_{ijl}  \qquad \forall i \in M\ \forall j \in N\ \forall l \in O
-\end{equation}\]</span></p>
-<div style="page-break-after: always;"></div>
-</div>
-<div id="s2-solving-spamc" class="section level1">
-<h1 class="hasAnchor">
-<a href="#s2-solving-spamc" class="anchor"></a>S2 Solving SPAMc</h1>
+<a href="#solving-spamc" class="anchor"></a>Solving SPAMc</h2>
 <p>The General Algebraic Modeling System (GAMS) Release 25.0 <span class="citation">(GAMS Development Corporation 2019)</span> was used to solve SPAMc. The model was solved in two stages. In the first stage, we test if the model has a solution. As we combine information from many different sources, we often encounter inconsistencies, for example because the available cropland in a certain administrative area is lower than what is need to allocate according to the subnational statistics, resulting in an infeasible model. To investigate and reveal the inconsistencies we run the model using a set of slack variables on all constraints <span class="citation">(Boyd and Vandenberghe 2004)</span> and minimize the sum of slacks. If the model is solved with zero sum of slacks the data can be considered consistent and there is no need to make adjustments. In case slacks are larger than zero, they will show where and how the model is inconsistent and if, for example, there is not enough cropland or irrigated area.</p>
 <p>To solve the inconsistencies, we start by inspecting the data for common errors (e.g. data entry errors in the subnational statistics) and, if needed, repair them. If there are still problems, we adjusted the data adopting a hierarchy of ‘credibility’ in the following decreasing order of importance:</p>
 <ol style="list-style-type: decimal">
@@ -246,6 +164,38 @@ crop\_area_{jl} \times s_{ijl}= det_{ijl}  \qquad \forall i \in M\ \forall j \in
 <p>The first stage is also needed to distribute the crops that belong to the subsistence farming system. Equation 10 in the main text, fixes the allocation of these crops proportional to rural population density. However, this allocation will almost never be within the bounds of the model solution that are set by the other constraints. To ensure a feasible solution, a slack variable is essential.</p>
 <p>In the second stage, the slack values determined in the first stage are ‘fixed’. This means that, for example, the cropland in an administrative area with problems has now been expanded to the original value plus the slack value. As the slack values account for all inconsistencies, the model can be solved.</p>
 <p>The code to run the country models as well as the results are available from <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span>)</span></p>
+</div>
+<div id="how-to-deal-with-slack" class="section level2">
+<h2 class="hasAnchor">
+<a href="#how-to-deal-with-slack" class="anchor"></a>How to deal with slack</h2>
+</div>
+<div id="storage-and-formats-of-model-input-and-output" class="section level2">
+<h2 class="hasAnchor">
+<a href="#storage-and-formats-of-model-input-and-output" class="anchor"></a>Storage and formats of model input and output</h2>
+<p>Depending on the resolution of the model and the size of the country, the size of the input (raw and processed) and output files can become quite large. Hence it is important to ensure sufficient disk space to store the files. To give you an idea, all files related to the China example have a total size of <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span>)</span>, while the total size for the Malawi example is <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span>)</span>. We also encountered some problems when performing some of the GDAL operations using DropBox, probably related to the synchronization of files. If you encounter problems when saving to Dropbox, try saving to a folder that is not being synchronizated automatically.</p>
+<p>In most cases we use the following file formats to store data: - Raster maps are stored using Geotiff (*.tif). - Shape files (i.e. vector/polygon data) are stored in the R .rds data format, which ensures the data structure is maintained and data can be quickly loaded into R. The shapefile with ADM information is also saved in .shp format as this is needed for GDAL. - Data files are stored in the R .rds data format. For files with lists of information (e.g. list of crops and ADMs in the country) we use .csv files for quick referencing (e.g. using Excel). - GAMS code is saved in .gms <span class="citation">(<span class="citeproc-not-found" data-reference-id="UPDATE"><strong>???</strong></span>)</span> - GAMS data files are stored in .gdx <span class="citation">(<span class="citeproc-not-found" data-reference-id="UPDATE"><strong>???</strong></span>)</span></p>
+</div>
+<div id="predefined-dimensions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#predefined-dimensions" class="anchor"></a>Predefined dimensions</h2>
+<div id="number-of-crops" class="section level3">
+<h3 class="hasAnchor">
+<a href="#number-of-crops" class="anchor"></a>Number of crops</h3>
+<p>SPAMc models 40 different crop (and crop groups) that together cover the full agricultural sector and are each identified by a four letter code (Table 1).<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> The main reason for this classification is the limited availability of crop-specific biophysical suitability maps, which form a key element in the crop allocation process (see <a href="process_spatial_data.html">spatial data</a> for more information). It would be relatively easy to add new crops by splitting them off from broader crop groups (e.g. tropical and temperate fruits, and vegetables) if appropriate agricultural statistics and suitability maps would be available. We plan to add an example on how to do this in future updates. The actual number of crops in the model is determined by the number of crops that are actually grown in the target country and identified by the availability of national statistics.</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"># Add 40 crop table</pre></body></html></div>
+</div>
+<div id="number-of-farming-systems" class="section level3">
+<h3 class="hasAnchor">
+<a href="#number-of-farming-systems" class="anchor"></a>Number of farming systems</h3>
+<p>Also similar to global SPAM, SPAMc distinguises between four different farming systems:</p>
+<ul>
+<li>Rainfed subsistence</li>
+<li>Rainfed low-input</li>
+<li>Rainfed high-input</li>
+<li>Irrigated</li>
+</ul>
+</div>
+</div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
@@ -261,6 +211,11 @@ crop\_area_{jl} \times s_{ijl}= det_{ijl}  \qquad \forall i \in M\ \forall j \in
 </div>
 </div>
 </div>
+<div class="footnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Global SPAM uses 42 different crops because it includes two types of millet and two types of coffee <span class="citation">(Wood-Sichra, Joglekar, and You 2016)</span>. As this level of detail is not supported by most national statistics and FAOSTAT, the have been merged into millet and coffee, respectively.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
   </div>
 

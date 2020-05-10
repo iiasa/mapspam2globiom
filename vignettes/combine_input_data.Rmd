@@ -23,7 +23,7 @@ All the intermediate data output is saved in the `processed_data/intermediate_ou
  
 ## Prepare FAOSTAT crop prices
 
-Potential revenue at the grid cell level is used to construct the scores/priors for the high-input and irrigated farming systems (see [Model description](model_description.html) for details). `00_prepare_faostat_crop_prices` extracts and prepares this using the FAOSTAT price database you downloaded before (see [Input data collection](input_data_collection)). As price data is often incomplete at the country level, we decided to use continental averaged prices instead. Make sure sure to set the `faostat_version` in the script, which corresponds to the date the FAOSTAT files were downloaded.
+Potential revenue at the grid cell level is used to construct the scores/priors for the high-input and irrigated farming systems (see [Model description](model_description.html) for details). `00_prepare_faostat_crop_prices` extracts and prepares this using the FAOSTAT price database you downloaded before (see [Input data collection](input_data_collection.html)). As price data is often incomplete at the country level, we decided to use continental averaged prices instead. Make sure sure to set the `faostat_version` in the script, which corresponds to the date the FAOSTAT files were downloaded.
 
 
 ## Prepare cropland
@@ -31,7 +31,6 @@ Potential revenue at the grid cell level is used to construct the scores/priors 
 The function `prepare_cropland()` combines the three synergy cropland components (medium and maximum cropland and cropland ranking maps) into a data table and stores this in a file. 
 
 ```{r eval = FALSE}
-# Function to process the synergy cropland components.
 prepare_cropland(param)
 ```
 
@@ -57,7 +56,7 @@ prepare_physical_area(param)
 
 Before the SPAMc can be run it is essential to harmonize the physical, cropland and irrigated area. As this data is coming from different sources, they will be never consistent. This would not be a problem if the cropland exent would be larger than the physical crop area, meaning there would be enough space to allocate the statistics on the cropland map. Similarly if the total irrigated area in the irrigated area map would be larger than the physical area of the irrigated farming systems the data would fit on the map. Unfortunately, often this does not happen, implying that SPAMc cannot be solved. In practice, we use 'slack variables' to ensure the model always solves (see [Appendix](appendix.html)). However, large slacks in the solution signal serious inconsistencies in the data and need to be corrected as much as possible.  
 
-`harmonize_inputs()` uses a number of steps to harmonize the various data sources [also see the appendix in @Wood-Sichra2016]:
+`harmonize_inputs()` uses a number of steps to harmonize the various data sources:
 
 - **Compare and harmonize Cropland and statistics.** As a starting point the available cropland is set to the medium cropland values from the synergy cropland map. For each individual subnational unit (if data is not missing) and starting with the most detailed level in the data, the total available (medium) cropland underlying the unit is compared with the physical area from the statistics that need to be allocated. If the statistics 'fit' no adjustments are made. If they do not not fit, the administrative unit cropland is expanded by switching to the maximum cropland value from the synergy cropland map. Subsequently, the cropland area and physical area are compared again and a warning is issued when there still is not enough cropland and the model will introduce slacks to make it solve. In a next iteration, the cropland and physical area of the units in the subsequent administrative level are harmonized taking into account the expansion of cropland in the previous iteration. This continues till cropland and physical area at the national level are compared and harmonized.
 
