@@ -15,8 +15,6 @@ create_land_cover_gdx <- function(lc, param) {
       value
     )
 
-  setup_gams()
-
   lc_gdx <-
     para_gdx(
       lc,

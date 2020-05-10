@@ -1,8 +1,25 @@
-#' Harvest results created after running SPAMc with GAMS
+#'@title Combines SPAMc GAMS output into a single rds file
 #'
+#'@description Combines the GAMs results that are saved in one (`solve_level =
+#'  0`)  or multiple (`solve_level = 1`) gdx files into a single rds file, that can be
+#'  easily loaded into R. The file is saved in the `processed_data/results` folder.
+#'
+#'@param param
+#'@inheritParams create_spam_folders
+#'
+#'@examples
+#'\dontrun{
+#'combine_results(param)
+#'}#'
 #'@export
 combine_results <- function(param) {
-  load_data(c("adm_list", "ci"), param, local = TRUE, mess = FALSE)
+   stopifnot(inherits(param, "spam_par"))
+
+   # Test if gdxrrw and gams are installed.
+   setup_gams()
+
+   cat("\n\n############### COMBINE RESULTS ###############")
+   load_data(c("adm_list", "ci"), param, local = TRUE, mess = FALSE)
 
   # Set adm_level
   if(param$solve_level == 0) {
@@ -27,10 +44,12 @@ combine_results <- function(param) {
                  {{an_rn}} := adm_name) %>%
    dplyr::select(-adm_level)
 
- df <- df %>%
+ # Add suppressMessages to suppress joining by message followin left_join.
+ # by = cannot be used as join depends on param$adm_level so cannot be set in advance
+ df <- suppressMessages(df %>%
    dplyr::left_join(ci) %>%
    dplyr::mutate(ha = pa*ci) %>%
-   dplyr::select(gridID, crop, system, ha, pa, everything(), pa, ha)
+   dplyr::select(gridID, crop, system, ha, pa, everything(), pa, ha))
 
  temp_path <- file.path(param$spam_path,
                         glue::glue("processed_data/results/{param$res}"))

@@ -2,10 +2,6 @@
 combine_inputs_adm_level <- function(ac, param){
 
   cat("\nPrepare model input for", ac)
-
-  # Test if gdxrrw and gams are installed.
-  setup_gams()
-
   # Load data
   load_intermediate_data(c("pa", "pa_fs", "cl_harm", "ia_harm", "bs", "py", "rps", "score"),
                          ac, param, local = TRUE, mess = FALSE)
@@ -27,7 +23,7 @@ combine_inputs_adm_level <- function(ac, param){
   ############### CREATE ARTIFICIAL ADMS   ###############
   adm_art_raw <- prepare_artificial_adms(ac, param)
 
-  # Finallize adm_art by selecting adm_level and removing duplicates
+  # Finalize adm_art by selecting adm_level and removing duplicates
   pa_rn <- glue::glue("imp_adm{param$adm_level}")
   ac_rn <- glue::glue("adm{param$adm_level}_code")
   ac_art_rn <- glue::glue("adm{param$adm_level}_code_art")

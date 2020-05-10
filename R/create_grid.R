@@ -1,9 +1,12 @@
+#'@title
 #'Create spam country grid
 #'
+#'@description
 #'Creates the spatial grid that is used by SPAM to allocate physical area shares
 #'for each crop and system. The border of the country is used as mask to
 #'determine the grid and each grid is given a gridID number.
 #'
+#'@details
 #'For technical reasons, gridID values are set before the raster is masked with
 #'the country border, which means they are unique but non consecutive. Note that
 #'grids at a resolution of 30 arcsec can become very large and might make some

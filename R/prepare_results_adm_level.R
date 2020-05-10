@@ -1,10 +1,7 @@
 # function to prepare output file, combining ADM results
 prepare_results_adm_level <- function(ac, param) {
 
-  # Test if gdxrrw and gams are installed.
-  setup_gams()
-
-  cat("\nExtract results for ", ac)
+  cat("\nExtract results for", ac)
   load_data(c("grid", "adm_map_r"), param, mess = F)
 
   results_file <- file.path(param$spam_path,

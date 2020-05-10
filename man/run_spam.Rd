@@ -4,7 +4,7 @@
 \alias{run_spam}
 \title{Run SPAMc}
 \usage{
-run_spam(param)
+run_spam(param, out = TRUE)
 }
 \description{
 Run SPAMc

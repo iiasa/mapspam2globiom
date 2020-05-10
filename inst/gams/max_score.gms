@@ -3,11 +3,11 @@
 *******************************************************************************
 
 $ontext
-Basic model to run the Spatial Production Allocation Model (SPAM) for
-at Country level assessments at various resolutions.
+max_score version of the Spatial Production Allocation Model for Country
+level assessments (SPAMc)at various resolutions.
 
-The input (gdx_input) and output data files are parameters and need to be set
-before the code can be run.
+The input (gdx_input) and output (gdx_output) data files are parameters and
+need to be set before the code can be run.
 
 version 0.1
 $offtext
@@ -127,11 +127,11 @@ alloc.up(i,j) = min(scalef, scalef*cl(i)/crop_area(j))$crop_area(j);
 * Of these slacks with weights we would like to minize ir and cl slack so add
 * a higher weight than for adm.
 slackweights(k,s)$adm_area(k,s) = 1/adm_area(k,s);
-obj_max_score.. sum_score =e= sum(system_grid(i,j), (1/scalef)*alloc(i,j)*score(i,j)) -
-(sum(system_grid(i,j), (s_slack(i,j, 'plus') + s_slack(i,j, 'minus'))) +
-    1e5*sum(m$adm_area(m), slackweights(m)*(adm_slack(m,'plus') + adm_slack(m,'minus'))) +
-    1e6*sum(i,cl_slack(i)) +
-    1e6*sum(i,ir_slack(i)));
+    obj_max_score.. sum_score =e= sum(system_grid(i,j), (1/scalef)*alloc(i,j)*score(i,j)) -
+    (sum(system_grid(i,j), (s_slack(i,j, 'plus') + s_slack(i,j, 'minus'))) +
+        1e5*sum(m$adm_area(m), slackweights(m)*(adm_slack(m,'plus') + adm_slack(m,'minus'))) +
+        1e6*sum(i,cl_slack(i)) +
+        1e6*sum(i,ir_slack(i)));
 
 
 

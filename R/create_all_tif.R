@@ -2,6 +2,7 @@
 #'
 #'@export
 create_all_tif <- function(param) {
+  cat("\n\n############### CREATE TIF FILES FOR ALL CROP AND FARMING SYSTEM COMBINATIONS ###############")
   load_data("results", param, mess = F)
 
   # by crop and system

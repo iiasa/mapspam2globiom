@@ -1,9 +1,12 @@
+#'@title
 #'Sets spam parameters
 #'
+#'@description
 #'`spam_par` sets all required parameters for spam to run, including core model
 #'folders, country code, year, spatial resolution, availability of subnational
 #'statistics, solve level, type of model and coordinate reference system.
 #'
+#'@details
 #'`spam_par` creates an object of class `spam_par`, which bundles all required
 #'spam parameters set by the user: SPAM folder, raw data folder, country alpha-3
 #'code and name, year, spatial resolution, most detailed level at which

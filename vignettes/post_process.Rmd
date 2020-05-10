@@ -17,11 +17,27 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(mapspam2globiom)
+
+## Inspect results and Create maps 
+
+View results
+
+```{r eval = FALSE}
+view_4panel
 ```
 
-## Replacing land cover and land use information  in GLOBIOM
+
+
+```{r eval = FALSE}
+create_all_tif(param)
+```
+
+
+
+## Replacing land cover and land use information in GLOBIOM
+
+TODO, add coffee as additional crop!!!!
+
 
 With respect to the distribution of crops, GLOBIOM uses two related data layers. A table with area information on the land cover per simu, distinguishing six different land use classes:
 
@@ -40,3 +56,14 @@ Two files are needed to update the land use and land cover maps in GLOBIOM:
 
 * A new land cover map that shows the location of 
 *
+
+`create_globiom_input(param)` 
+
+```{r eval = FALSE}
+create_globiom_input(param)
+```
+
+
+
+
+## Change GLOBIOM

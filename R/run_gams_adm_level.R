@@ -1,6 +1,6 @@
 # Function to run mapspam in gams
-run_gams_adm_level <- function(ac, param, verbose = T){
-  cat("\nRunning ",  param$model, "model for ", ac)
+run_gams_adm_level <- function(ac, param, out = TRUE){
+  cat("\nRunning",  param$model, "model for", ac)
   model <- system.file("gams", glue::glue("max_score.gms"), package = "mapspam2globiom", mustWork = TRUE)
   input <- file.path(param$spam_path,
       glue::glue("processed_data/intermediate_output/{ac}/{param$res}/input_{param$res}_{param$year}_{ac}_{param$iso3c}.gdx"))
@@ -33,8 +33,8 @@ run_gams_adm_level <- function(ac, param, verbose = T){
   # gams_system_call <- gsub("/", "\\\\", gams_system_call) # change forward- into backslash
   # cmd_output = system(gams_system_call, intern = TRUE)
 
-  if (verbose) {
+  if (out) {
     message((paste(cmd_output, collapse = "\n")))
   }
-  cat("\nFinished running ",  param$model, "model for ", ac, "\n")
+  cat("\nFinished running",  param$model, "model for", ac, "\n")
 }

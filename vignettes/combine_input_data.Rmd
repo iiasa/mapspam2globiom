@@ -85,7 +85,7 @@ prepare_score(param)
 
 @TODO prepare priors
 
-Finally, all the inputs, including the harmonized cropland extent, irrigated area extent and statistics, and the priors/scores are combined in one GAMS gdx file, which is used as input by SPAMc. 
+Finally, all the inputs, including the harmonized cropland extent, irrigated area extent and statistics, and the priors/scores are combined in one GAMS gdx file, which is used as input by SPAMc. The file contains a number of sets and parameter tables that define the model. Sets describe the dimensions of the model, while  parameters contain the data along these dimensions. As part of the process to combine all the inputs and if relevant, artificial administrative units are created that represent the combination of all administrative units per crop for which subnational statistics are missing. These units are added to the list of administrative units from the subnational statistics. The names of these units, stored in the `adm_area` parameter table, start with the name of the lower level administrative unit which nests the units with missing data, followed by `ART` and the level for which data is missing and ending with the crop for which data is not available. 
 
 ```{r eval = FALSE}
 combine_inputs(param)

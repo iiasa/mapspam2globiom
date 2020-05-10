@@ -26,9 +26,6 @@ create_crop_distribution_gdx <- function(crop, param) {
       value
     )
 
-  # Test if gdxrrw and gams are installed.
-  setup_gams()
-
   crop_upd_gdx <- para_gdx(
     crop_upd,
     c(
