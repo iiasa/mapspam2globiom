@@ -142,17 +142,24 @@
       <h1 data-toc-skip>Post processing</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/iiasa/mapspam2globiom/blob/master/vignettes/post_process.Rmd"><code>vignettes/post_process.Rmd</code></a></small>
       <div class="hidden name"><code>post_process.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">mapspam2globiom</span>)</pre></body></html></div>
+<div id="inspect-results-and-create-maps" class="section level2">
+<h2 class="hasAnchor">
+<a href="#inspect-results-and-create-maps" class="anchor"></a>Inspect results and Create maps</h2>
+<p>View results</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="no">view_4panel</span></pre></body></html></div>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/create_all_tif.html">create_all_tif</a></span>(<span class="no">param</span>)</pre></body></html></div>
+</div>
 <div id="replacing-land-cover-and-land-use-information-in-globiom" class="section level2">
 <h2 class="hasAnchor">
 <a href="#replacing-land-cover-and-land-use-information-in-globiom" class="anchor"></a>Replacing land cover and land use information in GLOBIOM</h2>
+<p>TODO, add coffee as additional crop!!!!</p>
 <p>With respect to the distribution of crops, GLOBIOM uses two related data layers. A table with area information on the land cover per simu, distinguishing six different land use classes:</p>
 <ul>
 <li>Total agricultural land (CrpLnd, OthAgri)</li>
@@ -169,6 +176,12 @@
 <li>A new land cover map that shows the location of</li>
 <li>
 </ul>
+<p><code><a href="../reference/create_globiom_input.html">create_globiom_input(param)</a></code></p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/create_globiom_input.html">create_globiom_input</a></span>(<span class="no">param</span>)</pre></body></html></div>
+</div>
+<div id="change-globiom" class="section level2">
+<h2 class="hasAnchor">
+<a href="#change-globiom" class="anchor"></a>Change GLOBIOM</h2>
 </div>
   </div>
 

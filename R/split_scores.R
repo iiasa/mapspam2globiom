@@ -1,7 +1,7 @@
 # Process_bs_py
-split_score <- function(ac, param){
+split_scores <- function(ac, param){
 
-  cat("\nPrepare score for", ac)
+  cat("\nPrepare scores for", ac)
 
   # Load data
   load_intermediate_data(c("pa", "pa_fs", "cl_harm", "ia_harm", "bs", "py"), ac, param, local = TRUE, mess = FALSE)
@@ -18,7 +18,7 @@ split_score <- function(ac, param){
     dplyr::filter(!is.na(pa) & pa != 0) %>%
     dplyr::mutate(crop_system = paste(crop, system , sep = "_"))
 
-  priors_base <- expand.grid(gridID = unique(cl_harm$gridID),
+  scores_base <- expand.grid(gridID = unique(cl_harm$gridID),
                              crop_system = unique(pa_fs$crop_system), stringsAsFactors = F) %>%
     tidyr::separate(crop_system, into = c("crop", "system"), sep = "_", remove = F)
 
@@ -77,7 +77,7 @@ split_score <- function(ac, param){
 
   ############### SCORE FOR EACH SYSTEM ###############
   ## SUBSISTENCE
-  # We use the rural population share as prior but exclude areas where suitability is zero
+  # We use the rural population share as score but exclude areas where suitability is zero
   # We also remove adm where crops are not allocated by definition because stat indicates zero ha.
 
   # crop_s
@@ -94,7 +94,7 @@ split_score <- function(ac, param){
     dplyr::select(crop, adm_code, adm_name, adm_level) %>%
     dplyr::mutate(adm_code_crop = paste(adm_code, crop, sep = "_"))
 
-  rps <-priors_base %>%
+  rps <-scores_base %>%
     dplyr::filter(system == "S") %>%
     dplyr::left_join(adm_map_r, by = "gridID") %>%
     dplyr::select(-dplyr::ends_with("_name")) %>%
@@ -128,7 +128,7 @@ split_score <- function(ac, param){
   crop_l <- unique(pa_fs$crop[pa_fs$system == "L"])
 
   # Score table.  We use suitability only for L
-  score_l <- priors_base %>%
+  score_l <- scores_base %>%
     dplyr::filter(system == "L") %>%
     dplyr::left_join(adm_map_r, by = "gridID") %>%
     dplyr::left_join(bs, by = c("gridID", "crop_system")) %>%
@@ -146,13 +146,13 @@ split_score <- function(ac, param){
   # This means that crops with higher revenue and accessibility will get a higher score than crops with a lower rankings.
   # The argument is that if there would be competition between crops, the crop with the highest score
   # Will be allocated first
-  # We rerank the combined rev and accessibility score again to it has the same scale as l and i priors.
+  # We rerank the combined rev and accessibility score again to it has the same scale as l and i scores.
 
   # crop_h
   crop_h <- unique(pa_fs$crop[pa_fs$system == "H"])
 
   # Score table.  We use geometric average of rev and accessibility
-  score_h <- priors_base %>%
+  score_h <- scores_base %>%
     dplyr::filter(system == "H") %>%
     dplyr::left_join(adm_map_r, by = "gridID") %>%
     dplyr::left_join(rev, by = c("gridID", "crop_system")) %>%
@@ -170,7 +170,7 @@ split_score <- function(ac, param){
   crop_i <- unique(pa_fs$crop[pa_fs$system == "I"])
 
   # Score table.  We use geometric average of suitability and accessibility
-  score_i <- priors_base %>%
+  score_i <- scores_base %>%
     dplyr::filter(system == "I") %>%
     dplyr::left_join(ia_harm, by = "gridID") %>%
     dplyr::filter(!is.na(ia)) %>%
@@ -185,7 +185,7 @@ split_score <- function(ac, param){
   ############### COMBINE ###############
   # score
   score_df <- dplyr::bind_rows(score_l, score_h, score_i) %>%
-    dplyr::left_join(priors_base,., by = c("gridID", "crop_system")) %>%
+    dplyr::left_join(scores_base,., by = c("gridID", "crop_system")) %>%
     dplyr::mutate(score = tidyr::replace_na(score, 0)) %>%
     tidyr::separate(crop_system, into = c("crop", "system"), sep = "_", remove = F)
   summary(score_df)
@@ -196,6 +196,6 @@ split_score <- function(ac, param){
   saveRDS(rps, file.path(param$spam_path,
     glue::glue("processed_data/intermediate_output/{ac}/{param$res}/rps_{param$res}_{param$year}_{ac}_{param$iso3c}.rds")))
   saveRDS(score_df, file.path(param$spam_path,
-    glue::glue("processed_data/intermediate_output/{ac}/{param$res}/score_{param$res}_{param$year}_{ac}_{param$iso3c}.rds")))
+    glue::glue("processed_data/intermediate_output/{ac}/{param$res}/scores_{param$res}_{param$year}_{ac}_{param$iso3c}.rds")))
 }
 

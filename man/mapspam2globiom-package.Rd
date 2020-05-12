@@ -21,6 +21,14 @@ The aim of the mapspam2globiom R package is to facilitate the
     arcsec. Van Dijk et al. (2020) provides an in-depth discussion of SPAMc
     including an example for Southern Africa.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/iiasa/mapspam2globiom}
+  \item Report bugs at \url{https://github.com/iiasa/mapspam2globiom/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Michiel Van Dijk \email{michiel.vandijk@wur.nl} (\href{https://orcid.org/0000-0002-5207-7304}{ORCID})
 

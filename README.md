@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
 The aim of the mapspam2globiom R package is to facilitate the creation
@@ -66,7 +68,7 @@ all the information that is requited by SPAMc and shows were to download
 templates/examples that can be used as a framework to apply SPAMc to
 other countries:
 
-  - [Input data collection](articles/collect_input_data.html).
+  - [Input data collection](articles/input_data_collection.html).
   - [Download templates](articles/template.html)
 
 ## Run SPAMc
@@ -76,7 +78,7 @@ the articles in the Run SPAMc section:
 
   - [Model setup](articles/model_structure.html)
   - [Processing of subnational
-    statistics](articles/process_subnat_stat.html)
+    statistics](articles/process_subnational_statistics.html)
   - [Processing of spatial data](articles/process_spatial_data.html)
   - Create cropland extent
   - Create irrigated area extend

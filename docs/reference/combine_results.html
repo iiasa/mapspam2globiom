@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Harvest results created after running SPAMc with GAMS — combine_results • mapspam2globiom</title>
+<title>Combines SPAMc GAMS output into a single rds file — combine_results • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Harvest results created after running SPAMc with GAMS — combine_results" />
-<meta property="og:description" content="Harvest results created after running SPAMc with GAMS" />
+<meta property="og:title" content="Combines SPAMc GAMS output into a single rds file — combine_results" />
+<meta property="og:description" content="Combines the GAMs results that are saved in one (solve_level = 0)  or multiple (solve_level = 1) gdx files into a single rds file, that can be
+easily loaded into R. The file is saved in the processed_data/results folder." />
 
 
 
@@ -180,19 +181,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Harvest results created after running SPAMc with GAMS</h1>
-    
+    <h1>Combines SPAMc GAMS output into a single rds file</h1>
+    <small class="dont-index">Source: <a href='https://github.com/iiasa/mapspam2globiom/blob/master/R/combine_results.R'><code>R/combine_results.R</code></a></small>
     <div class="hidden name"><code>combine_results.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Harvest results created after running SPAMc with GAMS</p>
+    <p>Combines the GAMs results that are saved in one (<code>solve_level = 0</code>)  or multiple (<code>solve_level = 1</code>) gdx files into a single rds file, that can be
+easily loaded into R. The file is saved in the <code>processed_data/results</code> folder.</p>
     </div>
 
     <pre class="usage"><span class='fu'>combine_results</span>(<span class='no'>param</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>param</th>
+      <td><p>Object of type <code>spam_par</code> that bundles all SPAM parameters,
+including core model folders, alpha-3 country code, year, spatial
+resolution, most detailed level at which subnational statistics are
+available, administrative unit level at which the model is solved and type of
+model.</p></td>
+    </tr>
+    </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>combine_results</span>(<span class='no'>param</span>)
+}<span class='co'>#'</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

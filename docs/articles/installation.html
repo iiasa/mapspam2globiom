@@ -142,7 +142,7 @@
       <h1 data-toc-skip>Installation</h1>
             
       
-      
+      <small class="dont-index">Source: <a href="https://github.com/iiasa/mapspam2globiom/blob/master/vignettes/installation.Rmd"><code>vignettes/installation.Rmd</code></a></small>
       <div class="hidden name"><code>installation.Rmd</code></div>
 
     </div>
@@ -183,7 +183,6 @@
 <a href="#additional-software" class="anchor"></a>Additional software</h2>
 <p>Although not strictly necessary to use SPAMc, We recommend installing the following additional software:</p>
 <ul>
-<li><p><a href="https://miktex.org">MikTeX</a> is (one of) implementations of TeX/LaTeX and related programs. RStudio facilitates the use of LaTex through Rmarkdown but this requires the installation of.</p></li>
 <li><p><a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Git</a> is software to version your code. RStudio and git can be easily linked to version your code. We use it in combination with <a href="https://github.com">GitHub</a> to store code in the cloud and facilitate collaborative code development.</p></li>
 <li><p><a href="https://qgis.org/en/site/">QGIS</a> a free and open-source cross-platform desktop geographic information system application that supports viewing, editing, and analysis of geospatial data. We sometimes use it to quickly inspect vector and raster maps.</p></li>
 </ul>
@@ -194,25 +193,21 @@
 <div id="installing-r-packages" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installing-r-packages" class="anchor"></a>Installing R packages</h3>
-<p>R packages are pieces of bundled R code, frequently including scripts from other languages (e.g. C or C++) to speed up calculations or interface with other software (e.g. GAMS). Packages can be easily installed by typing `install.packages(“PACKAGE_NAME”) in R or by clicking on the ‘package’ tab in RStudio. Nearly all packages are directly downloaded from CRAN, the R package repository, on your system.</p>
-<p>To install mapspam, which is not on CRAN, one first has to install the devtools package (if not already installed) <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span> package name)</span>:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"michielvandijk/mapspam"</span>)</pre></body></html></div>
-<p>To interface between R and GAMS the GDXRRW package is required. This package is also not available on CRAN and therefore cannot be installed using the standard approach. Hence, one has to install it manually. The package can be found <a href="https://support.gams.com/gdxrrw:interfacing_gams_and_r">here</a></p>
-<p>To install GDXRRW <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span> need to solve this using one approach)</span>:</p>
+<p>R packages are pieces of bundled R code, frequently including scripts from other languages (e.g. C or C++) to speed up calculations or interface with other software (e.g. GAMS). Packages can be easily installed by using the command <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> in R or by clicking on the <strong>package</strong> tab in RStudio. Nearly all packages are directly downloaded from CRAN, the R package repository, on your system.</p>
+<p>To install mapspam, which is not on CRAN, one first has to install the remotes package:</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">remotes</span>)
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"iiasa/mapspam2globiom"</span>)</pre></body></html></div>
+<p>To interface between R and GAMS the GDXRRW package is required. This package is also not available on CRAN and therefore cannot be installed using the standard approach. One has to install it manually. The package can be found <a href="https://support.gams.com/gdxrrw:interfacing_gams_and_r">here</a></p>
+<p>To install GDXRRW:</p>
 <ol style="list-style-type: decimal">
 <li>Copy the GDXRRW.zip to a temporary folder on your machine. Note that the version of GDXRRW has to match your R version, otherwise there might be an error! Thus, if you have R version 3.5.X install the GDXRRW version that is built with R 3.5.x.</li>
-<li>Click ‘Packages’ &gt; ‘install’ in RStudio</li>
-<li>Select ’Install from: Package Archive File (.zip; .tar; .gz)</li>
-<li>Select GDXRRW.zip to install the package in your R library</li>
+<li>Click <strong>Packages</strong> &gt; <strong>install</strong> in RStudio</li>
+<li>Select <strong>Install from: Package Archive File (.zip; .tar; .gz)</strong>
+</li>
+<li>Select <strong>GDXRRW.zip</strong> to install the package in your R library</li>
 </ol>
-<p>For GDXRRW to work and to be able to read gdx files, the package needs to link with GAMS. This can be done manually using the following code. If the link is created you should get the message <code>The GDX library has been loaded</code>.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="co"># Where C:/GAMS/win64/25.0 is the location of the gams.exe</span>
-<span class="no">gams_path</span> <span class="kw">&lt;-</span> <span class="st">"C:/GAMS/win64/25.0"</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gdxrrw</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/gdxrrw/man/igdx.html">igdx</a></span>(<span class="no">gams_path</span>)</pre></body></html></div>
-<p>If the location of GAMS is added to the PATH on windows or LD_LIBRARY_PATH on Linux, this command is not necessary anymore. To add GAMS to the Windows path type “edit the system environment variables” in the Search Windows bar at the bottom of your Windows session. Click “Environment Variables”, select “Path”, click “Edit”, click “New” and add (in this case) “C:/GAMS/win64/25.0” to the PATH list.</p>
+<p>Several functions in mapspam2globiom use GDXRRW to read and save GAMS gdx files and check whether the package and GAMS are installed. If not, an error message is printed.</p>
 </div>
 <div id="essential-packages" class="section level3">
 <h3 class="hasAnchor">

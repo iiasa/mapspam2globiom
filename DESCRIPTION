@@ -50,3 +50,5 @@ Suggests:
 Language: en-US
 Depends: 
     R (>= 2.10)
+URL: https://github.com/iiasa/mapspam2globiom
+BugReports: https://github.com/iiasa/mapspam2globiom/issues

@@ -2,10 +2,23 @@
 % Please edit documentation in R/combine_results.R
 \name{combine_results}
 \alias{combine_results}
-\title{Harvest results created after running SPAMc with GAMS}
+\title{Combines SPAMc GAMS output into a single rds file}
 \usage{
 combine_results(param)
 }
+\arguments{
+\item{param}{Object of type \code{spam_par} that bundles all SPAM parameters,
+including core model folders, alpha-3 country code, year, spatial
+resolution, most detailed level at which subnational statistics are
+available, administrative unit level at which the model is solved and type of
+model.}
+}
 \description{
-Harvest results created after running SPAMc with GAMS
+Combines the GAMs results that are saved in one (\code{solve_level = 0})  or multiple (\code{solve_level = 1}) gdx files into a single rds file, that can be
+easily loaded into R. The file is saved in the \code{processed_data/results} folder.
+}
+\examples{
+\dontrun{
+combine_results(param)
+}#'
 }

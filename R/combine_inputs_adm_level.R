@@ -3,7 +3,7 @@ combine_inputs_adm_level <- function(ac, param){
 
   cat("\nPrepare model input for", ac)
   # Load data
-  load_intermediate_data(c("pa", "pa_fs", "cl_harm", "ia_harm", "bs", "py", "rps", "score"),
+  load_intermediate_data(c("pa", "pa_fs", "cl_harm", "ia_harm", "bs", "py", "rps", "priors", "scores"),
                          ac, param, local = TRUE, mess = FALSE)
   load_data(c("adm_list"), param, local = TRUE, mess = FALSE)
 
@@ -38,7 +38,7 @@ combine_inputs_adm_level <- function(ac, param){
   # As a result artificial adms are created that are very small (e.g. 1e-10).
   # These are set to zero
   adm_art <- adm_art %>%
-    mutate(pa = ifelse(abs(pa) < 1e-6, 0, pa))
+    dplyr::mutate(pa = ifelse(abs(pa) < 1e-6, 0, pa))
 
   # artificial adm mapping
   adm_art_map <- adm_art_raw %>%
@@ -89,19 +89,17 @@ combine_inputs_adm_level <- function(ac, param){
 
   ir_crop_gdx <- para_gdx(ir_crop, c("crop_system"), "ir_crop", "Total irrigated area per crop")
 
+  # prior(i,j): prior per grid cell and crop_system
+  priors <- priors %>%
+    dplyr::select(gridID, crop_system, prior)
 
-  # score(i,j): Score per grid cell and crop_system
-  score <- score %>%
+  priors_gdx <- para_gdx(priors, c("gridID", "crop_system"), "priors", "prior per grid cell and crop_system")
+
+    # score(i,j): Score per grid cell and crop_system
+  scores <- scores %>%
     dplyr::select(gridID, crop_system, score)
 
-  score_gdx <- para_gdx(score, c("gridID", "crop_system"), "score", "score per grid cell and crop_system")
-
-  # # prior(i,j): prior per grid cell and crop_system
-  # prior <- prior_raw %>%
-  #   dplyr::select(gridID, crop_system, prior_scaled)
-  #
-  # prior_gdx <- para_gdx(prior, c("gridID", "crop_system"), "prior", "scaled prior per grid cell and crop_system")
-
+  scores_gdx <- para_gdx(scores, c("gridID", "crop_system"), "scores", "score per grid cell and crop_system")
 
   # rur_pop_s(i,j): Rural population share per grid cell
   rps_gdx <- para_gdx(rps, c("gridID", "crop_system"), "rur_pop_share", "Rural population shares")
@@ -198,7 +196,8 @@ combine_inputs_adm_level <- function(ac, param){
        ir_area_gdx,
        crop_area_gdx,
        s_system_s_gdx,
-       score_gdx,
+       scores_gdx,
+       priors_gdx,
        grid_s_gdx, crop_system_s_gdx,
        adm_s_gdx,
        crop_crop_system_s_gdx,

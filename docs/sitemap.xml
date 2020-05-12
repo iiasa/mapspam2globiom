@@ -7,6 +7,9 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/check_statistics.html</loc>
   </url>
   <url>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/combine_inputs.html</loc>
+  </url>
+  <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/combine_results.html</loc>
   </url>
   <url>
@@ -52,7 +55,7 @@
     <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_physical_area.html</loc>
   </url>
   <url>
-    <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_scores.html</loc>
+    <loc>https://iiasa.github.io/mapspam2globiom/reference/prepare_priors_and_scores.html</loc>
   </url>
   <url>
     <loc>https://iiasa.github.io/mapspam2globiom/reference/rasterize_adm_map.html</loc>

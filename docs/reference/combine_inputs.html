@@ -6,7 +6,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prepares the synergy cropland area for SPAM — prepare_cropland • mapspam2globiom</title>
+<title>Combines all inputs into a GAMS gdx file that can be used by SPAMc as
+input — combine_inputs • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,8 +40,12 @@
 
 
 
-<meta property="og:title" content="Prepares the synergy cropland area for SPAM — prepare_cropland" />
-<meta property="og:description" content="Prepares the synergy cropland area for SPAM" />
+<meta property="og:title" content="Combines all inputs into a GAMS gdx file that can be used by SPAMc as
+input — combine_inputs" />
+<meta property="og:description" content="Combines all inputs, including the harmonized cropland, irrigated
+area and statistics, and the scores/priors into a GAMS gdx file that can be
+used by SPAMc as input. If solve_level = 1, a gdx file for each
+administrative level 1 unit is created.'" />
 
 
 
@@ -180,16 +185,20 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prepares the synergy cropland area for SPAM</h1>
-    <small class="dont-index">Source: <a href='https://github.com/iiasa/mapspam2globiom/blob/master/R/prepare_cropland.R'><code>R/prepare_cropland.R</code></a></small>
-    <div class="hidden name"><code>prepare_cropland.Rd</code></div>
+    <h1>Combines all inputs into a GAMS gdx file that can be used by SPAMc as
+input</h1>
+    <small class="dont-index">Source: <a href='https://github.com/iiasa/mapspam2globiom/blob/master/R/combine_inputs.R'><code>R/combine_inputs.R</code></a></small>
+    <div class="hidden name"><code>combine_inputs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Prepares the synergy cropland area for SPAM</p>
+    <p>Combines all inputs, including the harmonized cropland, irrigated
+area and statistics, and the scores/priors into a GAMS gdx file that can be
+used by SPAMc as input. If solve_level = 1, a gdx file for each
+administrative level 1 unit is created.'</p>
     </div>
 
-    <pre class="usage"><span class='fu'>prepare_cropland</span>(<span class='no'>param</span>)</pre>
+    <pre class="usage"><span class='fu'>combine_inputs</span>(<span class='no'>param</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -204,10 +213,24 @@ model.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The gdx file contains a number of sets and parameter tables that
+define the model. Sets describe the dimensions of the model, while
+parameters contain the data along these dimensions. As part of the process
+to combine all the inputs and if relevant, artificial administrative units
+are created that represent the combination of all administrative units per
+crop for which subnational statistics are missing. These units are added to
+the list of administrative units from the subnational statistics. The names
+of these units, stored in the <code>adm_area</code> parameter table, start with the
+name of the lower level administrative unit which nests the units with
+missing data, followed by <code>ART</code> and the level for which data is missing and
+ending with the crop for which data is not available.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>combine_inputs</span>(<span class='no'>param</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Run SPAMc — run_spam • mapspam2globiom</title>
+<title>Runs SPAMc at the set administrative unit level — run_spam • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,18 @@
 
 
 
-<meta property="og:title" content="Run SPAMc — run_spam" />
-<meta property="og:description" content="Run SPAMc" />
+<meta property="og:title" content="Runs SPAMc at the set administrative unit level — run_spam" />
+<meta property="og:description" content="Run the selected model (min_entropy or max_score) and runs it in
+GAMS. If model_sel = 1, the model is run for each individual
+administrative unit at level 1. If model_sel = 0 the model is run only
+once for the total country. Selecting out = TRUE (default setting), the
+model log will be sent to the screen after the model run is finished. The
+log is as text file, whicn names starts with model_log_ and is saved in
+the processed_data/intermediate_output folder.  Note that, depending on
+the size of the country and the selected resolution, the model might take a
+lot of time to run. If the model is very large, there is a risk your
+computer runs out of memory and an error message will be printed in the
+model log." />
 
 
 
@@ -180,19 +190,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Run SPAMc</h1>
-    
+    <h1>Runs SPAMc at the set administrative unit level</h1>
+    <small class="dont-index">Source: <a href='https://github.com/iiasa/mapspam2globiom/blob/master/R/run_spam.R'><code>R/run_spam.R</code></a></small>
     <div class="hidden name"><code>run_spam.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Run SPAMc</p>
+    <p>Run the selected model (min_entropy or max_score) and runs it in
+GAMS. If <code>model_sel = 1</code>, the model is run for each individual
+administrative unit at level 1. If <code>model_sel = 0</code> the model is run only
+once for the total country. Selecting <code>out = TRUE</code> (default setting), the
+model log will be sent to the screen after the model run is finished. The
+log is as text file, whicn names starts with <code>model_log_</code> and is saved in
+the <code>processed_data/intermediate_output</code> folder.  Note that, depending on
+the size of the country and the selected resolution, the model might take a
+lot of time to run. If the model is very large, there is a risk your
+computer runs out of memory and an error message will be printed in the
+model log.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>run_spam</span>(<span class='no'>param</span>)</pre>
+    <pre class="usage"><span class='fu'>run_spam</span>(<span class='no'>param</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>param</th>
+      <td><p>Object of type <code>spam_par</code> that bundles all SPAM parameters,
+including core model folders, alpha-3 country code, year, spatial
+resolution, most detailed level at which subnational statistics are
+available, administrative unit level at which the model is solved and type of
+model.</p></td>
+    </tr>
+    <tr>
+      <th>out</th>
+      <td><p>logical; should the GAMS model log be send to the screen as output?</p></td>
+    </tr>
+    </table>
 
 
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>run_spam</span>(<span class='no'>param</span>, <span class='kw'>out</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -25,7 +25,7 @@
 #'\dontrun{
 #'combine_inputs(param)
 #'}
-#'#'@export
+#'@export
 combine_inputs <- function(param) {
   stopifnot(inherits(param, "spam_par"))
 

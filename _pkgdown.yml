@@ -87,11 +87,12 @@ reference:
   - reaggregate_statistics
 - title: "Prepare input data"
 - contents:
+  - combine_inputs
   - harmonize_inputs
   - prepare_cropland
   - prepare_irrigated_area
   - prepare_physical_area
-  - prepare_scores
+  - prepare_priors_and_scores
 - title: "Run model"
 - contents:
   - combine_results
