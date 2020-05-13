@@ -45,11 +45,11 @@ With respect to the distribution of crops, GLOBIOM uses two related data layers.
 - Other natural vegetation (OthNatLnd)
 - Not relevant land cover (NotRel)
 
-And a corresponding table with more detailed information on the crop area per simu. The land cover class **Total agricultural land** is divided into two parts: (1) Cropland (CrpLnd), which presents the location of the 20 crops that are modelled by GLOBIOM and (2) Other agricultural land, which presents the location of all the other crops. More information on the construction of the land cover and land use layers can be found in @Skalsky
+And a corresponding table with more detailed information on the crop area per simu. The land cover class Total agricultural land is divided into two parts: (1) Cropland (CrpLnd), which presents the location of the 20 crops that are modelled by GLOBIOM and (2) Other agricultural land, which presents the location of all the other crops. More information on the construction of the land cover and land use layers can be found in @Skalsky
 
 The function `create_globiom_input()` creates two gdx files. One file updates the global land cover data in GLOBIOM for the target country, while the other file replaces global land use data. Both files will be saved in the `processed_data/results` folder. Before `create_globiom_input()` can be run, you need to prepare three input files.
 
-First, you need to collect a new country level land cover map. Any product can be used as long as it contains information on the six GLOBIOM land cover classes. The most obvious choice would be to take a national land cover map for the year 2000 or any other map that is close to the year for which the subnational statistics are available. If such map is not available it is also possible to use a global land cover product and use the country polygon to mask the relevant area. We illustrate this case for Malawi, where we used the [ESACCI](https://www.esa-landcover-cci.org/2010) land cover map that was described in the section on [Input data collection](input_data_collection.html). We started by clipping the country area by running the script `03_spatial_data/select_esa.r` (see [Process spatial data](process_spatial_data.html). 
+First, you need to collect a new country level land cover map. Any product can be used as long as it contains information on the six GLOBIOM land cover classes. The most obvious choice would be to take a national land cover map for the year 2000 or any other map that is close to the year for which the subnational statistics are available. If such map is not available it is also possible to use a global land cover product and use the country polygon to mask the relevant area. We illustrate this case for Malawi, where we used the [ESACCI](https://www.esa-landcover-cci.org/2010) land cover map that was described in the section on [Input data collection](input_data_collection.html). We started by clipping the country area by running the script `03_spatial_data/select_esa.r` (see [Process spatial data](process_spatial_data.html)). 
 
 Second, we prepared a table (`mappings/esacci2globiom.csv`) that maps the ESACCI land cover classes to the six GLOBIOM land cover classes. This table will be used to aggregate the land cover classes in the new map to the GLOBIOM land cover classes. You will have to prepare a similar table for your land cover map. 
 
@@ -59,7 +59,7 @@ Finally, in case you want to add an additional crop, you have to update the tabl
 ```{r eval = FALSE}
 # Select the new land cover map, in this case ESACCI
 lc_file <- file.path(param$spam_path,
-                              glue("processed_data/maps/cropland/{param$res}/esa_raw_{param$year}_{param$iso3c}.tif"))
+  glue("processed_data/maps/cropland/{param$res}/esa_raw_{param$year}_{param$iso3c}.tif"))
 # Load the map
 lc_map <- raster(lc_file)
 plot(lc_map)
@@ -76,9 +76,6 @@ lc_class2globiom <- read_csv(file.path(param$spam_path, "mappings/esacci2globiom
 # Aggregate land cover map to GLOBIOM land cover classes at simu level
 # Not that the area will be expressed in 1000 ha, which is common in GLOBIOM!
 create_globiom_input(lc_class2globiom, lc_map, param)
-
-
-create_globiom_input(param)
 ```
 
-## Change GLOBIOM
+## Incorporate new data into GLOBIOM

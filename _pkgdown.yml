@@ -101,7 +101,7 @@ reference:
 - contents:
   - create_all_tif
   - create_globiom_input
-  - view_4panel
+  - view_panel
   - view_stack
 - title: "General"
 - contents:

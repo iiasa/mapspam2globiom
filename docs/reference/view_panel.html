@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Show crop distributions maps using a stack for each farming system — view_stack • mapspam2globiom</title>
+<title>Show crop distributions maps using a panel for each farming system — view_panel • mapspam2globiom</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,11 @@
 
 
 
-<meta property="og:title" content="Show crop distributions maps using a stack for each farming system — view_stack" />
-<meta property="og:description" content="To quickly inspect the SPAMc results, view_stack shows crop
-distribution maps for a selected crop stacking the maps for each farming
-system. The maps are visualized using leafletjs,
-which makes it possible to select a number of background tiles (e.g.
+<meta property="og:title" content="Show crop distributions maps using a panel for each farming system — view_panel" />
+<meta property="og:description" content="To quickly inspect the SPAMc results, view_panel shows crop
+distribution maps for a selected crop using a panel for each farming system.
+The maps are visualized using leafletjs, which
+makes it possible to select a number of background tiles (e.g.
 OpenStreetMap)." />
 
 
@@ -184,20 +184,20 @@ OpenStreetMap)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Show crop distributions maps using a stack for each farming system</h1>
-    <small class="dont-index">Source: <a href='https://github.com/iiasa/mapspam2globiom/blob/master/R/view_stack.R'><code>R/view_stack.R</code></a></small>
-    <div class="hidden name"><code>view_stack.Rd</code></div>
+    <h1>Show crop distributions maps using a panel for each farming system</h1>
+    <small class="dont-index">Source: <a href='https://github.com/iiasa/mapspam2globiom/blob/master/R/view_panel.R'><code>R/view_panel.R</code></a></small>
+    <div class="hidden name"><code>view_panel.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>To quickly inspect the SPAMc results, <code>view_stack</code> shows crop
-distribution maps for a selected crop stacking the maps for each farming
-system. The maps are visualized using <a href='https://leafletjs.com/'>leafletjs</a>,
-which makes it possible to select a number of background tiles (e.g.
+    <p>To quickly inspect the SPAMc results, <code>view_panel</code> shows crop
+distribution maps for a selected crop using a panel for each farming system.
+The maps are visualized using <a href='https://leafletjs.com/'>leafletjs</a>, which
+makes it possible to select a number of background tiles (e.g.
 OpenStreetMap).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>view_stack</span>(<span class='no'>crop</span>, <span class='no'>var</span>, <span class='no'>param</span>, <span class='kw'>viewer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>polygon</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>view_panel</span>(<span class='no'>crop</span>, <span class='no'>var</span>, <span class='no'>param</span>, <span class='kw'>viewer</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>polygon</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
