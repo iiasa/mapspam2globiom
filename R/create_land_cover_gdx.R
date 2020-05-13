@@ -34,7 +34,7 @@ create_land_cover_gdx <- function(lc, param) {
     )
 
   temp_path <- file.path(param$spam_path,
-                         glue::glue("processed_data/results/{param$res}/{param$model"))
+                         glue::glue("processed_data/results/{param$res}/{param$model}"))
   dir.create(temp_path, showWarnings = F, recursive = T)
 
   gdxrrw::wgdx(file.path(

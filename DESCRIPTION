@@ -42,7 +42,8 @@ Imports:
     mapview,
     scales,
     ggplot2,
-    exactextractr
+    exactextractr,
+    leafsync
 Suggests: 
     rmarkdown,
     spelling,

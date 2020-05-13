@@ -15,19 +15,18 @@ options(digits=4) # limit display to four digits
 
 ac <- "MWI"
 
-var <- "biophysical_suitability"
-library(magrittr)
-x <- dplyr::left_join(adm_art_map, adm_map_r %>%
-                        dplyr::rename(adm_code = adm2_code))
+lc_file <- file.path(param$spam_path,
+                     glue::glue("processed_data/maps/cropland/{param$res}/esa_raw_{param$year}_{param$iso3c}.tif"))
+lc_map <- raster::raster(lc_file)
+plot(lc_map)
 
-check <- x %>%
-  dplyr::filter(grepl("bana", adm_code_art))
-sort(unique(check$adm2_name))
+# Load mapping of lc classes to globiom lc classes
+mapping <- readr::read_csv(file.path(param$spam_path, "mappings/esacci2globiom.csv"))
 
-i <- 0
-df_x_art <- adm_art
-base_xy <- base
+load_data("results", param)
 
-i <- 1
-df_x_art <- df_y_art
-base_xy <- base
+
+load_data("crop2globiom", param)
+crop2globiom <- crop2globiom %>%
+  dplyr::mutate(globiom_crop = ifelse(crop == "coff", "coff", globiom_crop))
+readr::write_csv(crop2globiom, file.path(param$spam_path, "mappings/crop2globiom.csv"))

@@ -1,9 +1,9 @@
-#'@title Show crop distributions maps using a stack for each farming system
+#'@title Show crop distributions maps using a panel for each farming system
 #'
-#'@description To quickly inspect the SPAMc results, `view_stack` shows crop
-#'  distribution maps for a selected crop stacking the maps for each farming
-#'  system. The maps are visualized using [leafletjs](https://leafletjs.com/),
-#'  which makes it possible to select a number of background tiles (e.g.
+#'@description To quickly inspect the SPAMc results, `view_panel` shows crop
+#'  distribution maps for a selected crop using a panel for each farming system.
+#'  The maps are visualized using [leafletjs](https://leafletjs.com/), which
+#'  makes it possible to select a number of background tiles (e.g.
 #'  OpenStreetMap).
 #'
 #'@param crop Character. Crop for which the maps are shows. `crop`  has to be
@@ -15,11 +15,13 @@
 #'  maps? `FALSE` will show the maps in the RStudio viewer pane.
 #'@param polygon Logical; should the country polygon be overlayed?
 #'
-#'  #'@examples \dontrun{ view_stack(crop = "maiz", var = "ha", viewer = FALSE,
-#'  polygon = FALSE) }
+#'#'@examples
+#'\dontrun{
+#'view_panel(crop = "maiz", var = "ha", viewer = FALSE, polygon = FALSE)
+#'}
 #'
 #'@export
-view_stack <- function(crop, var, param, viewer = TRUE, polygon = TRUE){
+view_panel <- function(crop, var, param, viewer = TRUE, polygon = TRUE){
   stopifnot(inherits(param, "spam_par"))
   stopifnot(is.logical(viewer))
   stopifnot(is.logical(polygon))
@@ -53,18 +55,14 @@ view_stack <- function(crop, var, param, viewer = TRUE, polygon = TRUE){
   sys <- unique(df$system)
   st <- lapply(sys, function(x) raster::rasterFromXYZ(df[df$system == x, c("x", "y", var)], crs = crs(grid)))
   st <- lapply(st, function(x) raster::extend(x, ext)) # Harmonize exent for stacking
-  if(length(sys) >1){
-    st <- raster::stack(st)
-  }else{
-    st <- st[[1]]
-  }
-  names(st) <- paste(crop, sys, var, sep = "_")
-  st[st==0] <- NA
+  st <- lapply(seq(length(st)), function(i){
+    mapview::mapview(st[[i]], layer.name = glue::glue("{var} {crop} {sys[i]}"))
+  })
 
   if(polygon) {
-    mapview::mapview(adm_map, alpha.region = 0) + mapview::mapview(st, use.layer.names = T)
-  } else {
-    mapview::mapview(st, use.layer.names = T)
+    st <- lapply(seq(length(st)), function(i){st[[i]] + mapview::mapview(adm_map, alpha.region = 0)})
   }
+
+  leafsync::sync(st)
 }
 
