@@ -41,11 +41,10 @@ scalars
 
 parameters
     report(*,*)     report on model performance
-    score(i,j)      score per grid cell and crop-system
+    scores(i,j)      score per grid cell and crop-system
     adm_area(k,s)   crop area per adm
     cl(i)           crop cover per grid cell
     crop_area(j)    total area per crop-system
-    priors(i,j)     prior information about area shares
     ir_area(i)      irrigated area per grid cell
     ir_crop(j)      total irrigated crop area
     rur_pop_share(i,j)  rural population share per grid cell
@@ -84,7 +83,7 @@ equations
 $gdxin %gdx_input%
 $loaddc i j s k j_s
 $loaddc n l m
-$loaddc adm_area cl crop_area scalef ir_crop ir_area scores rur_pop_share
+$loaddc adm_area cl crop_area scalef ir_crop ir_area rur_pop_share scores
 
 system_grid(i,j) = yes;
 
@@ -92,7 +91,7 @@ system_grid(i,j) = yes;
 abort$sum(j$(ir_crop(j) < 0), 1) "ir_crop should be positive", ir_crop;
 abort$sum(j$(crop_area(j) < 0), 1) "crop_area should be positive", crop_area;
 abort$sum(i$(cl(i) < 0), 1) "cl should be positive", cl;
-abort$sum(system_grid(i,j)$(score(i,j) < 0), 1) "score should be positive", score;
+abort$sum(system_grid(i,j)$(scores(i,j) < 0), 1) "score should be positive", scores;
 
 
 *******************************************************************************
@@ -127,7 +126,7 @@ alloc.up(i,j) = min(scalef, scalef*cl(i)/crop_area(j))$crop_area(j);
 * Of these slacks with weights we would like to minize ir and cl slack so add
 * a higher weight than for adm.
 slackweights(k,s)$adm_area(k,s) = 1/adm_area(k,s);
-    obj_max_score.. sum_score =e= sum(system_grid(i,j), (1/scalef)*alloc(i,j)*score(i,j)) -
+    obj_max_score.. sum_score =e= sum(system_grid(i,j), (1/scalef)*alloc(i,j)*scores(i,j)) -
     (sum(system_grid(i,j), (s_slack(i,j, 'plus') + s_slack(i,j, 'minus'))) +
         1e5*sum(m$adm_area(m), slackweights(m)*(adm_slack(m,'plus') + adm_slack(m,'minus'))) +
         1e6*sum(i,cl_slack(i)) +
@@ -303,7 +302,7 @@ report('min_all_slack', 'sum_s_slack') = sum_s_slack_l;
 *******************************************************************************
 
 execute_unload "%gdx_output%",
-adm_area, cl crop_area, scalef, ir_crop, ir_area, score, rur_pop_share,
+adm_area, cl crop_area, scalef, ir_crop, ir_area, scores, rur_pop_share,
 alloc, palloc, report, sum_cl_slack_l, sum_adm_slack_l, sum_ir_slack_l, sum_s_slack_l, sum_score_l,
 ir_slack_l, adm_slack_l, s_slack_l, cl_slack_l, rur_pop_alloc;
 
