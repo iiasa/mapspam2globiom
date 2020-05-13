@@ -8,8 +8,7 @@ prepare_artificial_adms <- function(ac, param) {
   # Put statistics in long format and filter out crops where pa = 0
   # These crops create artificial adms, which created conflicts
   pa <- pa %>%
-    tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level) %>%
-    dplyr::filter(pa != 0)
+    tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level)
 
   adm_list_at_highest_level <- unique(pa$adm_code[pa$adm_level == param$adm_level])
   ac_rn <- glue::glue("adm{param$adm_level}_code")

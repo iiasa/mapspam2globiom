@@ -249,7 +249,7 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
 
   if("results" %in% data) {
     file <- file.path(param$spam_path,
-                      glue::glue("processed_data/results/{param$res}/results_{param$res}_{param$year}_{param$iso3c}.rds"))
+                      glue::glue("processed_data/results/{param$res}/{param$model}/results_{param$res}_{param$year}_{param$iso3c}.rds"))
     if(file.exists(file)) {
       load_list[["results"]] <-readRDS(file)
     } else {

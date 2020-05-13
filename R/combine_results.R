@@ -52,7 +52,7 @@ combine_results <- function(param) {
    dplyr::select(gridID, crop, system, ha, pa, everything(), pa, ha))
 
  temp_path <- file.path(param$spam_path,
-                        glue::glue("processed_data/results/{param$res}"))
+                        glue::glue("processed_data/results/{param$res}/{param$model}"))
  dir.create(temp_path, showWarnings = F, recursive = T)
  saveRDS(df, file.path(temp_path, glue::glue("results_{param$res}_{param$year}_{param$iso3c}.rds")))
 }

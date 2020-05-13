@@ -214,6 +214,17 @@ split_priors <- function(ac, param){
     tidyr::separate(crop_system, into = c("crop", "system"), sep = "_", remove = F) %>%
     dplyr::filter(prior > 0.0001)
 
+  # Use number of lc grid cells as scaling factor
+  scalelp <- nrow(cl_harm)
+
+  # Scale priors
+  prior_df <- prior_df %>%
+    dplyr::group_by(crop, system) %>%
+    dplyr::mutate(prior = prior/sum(prior, na.rm = T)) %>%
+    dplyr::ungroup() %>%
+    dplyr::mutate(prior = prior * scalelp,
+           crop_system = paste(crop, system, sep = "_"))
+
 
   ############### SAVE ###############
   # save

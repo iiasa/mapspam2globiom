@@ -1,18 +1,18 @@
 # Function to run mapspam in gams
 run_gams_adm_level <- function(ac, param, out = TRUE){
   cat("\nRunning",  param$model, "model for", ac)
-  model <- system.file("gams", glue::glue("max_score.gms"), package = "mapspam2globiom", mustWork = TRUE)
+  model <- system.file("gams", glue::glue("{param$model}.gms"), package = "mapspam2globiom", mustWork = TRUE)
   input <- file.path(param$spam_path,
       glue::glue("processed_data/intermediate_output/{ac}/{param$res}/input_{param$res}_{param$year}_{ac}_{param$iso3c}.gdx"))
 
   output <- file.path(param$spam_path,
-      glue::glue("processed_data/intermediate_output/{ac}/{param$res}/output_{param$res}_{param$year}_{ac}_{param$iso3c}.gdx"))
+      glue::glue("processed_data/intermediate_output/{ac}/{param$res}/spamc_{param$model}_{param$res}_{param$year}_{ac}_{param$iso3c}.gdx"))
 
   lst <- file.path(param$spam_path,
-      glue::glue("processed_data/intermediate_output/{ac}/{param$res}/lst_{param$model}_{param$res}_{param$year}_{ac}_{param$iso3c}.lst"))
+      glue::glue("processed_data/intermediate_output/{ac}/{param$res}/spamc_{param$model}_{param$res}_{param$year}_{ac}_{param$iso3c}.lst"))
 
   logf <- file.path(param$spam_path,
-      glue::glue("processed_data/intermediate_output/{ac}/{param$res}/model_log_{param$model}_{param$res}_{param$year}_{ac}_{param$iso3c}.log"))
+      glue::glue("processed_data/intermediate_output/{ac}/{param$res}/spamc_{param$model}_{param$res}_{param$year}_{ac}_{param$iso3c}.log"))
 
   # change forward- into backslash. This only seems to be needed for model
   # Using system2 now as this should be more portable and flexible. Still need to test it on Mac or Linux

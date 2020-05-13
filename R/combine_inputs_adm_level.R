@@ -3,18 +3,13 @@ combine_inputs_adm_level <- function(ac, param){
 
   cat("\nPrepare model input for", ac)
   # Load data
-  load_intermediate_data(c("pa", "pa_fs", "cl_harm", "ia_harm", "bs", "py", "rps", "priors", "scores"),
+  load_intermediate_data(c("pa_fs", "cl_harm", "ia_harm", "bs", "py", "rps", "priors", "scores"),
                          ac, param, local = TRUE, mess = FALSE)
   load_data(c("adm_list"), param, local = TRUE, mess = FALSE)
 
 
   ############### PREPARATIONS ###############
   # Put statistics in long format and filter out crops where pa = 0
-  # These crops create artificial adms, which created conflicts
-  pa <- pa %>%
-    tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level) %>%
-    dplyr::filter(pa != 0)
-
   pa_fs <- pa_fs %>%
     tidyr::gather(crop, pa, -adm_code, -adm_name, -adm_level, -system) %>%
     dplyr::filter(pa != 0)
@@ -27,18 +22,20 @@ combine_inputs_adm_level <- function(ac, param){
   pa_rn <- glue::glue("imp_adm{param$adm_level}")
   ac_rn <- glue::glue("adm{param$adm_level}_code")
   ac_art_rn <- glue::glue("adm{param$adm_level}_code_art")
-  adm_art <- adm_art_raw %>%
-    dplyr::select(-{{ac_rn}}) %>%
-    unique %>%
-    dplyr::rename(pa = {{pa_rn}},
-                  adm_code = {{ac_art_rn}})
 
   # It is possible that the sum of lower adms is not exactly equal to the total
   # of the higher level adm because of internal precision to deal with fractions.
   # As a result artificial adms are created that are very small (e.g. 1e-10).
   # These are set to zero
-  adm_art <- adm_art %>%
-    dplyr::mutate(pa = ifelse(abs(pa) < 1e-6, 0, pa))
+  adm_art_raw <- adm_art_raw %>%
+    dplyr::rename(pa = {{pa_rn}}) %>%
+    dplyr::mutate(pa = ifelse(abs(pa) < 1e-6, 0, pa)) %>%
+    dplyr::filter(pa != 0)
+
+  adm_art <- adm_art_raw %>%
+    dplyr::select(-{{ac_rn}}) %>%
+    unique %>%
+    dplyr::rename(adm_code = {{ac_art_rn}})
 
   # artificial adm mapping
   adm_art_map <- adm_art_raw %>%
