@@ -41,7 +41,7 @@ navbar:
         menu:
         - text: Input data collection
           href: articles/input_data_collection.html
-        - text: Download template
+        - text: Country examples/templates
           href: articles/template.html
       - text: Run SPAMc
         menu:
