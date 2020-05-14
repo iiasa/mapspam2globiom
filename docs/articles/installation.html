@@ -77,7 +77,7 @@
           <a href="../articles/input_data_collection.html">Input data collection</a>
         </li>
         <li>
-          <a href="../articles/template.html">Download template</a>
+          <a href="../articles/template.html">Country examples/templates</a>
         </li>
       </ul>
 </li>
@@ -149,11 +149,11 @@
 
     
     
-<p>To run SPAMc, one needs to install several software packages, including R (and RStudio), GAMS and GDAL. Below, we provide a brief description on how to install the software and point towards several other software tools that are useful, although not strictly necessary to run SPAMc. Note that the scripts and implementation of the model have been developed, implemented and tested using a windows environment. As all the software is cross platform it should be possible to run SPAMc on Mac and Linux but this has not been tested.</p>
+<p>To run SPAMc, you need to install several software packages, including R (and RStudio), GAMS and GDAL.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Below, we provide a brief description on how to install the software and point towards several other software tools that are useful, although not strictly necessary to run SPAMc. Note that the scripts and implementation of the model have been developed, implemented and tested using a windows environment. As all the software is cross platform it should be possible to run SPAMc on Mac and Linux but this has not been tested.</p>
 <div id="installing-r-and-rstudio" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing-r-and-rstudio" class="anchor"></a>Installing R and RStudio</h2>
-<p>All the pre- and postprocessing of the data is done in R <span class="citation">(R Core Team 2018)</span>. R is a free and open source software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing. To run SPAMc one needs to install R and RStudio, a graphical user interface for R. Both pieces of software are is available for various operating systems. We recommend using the second to last release of R as it takes some time before all packages are updated, potentialy causing errors (see below for more information on R packages). If you are not familiar with R, please have a look at the online book <a href="https://r4ds.had.co.nz">R for Data Science</a> by Hadley Wickham and Garrett Grolemund, which is probably the best book to get you started.</p>
+<p>All the pre- and post-processing of the data is done in R <span class="citation">(R Core Team 2018)</span>. R is a free and open source software environment for statistical computing and graphics supported by the R Foundation for Statistical Computing. To run SPAMc one needs to install R and RStudio, a graphical user interface for R. Both pieces of software are available for various operating systems. We recommend using the second to last release of R as it takes some time before all packages are updated, potentially causing errors (see below for more information on R packages). If you are not familiar with R, please have a look at the online book <a href="https://r4ds.had.co.nz">R for Data Science</a> by Hadley Wickham and Garrett Grolemund, which is probably the best book to get you started.</p>
 <ol style="list-style-type: decimal">
 <li><a href="https://cran.r-project.org/">Download and install R</a></li>
 <li>
@@ -163,7 +163,7 @@
 <div id="installing-gams" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing-gams" class="anchor"></a>Installing GAMS</h2>
-<p>The SPAMc model is solved using the <a href="https://www.gams.com/">General Algebraic Modeling System</a> (GAMS), which is modelling system and language designed for mathematical optimization. The GAMS system and solvers can be downloaded from the GAMS website. Unfortunately, one needs a GAMS Base Module licence plus additional Mosek solver licence to run the SPAMc model<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>The SPAMc model is solved using the <a href="https://www.gams.com/">General Algebraic Modeling System</a> (GAMS), which is modelling system and language designed for mathematical optimization. The GAMS system and solvers can be downloaded from the GAMS website. Unfortunately, one needs a GAMS Base Module licence plus additional Mosek and Cplex solver license to run the SPAMc model<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <ul>
 <li><a href="https://www.gams.com/download">Download and install GAMS</a></li>
 </ul>
@@ -171,10 +171,10 @@
 <div id="installing-gdal" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installing-gdal" class="anchor"></a>Installing GDAL</h2>
-<p>A lot of SPAMc’s input data is spatially explicit and comes in the format of maps, which can be in vector/polygon or raster format. Although most of the map processing can be done within R, We mostly use <a href="https://gdal.org/">Geospatial Data Abstraction Library</a> (GDAL) for this type of operations as it tends to be much faster. GDAL is a free computer software library for reading and writing raster and vector geospatial data formats, developed by the Open Source Geospatial Foundation.</p>
+<p>A lot of SPAMc’s input data is spatially explicit and comes in the format of maps, which can be in vector/polygon or raster format. Although most of the map processing can be done within R, we mostly use <a href="https://gdal.org/">Geospatial Data Abstraction Library</a> (GDAL) for this type of operations as it tends to be much faster. GDAL is a free computer software library for reading and writing raster and vector geospatial data formats, developed by the Open Source Geospatial Foundation.</p>
 <ul>
 <li>
-<a href="https://trac.osgeo.org/osgeo4w">Dowload and install GDAL</a><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>
+<a href="https://trac.osgeo.org/osgeo4w">Dowload and install GDAL</a><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
 </li>
 </ul>
 </div>
@@ -184,7 +184,7 @@
 <p>Although not strictly necessary to use SPAMc, We recommend installing the following additional software:</p>
 <ul>
 <li><p><a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git">Git</a> is software to version your code. RStudio and git can be easily linked to version your code. We use it in combination with <a href="https://github.com">GitHub</a> to store code in the cloud and facilitate collaborative code development.</p></li>
-<li><p><a href="https://qgis.org/en/site/">QGIS</a> a free and open-source cross-platform desktop geographic information system application that supports viewing, editing, and analysis of geospatial data. We sometimes use it to quickly inspect vector and raster maps.</p></li>
+<li><p><a href="https://qgis.org/en/site/">QGIS</a> a free and open-source cross-platform desktop geographic information system application that supports viewing, editing, and analysis of geospatial data. We sometimes use it to quickly inspect vector and raster maps. It is installed together with GDAL on windows (See above).</p></li>
 </ul>
 </div>
 <div id="r-packages" class="section level2">
@@ -193,44 +193,47 @@
 <div id="installing-r-packages" class="section level3">
 <h3 class="hasAnchor">
 <a href="#installing-r-packages" class="anchor"></a>Installing R packages</h3>
-<p>R packages are pieces of bundled R code, frequently including scripts from other languages (e.g. C or C++) to speed up calculations or interface with other software (e.g. GAMS). Packages can be easily installed by using the command <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> in R or by clicking on the <strong>package</strong> tab in RStudio. Nearly all packages are directly downloaded from CRAN, the R package repository, on your system.</p>
-<p>To install mapspam, which is not on CRAN, one first has to install the remotes package:</p>
+<p>R packages are pieces of bundled R code, frequently including scripts from other languages (e.g. C or C++) to speed up calculations or interface with other software (e.g. GAMS). Packages can be easily installed by using the command <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> in R or by clicking on the <strong>package</strong> tab in RStudio. Nearly all packages are directly downloaded from CRAN, the R package repository.</p>
+<p>To install mapspam2globiom, which is not on CRAN, one first has to install the <strong>remotes</strong> package:</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">remotes</span>)
 <span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"iiasa/mapspam2globiom"</span>)</pre></body></html></div>
-<p>To interface between R and GAMS the GDXRRW package is required. This package is also not available on CRAN and therefore cannot be installed using the standard approach. One has to install it manually. The package can be found <a href="https://support.gams.com/gdxrrw:interfacing_gams_and_r">here</a></p>
+<p>To interface between R and GAMS the GDXRRW package is required. Unfortunately, this package is also not available or via Github and therefore has to be installed. The package can be found <a href="https://support.gams.com/gdxrrw:interfacing_gams_and_r">here</a></p>
 <p>To install GDXRRW:</p>
 <ol style="list-style-type: decimal">
-<li>Copy the GDXRRW.zip to a temporary folder on your machine. Note that the version of GDXRRW has to match your R version, otherwise there might be an error! Thus, if you have R version 3.5.X install the GDXRRW version that is built with R 3.5.x.</li>
+<li>Copy the GDXRRW.zip to a temporary folder on your machine. Note that the version of GDXRRW has to match your R version, otherwise there might be an error! Thus, if you have R version 3.5.X install the GDXRRW version that was built with R 3.5.x.</li>
 <li>Click <strong>Packages</strong> &gt; <strong>install</strong> in RStudio</li>
 <li>Select <strong>Install from: Package Archive File (.zip; .tar; .gz)</strong>
 </li>
 <li>Select <strong>GDXRRW.zip</strong> to install the package in your R library</li>
 </ol>
-<p>Several functions in mapspam2globiom use GDXRRW to read and save GAMS gdx files and check whether the package and GAMS are installed. If not, an error message is printed.</p>
+<p>Several functions in mapspam2globiom use GDXRRW to read and save GAMS gdx files and check whether the package and GAMS are installed. If either one is missing an error message will be printed.</p>
 </div>
 <div id="essential-packages" class="section level3">
 <h3 class="hasAnchor">
 <a href="#essential-packages" class="anchor"></a>Essential packages</h3>
-<p>Apart from mapspam and GDXRRW, a number of R packages are needed to peform the tasks related to SPAMc. Most important are:</p>
+<p>Apart from mapspam and GDXRRW, a number of R packages are needed to perform the tasks related to SPAMc. Most important are:</p>
 <ul>
-<li><p><a href="https://cran.r-project.org/web/packages/tidyverse/index.html">tidyverse</a> <span class="citation">(Wickham et al. 2019)</span>, is the name for a set of packages that work in harmony to facilitate data preparation and processing, most importantly dplyr, purrr, tidyr and ggplot2. Some of them are used by the mapspam package and will be installed automatically when mapspam is installed for the first time if they have not been installed before.</p></li>
-<li><p><a href="https://cran.r-project.org/web/packages/sf/index.html">sf package</a> <span class="citation">(Pebesma 2018)</span></p></li>
-<li><p><a href="https://cran.r-project.org/web/packages/raster/index.html">raster package</a> <span class="citation">(Hijmans 2020)</span></p></li>
-<li><p><a href="https://cran.r-project.org/web/packages/gdalUtils/index.html">gdalUtils package</a><span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span>)</span></p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/tidyverse/index.html">tidyverse</a> <span class="citation">(Wickham et al. 2019)</span> is the name for a set of packages that work in harmony to facilitate data preparation and processing, most importantly dplyr, purrr, tidyr and ggplot2. Some of them are used by the mapspam package and will be installed automatically when mapspam is installed for the first time if they have not been installed before.</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/sf/index.html">sf package</a> <span class="citation">(Pebesma 2018)</span> is a package to process spatial data in vector (polygon) format.</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/raster/index.html">raster package</a> <span class="citation">(Hijmans 2020)</span> is a package to process spatial data in raster format.</p></li>
+<li><p><a href="https://cran.r-project.org/web/packages/gdalUtils/index.html">gdalUtils package</a> <span class="citation">(Greenberg and Mattiuzzi 2020)</span> is a package to use GDAL from R.</p></li>
 </ul>
 </div>
 </div>
 <div id="hardware" class="section level2">
 <h2 class="hasAnchor">
 <a href="#hardware" class="anchor"></a>Hardware</h2>
-<p>The dimensions of SPAMc are determined by the number of grid cells x number of administrative regions x number of crops x number of farming systems. Of these four elements, the number of grid cells is the main factor determining the size of the model although the other dimensions (in combination with grid cells) also play a role. The total number of grid cells is related to (1) the cropland extent and, hence, size of the country and (2) the resolution of the model, e.g. 30 arcsec or 5 arcmin.</p>
-<p>When the model is run at higher resolution, the number of dimensions quickly tends to become very large (e.g. <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span>)</span> number of equations). Excessively large models will result in memory problems or very long processing times on an desktop machine. These models can only be solved by splitting the problem into pieces as illustrated by the China example and/or reducing the resolution of the model. We succesfully managed to run 30 arcsec single country models for small to medium size African countries, such as Malawi, Zambia and Kenya on a Windows 10 desktop with <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span>)</span>. However, we did not manage to run this model for Ethiopia, which is characterized by much larger cropland area and administrative zones. When we tried to run the model on the desktop, GAMS indicated there was not enough RAM available. To solve this issue we tried to run the model on high-memory machine with <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span>)</span> memory. The model started to run succesfully but due to the high number of dimensions, it was not solved after a week, resulting in a time-out error. <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span>)</span> eventually we split the model into <span class="citation">(<span class="citeproc-not-found" data-reference-id="adm"><strong>???</strong></span>)</span> units and solved the model. Disadvantage of splitting the model is that assumptions need to be made on crop area by adminstrative 1 unit if this data is not available (see Chapter @(overview)). We recommend running the model at 5 arcmin first to test the model behaviour and only then decide on how to proceed with higher resolution models if needed.</p>
+<p>The dimensions of SPAMc are determined by the number of grid cells times the number of administrative regions times the number of crops times the number of farming systems. Of these four elements, the number of grid cells is the main factor determining the size of the model although the other dimensions (in combination with the number of grid cells) also play a role. The total number of grid cells is related to (1) the cropland extent and, hence, the size of the country and (2) the resolution of the model, e.g. 30 arcsec or 5 arcmin.</p>
+<p>When the model is run at the highest resolution of 30 arcsec, the number of dimensions quickly tends to become very large. Excessively large models will result in memory problems or very long processing times on a standard desktop machine. These models can only be solved by splitting the problem into pieces as illustrated by the China example and/or reducing the resolution of the model. We successfully managed to run 30 arcsec single country models for small to medium size African countries, such as Malawi, Zambia and Kenya on a Windows 10 desktop with 16 gigabyte memory. In contrast, we were not able to run SPAMc for Ethiopia on a server with more than 100 gigabyte internal memory because of the much larger cropland extent combined with a higher number of administrative units and crop types. To make it able to solve SPAMc for large countries, we introduced the possibility to split the data and solve the model for each level 1 administrative unit separately. Disadvantage of this approach is that statistics are required for all the crops and farming systems at the level administrative unit, which is often not available and therefore needs to be imputed. We recommend running the model at a resolution of 5 arcmin first to test model behavior and only proceed with running at 30 arcsec resolution if this is needed.</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h2>
 <div id="refs" class="references">
+<div id="ref-Greenberg2020">
+<p>Greenberg, Jonathan Asher, and Matteo Mattiuzzi. 2020. “gdalUtils: Wrappers for the Geospatial Data Abstraction Library (GDAL).” <a href="https://cran.r-project.org/package=gdalUtils">https://cran.r-project.org/package=gdalUtils</a>.</p>
+</div>
 <div id="ref-Hijmans2020">
 <p>Hijmans, Robert J. 2020. “raster: Geographic Data Analysis and Modeling.” <a href="https://cran.r-project.org/package=raster">https://cran.r-project.org/package=raster</a>.</p>
 </div>
@@ -248,8 +251,9 @@
 <div class="footnotes">
 <hr>
 <ol>
-<li id="fn1"><p>We are exploring the possibility to solve SPAMc directly in R using the <a href="https://cran.r-project.org/web/packages/Rmosek/index.html">Rmosek</a> package. As Mosek offers unrestricted trial and academic licence, using this package would make the use of GAMS, and the need of a paid licence, superfluous. At the moment it is not clear yet if this alternative is technicallly possible.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>We prefer to install from OSGeo4W, which is a collection of open source geospatial software for windows that also includes QGIS (see below). GDAL for other systems than windows can be downloaded <a href="https://gdal.org/download.html">here</a>.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p>As it might be problematic for some researchers to install some of the software because of the required license, we are exploring the possibility to put all software on a server that can be accessed remotely.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>We are exploring the possibility to solve SPAMc directly in R using the <a href="https://cran.r-project.org/web/packages/Rmosek/index.html">Rmosek</a> package. As Mosek offers unrestricted trial and academic licence, using this package would make the use of GAMS, and the need of a paid licence, superfluous. At the moment it is not clear yet if this alternative is technically possible.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>We prefer to install from OSGeo4W, which is a collection of open source geospatial software for windows that also includes QGIS (see below). GDAL for other systems than windows can be downloaded <a href="https://gdal.org/download.html">here</a>.<a href="#fnref3" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
   </div>

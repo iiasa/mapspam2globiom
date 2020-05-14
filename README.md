@@ -16,13 +16,12 @@ the IIASA’s [Global Biosphere Management Model
 partial equilibrium model that is used to analyze the competition for
 land use between agriculture, forestry, and bioenergy. The model can be
 used for global and national level analysis (Valin et al. 2013; Leclère
-et al. 2014; Havlik et al. 2014; Soterroni et al. 2018). In the latter
-case, model output can be greatly improved by incorporating regionally
-specific information that is often provided by local stakeholders or can
-be taken from national statistics. Information on crop cover and the
-location of crops are a key driver of the model and it is therefore
-desirable to base these as much as possible on national sources of
-information.
+et al. 2014; Havlik et al. 2014). In the latter case, model output can
+be greatly improved by incorporating regionally specific information
+that is often provided by local stakeholders or can be taken from
+national statistics. Information on crop cover and the location of crops
+are a key driver of the model and it is therefore desirable to base
+these as much as possible on national sources of information.
 
 mapspam2globiom provides the necessary infrastructure to run the Spatial
 Production Allocation Model for Country level studies (SPAMc). The model
@@ -109,16 +108,6 @@ Mario Herrero, N Khabarov, and M Obersteiner. 2014. “Climate change
 induced transformations of agricultural systems: insights from a global
 model.” *Environmental Research Letters* 9 (12): 124018.
 <https://doi.org/10.1088/1748-9326/9/12/124018>.
-
-</div>
-
-<div id="ref-Soterroni2018">
-
-Soterroni, Aline C, Aline Mosnier, Alexandre X Y Carvalho, Gilberto
-Câmara, Michael Obersteiner, Pedro R Andrade, Ricardo C Souza, et al.
-2018. “Future environmental and agricultural impacts of Brazil’s Forest
-Code.” *Environmental Research Letters* 13 (7): 074021.
-<https://doi.org/10.1088/1748-9326/aaccbb>.
 
 </div>
 

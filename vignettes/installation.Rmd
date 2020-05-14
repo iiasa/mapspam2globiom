@@ -86,7 +86,7 @@ Apart from mapspam and GDXRRW, a number of R packages are needed to perform the 
 
 - [raster package](https://cran.r-project.org/web/packages/raster/index.html) [@Hijmans2020] is a package to process spatial data in raster format.
 
-- [gdalUtils package](https://cran.r-project.org/web/packages/gdalUtils/index.html)[@Greenberg2020] is a package to use GDAL from R.
+- [gdalUtils package](https://cran.r-project.org/web/packages/gdalUtils/index.html) [@Greenberg2020] is a package to use GDAL from R.
 
 
 ## Hardware

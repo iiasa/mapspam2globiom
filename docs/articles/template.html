@@ -77,7 +77,7 @@
           <a href="../articles/input_data_collection.html">Input data collection</a>
         </li>
         <li>
-          <a href="../articles/template.html">Download template</a>
+          <a href="../articles/template.html">Country examples/templates</a>
         </li>
       </ul>
 </li>
@@ -149,15 +149,15 @@
 
     
     
-<p>Broadly, running SPAMc can be divided into three phases:</p>
+<p>Broadly speaking, running SPAMc can be divided into three phases:</p>
 <ul>
-<li>Pre-procesing subnational statistics and spatial information</li>
+<li>Pre-processing subnational statistics and spatial information</li>
 <li>Running the model</li>
 <li>Post-processing model results to create maps and GLOBIOM input.</li>
 </ul>
-<p>mapspam2globiom facilitates this by providing several functions that take care of major components, such as the clipping and reprojection of spatial datasets, the harmonization of agricultural statistics and cropland, and the creation of datafiles that can be loaded by GLOBIOM. However, to fully run SPAMc much more data work needs to be done. The majority can be performed with standard R packages, such as <a href="https://cran.r-project.org/web/packages/tidyverse/index.html">tidyverse</a>, which were specifically designed ‘tidy’ messy information, and <a href="https://cran.r-project.org/web/packages/sf/index.html">sf</a> and <a href="https://cran.r-project.org/web/packages/raster/index.html">raster</a>, which were built to perform spatial data operations.</p>
+<p>mapspam2globiom facilitates this by providing several functions that take care of major components, such as the clipping and reprojection of spatial datasets, the harmonization of agricultural statistics and cropland, and the creation of data files that can be loaded by GLOBIOM. However, to fully run SPAMc much more data work needs to be done. The majority can be performed with standard R packages, such as <a href="https://cran.r-project.org/web/packages/tidyverse/index.html">tidyverse</a>, which were specifically designed ‘tidy’ messy information, and <a href="https://cran.r-project.org/web/packages/sf/index.html">sf</a> and <a href="https://cran.r-project.org/web/packages/raster/index.html">raster</a>, which were built to perform spatial data operations.</p>
 <p>For this purpose, mapspam2globiom is supplemented with examples of how to run the model for a particular country. These examples provide fully developed scripts to run SPAMc from start to finish and require only minimum user input to adapt them to other countries. In fact, most work for the user will be to collect the required subnational agricultural statistics and reshape them so that they can used as input for SPAMc (although some tools are provided to support the latter in the package). The examples, therefore, can be regarded as templates to run SPAMc for any country, assuming all raw input data is available.</p>
-<p>The examples are stored in Github repositories with the following name: mapspam2GLOBIOM_ISO, where ‘ISO’ is the <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">ISO 3166-1 alpha-3 letter</a> country code in lowercase. At the moment only one example is provided: mapspam2globiom_mwi for Malawi but we hope to include an example for a larger country, which requires a slightly different aproach soon.</p>
+<p>The examples are stored in Github repositories with the following name: mapspam2GLOBIOM_ISO, where ‘ISO’ is the <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3">ISO 3166-1 alpha-3 letter</a> country code in lowercase. At the moment only one example is provided: mapspam2globiom_mwi for Malawi but we hope to include an example for a larger country, which requires a slightly different approach soon.</p>
 <div id="downloading-country-examples" class="section level1">
 <h1 class="hasAnchor">
 <a href="#downloading-country-examples" class="anchor"></a>Downloading country examples</h1>
@@ -167,7 +167,7 @@
 <li><ol style="list-style-type: decimal">
 <li>clone the repository to your Github account or (2) save the zip file.</li>
 </ol></li>
-<li>Store the files in an RStudio project environment using the alpha-3 letter code of the country of interest.</li>
+<li>Store the files in an RStudio project environment using the alpha-3 letter code of the country of interest, e.g. `mapspam2globiom_xxx, where xxx is the alpha-3 country code.</li>
 </ul>
 <p>Now you are ready to start working on your own model! The articles in the <code>Running SPAMc</code> section will go over the various steps to build the model following the Malawi example. Please read the article on how to <a href="setup.html">setup SPAMc</a> to continue.</p>
 </div>

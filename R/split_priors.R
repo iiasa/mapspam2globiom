@@ -118,10 +118,6 @@ split_priors <- function(ac, param){
 
   ### LOW INPUT
   # We use suitability for only for L
-  # We first remove adm where crops are not allocated by definition because stat indicates zero ha
-  # TODO: drop this for now as it seems irrelevant because of adm constraint. Moreover, in case of
-  # slack it probably ensures crops are allocated to places with higher prior if it should go to adms
-  # where the crop is not present before.
   # Then we normalize over all crops so that an overal ranking is created.
   # This means that crops with higher suitability will get a higher prior than crops with a lower suitability.
   # The argument is that if there would be competition between crops, the crop with the highest suitability
@@ -140,10 +136,6 @@ split_priors <- function(ac, param){
 
   ## HIGH INPUT
   # We use revenue and accessibility
-  # We first remove adm where crops are not allocated by definition because stat indicates zero ha
-  # TODO: drop this for now as it seems irrelevant because of adm constraint. Moreover, in case of
-  # slack it probably ensures crops are allocated to places with higher prior if it should go to adms
-  # where the crop is not present before.
   # Then we normalize rev and acessibility over all crops so that an overal ranking is created.
   # Next we use equal weight geometric average as the final ranking.
   # This means that crops with higher revenue and accessibility will get a higher prior than crops with a lower rankings.
