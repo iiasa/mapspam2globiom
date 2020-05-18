@@ -79,3 +79,7 @@ create_globiom_input(lc_class2globiom, lc_map, param)
 ```
 
 ## Incorporate new data into GLOBIOM
+
+
+
+

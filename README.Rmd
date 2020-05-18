@@ -47,7 +47,7 @@ It takes some preparation before SPAMc can be run. Most important and probably m
 
 ## Run SPAMc
 
-Running SPAMc can be divided into eight steps, which are described in the articles in the Run SPAMc section:
+Running SPAMc can be divided into eight steps, which are described in the articles in the Run SPAMc section. The nineth article describes to add a new crop in GLOBIOM using the created crop distribution maps:
 
 1. [Model setup](articles/model_structure.html)
 1. [Processing of subnational statistics](articles/process_subnational_statistics.html)
@@ -57,6 +57,7 @@ Running SPAMc can be divided into eight steps, which are described in the articl
 1. [Combine input data](articles/combine_input_data/html)
 1. [Run model](articles/run_model.html)
 1. [Post-processing](articles/post_process.html)
+1. [Add a new crop in GLOBIOM](articles/add_crop_in_globiom.html)
 
 
 ## References

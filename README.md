@@ -76,7 +76,8 @@ other countries:
 ## Run SPAMc
 
 Running SPAMc can be divided into eight steps, which are described in
-the articles in the Run SPAMc section:
+the articles in the Run SPAMc section. The nineth article describes to
+add a new crop in GLOBIOM using the created crop distribution maps:
 
 1.  [Model setup](articles/model_structure.html)
 2.  [Processing of subnational
@@ -88,6 +89,7 @@ the articles in the Run SPAMc section:
 6.  [Combine input data](articles/combine_input_data/html)
 7.  [Run model](articles/run_model.html)
 8.  [Post-processing](articles/post_process.html)
+9.  [Add a new crop in GLOBIOM](articles/add_crop_in_globiom.html)
 
 ## References
 
