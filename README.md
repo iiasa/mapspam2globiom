@@ -9,9 +9,10 @@
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The aim of the mapspam2globiom R package is to facilitate the creation
-of country level crop distribution maps, which can be used as input by
-the IIASA’s [Global Biosphere Management Model
+The aim of the [mapspam2globiom R
+package](https://iiasa.github.io/mapspam2globiom) is to facilitate the
+creation of country level crop distribution maps, which can be used as
+input by the IIASA’s [Global Biosphere Management Model
 (GLOBIOM)](https://www.globiom.org/). GLOBIOM is a spatially explicit
 partial equilibrium model that is used to analyze the competition for
 land use between agriculture, forestry, and bioenergy. The model can be
@@ -33,8 +34,9 @@ SPAMc was specifically developed to support country level analysis and
 makes it possible to incorporate national sources of information and
 potentially create maps at a higher resolution of 30 arcsec (Van Dijk et
 al. 2020). The articles in the Background section provide more
-information on [Crop distribution maps](crop_distribution_maps.html) in
-general, the [model](articles/model_description.html), [input
+information on [Crop distribution
+maps](articles/crop_distribution_maps.html) in general, the
+[model](articles/model_description.html), [input
 data](articles/data.html) and an [appendix](articles/appendix.html) with
 additional information on specific topics. Apart from implementing
 SPAMc, mapspam2globiom includes functions to aggregate the SPAMc output
