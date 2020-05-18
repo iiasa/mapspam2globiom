@@ -33,7 +33,63 @@ subnational crop statistics on a spatial grid at a 5 arcmin resolution.
 SPAMc was specifically developed to support country level analysis and
 makes it possible to incorporate national sources of information and
 potentially create maps at a higher resolution of 30 arcsec (Van Dijk et
-al. 2020).
+al. 2020). The articles in the Background section provide more
+information on [Crop distribution
+maps](articles/crop_distribution_maps.html) in general, the
+[model](articles/model_description.html), [input
+data](articles/data.html) and an [appendix](articles/appendix.html) with
+additional information on specific topics. Apart from implementing
+SPAMc, mapspam2globiom includes functions to aggregate the SPAMc output
+to the spatial (i.e. simulation units) and crop-level (18 major crops)
+format that is used by GLOBIOM.
+
+## Installation
+
+To install mapspam2globiom:
+
+``` r
+install.packages("remotes")
+remotes::install_github("iiasa/mapspam2globiom")
+```
+
+Apart from the mapspam2globiom package, several other pieces of software
+are essential to run SPAMc, which are described in the
+[Installation](articles/software.html) section.
+
+## Preparation
+
+It takes some preparation before SPAMc can be run. Most important and
+probably most time consuming is the collection of input data. SPAMc is a
+data-driven model and therefore requires a large variety of input data,
+which can be grouped under two headers: (1) (Sub)national agricultural
+statistics and (2) spatial information. The availability of data
+strongly affects the structure of the model and how can be solved. We
+highly recommend to start collecting input data before running the
+model. The articles in the Preparation section give an overview of all
+the information that is requited by SPAMc and shows were to download
+country examples, which can be used as a template to implement SPAMc to
+other countries:
+
+  - [Input data collection](articles/input_data_collection.html).
+  - [Country examples/templates](articles/template.html)
+
+## Run SPAMc
+
+Running SPAMc can be divided into eight steps, which are described in
+the articles in the Run SPAMc section. The nineth article describes to
+add a new crop in GLOBIOM using the created crop distribution maps:
+
+1.  [Model setup](articles/model_structure.html)
+2.  [Processing of subnational
+    statistics](articles/process_subnational_statistics.html)
+3.  [Processing of spatial data](articles/process_spatial_data.html)
+4.  [Create synergy cropland map](articles/create_synergy_cropland.html)
+5.  [Create synergy irrigated area
+    map](articles/create_synergy_irrigated_area.html)
+6.  [Combine input data](articles/combine_input_data/html)
+7.  [Run model](articles/run_model.html)
+8.  [Post-processing](articles/post_process.html)
+9.  [Adding a new crop to GLOBIOM](articles/add_crop_to_globiom.html)
 
 ## References
 
