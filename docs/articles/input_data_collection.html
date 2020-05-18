@@ -250,10 +250,10 @@
 </ul>
 </div>
 </div>
-<div id="biophysical-suitability" class="section level2">
+<div id="biophysical-suitability-and-potential-yield" class="section level2">
 <h2 class="hasAnchor">
-<a href="#biophysical-suitability" class="anchor"></a>Biophysical suitability</h2>
-<p>Spatially explicit information on the biophysical suitability and related potential yield of crops is a key factor to inform the allocation of crops in SPAMc. We use data the latest version of the global agro-ecological zones (GAEZ) data (version 3.0) as a source of information.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> The <a href="http://www.fao.org/nr/gaez/en/">GAEZ</a> website provides background data on the data. As downloading bulk information from this website is problematic, we stored the relevant GAEZ maps in a data repository <span class="citation">(<span class="citeproc-not-found" data-reference-id="ADD"><strong>???</strong></span>)</span>.</p>
+<a href="#biophysical-suitability-and-potential-yield" class="anchor"></a>Biophysical suitability and potential yield</h2>
+<p>Spatially explicit information on the biophysical suitability and related potential yield of crops is a key factor to inform the allocation of crops in SPAMc. We use data the latest version of the global agro-ecological zones (GAEZ) data (version 3.0) as a source of information.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> The <a href="http://www.fao.org/nr/gaez/en/">GAEZ</a> website provides background data on the data. As downloading bulk information from this website is problematic, we stored the relevant GAEZ maps in a data repository.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>.</p>
 <ul>
 <li>Download the biophysical suitability and potential yield maps and save the files in the <code>raw_data/gaez</code> folder.</li>
 </ul>
@@ -275,7 +275,7 @@
 <h3 class="hasAnchor">
 <a href="#gridded-population" class="anchor"></a>Gridded population</h3>
 <ul>
-<li>Download the <a href="https://www.worldpop.org/project/categories?id=3">WorldPop Global mosaics 2000-2020</a> dataset. The global map presents the number of people per pixel a resolution of 1kmx1km.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Save the file in the <code>raw_data/data/worldpop</code> folder.</li>
+<li>Download the <a href="https://www.worldpop.org/project/categories?id=3">WorldPop Global mosaics 2000-2020</a> dataset. The global map presents the number of people per pixel a resolution of 1kmx1km.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Save the file in the <code>raw_data/data/worldpop</code> folder.</li>
 </ul>
 </div>
 <div id="urban-extent" class="section level3">
@@ -284,6 +284,11 @@
 <ul>
 <li>Download GRUMPS <a href="https://sedac.ciesin.columbia.edu/data/set/grump-v1-urban-ext-polygons-rev01/data-download">here</a>. Note than one needs to register before file can be downloaded. Save the file in the <code>raw_data/grump</code> folder.</li>
 </ul>
+</div>
+<div id="simu-map" class="section level3">
+<h3 class="hasAnchor">
+<a href="#simu-map" class="anchor"></a>Simu map</h3>
+<p>To prepare the national land cover and land use maps as input for GLOBIOM, one needs a map with the location of the GLOBIOM simulation units. This map can be downloaded from the data repository.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
 </div>
 </div>
 <div id="references" class="section level2 unnumbered">
@@ -314,7 +319,9 @@
 <hr>
 <ol>
 <li id="fn1"><p>It is expected that the results for GAEZv4 will be published soon. We will update this section when new data is available.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>WordPop also offers the possibility to download individual country maps at a resolution of 100mx100m. These files are relatively much larger, in particular for large countries like China and are not required as we will aggregate the population maps to 30 arcsec - the current highest SPAM resolution.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>This is work in progress. Please contact Michiel van Dijk (<a href="mailto:michiel.vandijk@iiasa.ac.at" class="email">michiel.vandijk@iiasa.ac.at</a>) to obtain the maps<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>WordPop also offers the possibility to download individual country maps at a resolution of 100mx100m. These files are relatively much larger, in particular for large countries like China and are not required as we will aggregate the population maps to 30 arcsec - the current highest SPAM resolution.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>This is work in progress. Please contact Michiel van Dijk (<a href="mailto:michiel.vandijk@iiasa.ac.at" class="email">michiel.vandijk@iiasa.ac.at</a>) to obtain the map<a href="#fnref4" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
   </div>

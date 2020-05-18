@@ -34,8 +34,8 @@ The examples are stored in Github repositories with the following name: mapspam2
 
 - Visit the [mapspam2globiom_mwi repository website](https://github.com/iiasa/mapspam2globiom_mwi).
 - Click on 'clone or download'.
-- clone the repository to your Github account or save the zip file.
-- Store the files in an RStudio project environment using the alpha-3 letter code of the country of interest, e.g. `mapspam2globiom_xxx, where xxx is the alpha-3 country code.
+- clone the repository to your Github account.
+- Store the files in an RStudio project environment using the alpha-3 letter code of the country of interest, e.g. `mapspam2globiom_xxx, where xxx is the alpha-3 country code.^[Alternatively, if you are familiar with Gihub, you can also clone the repository to your own account, change the name and create a local copy.]
 
 Now you are ready to start working on your own model! The articles in the `Running SPAMc` section will go over the various steps to build the model following the Malawi example. Please read the article on how to [setup SPAMc](setup.html) to continue.
 
