@@ -89,7 +89,7 @@ add a new crop in GLOBIOM using the created crop distribution maps:
 6.  [Combine input data](articles/combine_input_data/html)
 7.  [Run model](articles/run_model.html)
 8.  [Post-processing](articles/post_process.html)
-9.  [Add a new crop in GLOBIOM](articles/add_crop_in_globiom.html)
+9.  [Adding a new crop to GLOBIOM](articles/add_crop_to_globiom.html)
 
 ## References
 

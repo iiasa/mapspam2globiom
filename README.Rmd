@@ -57,7 +57,7 @@ Running SPAMc can be divided into eight steps, which are described in the articl
 1. [Combine input data](articles/combine_input_data/html)
 1. [Run model](articles/run_model.html)
 1. [Post-processing](articles/post_process.html)
-1. [Add a new crop in GLOBIOM](articles/add_crop_in_globiom.html)
+1. [Adding a new crop to GLOBIOM](articles/add_crop_to_globiom.html)
 
 
 ## References

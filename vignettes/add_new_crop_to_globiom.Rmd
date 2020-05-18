@@ -1,8 +1,8 @@
 ---
-title: "Add a new crop in GLOBIOM"
+title: "Adding a new crop to GLOBIOM"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Add a new crop in GLOBIOM}
+  %\VignetteIndexEntry{Adding a new crop to GLOBIOM}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -2,6 +2,7 @@ pandoc: 2.7.2
 pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
+  add_new_crop_to_globiom: add_new_crop_to_globiom.html
   appendix: appendix.html
   combine_input_data: combine_input_data.html
   create_synergy_cropland: create_synergy_cropland.html
@@ -17,7 +18,7 @@ articles:
   process_subnational_statistics: process_subnational_statistics.html
   run_model: run_model.html
   template: template.html
-last_built: 2020-05-18T18:56Z
+last_built: 2020-05-18T19:44Z
 urls:
   reference: https://iiasa.github.io/mapspam2globiom/reference
   article: https://iiasa.github.io/mapspam2globiom/articles

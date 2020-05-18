@@ -61,6 +61,8 @@ navbar:
           href: articles/run_model.html
         - text: 8. Post-processing
           href: articles/post_process.html
+        - text: 9. Adding new crop to GLOBIOM
+          href: articles/add_new_crop_to_globiom.html
     reference:
       text: Functions
       href: reference/index.html
