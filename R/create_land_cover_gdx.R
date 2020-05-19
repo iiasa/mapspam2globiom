@@ -40,7 +40,7 @@ create_land_cover_gdx <- function(lc, param) {
   gdxrrw::wgdx(file.path(
     temp_path,
     glue::glue(
-      "globiom_land_cover_{param$res}_{param$year}_{param$iso3c}"
+      "globiom_land_cover_{param$year}_{param$iso3c}"
     )
   ),
   lc_gdx)

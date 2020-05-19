@@ -51,7 +51,7 @@ create_crop_distribution_gdx <- function(crop, param) {
   gdxrrw::wgdx(file.path(
     temp_path,
     glue::glue(
-      "globiom_crop_area_{param$res}_{param$year}_{param$iso3c}"
+      "globiom_crop_area_{param$year}_{param$iso3c}"
     )
   ),
   crop_upd_gdx)

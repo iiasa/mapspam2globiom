@@ -216,16 +216,13 @@ PRODATA_C(ANYREGION,ALLITEM,DataItems) Production data for crops (tonnes)
                                         Quantity          Price       PriceEla           TFAC
 "IndonesiaReg".Ccoa                        78.55         913.02          -0.59          10.00</code></pre>
 <p>Prices are another driver for a change in food consumption patterns. When the price of a product increases in GLOBIOM, the level of consumption of this product decreases, by a value determined by the price elasticity associated to this product in the region considered. The price elasticity indicates by how much the relative change in consumption is affected with respect to relative change in price. The values of these elasticities in GLOBIOM are sourced from the USDA demand elasticity database and should be added in the following place:</p>
-<pre><code>Data_ElaUSDA.gms
+<pre><code>Data_ElaUSDA.gms (model folder\finaldata)
 PARAMETER
 DemandPriceEla_USDA(ANYREGION,ALLPRODUCT) price elasticity of demand
    IndonesiaReg.Ccoa                                                   -0.59
 
-Data_crops_’countryname’.gms
-DData('IndonesiaReg',CROPS,'PriceEla')
- $ (DData('IndonesiaReg',CROPS,'Quantity')  AND
-    (DData('IndonesiaReg',CROPS,'PriceEla') eq 0) )
-  = DemandPriceEla_USDA('IndonesiaReg','Cccoa') ;</code></pre>
+Data_crops.gms (data folder)
+DData(REGION,CROPS,'PriceEla') = DemandPriceEla_USDA(REGION,CROPS);</code></pre>
 </div>
 <div id="shifting-demand-for-a-new-crop" class="section level4">
 <h4 class="hasAnchor">
