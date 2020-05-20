@@ -37,7 +37,7 @@ al. 2020). The articles in the Background section provide more
 information on [Crop distribution
 maps](articles/crop_distribution_maps.html) in general, the
 [model](articles/model_description.html), [input
-data](articles/data.html) and an [appendix](articles/appendix.html) with
+data](articles/data.html) and an [Appendix](articles/appendix.html) with
 additional information on specific topics. Apart from implementing
 SPAMc, mapspam2globiom includes functions to aggregate the SPAMc output
 to the spatial (i.e. simulation units) and crop-level (18 major crops)
@@ -76,8 +76,9 @@ other countries:
 ## Run SPAMc
 
 Running SPAMc can be divided into eight steps, which are described in
-the articles in the Run SPAMc section. The nineth article describes to
-add a new crop in GLOBIOM using the created crop distribution maps:
+the articles in the Run SPAMc section. The other two articlesdescribe
+how to update the land cover and land use maps in GLOBIOM and how to add
+a new crop in GLOBIOM, which both require SPAMc output:
 
 1.  [Model setup](articles/model_structure.html)
 2.  [Processing of subnational
@@ -86,10 +87,13 @@ add a new crop in GLOBIOM using the created crop distribution maps:
 4.  [Create synergy cropland map](articles/create_synergy_cropland.html)
 5.  [Create synergy irrigated area
     map](articles/create_synergy_irrigated_area.html)
-6.  [Combine input data](articles/combine_input_data/html)
+6.  [Combine input data](articles/combine_input_data.html)
 7.  [Run model](articles/run_model.html)
 8.  [Post-processing](articles/post_process.html)
-9.  [Adding a new crop to GLOBIOM](articles/add_crop_to_globiom.html)
+9.  [Replace GLOBIOM land use and land
+    cover](articles/replace_globiom_land_cover_land_use.html)
+10. [Adding a new crop to
+    GLOBIOM](articles/add_new_crop_to_globiom.html)
 
 ## References
 
