@@ -4,7 +4,7 @@ citHeader("To cite mapspam2globiom in publications use:")
 citEntry(
   entry    = "Article",
   title    = "mapspam2globiom: An R package to create crop distribution maps for GLOBIOM",
-  author   = "Michiel van Dijk",
+  author   = "Michiel van Dijk, Esther Boere and Amanda Palazzo",
   journal  = "not published",
   year     = "2020",
   url      = "",
