@@ -32,5 +32,11 @@ Useful links:
 \author{
 \strong{Maintainer}: Michiel Van Dijk \email{michiel.vandijk@wur.nl} (\href{https://orcid.org/0000-0002-5207-7304}{ORCID})
 
+Other contributors:
+\itemize{
+  \item Esther Boere \email{boere@iiasa.ac.at} (\href{https://orcid.org/0000-0003-3863-8731}{ORCID}) [contributor]
+  \item Amanda Palazzo \email{palazzo@iiasa.ac.at} (\href{https://orcid.org/0000-0001-8167-9403}{ORCID}) [contributor]
+}
+
 }
 \keyword{internal}

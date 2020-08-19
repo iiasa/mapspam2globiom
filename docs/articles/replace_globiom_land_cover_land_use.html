@@ -142,7 +142,7 @@
 
       
 
-      </header><div class="row">
+      </header><script src="replace_globiom_land_cover_land_use_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Replace land cover and land use information in GLOBIOM</h1>
@@ -178,7 +178,7 @@
   <span class="fu">glue</span>(<span class="st">"processed_data/maps/cropland/{param$res}/esa_raw_{param$year}_{param$iso3c}.tif"</span>))
 <span class="co"># Load the map</span>
 <span class="no">lc_map</span> <span class="kw">&lt;-</span> <span class="fu">raster</span>(<span class="no">lc_file</span>)
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.html">plot</a></span>(<span class="no">lc_map</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">lc_map</span>)
 
 <span class="co"># Update crop2globiom.csv and map coff to coff (instead of the rest category) and overwrite</span>
 <span class="fu"><a href="../reference/load_data.html">load_data</a></span>(<span class="st">"crop2globiom"</span>, <span class="no">param</span>)

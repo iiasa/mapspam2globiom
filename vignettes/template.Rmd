@@ -1,8 +1,8 @@
 ---
-title: "Template and examples"
+title: "Template"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{template}
+  %\VignetteIndexEntry{Template}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 resource_files:
