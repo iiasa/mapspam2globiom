@@ -47,19 +47,18 @@ create_statistics_template <- function(type, param) {
       unique)
 
   if(type == "ha") {
-      ha_template <- adm_list_wide
+      ha_template <- adm_list_wide %>%
+        dplyr::filter(adm_level %in% c(0:param$solve_level))
       ha_template[,crop$crop] <- NA
       return(ha_template)
-  } else {
-    if(type == "fs") {
+  } else if(type == "fs") {
       fs_template <- adm_list_wide %>%
         dplyr::filter(adm_level %in% c(0:param$solve_level))
       fs_template <- tidyr::expand_grid(fs_template, system = c("S", "L", "H", "I")) %>%
         dplyr::select(adm_name, adm_code, adm_level, system, everything())
       fs_template[,crop$crop] <- NA
       return(fs_template)
-    } else {
-      if(type == "ci") {
+    } else if(type == "ci") {
         ci_template <- adm_list_wide %>%
           dplyr::filter(adm_level %in% c(0:param$solve_level))
         ci_template <- tidyr::expand_grid(ci_template, system = c("S", "L", "H", "I")) %>%
