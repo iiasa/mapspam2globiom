@@ -67,5 +67,5 @@ create_statistics_template <- function(type, param) {
         return(ci_template)
       }
     }
-  }
-}
+
+
