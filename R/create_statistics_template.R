@@ -48,7 +48,7 @@ create_statistics_template <- function(type, param) {
 
   if(type == "ha") {
       ha_template <- adm_list_wide %>%
-        dplyr::filter(adm_level %in% c(0:param$solve_level))
+        dplyr::filter(adm_level %in% c(0:param$adm_level))
       ha_template[,crop$crop] <- NA
       return(ha_template)
   } else if(type == "fs") {
