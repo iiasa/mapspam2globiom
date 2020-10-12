@@ -56,7 +56,9 @@ split_harmonized_inputs <- function(ac, param) {
   cl_harm_r <- gridID2raster(cl_harm_df, "cl", param)
 
   # ia map
-  ia_harm_r <- gridID2raster(ia_harm_df, "ia", param)
+  ia_harm_r <- gridID2raster(ia_harm_df, "ia", param) %>%
+    dplyr::mutate(ia = ifelse(is.na(ia), 0, ia),
+                  ia_max = ifelse(is.na(ia_max), 0, ia_max))
 
 
   ############### STEP 7: SAVE ###############
