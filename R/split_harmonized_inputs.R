@@ -31,8 +31,9 @@ split_harmonized_inputs <- function(ac, param) {
 
 
   ############### STEP 4: HARMONIZE IA ###############
-  cl_df <- harmonize_ia(cl_df, ac, param, ia_slackp = 0.05)
-
+  cl_df <- harmonize_ia(cl_df, ac, param, ia_slackp = 0.05) %>%
+    mutate(ia = ifelse(is.na(ia), 0, ia),
+           ia_max = ifelse(is.na(ia_max), 0, ia_max))
 
   ############### STEP 5: PREPARE FINAL CL MAP BY RANKING CELLS PER ADM ###############
   cl_df <- select_grid_cells(cl_df, ac, param, cl_slackp = 0.05, cl_slackn = 5)
