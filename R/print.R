@@ -13,5 +13,6 @@ print.spam_par <- function(x, ...) {
     cat("fao code: ", x$fao_code, "\n")
     cat("continent: ", x$continent, "\n")
     cat("crs: ", x$crs, "\n")
+    cat("gams_path:", x$gams_path, "\n")
 }
 

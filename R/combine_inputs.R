@@ -30,7 +30,7 @@ combine_inputs <- function(param) {
   stopifnot(inherits(param, "spam_par"))
 
   # Test if gdxrrw and gams are installed.
-  setup_gams()
+  setup_gams(param)
 
   cat("\n\n############### COMBINE INPUTS ###############")
   load_data("adm_list", param, local = TRUE, mess = FALSE)

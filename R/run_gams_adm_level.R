@@ -22,15 +22,16 @@ run_gams_adm_level <- function(ac, param, out = TRUE){
   lst <- gsub("/", "\\\\", lst)
   logf <- gsub("/", "\\\\", logf)
 
-  cmd_output <- system2("gams", args = c(model,
+  cmd_output <- system2(file.path(param$gams_path, "gams.exe"), args = c(model,
                                 glue::glue("--gdx_input={input}"),
                                 glue::glue("--gdx_output={output}"),
                                 glue::glue("lf={logf}"),
                                 glue::glue("o={lst}"), "logoption 4"),
                stdout = TRUE, stderr = TRUE)
 
-  # gams_system_call <- glue::glue("gams.exe {model} --gdx_input={input} --gdx_output={output} lf={logf} o={lst} logOption 4")
+  # gams_system_call <- glue::glue("{param$gams_path}/gams.exe {model} --gdx_input={input} --gdx_output={output} lf={logf} o={lst} logOption 4")
   # gams_system_call <- gsub("/", "\\\\", gams_system_call) # change forward- into backslash
+  # gams_system_call <- gsub("Program Files", "PROGRA~1", gams_system_call) # change forward- into backslash
   # cmd_output = system(gams_system_call, intern = TRUE)
 
   if (out) {
