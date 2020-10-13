@@ -10,8 +10,9 @@ create_tif <- function(crp, sy, var, df){
     dplyr::select(x, y, {{var}})
   name <- paste(crp, sy, sep = "_")
   r <- raster::rasterFromXYZ(df, crs = param$crs)
+  r <- extend(r, grid)
   names(r) <- name
-  plot(r, main = name)
+  raster::plot(r, main = name)
   cat("\nTif file created for", var, name)
   return(r)
 }

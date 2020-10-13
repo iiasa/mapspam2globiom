@@ -4,7 +4,7 @@
 create_globiom_input <- function(mapping, lc_map, param) {
 
   # Test if gdxrrw and gams are installed.
-  setup_gams()
+  setup_gams(param)
 
   # Aggregate land cover map to GLOBIOM land cover classes at simu level
   lc_df <- calc_lc_area(mapping, lc_map, param)

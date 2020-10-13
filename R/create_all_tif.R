@@ -19,8 +19,8 @@ create_all_tif <- function(param) {
       file.path(temp_path, glue::glue("{var}_{crp}_{sy}_{param$res}_{param$year}_{param$iso3c}.tif")),
       overwrite = T)
     }
-  purrr::walk2(crop_system_list$crop, crop_system_list$system, save_tif, var = "pa", df = results)
   purrr::walk2(crop_system_list$crop, crop_system_list$system, save_tif, var = "ha", df = results)
+  purrr::walk2(crop_system_list$crop, crop_system_list$system, save_tif, var = "pa", df = results)
 }
 
 

@@ -6,7 +6,7 @@
 #'  makes it possible to select a number of background tiles (e.g.
 #'  OpenStreetMap).
 #'
-#'@param crop Character. Crop for which the maps are shows. `crop`  has to be
+#'@param crp Character. Crop for which the maps are shows. `crp`  has to be
 #'  one of the SPAMc four letter crop codes.
 #'@param var Character. The variable to be plotted. `var` has to be physical
 #'  area (`"pa"`) or harvested area (`"ha"`).
@@ -22,7 +22,7 @@
 #'}
 #'
 #'@export
-view_panel <- function(crop, var, param, viewer = TRUE, polygon = TRUE){
+view_panel <- function(crp, var, param, viewer = TRUE, polygon = TRUE){
   stopifnot(inherits(param, "spam_par"))
   stopifnot(is.logical(viewer))
   stopifnot(is.logical(polygon))
@@ -52,12 +52,12 @@ view_panel <- function(crop, var, param, viewer = TRUE, polygon = TRUE){
   grid_df <- as.data.frame(raster::rasterToPoints(grid))
 
   df <- results %>%
-    dplyr::filter(crop == crop, {var} != 0)
+    dplyr::filter(crop == crp, {var} != 0)
   sys <- unique(df$system)
   st <- lapply(sys, function(x) raster::rasterFromXYZ(df[df$system == x, c("x", "y", var)], crs = crs(grid)))
   st <- lapply(st, function(x) raster::extend(x, ext)) # Harmonize exent for stacking
   st <- lapply(seq(length(st)), function(i){
-    mapview::mapview(st[[i]], layer.name = glue::glue("{var} {crop} {sys[i]}"))
+    mapview::mapview(st[[i]], layer.name = glue::glue("{var} {crp} {sys[i]}"))
   })
 
   if(polygon) {
