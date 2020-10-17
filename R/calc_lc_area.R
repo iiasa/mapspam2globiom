@@ -22,9 +22,7 @@ calc_lc_area <- function(mapping, lc_map, param) {
 
     globiom_lc_code <- mp$globiom_lc_code[i]
     cat("\nProcessing", globiom_lc_code)
-
     lc_code <- mp$lc_code[i][[1]]
-    cat("\n", lc_code)
 
     # Total lc resolution cells of lc_code class covered
     simu[,c("n_lc")] <- exactextractr::exact_extract(r, simu, function(values, coverage_fraction)
