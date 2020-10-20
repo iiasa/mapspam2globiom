@@ -1,5 +1,8 @@
 #' Create tif files of all SPAMc maps
 #'
+#'@param param
+#'@inheritParams create_grid
+#'
 #'@export
 create_all_tif <- function(param) {
   cat("\n\n############### CREATE TIF FILES FOR ALL CROP AND FARMING SYSTEM COMBINATIONS ###############")

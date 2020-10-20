@@ -6,13 +6,13 @@
 #'
 #'@param param
 #'@inheritParams create_spam_folders
-#'
+#'@param cut numeric. Sets allocation smaller than a certain value to 0. The default = 0.0001 (1 m2)
 #'@examples
 #'\dontrun{
 #'combine_results(param)
 #'}#'
 #'@export
-combine_results <- function(param) {
+combine_results <- function(param, cut = 0.0001) {
    stopifnot(inherits(param, "spam_par"))
 
    # Test if gdxrrw and gams are installed.
@@ -54,8 +54,15 @@ combine_results <- function(param) {
  temp_path <- file.path(param$spam_path,
                         glue::glue("processed_data/results/{param$res}/{param$model}"))
  dir.create(temp_path, showWarnings = F, recursive = T)
+
+ # Remove values smaller than cut
+ df <- df %>%
+    dplyr::mutate(ha = ifelse(ha < cut, NA_real_, ha),
+                  pa = ifelse(pa < cut, NA_real_, pa))
+
  saveRDS(df, file.path(temp_path, glue::glue("results_{param$res}_{param$year}_{param$iso3c}.rds")))
 }
+
 
 
 
