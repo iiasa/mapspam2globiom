@@ -1,5 +1,5 @@
 #'@title
-#'Prepares the synergy cropland area for SPAM
+#'Prepares the synergy cropland area for SPAM including tp1
 #'
 #'@param param
 #'@inheritParams create_grid

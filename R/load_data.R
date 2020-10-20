@@ -61,7 +61,7 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
                         "price",
                         "dm2fm", "crop2globiom", "faostat2crop", "crop", "gaez2crop",
                         "gaez_replace",
-                        "results")))
+                        "results", "results_tp1")))
 
   load_list <- list()
 
@@ -252,6 +252,17 @@ load_data <- function(data, param, local = FALSE, mess = TRUE){
                       glue::glue("processed_data/results/{param$res}/{param$model}/results_{param$res}_{param$year}_{param$iso3c}.rds"))
     if(file.exists(file)) {
       load_list[["results"]] <-readRDS(file)
+    } else {
+      stop(paste(basename(file), "does not exist"),
+           call. = FALSE)
+    }
+  }
+
+  if("results_tp1" %in% data) {
+    file <- file.path(param$spam_path,
+                      glue::glue("processed_data/mapspam_tp1/{param$res}/results_{param$res}_{year_tp1}_{param$iso3c}.rds"))
+    if(file.exists(file)) {
+      load_list[["results_tp1"]] <-readRDS(file)
     } else {
       stop(paste(basename(file), "does not exist"),
            call. = FALSE)

@@ -54,7 +54,7 @@ view_panel <- function(crp, var, param, viewer = TRUE, polygon = TRUE){
   df <- results %>%
     dplyr::filter(crop == crp, {var} != 0)
   sys <- unique(df$system)
-  st <- lapply(sys, function(x) raster::rasterFromXYZ(df[df$system == x, c("x", "y", var)], crs = crs(grid)))
+  st <- lapply(sys, function(x) raster::rasterFromXYZ(df[df$system == x, c("x", "y", var)], crs = raster::crs(grid)))
   st <- lapply(st, function(x) raster::extend(x, ext)) # Harmonize exent for stacking
   st <- lapply(seq(length(st)), function(i){
     mapview::mapview(st[[i]], layer.name = glue::glue("{var} {crp} {sys[i]}"))
