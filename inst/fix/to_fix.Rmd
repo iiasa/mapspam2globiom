@@ -1,0 +1,36 @@
+---
+title: "to fix"
+author: "Michiel van Dijk"
+date: "10/19/2020"
+output: pdf_document
+---
+
+# Documentation
+- replace_gaez: Not sure if it is documented that suitability which are zero need to be replaced
+
+# Functions
+- replace_gaez: At the moment when a suitability or py is zero for an adm and no replacement crop is stated in replace_gaez.csv it returns an error. Need to add message and to set fixed replacements. Also perhaps develop a function that analyzes all areas and indicates where gaez replace needs to be set.
+
+- run_spam(): If combine_inputs() is not run it returns an error. Probably all functions return an error if the previous step is not run. Proper error warnings should be added
+
+- view_stack("rice", var = "ha", param) does not work for GMB. Unknow error
+
+- view_panel() does not work. Perhaps discard.
+
+# MWI, GMB examples
+- select_sasam: Error in input file path. Corrected in GMB only
+- run all spatial: when the location of the scripts changes to a year folder such as in the case of GMB, one has to change all the paths. Perhaps this can be improved.
+
+
+
+# Additions
+## Intertemporally linked cropmaps
+
+- I added prepare cropland_tp1 to link results_tp1 with cropland extent. This is a temporary fix. Note that "results_tp1" was added to the load_data function to make this possible. Also the data that is loaded does not specifiy the type of model used but I am not sure if this is necessary.
+
+## Function that harmonizes ha with FAOSTAT
+
+## Option to have a raw_path for global files but country path for subnational statististics. Convenient if multiple countries need to be done.
+
+
+
