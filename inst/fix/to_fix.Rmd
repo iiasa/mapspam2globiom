@@ -21,6 +21,9 @@ output: pdf_document
 - select_sasam: Error in input file path. Corrected in GMB only
 - run all spatial: when the location of the scripts changes to a year folder such as in the case of GMB, one has to change all the paths. Perhaps this can be improved.
 
+# GAMS treatment
+- I know use gams path before gams.exe. Probably smaller to put it into igdx
+
 
 
 # Additions

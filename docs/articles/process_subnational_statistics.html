@@ -195,25 +195,16 @@
 <p>You can save the template as csv file and use it as a basis to prepare the statistics. Note that is is essential that you follow the template closely! Adding or removing administrative units will result in errors as the data no longer matches with the map that contains the location of the administrative units. See below for more information how to deal with missing crop information. In case of Malawi, most of the data was already in the right format so we did not use the templates.</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># Create template for ha. Replace "ha" by "fs" or "ci" for other templates.</span>
 <span class="fu"><a href="../reference/create_statistics_template.html">create_statistics_template</a></span>(<span class="st">"ha"</span>, <span class="no">param</span>)
-<span class="co">#&gt; # A tibble: 31 x 43</span>
-<span class="co">#&gt;    adm_name adm_code adm_level whea  rice  maiz  barl  mill  sorg  ocer  pota </span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;</span>
-<span class="co">#&gt;  1 Malawi   MWI              0 NA    NA    NA    NA    NA    NA    NA    NA   </span>
-<span class="co">#&gt;  2 Central~ MI02             1 NA    NA    NA    NA    NA    NA    NA    NA   </span>
-<span class="co">#&gt;  3 Norther~ MI03             1 NA    NA    NA    NA    NA    NA    NA    NA   </span>
-<span class="co">#&gt;  4 Souther~ MI04             1 NA    NA    NA    NA    NA    NA    NA    NA   </span>
-<span class="co">#&gt;  5 Dedza    MI02001          2 NA    NA    NA    NA    NA    NA    NA    NA   </span>
-<span class="co">#&gt;  6 Dowa     MI02002          2 NA    NA    NA    NA    NA    NA    NA    NA   </span>
-<span class="co">#&gt;  7 Kasungu  MI02003          2 NA    NA    NA    NA    NA    NA    NA    NA   </span>
-<span class="co">#&gt;  8 Lilongwe MI02004          2 NA    NA    NA    NA    NA    NA    NA    NA   </span>
-<span class="co">#&gt;  9 Mchinji  MI02005          2 NA    NA    NA    NA    NA    NA    NA    NA   </span>
-<span class="co">#&gt; 10 Nkhotak~ MI02006          2 NA    NA    NA    NA    NA    NA    NA    NA   </span>
-<span class="co">#&gt; # ... with 21 more rows, and 32 more variables: swpo &lt;lgl&gt;, yams &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   cass &lt;lgl&gt;, orts &lt;lgl&gt;, bean &lt;lgl&gt;, chic &lt;lgl&gt;, cowp &lt;lgl&gt;, pige &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   lent &lt;lgl&gt;, opul &lt;lgl&gt;, soyb &lt;lgl&gt;, grou &lt;lgl&gt;, cnut &lt;lgl&gt;, oilp &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   sunf &lt;lgl&gt;, rape &lt;lgl&gt;, sesa &lt;lgl&gt;, ooil &lt;lgl&gt;, sugc &lt;lgl&gt;, sugb &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   cott &lt;lgl&gt;, ofib &lt;lgl&gt;, coff &lt;lgl&gt;, coco &lt;lgl&gt;, teas &lt;lgl&gt;, toba &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   bana &lt;lgl&gt;, plnt &lt;lgl&gt;, trof &lt;lgl&gt;, temf &lt;lgl&gt;, vege &lt;lgl&gt;, rest &lt;lgl&gt;</span></pre></body></html></div>
+<span class="co">#&gt; # A tibble: 1 x 43</span>
+<span class="co">#&gt;   adm_name adm_code adm_level whea  rice  maiz  barl  mill  sorg  ocer  pota </span>
+<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;        &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;lgl&gt;</span>
+<span class="co">#&gt; 1 Malawi   MWI              0 NA    NA    NA    NA    NA    NA    NA    NA   </span>
+<span class="co">#&gt; # ... with 32 more variables: swpo &lt;lgl&gt;, yams &lt;lgl&gt;, cass &lt;lgl&gt;, orts &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   bean &lt;lgl&gt;, chic &lt;lgl&gt;, cowp &lt;lgl&gt;, pige &lt;lgl&gt;, lent &lt;lgl&gt;, opul &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   soyb &lt;lgl&gt;, grou &lt;lgl&gt;, cnut &lt;lgl&gt;, oilp &lt;lgl&gt;, sunf &lt;lgl&gt;, rape &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   sesa &lt;lgl&gt;, ooil &lt;lgl&gt;, sugc &lt;lgl&gt;, sugb &lt;lgl&gt;, cott &lt;lgl&gt;, ofib &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   coff &lt;lgl&gt;, coco &lt;lgl&gt;, teas &lt;lgl&gt;, toba &lt;lgl&gt;, bana &lt;lgl&gt;, plnt &lt;lgl&gt;,</span>
+<span class="co">#&gt; #   trof &lt;lgl&gt;, temf &lt;lgl&gt;, vege &lt;lgl&gt;, rest &lt;lgl&gt;</span></pre></body></html></div>
 <p>For processing it is easier to transform the data into the <strong>long</strong> format, which is similar to the <a href="https://tidyr.tidyverse.org/"><strong>tidy</strong> data format</a> as implemented by the tidyverse packages. In our case this means that the 40 crop columns are squeezed into two columns, one with the crop code and another with the data. The <code>gather()</code> and <code>spread()</code> in the <a href="https://tidyr.tidyverse.org/">tidyr</a> package were designed to help you switch between wide and long tables.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> See below and the Malawi scripts for examples.</p>
 </div>
 <div id="aggregating-to-spam-c-crop-classes" class="section level3">
@@ -299,16 +290,16 @@
   <span class="no">ha_df</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">adm_level</span> <span class="kw">==</span> <span class="fl">0</span>) <span class="kw">%&gt;%</span>
     <span class="fu">mutate</span>(<span class="kw">source</span> <span class="kw">=</span> <span class="st">"ha_df"</span>)) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">crop</span>, <span class="no">source</span>, <span class="no">ha</span>) <span class="kw">%&gt;%</span>
+  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span>(<span class="no">crop</span>, <span class="no">source</span>, <span class="no">ha</span>) <span class="kw">%&gt;%</span>
   <span class="fu">spread</span>(<span class="no">source</span>, <span class="no">ha</span>) <span class="kw">%&gt;%</span>
   <span class="fu">mutate</span>(<span class="kw">sf</span> <span class="kw">=</span> <span class="no">fao</span>/<span class="no">ha_df</span>) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">crop</span>, <span class="no">sf</span>)
+  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span>(<span class="no">crop</span>, <span class="no">sf</span>)
 
 <span class="co"># rescale ha_df</span>
 <span class="no">ha_df</span> <span class="kw">&lt;-</span> <span class="no">ha_df</span> <span class="kw">%&gt;%</span>
   <span class="fu">left_join</span>(<span class="no">fao_stat_sf</span>) <span class="kw">%&gt;%</span>
   <span class="fu">mutate</span>(<span class="kw">ha</span> <span class="kw">=</span> <span class="no">ha</span> * <span class="no">sf</span>) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">sf</span>)</pre></body></html></div>
+  <span class="kw pkg">dplyr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span>(-<span class="no">sf</span>)</pre></body></html></div>
 <p>Finally the three files (ha, fs and ci), need to be saved in the `processed_data/agricultural_statistics folders. It is important to use the correct names otherwise other functions cannot find the data.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu">write_csv</span>(<span class="no">ha_df</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">param</span>$<span class="no">spam_path</span>, <span class="fu">glue</span>(<span class="st">"processed_data/agricultural_statistics/ha_adm_{param$year}_{param$iso3c}.csv"</span>)))
 <span class="fu">write_csv</span>(<span class="no">fs_df</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">param</span>$<span class="no">spam_path</span>, <span class="fu">glue</span>(<span class="st">"processed_data/agricultural_statistics/fs_adm_{param$year}_{param$iso3c}.csv"</span>)))
