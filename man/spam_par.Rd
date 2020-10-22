@@ -12,7 +12,8 @@ spam_par(
   res = "5min",
   adm_level = 1,
   solve_level = 0,
-  model = "max_score"
+  model = "max_score",
+  gams_path = NULL
 )
 }
 \arguments{
@@ -53,7 +54,7 @@ spam_par object
 \description{
 \code{spam_par} sets all required parameters for spam to run, including core model
 folders, country code, year, spatial resolution, availability of subnational
-statistics, solve level, type of model and coordinate reference system.
+statistics, solve level, type of model and location of GAMS.
 }
 \details{
 \code{spam_par} creates an object of class \code{spam_par}, which bundles all required
@@ -64,6 +65,10 @@ model is solved, type of model, three digit country code, FAO country code and
 continent. The coordinate reference system is automatically set to WGS84
 (epsg:4326).
 
+If GAMS is properly installed, the GAMS executable is automatically found,
+which is required to load the libraries to create gdx files. In case this
+gives problems the location of GAMS can be added manually.
+
 \code{\link[countrycode]{countrycode}} is used to determine the full country
 name, three digit country code, three digit FAO country code and continent on
 the basis of the alpha-3 country code. This information is required to extract
@@ -73,6 +78,6 @@ country specific information from several datasets.
 \dontrun{
 spam_par(spam_path = "C:/Users/dijk158/Dropbox/mapspam2globiom_mwi",
 iso3c = "MWI", year = 2010, res = "5min", adm_level = 1,
-solve_level = 0, model = "max_score")
+solve_level = 0, model = "max_score", gams_path = "C:/GAMS")
 }
 }

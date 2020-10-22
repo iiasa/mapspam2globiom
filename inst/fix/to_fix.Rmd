@@ -28,9 +28,11 @@ output: pdf_document
 
 - I added prepare cropland_tp1 to link results_tp1 with cropland extent. This is a temporary fix. Note that "results_tp1" was added to the load_data function to make this possible. Also the data that is loaded does not specifiy the type of model used but I am not sure if this is necessary.
 
-## Function that harmonizes ha with FAOSTAT
+## Other
+- Function that harmonizes ha with FAOSTAT
 
-## Option to have a raw_path for global files but country path for subnational statististics. Convenient if multiple countries need to be done.
+- Option to have a raw_path for global files but country path for subnational statististics. Convenient if multiple countries need to be done.
 
+- Function that reports slack variables from gdx output
 
-
+- Check if there are no NA or -999 values at top level when running at ADM1. Yating had this for ETH and this resulted in an error.

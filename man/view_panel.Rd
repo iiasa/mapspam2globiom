@@ -4,10 +4,10 @@
 \alias{view_panel}
 \title{Show crop distributions maps using a panel for each farming system}
 \usage{
-view_panel(crop, var, param, viewer = TRUE, polygon = TRUE)
+view_panel(crp, var, param, viewer = TRUE, polygon = TRUE)
 }
 \arguments{
-\item{crop}{Character. Crop for which the maps are shows. \code{crop}  has to be
+\item{crp}{Character. Crop for which the maps are shows. \code{crp}  has to be
 one of the SPAMc four letter crop codes.}
 
 \item{var}{Character. The variable to be plotted. \code{var} has to be physical
