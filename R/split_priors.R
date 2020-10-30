@@ -37,9 +37,9 @@ split_priors <- function(ac, param){
     dplyr::rename(adm_code = glue::glue("adm{param$adm_level}_code")) %>%
     dplyr::group_by(adm_code) %>%
     dplyr::mutate(
-      pop_norm = 100*(pop-min(pop, na.rm = T))/(max(pop, na.rm = T)-min(pop, na.rm = T))) %>%
+      pop_norm = 100*(pop-min(pop, na.rm = T))/(max(pop, na.rm = T)-min(pop, na.rm = T)),
+      pop_norm = ifelse(is.nan(pop_norm) | is.na(pop_norm), 0, pop_norm)) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(pop_norm = ifelse(is.nan(pop_norm) | is.na(pop_norm), 0, pop_norm)) %>%
     dplyr::select(gridID, pop_norm) %>%
     dplyr::filter(gridID %in% unique(cl_harm$gridID))
 
@@ -108,7 +108,9 @@ split_priors <- function(ac, param){
     dplyr::group_by(crop) %>%
     dplyr::mutate(
       pop_norm = ifelse(bs == 0, 0, pop_norm),
+      pop_norm = ifelse(is.na(pop_norm), 0, pop_norm),
       rur_pop_share = pop_norm/sum(pop_norm, na.rm = T),
+      rur_pop_share = ifelse(is.na(rur_pop_share), 0, rur_pop_share),
       crop_system = paste(crop, system, sep = "_")) %>%
     dplyr::ungroup() %>%
     dplyr::select(gridID, crop_system, rur_pop_share) %>%
@@ -130,7 +132,9 @@ split_priors <- function(ac, param){
   prior_l <- priors_base %>%
     dplyr::filter(system == "L") %>%
     dplyr::left_join(bs, by = c("gridID", "crop_system")) %>%
-    dplyr::mutate(prior = 100*(bs-min(bs, na.rm = T))/(max(bs, na.rm = T)-min(bs, na.rm = T))) %>%
+    dplyr::mutate(bs = ifelse(is.na(bs), 0, bs),
+                  prior = 100*(bs-min(bs, na.rm = T))/(max(bs, na.rm = T)-min(bs, na.rm = T)),
+                  prior = ifelse(is.na(prior), 0, prior)) %>%
     dplyr::select(gridID, crop_system, prior)
 
 
@@ -151,9 +155,13 @@ split_priors <- function(ac, param){
     dplyr::filter(system == "H") %>%
     dplyr::left_join(rev, by = c("gridID", "crop_system")) %>%
     dplyr::left_join(acc, by = "gridID") %>%
-    dplyr::mutate(rev_norm = 100*(rev-min(rev, na.rm = T))/(max(rev, na.rm = T)-min(rev, na.rm = T)),
+    dplyr::mutate(
+           rev = ifelse(is.na(rev), 0, rev),
+           acc_norm = ifelse(is.na(acc_norm), 0, acc_norm),
+           rev_norm = 100*(rev-min(rev, na.rm = T))/(max(rev, na.rm = T)-min(rev, na.rm = T)),
            prior = (rev_norm*acc_norm)^0.5,
-           prior = 100*(prior-min(prior, na.rm = T))/(max(prior, na.rm = T)-min(prior, na.rm = T))) %>%
+           prior = 100*(prior-min(prior, na.rm = T))/(max(prior, na.rm = T)-min(prior, na.rm = T)),
+           prior = ifelse(is.na(prior), 0, prior)) %>%
     dplyr::select(gridID, crop_system, prior)
 
   ## IRRIGATION
@@ -169,9 +177,13 @@ split_priors <- function(ac, param){
     dplyr::filter(!is.na(ia)) %>%
     dplyr::left_join(rev, by = c("gridID", "crop_system")) %>%
     dplyr::left_join(acc,  by = "gridID") %>%
-    dplyr::mutate(rev_norm = 100*(rev-min(rev, na.rm = T))/(max(rev, na.rm = T)-min(rev, na.rm = T)),
-           prior = (rev_norm*acc_norm)^0.5,
-           prior = 100*(prior-min(prior, na.rm = T))/(max(prior, na.rm = T)-min(prior, na.rm = T))) %>%
+    dplyr::mutate(
+      rev = ifelse(is.na(rev), 0, rev),
+      acc_norm = ifelse(is.na(acc_norm), 0, acc_norm),
+      rev_norm = 100*(rev-min(rev, na.rm = T))/(max(rev, na.rm = T)-min(rev, na.rm = T)),
+      prior = (rev_norm*acc_norm)^0.5,
+      prior = 100*(prior-min(prior, na.rm = T))/(max(prior, na.rm = T)-min(prior, na.rm = T)),
+      prior = ifelse(is.na(prior), 0, prior)) %>%
     dplyr::select(gridID, crop_system, prior)
 
 
@@ -184,7 +196,8 @@ split_priors <- function(ac, param){
     dplyr::left_join(cl_harm,., by = "gridID") %>%
     dplyr::mutate(
       prior_s = ifelse(is.na(prior_s), 0, prior_s),
-      resid = ifelse(cl-prior_s < 0, 0, cl-prior_s)) %>%
+      resid = ifelse(cl-prior_s < 0, 0, cl-prior_s),
+      resid = ifelse(is.na(resid), 0, resid)) %>%
     dplyr::select(gridID, resid)
 
   # Distribute residual area over I, L, H systems using score as weight.
@@ -192,7 +205,8 @@ split_priors <- function(ac, param){
     tidyr::spread(crop_system, prior, fill = 0) %>% # add 0 as fill
     tidyr::gather(crop_system, prior, -gridID) %>%
     dplyr::group_by(gridID) %>%
-    dplyr::mutate(prior_share = prior/sum(prior, na.rm = T)) %>%
+    dplyr::mutate(prior_share = prior/sum(prior, na.rm = T),
+                  prior_share = ifelse(is.na(prior_share), 0, prior_share)) %>%
     dplyr::ungroup() %>%
     dplyr::left_join(resid_area, by = "gridID") %>%
     dplyr::mutate(prior = resid * prior_share) %>%

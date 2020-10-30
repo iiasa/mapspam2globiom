@@ -37,9 +37,9 @@ split_scores <- function(ac, param){
     dplyr::rename(adm_code = glue::glue("adm{param$adm_level}_code")) %>%
     dplyr::group_by(adm_code) %>%
     dplyr::mutate(
-      pop_norm = 100*(pop-min(pop, na.rm = T))/(max(pop, na.rm = T)-min(pop, na.rm = T))) %>%
+      pop_norm = 100*(pop-min(pop, na.rm = T))/(max(pop, na.rm = T)-min(pop, na.rm = T)),
+      pop_norm = ifelse(is.nan(pop_norm) | is.na(pop_norm), 0, pop_norm)) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(pop_norm = ifelse(is.nan(pop_norm) | is.na(pop_norm), 0, pop_norm)) %>%
     dplyr::select(gridID, pop_norm) %>%
     dplyr::filter(gridID %in% unique(cl_harm$gridID))
 
@@ -108,7 +108,9 @@ split_scores <- function(ac, param){
     dplyr::group_by(crop) %>%
     dplyr::mutate(
       pop_norm = ifelse(bs == 0, 0, pop_norm),
+      pop_norm = ifelse(is.na(pop_norm), 0, pop_norm),
       rur_pop_share = pop_norm/sum(pop_norm, na.rm = T),
+      rur_pop_share = ifelse(is.na(rur_pop_share), 0, rur_pop_share),
       crop_system = paste(crop, system, sep = "_")) %>%
     dplyr::ungroup() %>%
     dplyr::select(gridID, crop_system, rur_pop_share)
@@ -128,7 +130,10 @@ split_scores <- function(ac, param){
     dplyr::filter(system == "L") %>%
     dplyr::left_join(adm_map_r, by = "gridID") %>%
     dplyr::left_join(bs, by = c("gridID", "crop_system")) %>%
-    dplyr::mutate(score = 100*(bs-min(bs, na.rm = T))/(max(bs, na.rm = T)-min(bs, na.rm = T))) %>%
+    dplyr::mutate(
+      bs = ifelse(is.na(bs), 0, bs),
+      score = 100*(bs-min(bs, na.rm = T))/(max(bs, na.rm = T)-min(bs, na.rm = T)),
+      score = ifelse(is.na(score),0, score)) %>%
     dplyr::select(gridID, crop_system, score)
 
   ## HIGH INPUT
@@ -149,9 +154,13 @@ split_scores <- function(ac, param){
     dplyr::left_join(adm_map_r, by = "gridID") %>%
     dplyr::left_join(rev, by = c("gridID", "crop_system")) %>%
     dplyr::left_join(acc, by = "gridID") %>%
-    dplyr::mutate(rev_norm = 100*(rev-min(rev, na.rm = T))/(max(rev, na.rm = T)-min(rev, na.rm = T)),
-           score = (rev_norm*acc_norm)^0.5,
-           score = 100*(score-min(score, na.rm = T))/(max(score, na.rm = T)-min(score, na.rm = T))) %>%
+    dplyr::mutate(
+      rev = ifelse(is.na(rev), 0, rev),
+      acc_norm = ifelse(is.na(acc_norm), 0, acc_norm),
+      rev_norm = 100*(rev-min(rev, na.rm = T))/(max(rev, na.rm = T)-min(rev, na.rm = T)),
+      score = (rev_norm*acc_norm)^0.5,
+      score = 100*(score-min(score, na.rm = T))/(max(score, na.rm = T)-min(score, na.rm = T)),
+      score = ifelse(is.na(score), 0, score)) %>%
     dplyr::select(gridID, crop_system, score)
 
 
@@ -168,9 +177,13 @@ split_scores <- function(ac, param){
     dplyr::filter(!is.na(ia)) %>%
     dplyr::left_join(rev, by = c("gridID", "crop_system")) %>%
     dplyr::left_join(acc,  by = "gridID") %>%
-    dplyr::mutate(rev_norm = 100*(rev-min(rev, na.rm = T))/(max(rev, na.rm = T)-min(rev, na.rm = T)),
-           score = (rev_norm*acc_norm)^0.5,
-           score = 100*(score-min(score, na.rm = T))/(max(score, na.rm = T)-min(score, na.rm = T))) %>%
+    dplyr::mutate(
+      rev = ifelse(is.na(rev), 0, rev),
+      acc_norm = ifelse(is.na(acc_norm), 0, acc_norm),
+      rev_norm = 100*(rev-min(rev, na.rm = T))/(max(rev, na.rm = T)-min(rev, na.rm = T)),
+      score = (rev_norm*acc_norm)^0.5,
+      score = 100*(score-min(score, na.rm = T))/(max(score, na.rm = T)-min(score, na.rm = T)),
+      score = ifelse(is.na(score), 0, score)) %>%
     dplyr::select(gridID, crop_system, score)
 
 

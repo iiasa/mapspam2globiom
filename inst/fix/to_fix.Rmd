@@ -17,12 +17,15 @@ output: pdf_document
 
 - view_panel() does not work. Perhaps discard.
 
+- split_scores/split_priors: I added a statement that rur_pop_share = 0 if it is NA. NAs are caused by missing values in bs (example for ET02). I suspect it has to do with the sampling of GAEZ to 30sec where edge information might be lost if it is resampled to a finer grid (e.g. 30 sec).
+
 # MWI, GMB examples
 - select_sasam: Error in input file path. Corrected in GMB only
 - run all spatial: when the location of the scripts changes to a year folder such as in the case of GMB, one has to change all the paths. Perhaps this can be improved.
 
 # GAMS treatment
 - I know use gams path before gams.exe. Probably smaller to put it into igdx
+
 
 
 
@@ -34,8 +37,16 @@ output: pdf_document
 ## Other
 - Function that harmonizes ha with FAOSTAT
 
-- Option to have a raw_path for global files but country path for subnational statististics. Convenient if multiple countries need to be done.
+- Option to have a raw_path for global files but country path for subnational statististics. Convenient if multiple countries need to be done. In fact the raw path is not used anywhere inside the functions as the code to process maps and statistics is not capture in function. Hence, we could simply add the possibility to set a global path and use param$glob_path when global maps are called. In this way, the user can decide either split the location of the raw  data or set glob_path to raw_path (default if is.null(glob_path))
 
 - Function that reports slack variables from gdx output
 
 - Check if there are no NA or -999 values at top level when running at ADM1. Yating had this for ETH and this resulted in an error.
+
+- Use other production systems for same crop as replacement when suitability is missing. E.g. currently I am using maiz_I for sunf_I if sunf_I is missing as defined in gaez_replace. Might be better to use sunf_S. 
+
+- Add an approach to run all steps for a single ADM1 if the model is run at ADM1. All lower level functions in fact do this but they are not exported. Need to create standardized names (e.g. run_model vs run_model_adm) for all functions, export and document them. 
+
+- Things go wrong with the GAEZ data at 30 sec because grid cells that are located at the border are NA because of the coarser resolution. Problem is caused by clipping the 5 arcmin to the country polygon. In this process 5 arcmin grid cells which centre is located outside the country are not selected. If we would first disaggregate the global GAEZ maps and then clip. Many more 30sec border cells will be retained.
+
+- Add adm_code to pdf file with adm maps.
