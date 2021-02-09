@@ -47,6 +47,12 @@ output: pdf_document
 
 - Add an approach to run all steps for a single ADM1 if the model is run at ADM1. All lower level functions in fact do this but they are not exported. Need to create standardized names (e.g. run_model vs run_model_adm) for all functions, export and document them. 
 
-- Things go wrong with the GAEZ data at 30 sec because grid cells that are located at the border are NA because of the coarser resolution. Problem is caused by clipping the 5 arcmin to the country polygon. In this process 5 arcmin grid cells which centre is located outside the country are not selected. If we would first disaggregate the global GAEZ maps and then clip. Many more 30sec border cells will be retained.
+- Things go wrong with the GAEZ data at 30 sec because grid cells that are located at the border are NA because of the coarser resolution. Problem is caused by clipping the 5 arcmin to the country polygon. In this process 5 arcmin grid cells which centre is located outside the country are not selected. If we would first disaggregate the global GAEZ maps and then clip. Many more 30sec border cells will be retained. Need to do the same thing for GMIA!
+
+- Note that for ET6 there is an error in split_scores/priors because all rev values are NA (and hence 0). Possible introduce a warning when all GAEZ values are zero within an ADM1. At the moment we only check if GAEZ is 0 for the whole country.
 
 - Add adm_code to pdf file with adm maps.
+
+- Add check to see if adm_code etc in poly and adm_list add up
+
+- Add check if file exists before running harmonization. For example if GAEZ PY is not created there is no check and an error will occur.
