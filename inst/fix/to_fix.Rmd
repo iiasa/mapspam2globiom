@@ -56,3 +56,5 @@ output: pdf_document
 - Add check to see if adm_code etc in poly and adm_list add up
 
 - Add check if file exists before running harmonization. For example if GAEZ PY is not created there is no check and an error will occur.
+
+- note that an adm2_code is missing in the ZWE model but it still runs. Need to check how this plays out and add warning when this occurs.
