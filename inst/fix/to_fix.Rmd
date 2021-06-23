@@ -5,6 +5,9 @@ date: "10/19/2020"
 output: pdf_document
 ---
 
+# Create own universe for packages
+#https://www.r-bloggers.com/2021/06/how-to-create-your-personal-cran-like-repository-on-r-universe/
+
 # Documentation
 - replace_gaez: Not sure if it is documented that suitability which are zero need to be replaced
 
