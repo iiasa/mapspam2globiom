@@ -35,7 +35,7 @@
 #'  and the GLOBIOM land cover codes must have column name 'globiom_lc_code'.
 #'  Country land cover codes can correspond to multiple GLOBIOM land cover
 #'  codes.
-#'@param crop_map. Data.frame with the mapping between mapspamc and GLOBIOM crop
+#'@param crop_map Data.frame with the mapping between mapspamc and GLOBIOM crop
 #'  codes. The country crop must have column name 'crop' and the GLOBIOM crop
 #'  codes must have column name 'globiom_crop'. Country crop codes can
 #'  correspond to multiple GLOBIOM crop codes.

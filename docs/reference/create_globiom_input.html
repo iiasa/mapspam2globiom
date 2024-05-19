@@ -140,6 +140,13 @@ Country land cover codes can correspond to multiple GLOBIOM land cover
 codes.</p></dd>
 
 
+<dt>crop_map</dt>
+<dd><p>Data.frame with the mapping between mapspamc and GLOBIOM crop
+codes. The country crop must have column name 'crop' and the GLOBIOM crop
+codes must have column name 'globiom_crop'. Country crop codes can
+correspond to multiple GLOBIOM crop codes.</p></dd>
+
+
 <dt>lc</dt>
 <dd><p>National land cover map that is consistent with the mapping
 data.frame.</p></dd>
@@ -160,13 +167,6 @@ of model.</p></dd>
 <dt>area_type</dt>
 <dd><p>Selection of crop distribution maps produced by <code>mapspamc</code>:
 "pa" (physical area - default) or "ha" (harvested area).</p></dd>
-
-
-<dt>crop_map.</dt>
-<dd><p>Data.frame with the mapping between mapspamc and GLOBIOM crop
-codes. The country crop must have column name 'crop' and the GLOBIOM crop
-codes must have column name 'globiom_crop'. Country crop codes can
-correspond to multiple GLOBIOM crop codes.</p></dd>
 
 </dl></div>
 
