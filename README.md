@@ -13,16 +13,16 @@ The aim of the [mapspam2globiom R
 package](https://iiasa.github.io/mapspam2globiom) is to facilitate the
 creation of country level crop distribution maps, which can be used as
 input by the IIASA’s [Global Biosphere Management Model
-(GLOBIOM)](https://www.globiom.org/). GLOBIOM is a spatially explicit
-partial equilibrium model that is used to analyze the competition for
-land use between agriculture, forestry, and bioenergy. The model can be
-used for global and national level analysis (Valin et al. 2013; Leclère
-et al. 2014; Havlik et al. 2014). In the latter case, model output can
-be greatly improved by incorporating regionally specific information
-that is often provided by local stakeholders or can be taken from
-national statistics. Information on crop cover and the location of crops
-are a key driver of the model and it is therefore desirable to base
-these as much as possible on national sources of information.
+(GLOBIOM)](globiom.org/). GLOBIOM is a spatially explicit partial
+equilibrium model that is used to analyze the competition for land use
+between agriculture, forestry, and bioenergy. The model can be used for
+global and national level analysis (Valin et al. 2013; Leclère et al.
+2014; Havlik et al. 2014). In the latter case, model output can be
+greatly improved by incorporating regionally specific information that
+is often provided by local stakeholders or can be taken from national
+statistics. Information on crop cover and the location of crops are a
+key driver of the model and it is therefore desirable to base these as
+much as possible on national sources of information.
 
 mapspam2globiom includes a single function to aggregate crop
 distribution maps that were created with [mapspamc
