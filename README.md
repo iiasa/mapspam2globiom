@@ -47,7 +47,7 @@ remotes::install_github("iiasa/mapspam2globiom")
 
 Apart from the mapspam2globiom package, several other pieces of software
 are essential to run `mapspam2globiom`, which are described in the
-[Installation](articles/software.html) section.
+[Installation](articles/installation.html) section.
 
 ## References
 
