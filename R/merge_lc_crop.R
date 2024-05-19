@@ -15,19 +15,20 @@ merge_lc_crop <- function(lc, crop, lc_rp = c("OthNatLnd", "NotRel", "WetLnd", "
                              globiom_lc_code = c("OthAgri", "CrpLnd"), stringsAsFactors = F)
 
     # split off rest crops
-    simu_crop_ag <- crop %>%
-      dplyr::mutate(globiom_lc_code = ifelse(globiom_crop == "rest", "OthAgri", "CrpLnd")) %>%
-      dplyr::group_by(SimUID, globiom_lc_code) %>%
-      dplyr::summarize(value = sum(value, na.rm = T)) %>%
-      dplyr::left_join(base_flex, ., by = c("SimUID", "globiom_lc_code")) %>%
+    simu_crop_ag <- crop |>
+      dplyr::mutate(globiom_lc_code = ifelse(globiom_crop == "rest", "OthAgri", "CrpLnd")) |>
+      dplyr::group_by(SimUID, globiom_lc_code) |>
+      dplyr::summarize(value = sum(value, na.rm = T),
+                       .groups = "drop") |>
+      dplyr::left_join(base_flex, ., by = c("SimUID", "globiom_lc_code")) |>
       dplyr::mutate(value = ifelse(is.na(value), 0, value))
 
-    lc <- lc %>%
-      dplyr::filter(!globiom_lc_code %in% c("CrpLnd")) %>%
-      dplyr::left_join(base_fix,., by = c("SimUID", "globiom_lc_code")) %>%
-      dplyr::mutate(value = ifelse(is.na(value), 0, value)) %>%
-      dplyr::bind_rows(simu_crop_ag) %>%
-      dplyr::ungroup() %>%
+    lc <- lc |>
+      dplyr::filter(!globiom_lc_code %in% c("CrpLnd")) |>
+      dplyr::left_join(base_fix,., by = c("SimUID", "globiom_lc_code")) |>
+      dplyr::mutate(value = ifelse(is.na(value), 0, value)) |>
+      dplyr::bind_rows(simu_crop_ag) |>
+      dplyr::ungroup() |>
       dplyr::filter(SimUID == simu_id)
 
     diff <- lc$value[lc$globiom_lc_code %in% "SimUarea"] - sum(lc$value[!lc$globiom_lc_code %in% "SimUarea"])

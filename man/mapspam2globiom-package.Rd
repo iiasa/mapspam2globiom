@@ -6,20 +6,7 @@
 \alias{mapspam2globiom-package}
 \title{mapspam2globiom: An R package to create crop distribution maps as input for GLOBIOM}
 \description{
-The aim of the mapspam2globiom R package is to facilitate the
-    creation of country level crop distribution maps, which can be used as
-    input by the IIASA's Global Biosphere Management Model (GLOBIOM) for a
-    selected country. mapspam2globiom provides the necessary
-    infrastructure to run the Spatial Production Allocation Model for
-    Country level studies (SPAMc). The model builds on the global version
-    of SPAM (You et al., 2006; You et al., 2009 et al.; You et al., 2014
-    and Yu et al., 2020), which use a cross-entropy optimization approach
-    to 'pixelate' national and subnational crop statistics on a spatial grid
-    at a resolution of 5 arcmin. SPAMc was specifically developed to support
-    country level analysis and makes it possible to incorporate national
-    sources of information and create maps at a higher resolution of 30
-    arcsec. Van Dijk et al. (2020) provides an in-depth discussion of SPAMc
-    including an example for Southern Africa.
+The aim of the mapspam2globiom R package is to facilitate the creation of country level crop distribution maps, which can be used as input by the IIASA's Global Biosphere Management Model (GLOBIOM) for a selected country. mapspam2globiom includes several functions to aggregate crop distribution maps that were created with the mapspamc package (Van Dijk et al. 2020) to the GLOBIOM input format. mapspamc was specifically developed to create national crop distribution maps using the Spatial Production Allocation Model (SPAM) (You and Wood 2006; You, Wood, and Wood-Sichra 2009; You et al. 2014; Yu et al. 2020).
 }
 \seealso{
 Useful links:

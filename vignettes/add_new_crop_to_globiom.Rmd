@@ -14,9 +14,19 @@ knitr::opts_chunk$set(
 )
 ```
 
-GLOBIOM represents 18 crops globally and 27 crops for the European Union. Once you have created country-level crop distribution maps using mapspam2globiom, you might wish to have one of the crops, for which you have created a crop distribution map, included in GLOBIOM. Reasons for doing so may be that the crop is of large importance for the country in terms of production, consumption or trade.
+GLOBIOM represents 18 crops globally and 27 crops for the European Union. The more detailed crop distribution maps generated with `mapspamc` can be used to add an additional crop for a specific country. Reasons for doing so may be that the crop is of large importance for the country in terms of production, consumption or trade. The first step is to ensure that the new crop is added to the updated land cover and crop distribution files that are created with the `create_globiom_input()` function. This is done by updating the table that maps the `mapspamc` crops to the 18 GLOBIOM crops, which is stored in `crop2globiom` - a data file that is part of the `mapspam2globiom` package. In the next step several adjustments need to be made in GLOBIOM.
 
-In GLOBIOM, a crop can enter the model either as a crop that is only produced in the country of interest and traded with the rest of the world, or a crop that is produced and consumed in the whole world and traded bilaterally. As the focus is here on country-level crop distribution maps, we take the example of including a specific crop in terms of area and production only for the country of interest, with trade to and from the rest of the world. This example starts from the point where the new crop distribution maps have been prepared and added to the GLOBIOM database to replace the global data. As described in the section on [Post-processing](post_process.html), the new crop also needs to be added to the `crop2globiom.csv` file that contains the mapping between the SPAMc and GLOBIOM crops.
+In the example below, we will add coffee as a separate crop. 
+
+```{r eval = FALSE}
+# Update crop2globiom.csv and map coff to coff (instead of the rest category) and overwrite
+crop_map <- crop2globiom %>%
+  mutate(globiom_crop = ifelse(crop == "coff", "Coff", globiom_crop))
+```
+
+When `create_globiom_input()` is run with the updated mapping, coff will be includes as a separate crop in the gdx file. 
+
+In GLOBIOM, a crop can enter the model either as a crop that is only produced in the country of interest and traded with the rest of the world, or a crop that is produced and consumed in the whole world and traded bilaterally. As the focus is here on country-level crop distribution maps, we take the example of including a specific crop in terms of area and production only for the country of interest, with trade to and from the rest of the world. This example starts from the point where the new crop distribution maps have been prepared and added to the GLOBIOM database to replace the global data. As described in the section on [Post-processing](post_process.html), the new crop also needs to be added to the `crop2globiom.csv` file that contains the mapping between the crop distribution maps generated with `mapspamc` and the GLOBIOM crops.
  
 To add a new crop, we take the following steps:
 
@@ -104,7 +114,7 @@ DData(REGION,CROPS,'PriceEla') = DemandPriceEla_USDA(REGION,CROPS);
 
 #### Shifting demand for a new crop
 
-After the initialization of the new crop in the DDATA, the demand change over the years is dependent on the price elasticity of demand. The price elasticity indicates by how much the relative change in consumption is affected with respect to relative change in price and is calculated as a function depending on population size, gross domestic product (GDP) and product prices. In GLOBIOM, the demand system is set-up in such a way that the price elasticity of developing countries converges to the price elasticity of the USA in 2000 at the same pace as their GDP per capita reach the USA GDP per capita value of 2000 ([see section 7 of the the GLOBIOM documentation for more information](https://iiasa.github.io/GLOBIOM/GLOBIOM_Documentation_20180604.pdf)). However, one may want to diverge away from this assumption, for example when there is reason to believe that the price elasticity of the respective country does not follow the same trajectory as that of the US. This could for example be the case with products that are not used for food consumption, such as rubber and oil palm. In this case, alternative information, e.g. on the consumption of the specific crop per income class can be used to define how the price elasticity of demand may change over time for the product. The newly defined demand elasticity can then change based on the change in population and GDP in a similar fashion as the demand change:
+After the initialization of the new crop in the DDATA, the demand change over the years is dependent on the price elasticity of demand. The price elasticity indicates by how much the relative change in consumption is affected with respect to relative change in price and is calculated as a function depending on population size, gross domestic product (GDP) and product prices. In GLOBIOM, the demand system is set-up in such a way that the price elasticity of developing countries converges to the price elasticity of the USA in 2000 at the same pace as their GDP per capita reach the USA GDP per capita value of 2000 ([see GLOBIOM documentation for more information](https://globiom.org/)). However, one may want to diverge away from this assumption, for example when there is reason to believe that the price elasticity of the respective country does not follow the same trajectory as that of the US. This could for example be the case with products that are not used for food consumption, such as rubber and oil palm. In this case, alternative information, e.g. on the consumption of the specific crop per income class can be used to define how the price elasticity of demand may change over time for the product. The newly defined demand elasticity can then change based on the change in population and GDP in a similar fashion as the demand change:
 
 ```
 Define_scenario.gms
@@ -199,4 +209,6 @@ TRADE_EXO(REGION,PRODUCT)  = TRADE_EXO_Base(REGION,PRODUCT) ;
 
 TRADE_EXO(REGION,PRODUCT) = TRADE_EXO(REGION,PRODUCT) *  World_Conso_shifter_yr(PRODUCT,SCENYEAR) ;
 ```
+
+
 

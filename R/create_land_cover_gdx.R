@@ -1,7 +1,13 @@
 # Function to create land cover for GLOBIOM in gdx format
-create_land_cover_gdx <- function(lc, param) {
-  lc <- lc %>%
-    dplyr::left_join(simu_info, by = "SimUID") %>%
+create_land_cover_gdx <- function(lc, simu, param) {
+
+  simu_info <- simu |>
+    st_drop_geometry() |>
+    dplyr::select(-simu_area) |>
+    unique()
+
+  lc <- lc |>
+    dplyr::left_join(simu_info, by = "SimUID") |>
     dplyr::select(
       SimUID,
       globiom_lc_code,
@@ -33,8 +39,9 @@ create_land_cover_gdx <- function(lc, param) {
       "Updated land cover (000 ha)"
     )
 
-  temp_path <- file.path(param$spam_path,
-                         glue::glue("processed_data/results/{param$res}/{param$model}"))
+  model_folder <- glue::glue("{param$model}_{param$resolution}_adm_level_{param$adm_level}_solve_level_{param$solve_level}")
+  temp_path <- file.path(param$model_path,
+                         glue::glue("processed_data/results/{model_folder}"))
   dir.create(temp_path, showWarnings = F, recursive = T)
 
   gdxrrw::wgdx(file.path(

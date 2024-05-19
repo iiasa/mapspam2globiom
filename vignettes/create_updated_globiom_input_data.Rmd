@@ -1,0 +1,89 @@
+---
+title: "Create updated GLOBIOM land cover and crop distribution data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Create updated GLOBIOM land cover and crop distribution data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Create updated land cover and crop distribution information
+
+With respect to the distribution of crops, GLOBIOM uses two related data layers. A table with area information on the land cover per simu, distinguishing seven major land use classes,some of which are split into subclasses:
+
+- Cropland (CrpLnd)
+- Other agricultural land (OthAgri)
+- Grassland (Grass)
+- Forest (Forest), separated into managed, unmanaged and rotation forest
+- Wetlands (WetLnd)
+- Other natural vegetation (OthNatLnd)
+- Not relevant land cover (NotRel)
+
+The second table provides information on the location of the 18 crops that are modeled by GLOBIOM, which together make up the Cropland class. Other agricultural land shows the location of all the other crops. The distribution of crops in the global version of the model is based on the global Spatial Production Allocation Model (SPAM) for 2000.
+
+The function `create_globiom_input()` creates two gdx files. One file updates the global land cover data in GLOBIOM for the target country, while the other file replaces global land use data. Both files will be saved in the `processed_data/results` folder. Note that the area will be expressed in 1000 ha, which is common in GLOBIOM. Before `create_globiom_input()` can be run, you need to prepare three input files. First, you need to collect a new country level land cover map. Any product can be used as long as it contains information on the six GLOBIOM land cover classes. The most obvious choice would be to take a national land cover map for the year 2000 or any other map that is close to the year for which the subnational statistics are available. If such map is not available it is also possible to use a global land cover product and use the country polygon to mask the relevant area. An example mapping is included for the ESACCI land cover files and can be opened by calling esacci2globiom. Finally, a polygon file is needed with the location of the GLOBIOM simulation units (simu), which can be clipped from the global GLOBIOM simu shapefile that is stored in mapspamc_db (see [mapspamc package](https://michielvandijk.github.io/mapspamc/)).
+
+In this example we will use the ESACCI land cover maps for which historical information is available. Make sure to download the global map first and follow all the steps to create crop distribution maps using the `mapspamc` package.
+
+```{r eval = FALSE}
+
+# SOURCE PARAMETERS ----------------------------------------------------------------------
+source(here::here("01_model_setup/01_model_setup.r"))
+
+# LOAD DATA ------------------------------------------------------------------------------
+load_data(c("adm_map", "grid"), param)
+
+# PROCESS --------------------------------------------------------------------------------
+temp_path <- file.path(param$model_path, glue("processed_data/maps/land_cover"))
+dir.create(temp_path, showWarnings = FALSE, recursive = TRUE)
+
+# Warp and mask
+# If needed change the year of the land cover map
+# we use the ESACCI 2000 map here
+input <- file.path(param$db_path, glue("land_cover/ESACCI-LC-L4-LCCS-Map-300m-P1Y-2000-v2.0.7.tif"))
+output <- align_raster(input, grid, adm_map$geometry, method = "near")
+names(output) <- "land_cover"
+plot(output)
+writeRaster(output, file.path(temp_path, glue("land_ cover_{param$res}_{param$year}_{param$iso3c}.tif")),
+            overwrite = TRUE)
+```
+
+Next we will harmonize the crop distribution maps, generated with `mapspamc` and the land cover map, and aggregate the land cover classes and crop groups to the GLOBIOM aggregation. All of this is done by the `create_globiom_input()` function, which calls several other functions under the hood.
+
+```{r eval = FALSE}
+# Load the national land cover map, in this case ESACCI
+lc_file <- file.path(param$spam_path,
+  glue("processed_data/maps/cropland/{param$res}/esa_raw_{param$year}_{param$iso3c}.tif"))
+lc <- raster(lc_file)
+plot(lc)
+
+# Read simu map from mapspamc_db
+simu <- st_read(file.path(param$db_path, glue("simu/simu.shp")))
+
+# Read grid map created by mapspamc
+grid <- rast(file.path(param$model_path, glue("processed_data/maps/grid/{param$res}/grid_{param$res}_{param$year}_{param$iso3c}.tif")))
+
+# Select country simu polygon
+simu <- simu |>
+  filter(iso3c == param$iso3c)
+plot(simu$geometry)
+
+# Create land cover mapping
+# We use the esacci2globion data.frame stored in the package.
+lc_map <- esacci2globiom
+
+# Create crop mapping
+# We use the standard crop2globiom data.frame in the package.
+crop_map <- crop2globiom
+
+# Create GLOBIOM input. Two files will be created.One with land cover information and one with crop distribution information. They will be saved in `\processed_data\results' folder of the `mapspamc` model folder. 
+create_globiom_input(lc_map, crop_map, lc, simu, grid, param)
+```
+

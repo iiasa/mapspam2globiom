@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">mapspam2globiom</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
@@ -39,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -47,75 +49,21 @@
   <a href="../articles/installation.html">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Background</a>
-      <ul class="dropdown-menu" role="menu">
 <li>
-          <a href="../articles/crop_distribution_maps.html">Crop distribution maps</a>
-        </li>
-        <li>
-          <a href="../articles/model_description.html">Model description</a>
-        </li>
-        <li>
-          <a href="../articles/data.html">Input data</a>
-        </li>
-        <li>
-          <a href="../articles/appendix.html">Appendix</a>
-        </li>
-      </ul>
-</li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Preparation</a>
-      <ul class="dropdown-menu" role="menu">
-<li>
-          <a href="../articles/input_data_collection.html">Input data collection</a>
-        </li>
-        <li>
-          <a href="../articles/template.html">Country examples/templates</a>
-        </li>
-      </ul>
-</li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Run SPAMc</a>
-      <ul class="dropdown-menu" role="menu">
-<li>
-          <a href="../articles/model_setup.html">1. Model setup</a>
-        </li>
-        <li>
-          <a href="../articles/process_subnational_statistics.html">2. Process subnational statistics</a>
-        </li>
-        <li>
-          <a href="../articles/process_spatial_data.html">3. Process spatial data</a>
-        </li>
-        <li>
-          <a href="../articles/create_synergy_cropland.html">4. Create synergy cropland map</a>
-        </li>
-        <li>
-          <a href="../articles/create_synergy_irrigated_area.html">5. Create synergy irrigated area map</a>
-        </li>
-        <li>
-          <a href="../articles/combine_input_data.html">6. Combine input data</a>
-        </li>
-        <li>
-          <a href="../articles/run_model.html">7. Run model</a>
-        </li>
-        <li>
-          <a href="../articles/post_process.html">8. Post-processing</a>
-        </li>
-        <li>
-          <a href="../articles/replace_globiom_land_cover_land_use.html">9. Replace land cover and land use information in GLOBIOM</a>
-        </li>
-        <li>
-          <a href="../articles/add_new_crop_to_globiom.html">10. Adding new crop to GLOBIOM</a>
-        </li>
-      </ul>
-</li>
+      <a href="../articles/replace_globiom_land_cover_land_use.html">1. Replace land cover and land use information in GLOBIOM</a>
+    </li>
+    <li>
+      <a href="../articles/create_updated_globiom_input_data.html">2. Create updated GLOBIOM land cover and crop distribution data</a>
+    </li>
+    <li>
+      <a href="../articles/add_new_crop_to_globiom.html">3. Adding a new crop to GLOBIOM</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -127,8 +75,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/iiasa/mapspam2globiom">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/iiasa/mapspam2globiom" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -142,154 +90,222 @@
 
       
 
-      </header><script src="replace_globiom_land_cover_land_use_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Replace land cover and land use information in GLOBIOM</h1>
+      <h1 data-toc-skip>Replace land cover and land use information in
+GLOBIOM</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/iiasa/mapspam2globiom/blob/master/vignettes/replace_globiom_land_cover_land_use.Rmd"><code>vignettes/replace_globiom_land_cover_land_use.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/iiasa/mapspam2globiom/blob/HEAD/vignettes/replace_globiom_land_cover_land_use.Rmd" class="external-link"><code>vignettes/replace_globiom_land_cover_land_use.Rmd</code></a></small>
       <div class="hidden name"><code>replace_globiom_land_cover_land_use.Rmd</code></div>
 
     </div>
 
     
     
-<div id="replacing-land-cover-and-land-use-information-in-globiom" class="section level2">
-<h2 class="hasAnchor">
-<a href="#replacing-land-cover-and-land-use-information-in-globiom" class="anchor"></a>Replacing land cover and land use information in GLOBIOM</h2>
-<p>With respect to the distribution of crops, GLOBIOM uses two related data layers. A table with area information on the land cover per simu, distinguishing seven major land use classes,some of which are split into subclasses:</p>
-<ul>
-<li>Cropland (CrpLnd)</li>
-<li>Other agricultural land (OthAgri)</li>
-<li>Grassland (Grass)</li>
-<li>Forest (Forest), separated into managed, unmanaged and rotation forest</li>
-<li>Wetlands (WetLnd)</li>
-<li>Other natural vegetation (OthNatLnd)</li>
-<li>Not relevant land cover (NotRel)</li>
-</ul>
-<p>The second table provides information on the location of the 18 crops that are modeled by GLOBIOM, which together make up the Cropland class. Other agricultural land shows the location of all the other crops. The distribution of crops in the global version of the model is based on the global Spatial Production Allocation Model (SPAM) for 2000.</p>
-<p>The function <code><a href="../reference/create_globiom_input.html">create_globiom_input()</a></code> creates two gdx files. One file updates the global land cover data in GLOBIOM for the target country, while the other file replaces global land use data. Both files will be saved in the <code>processed_data/results</code> folder. Before <code><a href="../reference/create_globiom_input.html">create_globiom_input()</a></code> can be run, you need to prepare three input files.</p>
-<p>First, you need to collect a new country level land cover map. Any product can be used as long as it contains information on the six GLOBIOM land cover classes. The most obvious choice would be to take a national land cover map for the year 2000 or any other map that is close to the year for which the subnational statistics are available. If such map is not available it is also possible to use a global land cover product and use the country polygon to mask the relevant area. We illustrate this case for Malawi, where we used the <a href="https://www.esa-landcover-cci.org/2010">ESACCI</a> land cover map that was described in the section on <a href="input_data_collection.html">Input data collection</a>. We started by clipping the country area by running the script <code>03_spatial_data/select_esa.r</code> (see <a href="process_spatial_data.html">Process spatial data</a>).</p>
-<p>Second, we prepared a table (<code>mappings/esacci2globiom.csv</code>) that maps the ESACCI land cover classes to the six GLOBIOM land cover classes. This table will be used to aggregate the land cover classes in the new map to the GLOBIOM land cover classes. You will have to prepare a similar table for your land cover map.</p>
-<p>Finally, in case you want to add an additional crop, you have to update the table that maps the SPAMc crops to the 18 GLOBIOM crops (<code>mappings/crop2globiom.cvs</code>). Also see the <a href="add_new_crop_to_globiom.html">Adding a new crop to GLOBIOM</a>. In the example below, we will add coffee as a separate crop. The updated table will be loaded by <code><a href="../reference/create_globiom_input.html">create_globiom_input()</a></code> to aggregate the SPAMc crops to the GLOBIOM crop classification.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="co"># Select the new land cover map, in this case ESACCI</span>
-<span class="no">lc_file</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">param</span>$<span class="no">spam_path</span>,
-  <span class="fu">glue</span>(<span class="st">"processed_data/maps/cropland/{param$res}/esa_raw_{param$year}_{param$iso3c}.tif"</span>))
-<span class="co"># Load the map</span>
-<span class="no">lc_map</span> <span class="kw">&lt;-</span> <span class="fu">raster</span>(<span class="no">lc_file</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/plot.html">plot</a></span>(<span class="no">lc_map</span>)
-
-<span class="co"># Update crop2globiom.csv and map coff to coff (instead of the rest category) and overwrite</span>
-<span class="fu"><a href="../reference/load_data.html">load_data</a></span>(<span class="st">"crop2globiom"</span>, <span class="no">param</span>)
-<span class="no">crop2globiom</span> <span class="kw">&lt;-</span> <span class="no">crop2globiom</span> <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">globiom_crop</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="no">crop</span> <span class="kw">==</span> <span class="st">"coff"</span>, <span class="st">"Coff"</span>, <span class="no">globiom_crop</span>))
-<span class="fu">write_csv</span>(<span class="no">crop2globiom</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">param</span>$<span class="no">spam_path</span>, <span class="st">"mappings/crop2globiom.csv"</span>))
-
-<span class="co"># Load mapping of lc classes to globiom lc classes</span>
-<span class="no">lc_class2globiom</span> <span class="kw">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span>(<span class="no">param</span>$<span class="no">spam_path</span>, <span class="st">"mappings/esacci2globiom.csv"</span>))
-
-<span class="co"># Aggregate land cover map to GLOBIOM land cover classes at simu level</span>
-<span class="co"># Not that the area will be expressed in 1000 ha, which is common in GLOBIOM!</span>
-<span class="fu"><a href="../reference/create_globiom_input.html">create_globiom_input</a></span>(<span class="no">lc_class2globiom</span>, <span class="no">lc_map</span>, <span class="no">param</span>)</pre></body></html></div>
-<p>The existing land cover data in GLOBIOM can be found in the parameter <code>LANDCOVER_INIT</code> which defines the land cover classes at the simulation unit level and the existing crop specific land use data found in <code>CROP_DATA</code> parameter at the simulation unit level.</p>
-<p>The steps required to update the GLOBIOM land cover and land use maps with new maps are the following:</p>
+<p>After creating the updated GLOBIOM input files, several adjustments
+need to be made in GLOBIOM to replace the country-level land cover and
+crop distribution information. The existing land cover data in GLOBIOM
+can be found in the parameter <code>LANDCOVER_INIT</code> which defines
+the land cover classes at the simulation unit level and the existing
+crop specific land use data found in <code>CROP_DATA</code> parameter at
+the simulation unit level.</p>
+<p>The steps required to update the GLOBIOM land cover and land use maps
+with new maps are the following:</p>
 <ol style="list-style-type: decimal">
-<li><p>Download the GLOBIOM <code>model</code> and GLOBIOM <code>data</code> branches</p></li>
-<li><p>Set the regional definitions (<code>myRegion</code>) and the spatial resolution (0.5 degree grid, simulation unit, or LUID) and run the data compliation (<code>0_execute_total.gms</code>) from the <code>data</code> branch</p></li>
-<li><p>Start a new GAMS script that will load the appropriate files containing region and item set definitions and other national level crop production and price statistics (e.g. FAOSTAT data) from the <code>finaldata</code> subfolder of the <code>model</code> folder</p></li>
-<li><p>Load the existing data parameters for cropland use (<code>CROP_DATA</code>), land cover (<code>LANDCOVER_INIT_CrpGrsForOagADJ</code>), and load the gdx outputs from mapspam2globiom: the new cropland use <code>crop_area</code> and new land cover <code>landcover</code> maps</p></li>
-<li><p>Replace the existing cropland use in the <code>CROP_DATA</code> parameter with the new dataset and replace the land cover data in <code>LANDCOVER_INIT_CrpGrsForOagADJ</code></p></li>
-<li><p>Identify and fill gaps in <code>CROP_DATA</code> for missing data for yield, water, and nutrient requirements</p></li>
+<li><p>Download the GLOBIOM <code>model</code> and GLOBIOM
+<code>data</code> branches</p></li>
+<li><p>Set the regional definitions (<code>myRegion</code>) and the
+spatial resolution (0.5 degree grid, simulation unit, or LUID) and run
+the data compliation (<code>0_execute_total.gms</code>) from the
+<code>data</code> branch</p></li>
+<li><p>Start a new GAMS script that will load the appropriate files
+containing region and item set definitions and other national level crop
+production and price statistics (e.g. FAOSTAT data) from the
+<code>finaldata</code> subfolder of the <code>model</code>
+folder</p></li>
+<li><p>Load the existing data parameters for cropland use
+(<code>CROP_DATA</code>), land cover
+(<code>LANDCOVER_INIT_CrpGrsForOagADJ</code>), and load the gdx outputs
+from mapspam2globiom: the new cropland use <code>crop_area</code> and
+new land cover <code>landcover</code> maps</p></li>
+<li><p>Replace the existing cropland use in the <code>CROP_DATA</code>
+parameter with the new dataset and replace the land cover data in
+<code>LANDCOVER_INIT_CrpGrsForOagADJ</code></p></li>
+<li><p>Identify and fill gaps in <code>CROP_DATA</code> for missing data
+for yield, water, and nutrient requirements</p></li>
 <li><p>Replace production cost data</p></li>
-<li><p>Calibrate and harmonize the cropland area and harmonize land cover area with national statistics</p></li>
-<li><p>Calibrate and rescale the crop yields using the FAO statistics</p></li>
-<li><p>Write the new parameters to the <code>finaldata</code> subfolder of the GLOBIOM <code>model</code> branch</p></li>
+<li><p>Calibrate and harmonize the cropland area and harmonize land
+cover area with national statistics</p></li>
+<li><p>Calibrate and rescale the crop yields using the FAO
+statistics</p></li>
+<li><p>Write the new parameters to the <code>finaldata</code> subfolder
+of the GLOBIOM <code>model</code> branch</p></li>
 </ol>
+<div class="section level2">
+<h2 id="step-1-download-the-globiom-model-and-globiom-data-branches">Step 1: Download the GLOBIOM <code>model</code> and GLOBIOM
+<code>data</code> branches<a class="anchor" aria-label="anchor" href="#step-1-download-the-globiom-model-and-globiom-data-branches"></a>
+</h2>
+<p>For guidance in how to download the GLOBIOM model branch used for the
+FABLE training: <a href="https://github.com/iiasa/GLOBIOM_FABLE/blob/master/README.md" class="external-link uri">https://github.com/iiasa/GLOBIOM_FABLE/blob/master/README.md</a></p>
+<div class="section level3">
+<h3 id="globiom_fable">GLOBIOM_FABLE<a class="anchor" aria-label="anchor" href="#globiom_fable"></a>
+</h3>
+<p>This repository holds the <a href="http://www.globiom.org/" class="external-link">GLOBIOM
+model</a> code released for the FABLE training.</p>
+<div class="section level4">
+<h4 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h4>
+<p>During the FABLE training, the model <code>Model/finaldata</code>
+input files were distributed via DropBox as the
+<code>GLOBIOM_finaldata.zip</code> archive. That same data has now been
+included in this repository.</p>
+<p>To run the model, <a href="https://help.github.com/articles/cloning-a-repository/" class="external-link">clone the
+repository</a> to your local machine. The stages of GLOBIOM can then be
+executed using <code>Model\0_executebatch.gms</code>.</p>
 </div>
-<div id="step-1-downlad-the-globiom-model-and-globiom-data-branches" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-1-downlad-the-globiom-model-and-globiom-data-branches" class="anchor"></a>Step 1: Downlad the GLOBIOM <code>model</code> and GLOBIOM <code>data</code> branches</h2>
-<p>For guidance in how to download the GLOBIOM model branch used for the FABLE training: <a href="https://github.com/iiasa/GLOBIOM_FABLE/blob/master/README.md" class="uri">https://github.com/iiasa/GLOBIOM_FABLE/blob/master/README.md</a></p>
-<div id="globiom_fable" class="section level3">
-<h3 class="hasAnchor">
-<a href="#globiom_fable" class="anchor"></a>GLOBIOM_FABLE</h3>
-<p>This repository holds the <a href="http://www.globiom.org/">GLOBIOM model</a> code released for the FABLE training.</p>
-<div id="getting-started" class="section level4">
-<h4 class="hasAnchor">
-<a href="#getting-started" class="anchor"></a>Getting Started</h4>
-<p>During the FABLE training, the model <code>Model/finaldata</code> input files were distributed via DropBox as the <code>GLOBIOM_finaldata.zip</code> archive. That same data has now been included in this repository.</p>
-<p>To run the model, <a href="https://help.github.com/articles/cloning-a-repository/">clone the repository</a> to your local machine. The stages of GLOBIOM can then be executed using <code>Model\0_executebatch.gms</code>.</p>
+<div class="section level4">
+<h4 id="pre-compilation">Pre compilation<a class="anchor" aria-label="anchor" href="#pre-compilation"></a>
+</h4>
+<p>The above-mentioned finaldata is mostly output from a pre-compilation
+stage. Pre-compilation turns raw source data into model-ready input data
+(finaldata). A separate <a href="https://github.com/iiasa/GLOBIOM_FABLE_Data/" class="external-link">GLOBIOM_FABLE_Data</a>
+repository has been provided that contains the source data and
+pre-compilation scripts. It is required to make involved changes such as
+isolating a country as a separate GLOBIOM region.</p>
+<p>To request access to the GLOBIOM_FABLE_Data repository, please email
+to <code>globiom.fable@iiasa.ac.at</code>. On acceptance of your
+request, you will receive an invitation from GitHub to join the
+GLOBIOM_FABLE_Data repository. Then you can <a href="https://github.com/iiasa/GLOBIOM_FABLE_Data/blob/master/README.md" class="external-link">read
+these instructions</a> on how to use the data. Note that this link will
+be accessible only after having received access, and when signed in to
+GitHub.</p>
 </div>
-<div id="pre-compilation" class="section level4">
-<h4 class="hasAnchor">
-<a href="#pre-compilation" class="anchor"></a>Pre compilation</h4>
-<p>The above-mentioned finaldata is mostly output from a pre-compilation stage. Pre-compilation turns raw source data into model-ready input data (finaldata). A separate <a href="https://github.com/iiasa/GLOBIOM_FABLE_Data/">GLOBIOM_FABLE_Data</a> repository has been provided that contains the source data and pre-compilation scripts. It is required to make involved changes such as isolating a country as a separate GLOBIOM region.</p>
-<p>To request access to the GLOBIOM_FABLE_Data repository, please email to <code>globiom.fable@iiasa.ac.at</code>. On acceptance of your request, you will receive an invitation from GitHub to join the GLOBIOM_FABLE_Data repository. Then you can <a href="https://github.com/iiasa/GLOBIOM_FABLE_Data/blob/master/README.md">read these instructions</a> on how to use the data. Note that this link will be accessible only after having received access, and when signed in to GitHub.</p>
+<div class="section level4">
+<h4 id="graphical-user-interface">Graphical User Interface<a class="anchor" aria-label="anchor" href="#graphical-user-interface"></a>
+</h4>
+<p>An optional full-featured graphical user interface (GUI) for GLOBIOM
+is available from the <a href="https://github.com/iiasa/GLOBIOM_GUI/" class="external-link">GLOBIOM_GUI</a> repository.
+For more information see the <a href="https://iiasa.github.io/GLOBIOM_FABLE/GUI.html" class="external-link">GLOBIOM GUI
+Overview</a> page.</p>
 </div>
-<div id="graphical-user-interface" class="section level4">
-<h4 class="hasAnchor">
-<a href="#graphical-user-interface" class="anchor"></a>Graphical User Interface</h4>
-<p>An optional full-featured graphical user interface (GUI) for GLOBIOM is available from the <a href="https://github.com/iiasa/GLOBIOM_GUI/">GLOBIOM_GUI</a> repository. For more information see the <a href="https://iiasa.github.io/GLOBIOM_FABLE/GUI.html">GLOBIOM GUI Overview</a> page.</p>
+<div class="section level4">
+<h4 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
+</h4>
+<p>GLOBIOM is a large model comprised of many GAMS source files. To help
+you find your way around the model, <a href="https://iiasa.github.io/GLOBIOM_FABLE" class="external-link">a separate documentation
+website</a> has been provided. Both the model as well as the GAMS code
+are documented there.</p>
 </div>
-<div id="documentation" class="section level4">
-<h4 class="hasAnchor">
-<a href="#documentation" class="anchor"></a>Documentation</h4>
-<p>GLOBIOM is a large model comprised of many GAMS source files. To help you find your way around the model, <a href="https://iiasa.github.io/GLOBIOM_FABLE">a separate documentation website</a> has been provided. Both the model as well as the GAMS code are documented there.</p>
+<div class="section level4">
+<h4 id="platforms">Platforms<a class="anchor" aria-label="anchor" href="#platforms"></a>
+</h4>
+<p>The model has been tested to run on Windows, Linux, and MacOS. Beware
+that the solver can yield results that differ between platforms even
+when using the same GAMS version.</p>
 </div>
-<div id="platforms" class="section level4">
-<h4 class="hasAnchor">
-<a href="#platforms" class="anchor"></a>Platforms</h4>
-<p>The model has been tested to run on Windows, Linux, and MacOS. Beware that the solver can yield results that differ between platforms even when using the same GAMS version.</p>
-</div>
-<div id="terms-of-use" class="section level4">
-<h4 class="hasAnchor">
-<a href="#terms-of-use" class="anchor"></a>Terms of Use</h4>
-<p>This repository contains the GLOBIOM model as provided for the purposes of the FABLE project. This version will be regularly updated. GLOBIOM will be released under an Open Source license later. Therefore FABLE partners are requested to not redistribute the GLOBIOM model contained in this repository.</p>
-<p>Cooperation with developing GLOBIOM is possible via this repository. Please contact us, and you will receive a <a href="https://help.github.com/articles/about-branches/">repository branch</a> with write access where you can commence with sharing your modifications and developments.</p>
+<div class="section level4">
+<h4 id="terms-of-use">Terms of Use<a class="anchor" aria-label="anchor" href="#terms-of-use"></a>
+</h4>
+<p>This repository contains the GLOBIOM model as provided for the
+purposes of the FABLE project. This version will be regularly updated.
+GLOBIOM will be released under an Open Source license later. Therefore
+FABLE partners are requested to not redistribute the GLOBIOM model
+contained in this repository.</p>
+<p>Cooperation with developing GLOBIOM is possible via this repository.
+Please contact us, and you will receive a <a href="https://help.github.com/articles/about-branches/" class="external-link">repository
+branch</a> with write access where you can commence with sharing your
+modifications and developments.</p>
 <p>For guidance in how to download the GLOBIOM data branch:</p>
 </div>
 </div>
-<div id="globiom_fable_data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#globiom_fable_data" class="anchor"></a>GLOBIOM_FABLE_Data</h3>
-<p>This repository holds the <a href="http://www.globiom.org/">GLOBIOM</a> pre-compilation scripts and raw data that can be used to prepare the <code>Model/finaldata</code> input files for <a href="https://github.com/iiasa/GLOBIOM_FABLE">GLOBIOM_FABLE</a>.</p>
-<div id="terms-of-use-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#terms-of-use-1" class="anchor"></a>Terms of Use</h4>
-<p>This is <strong>not</strong> a public release. This repository is made available to early-adopters on an as-needed basis, and should not be shared nor redistributed: licensing terms and intellectual property rights of the various data sets are being worked out.</p>
-<p>The content of this repository is intended for further improvement of country-specific GLOBIOM versions. If you intend to use this data for other purposes, please consult with the <a href="mailto:globiom.fable@iiasa.ac.at">GLOBIOM team at IIASA</a>.</p>
+<div class="section level3">
+<h3 id="globiom_fable_data">GLOBIOM_FABLE_Data<a class="anchor" aria-label="anchor" href="#globiom_fable_data"></a>
+</h3>
+<p>This repository holds the <a href="http://www.globiom.org/" class="external-link">GLOBIOM</a> pre-compilation scripts and
+raw data that can be used to prepare the <code>Model/finaldata</code>
+input files for <a href="https://github.com/iiasa/GLOBIOM_FABLE" class="external-link">GLOBIOM_FABLE</a>.</p>
+<div class="section level4">
+<h4 id="terms-of-use-1">Terms of Use<a class="anchor" aria-label="anchor" href="#terms-of-use-1"></a>
+</h4>
+<p>This is <strong>not</strong> a public release. This repository is
+made available to early-adopters on an as-needed basis, and should not
+be shared nor redistributed: licensing terms and intellectual property
+rights of the various data sets are being worked out.</p>
+<p>The content of this repository is intended for further improvement of
+country-specific GLOBIOM versions. If you intend to use this data for
+other purposes, please consult with the <a href="mailto:globiom.fable@iiasa.ac.at">GLOBIOM team at IIASA</a>.</p>
 </div>
-<div id="getting-started-1" class="section level4">
-<h4 class="hasAnchor">
-<a href="#getting-started-1" class="anchor"></a>Getting Started</h4>
-<p>To make this repository work with <a href="https://github.com/iiasa/GLOBIOM_FABLE">GLOBIOM_FABLE</a>, clone it to a <code>Data</code> directory co-located with the GLOBIOM <code>Model</code> directory. From the command line, this can be done as follows:</p>
+<div class="section level4">
+<h4 id="getting-started-1">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started-1"></a>
+</h4>
+<p>To make this repository work with <a href="https://github.com/iiasa/GLOBIOM_FABLE" class="external-link">GLOBIOM_FABLE</a>, clone
+it to a <code>Data</code> directory co-located with the GLOBIOM
+<code>Model</code> directory. From the command line, this can be done as
+follows:</p>
 <pre><code>cd &lt;directory where you cloned GLOBIOM_FABLE&gt;
 git clone https://github.com/iiasa/GLOBIOM_FABLE_Data Data</code></pre>
-<p>This should yield a <code>Data</code> directory adjacent to the <code>Model</code> directory. Next, enter the <code>Data</code> directory and switch to the branch of your country team:</p>
+<p>This should yield a <code>Data</code> directory adjacent to the
+<code>Model</code> directory. Next, enter the <code>Data</code>
+directory and switch to the branch of your country team:</p>
 <pre><code>cd Data
 git checkout &lt;name of your branch&gt;</code></pre>
-<p>Note that this will cause this Data repository to be nested inside the GLOBIOM_FABLE repository on your local machine. To make this work without mix-ups, make sure that the<code>Data</code> directory is being ignored by the root-level <code>.gitignore</code> file of the GLOBIOM_FABLE repository.</p>
-<p>To run the pre-compilation, execute <code>Data/0_executebatch_total.gms</code>. Pre-compilation will overwrite a subset of the files in the <code>Model/finaldata</code> folder.</p>
+<p>Note that this will cause this Data repository to be nested inside
+the GLOBIOM_FABLE repository on your local machine. To make this work
+without mix-ups, make sure that the<code>Data</code> directory is being
+ignored by the root-level <code>.gitignore</code> file of the
+GLOBIOM_FABLE repository.</p>
+<p>To run the pre-compilation, execute
+<code>Data/0_executebatch_total.gms</code>. Pre-compilation will
+overwrite a subset of the files in the <code>Model/finaldata</code>
+folder.</p>
 </div>
-<div id="requirements" class="section level4">
-<h4 class="hasAnchor">
-<a href="#requirements" class="anchor"></a>Requirements</h4>
-<p>The pre-compilation and the model are interdependent, and as such compatible commits in <a href="https://github.com/iiasa/GLOBIOM_FABLE_Data/commits/master">GLOBIOM_FABLE_Data</a> and <a href="https://github.com/iiasa/GLOBIOM_FABLE/commits/master">GLOBIOM_FABLE</a> should be used together. For the <code>master</code> branches, compatible commits have been marked with <code>match_*</code> release tags.</p>
-<p>As of release <a href="https://github.com/iiasa/GLOBIOM_FABLE_Data/releases/tag/match_4">match_4</a>, pre-compilation works also on non-Window platforms and non-Latin locales. This was achieved by means of a custom developed <code>xl2gdx.R</code> R script that requires: * A recent version of <a href="https://www.r-project.org/">R</a>. * The <a href="https://www.tidyverse.org/">tidyverse</a> R package collection. * The <a href="https://www.gams.com/latest/docs/T_GDXRRW.html">gdxrrw</a> R package.</p>
-<p>Check that the <code>Rscript</code> binary can be invoked from the command line, and if not adjust your <code>PATH</code> environment variable to point to where the R binaries can be found.</p>
+<div class="section level4">
+<h4 id="requirements">Requirements<a class="anchor" aria-label="anchor" href="#requirements"></a>
+</h4>
+<p>The pre-compilation and the model are interdependent, and as such
+compatible commits in <a href="https://github.com/iiasa/GLOBIOM_FABLE_Data/commits/master" class="external-link">GLOBIOM_FABLE_Data</a>
+and <a href="https://github.com/iiasa/GLOBIOM_FABLE/commits/master" class="external-link">GLOBIOM_FABLE</a>
+should be used together. For the <code>master</code> branches,
+compatible commits have been marked with <code>match_*</code> release
+tags.</p>
+<p>As of release <a href="https://github.com/iiasa/GLOBIOM_FABLE_Data/releases/tag/match_4" class="external-link">match_4</a>,
+pre-compilation works also on non-Window platforms and non-Latin
+locales. This was achieved by means of a custom developed
+<code>xl2gdx.R</code> R script that requires: * A recent version of <a href="https://www.r-project.org/" class="external-link">R</a>. * The <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a> R package collection. *
+The <a href="https://www.gams.com/latest/docs/T_GDXRRW.html" class="external-link">gdxrrw</a>
+R package.</p>
+<p>Check that the <code>Rscript</code> binary can be invoked from the
+command line, and if not adjust your <code>PATH</code> environment
+variable to point to where the R binaries can be found.</p>
 </div>
 </div>
 </div>
-<div id="step-2-set-the-regional-definitions-and-the-spatial-resolution-run-the-data-compliation-of-the-data-branch" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-2-set-the-regional-definitions-and-the-spatial-resolution-run-the-data-compliation-of-the-data-branch" class="anchor"></a>Step 2: Set the regional definitions and the spatial resolution run the data compliation of the <code>data</code> branch</h2>
-<p>For the second step, the user should clarify which spatial resolution which will be used: the 0.5 degree grid (often called the COLROW30 resolution) or the simulation unit resolution. The simulation unit resolution (often called simu), uses soil, slope, and altitude class maps which are intersected on the 0.5 degree grid resulting in the highest spatial resolution possible in GLOBIOM.</p>
-<div id="spatial-resolution" class="section level3">
-<h3 class="hasAnchor">
-<a href="#spatial-resolution" class="anchor"></a>Spatial resolution</h3>
-<p>The spatial resolution should be set and read in from the <code>decl_Rset.gms</code> file. Depending on the resolution of set by the user’s region/country of choice, the land use and land cover maps produced by mapspam2globiom should be aggregated to the 0.5 degree grid or left at the simulation unit level accordingly. The user should pay particular attention to make sure the correct country is selected (see code below for an example for Malawi) and that the spatial resolution is set properly. To use the Rsets.gms for a simulation unit resolution effectively some changes to this file may be necessary.</p>
-<p>Changing the <code>decl_Rsets.gms</code> file for simulation unit resolution (example: Malawi)</p>
+<div class="section level2">
+<h2 id="step-2-set-the-regional-definitions-and-the-spatial-resolution-run-the-data-compliation-of-the-data-branch">Step 2: Set the regional definitions and the spatial resolution run
+the data compliation of the <code>data</code> branch<a class="anchor" aria-label="anchor" href="#step-2-set-the-regional-definitions-and-the-spatial-resolution-run-the-data-compliation-of-the-data-branch"></a>
+</h2>
+<p>For the second step, the user should clarify which spatial resolution
+which will be used: the 0.5 degree grid (often called the COLROW30
+resolution) or the simulation unit resolution. The simulation unit
+resolution (often called simu), uses soil, slope, and altitude class
+maps which are intersected on the 0.5 degree grid resulting in the
+highest spatial resolution possible in GLOBIOM.</p>
+<div class="section level3">
+<h3 id="spatial-resolution">Spatial resolution<a class="anchor" aria-label="anchor" href="#spatial-resolution"></a>
+</h3>
+<p>The spatial resolution should be set and read in from the
+<code>decl_Rset.gms</code> file. Depending on the resolution of set by
+the user’s region/country of choice, the land use and land cover maps
+produced by mapspam2globiom should be aggregated to the 0.5 degree grid
+or left at the simulation unit level accordingly. The user should pay
+particular attention to make sure the correct country is selected (see
+code below for an example for Malawi) and that the spatial resolution is
+set properly. To use the Rsets.gms for a simulation unit resolution
+effectively some changes to this file may be necessary.</p>
+<p>Changing the <code>decl_Rsets.gms</code> file for simulation unit
+resolution (example: Malawi)</p>
 <pre><code>* Define regional resolution
 $setGlobal REGION REGION37
 * Alternatives: GGIREGION(11) or REGION28(28) or REGION30(30) or REGIONADB(31)
@@ -364,65 +380,135 @@ LUID_COUNTRY(COUNTRY)
          $(NOT(SAMEAS(REGION,'%myREGION%'))),1)
  = YES;
 $endif</code></pre>
-<p>After the regional defintion is set, the user should then run the entire data compilation (<code>0_execute_total.gms</code>) in the <code>data</code> folder before attempting to navigate through the rest of this guide. Updating the landcover and land use maps is the last step of the data compliation before moving on to run the model. The datasets that are needed to update the cropland use and land cover maps are aggregated at the proper resolution by the data compilation file (<code>0_execute_total.gms</code>).</p>
+<p>After the regional defintion is set, the user should then run the
+entire data compilation (<code>0_execute_total.gms</code>) in the
+<code>data</code> folder before attempting to navigate through the rest
+of this guide. Updating the landcover and land use maps is the last step
+of the data compliation before moving on to run the model. The datasets
+that are needed to update the cropland use and land cover maps are
+aggregated at the proper resolution by the data compilation file
+(<code>0_execute_total.gms</code>).</p>
 </div>
 </div>
-<div id="step-3-start-a-gams-script--gms-to-load-the-set-and-regional-definitions-and-other-data-from-the-finaldata-subfolder-of-the-model-folder" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-3-start-a-gams-script--gms-to-load-the-set-and-regional-definitions-and-other-data-from-the-finaldata-subfolder-of-the-model-folder" class="anchor"></a>Step 3: start a GAMS script (.gms) to load the set and regional definitions and other data from the <code>finaldata</code> subfolder of the <code>model</code> folder</h2>
-<p>Start a new GAMS <code>.gms</code> file in the main folder of the <code>data</code> branch that will load the appropriate files containing region and item set definitions and other national level crop production and price statistics (e.g. FAOSTAT data) from the <code>finaldata</code> subfolder of the <code>model</code> folder</p>
-<p>Other files should be included which contain the additional sets, parameters ,and datasets needed to properly include the new land cover and land use maps. Many of these can be found in the <code>model</code> folder or the <code>finaldata</code> folder within the model folder which will have been updated based on the data compilation performed in Step 2.</p>
-<p>The following files should be read in by using the <code>$include</code> in the GAMS script:</p>
+<div class="section level2">
+<h2 id="step-3-start-a-gams-script--gms-to-load-the-set-and-regional-definitions-and-other-data-from-the-finaldata-subfolder-of-the-model-folder">Step 3: start a GAMS script (.gms) to load the set and regional
+definitions and other data from the <code>finaldata</code> subfolder of
+the <code>model</code> folder<a class="anchor" aria-label="anchor" href="#step-3-start-a-gams-script--gms-to-load-the-set-and-regional-definitions-and-other-data-from-the-finaldata-subfolder-of-the-model-folder"></a>
+</h2>
+<p>Start a new GAMS <code>.gms</code> file in the main folder of the
+<code>data</code> branch that will load the appropriate files containing
+region and item set definitions and other national level crop production
+and price statistics (e.g. FAOSTAT data) from the <code>finaldata</code>
+subfolder of the <code>model</code> folder</p>
+<p>Other files should be included which contain the additional sets,
+parameters ,and datasets needed to properly include the new land cover
+and land use maps. Many of these can be found in the <code>model</code>
+folder or the <code>finaldata</code> folder within the model folder
+which will have been updated based on the data compilation performed in
+Step 2.</p>
+<p>The following files should be read in by using the
+<code>$include</code> in the GAMS script:</p>
 <p><code>decl_sets.gms</code> contains all the major set definitions</p>
-<p><code>decl_regionset.gms</code> contains the regional set definitions</p>
-<p><code>decl_Rsets.gms</code> contains the switches to aggregate the model to different spatial resolutions (see Spatial Resolution section above)</p>
-<p><code>sets_colrow.gms</code> contains important spatial colrow and simulation unit information data</p>
-<div id="load-national-level-crop-production-and-price-statistics" class="section level4">
-<h4 class="hasAnchor">
-<a href="#load-national-level-crop-production-and-price-statistics" class="anchor"></a>Load national level crop production and price statistics</h4>
-<p>This guide uses the FAOSTAT crop production data from <code>proddata_c.gms</code> and the FAOSTAT crop price data from <code>data_supply.gms</code> as its main harmonization dataset however any good national level crop production and price statistic dataset with a full information on crop area, crop production, and price can be used. Load into the <code>.gms</code> file the two FAOSTAT files found in the <code>finaldata</code> subfolder in the <code>model</code> folder. <code>PRODDATA_C</code> is the name of the parameter which contains the national level production statistics from FAO which will be used for rescaling the crop yields and <code>SData</code> is the parameter which contains the national level crop price data.</p>
+<p><code>decl_regionset.gms</code> contains the regional set
+definitions</p>
+<p><code>decl_Rsets.gms</code> contains the switches to aggregate the
+model to different spatial resolutions (see Spatial Resolution section
+above)</p>
+<p><code>sets_colrow.gms</code> contains important spatial colrow and
+simulation unit information data</p>
+<div class="section level4">
+<h4 id="load-national-level-crop-production-and-price-statistics">Load national level crop production and price statistics<a class="anchor" aria-label="anchor" href="#load-national-level-crop-production-and-price-statistics"></a>
+</h4>
+<p>This guide uses the FAOSTAT crop production data from
+<code>proddata_c.gms</code> and the FAOSTAT crop price data from
+<code>data_supply.gms</code> as its main harmonization dataset however
+any good national level crop production and price statistic dataset with
+a full information on crop area, crop production, and price can be used.
+Load into the <code>.gms</code> file the two FAOSTAT files found in the
+<code>finaldata</code> subfolder in the <code>model</code> folder.
+<code>PRODDATA_C</code> is the name of the parameter which contains the
+national level production statistics from FAO which will be used for
+rescaling the crop yields and <code>SData</code> is the parameter which
+contains the national level crop price data.</p>
 </div>
-<div id="example-code-for-including-gams--gms-files" class="section level4">
-<h4 class="hasAnchor">
-<a href="#example-code-for-including-gams--gms-files" class="anchor"></a>Example code for including GAMS (<code>.gms</code>) files</h4>
+<div class="section level4">
+<h4 id="example-code-for-including-gams--gms-files">Example code for including GAMS (<code>.gms</code>) files<a class="anchor" aria-label="anchor" href="#example-code-for-including-gams--gms-files"></a>
+</h4>
 <pre><code>*load the set definitions 
 $include decl_sets.gms </code></pre>
 </div>
 </div>
-<div id="step-4-loading-and-replacing-the-cropland-use-maps-in-the-appropriate-parameters-within-globiom" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-4-loading-and-replacing-the-cropland-use-maps-in-the-appropriate-parameters-within-globiom" class="anchor"></a>Step 4: Loading and replacing the cropland use maps in the appropriate parameters within GLOBIOM</h2>
-<div id="load-the-existing-cropland-use-maps" class="section level4">
-<h4 class="hasAnchor">
-<a href="#load-the-existing-cropland-use-maps" class="anchor"></a>Load the existing cropland use maps</h4>
-<p>In the GAMS <code>.gms</code> file, load <code>decl_paramgdx.gms</code> and <code>data_crops.gdx</code> which are found in the <code>finaldata</code> subfolder in the <code>model</code> folder.</p>
-<p><code>decl_paramgdx.gms</code> properly defines the <code>CROP_DATA</code> parameter. The <code>CROP_DATA</code> parameter and its associated data is stored in the <code>.gdx</code> file.</p>
-<p>The <code>CROP_DATA</code> parameter is the parameter which stores the crop land use are and production management information. Updating the <code>CROP_DATA</code> parameter with the new crop land use maps and other crop production data is the first objective of this guide.</p>
+<div class="section level2">
+<h2 id="step-4-loading-and-replacing-the-cropland-use-maps-in-the-appropriate-parameters-within-globiom">Step 4: Loading and replacing the cropland use maps in the
+appropriate parameters within GLOBIOM<a class="anchor" aria-label="anchor" href="#step-4-loading-and-replacing-the-cropland-use-maps-in-the-appropriate-parameters-within-globiom"></a>
+</h2>
+<div class="section level4">
+<h4 id="load-the-existing-cropland-use-maps">Load the existing cropland use maps<a class="anchor" aria-label="anchor" href="#load-the-existing-cropland-use-maps"></a>
+</h4>
+<p>In the GAMS <code>.gms</code> file, load
+<code>decl_paramgdx.gms</code> and <code>data_crops.gdx</code> which are
+found in the <code>finaldata</code> subfolder in the <code>model</code>
+folder.</p>
+<p><code>decl_paramgdx.gms</code> properly defines the
+<code>CROP_DATA</code> parameter. The <code>CROP_DATA</code> parameter
+and its associated data is stored in the <code>.gdx</code> file.</p>
+<p>The <code>CROP_DATA</code> parameter is the parameter which stores
+the crop land use are and production management information. Updating
+the <code>CROP_DATA</code> parameter with the new crop land use maps and
+other crop production data is the first objective of this guide.</p>
 </div>
-<div id="load-the-existing-land-cover-maps" class="section level4">
-<h4 class="hasAnchor">
-<a href="#load-the-existing-land-cover-maps" class="anchor"></a>Load the existing land cover maps</h4>
-<p>In the GAMS <code>.gms</code> file, load the land cover parameter found in the <code>data_EPICLandCov_CrpGrsForOagADJ.gms</code> which is found in the <code>finaldata</code> subfolder in the <code>model</code> folder and is compiled by the data compilation using the existing datasets.</p>
-<p>The parameter which contains the existing landcover data by land unit is called <code>LANDCOVER_INIT_CrpGrsForOagADJ</code>. Updating the <code>LANDCOVER_INIT_CrpGrsForOagADJ</code> parameter with the new land cover maps is the second objective of this guide.</p>
+<div class="section level4">
+<h4 id="load-the-existing-land-cover-maps">Load the existing land cover maps<a class="anchor" aria-label="anchor" href="#load-the-existing-land-cover-maps"></a>
+</h4>
+<p>In the GAMS <code>.gms</code> file, load the land cover parameter
+found in the <code>data_EPICLandCov_CrpGrsForOagADJ.gms</code> which is
+found in the <code>finaldata</code> subfolder in the <code>model</code>
+folder and is compiled by the data compilation using the existing
+datasets.</p>
+<p>The parameter which contains the existing landcover data by land unit
+is called <code>LANDCOVER_INIT_CrpGrsForOagADJ</code>. Updating the
+<code>LANDCOVER_INIT_CrpGrsForOagADJ</code> parameter with the new land
+cover maps is the second objective of this guide.</p>
 </div>
-<div id="load-the-new-cropland-use-map-and-land-cover-maps-from-mapspam2globiom" class="section level4">
-<h4 class="hasAnchor">
-<a href="#load-the-new-cropland-use-map-and-land-cover-maps-from-mapspam2globiom" class="anchor"></a>Load the new cropland use map and land cover maps from mapspam2globiom</h4>
-<p>In the GAMS <code>.gms</code> file, load the new landcover dataset found in <code>globiom_landcover_YEAR_ISO3.gdx</code>(YEAR and ISO3 are replaced by the user’s ISO3 country code and the year of data)</p>
-<p>This dataset is produced as an output from the mapspam2globiom R package. The only parameter in this <code>.gdx</code> file is a parameter called <code>landcover</code>which provides the new area information on the land cover area per simulation unit is distinguished by six different land use categories:</p>
+<div class="section level4">
+<h4 id="load-the-new-cropland-use-map-and-land-cover-maps-from-mapspam2globiom">Load the new cropland use map and land cover maps from
+mapspam2globiom<a class="anchor" aria-label="anchor" href="#load-the-new-cropland-use-map-and-land-cover-maps-from-mapspam2globiom"></a>
+</h4>
+<p>In the GAMS <code>.gms</code> file, load the new landcover dataset
+found in <code>globiom_landcover_YEAR_ISO3.gdx</code>(YEAR and ISO3 are
+replaced by the user’s ISO3 country code and the year of data)</p>
+<p>This dataset is produced as an output from the mapspam2globiom R
+package. The only parameter in this <code>.gdx</code> file is a
+parameter called <code>landcover</code>which provides the new area
+information on the land cover area per simulation unit is distinguished
+by six different land use categories:</p>
 <p>• Total crop and other agricultural land (CrpLnd, OthAgri)</p>
 <p>• Grassland (Grass)</p>
 <p>• Forest (Forest)</p>
 <p>• Wetlands (WetLnd)</p>
 <p>• Other natural vegetation (OthNatLnd)</p>
 <p>• Not relevant land cover (NotRel)</p>
-<p>Together with the grassland class (Grass), the total crop and other agricultural land classes comprise the total agricultural land cover areas by simulation unit within GLOBIOM. The land cover class total crop and other agricultural area is divided into two parts: (1) Cropland (CrpLnd), which presents the location of the 20 crops that are modelled by GLOBIOM and (2) Other agricultural land (OthAgri), which presents the location of all the other crops not explicitly modeled by GLOBIOM.</p>
-<p>The total crop and other agricultural land class is linked with the data layer with a more detailed information on the cropland use by crop and management system per simu called <code>globiom_crop_area_YEAR_ISO3.gdx</code> (year and ISO3 are replaced by the user’s ISO3 country code and the year of data) produced as an output from the mapspam2globiom R package. In this <code>.gdx</code> file there is a parameter called <code>crop_area</code> which is the new cropland use area dataset.</p>
-<p>Load <code>globiom_crop_area_YEAR_ISO3.gdx</code> into the GAMS file.</p>
+<p>Together with the grassland class (Grass), the total crop and other
+agricultural land classes comprise the total agricultural land cover
+areas by simulation unit within GLOBIOM. The land cover class total crop
+and other agricultural area is divided into two parts: (1) Cropland
+(CrpLnd), which presents the location of the 20 crops that are modelled
+by GLOBIOM and (2) Other agricultural land (OthAgri), which presents the
+location of all the other crops not explicitly modeled by GLOBIOM.</p>
+<p>The total crop and other agricultural land class is linked with the
+data layer with a more detailed information on the cropland use by crop
+and management system per simu called
+<code>globiom_crop_area_YEAR_ISO3.gdx</code> (year and ISO3 are replaced
+by the user’s ISO3 country code and the year of data) produced as an
+output from the mapspam2globiom R package. In this <code>.gdx</code>
+file there is a parameter called <code>crop_area</code> which is the new
+cropland use area dataset.</p>
+<p>Load <code>globiom_crop_area_YEAR_ISO3.gdx</code> into the GAMS
+file.</p>
 </div>
-<div id="example-code-for-including-gdx-files" class="section level4">
-<h4 class="hasAnchor">
-<a href="#example-code-for-including-gdx-files" class="anchor"></a>Example code for including gdx files</h4>
+<div class="section level4">
+<h4 id="example-code-for-including-gdx-files">Example code for including gdx files<a class="anchor" aria-label="anchor" href="#example-code-for-including-gdx-files"></a>
+</h4>
 <pre><code>*define the parameter 
 parameter
 crop_area(ANYREGION,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,SPECIES,ALLTECH) new land use map from mapspam2globiom
@@ -434,11 +520,16 @@ $LOADDC crop_area
 $GDXIN</code></pre>
 </div>
 </div>
-<div id="step-5-replace-existing-crop-land-use-in-crop_data-and-replace-the-existing-land-cover-data-in-landcover_init_crpgrsforoagadj" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-5-replace-existing-crop-land-use-in-crop_data-and-replace-the-existing-land-cover-data-in-landcover_init_crpgrsforoagadj" class="anchor"></a>Step 5: Replace existing crop land use in <code>CROP_DATA</code> and replace the existing land cover data in <code>LANDCOVER_INIT_CrpGrsForOagADJ</code>
+<div class="section level2">
+<h2 id="step-5-replace-existing-crop-land-use-in-crop_data-and-replace-the-existing-land-cover-data-in-landcover_init_crpgrsforoagadj">Step 5: Replace existing crop land use in <code>CROP_DATA</code> and
+replace the existing land cover data in
+<code>LANDCOVER_INIT_CrpGrsForOagADJ</code><a class="anchor" aria-label="anchor" href="#step-5-replace-existing-crop-land-use-in-crop_data-and-replace-the-existing-land-cover-data-in-landcover_init_crpgrsforoagadj"></a>
 </h2>
-<p>Add code to the GAM <code>.gms</code> file that will save the existing <code>CROP_DATA</code> and <code>LANDCOVER_INIT_CrpGrsForOagADJ</code> information for the country into a separate parameter to be used later for harmonization wit the national level statistics.</p>
+<p>Add code to the GAM <code>.gms</code> file that will save the
+existing <code>CROP_DATA</code> and
+<code>LANDCOVER_INIT_CrpGrsForOagADJ</code> information for the country
+into a separate parameter to be used later for harmonization wit the
+national level statistics.</p>
 <pre><code>Parameter
 CROP_DATA_Orig;
 
@@ -453,10 +544,18 @@ LANDCOVER_Orig(SIMU_COUNTRY,ALLCOLROW,AltiClass,SlpClass,SoilClass,AezClass,LC_T
 LANDCOVER_INIT_CrpGrsForOagADJ(SIMU_COUNTRY,ALLCOLROW,AltiClass,SlpClass,SoilClass,AezClass,LC_TYPES_EPIC); 
 
 </code></pre>
-<p>Add to the code of the GAMS <code>.gms</code> file, replace the existing <code>CROP_DATA</code> cropland use area for the country with the new cropland use dataset (<code>crop_area</code>) (example for the simulation unit resolution below).</p>
+<p>Add to the code of the GAMS <code>.gms</code> file, replace the
+existing <code>CROP_DATA</code> cropland use area for the country with
+the new cropland use dataset (<code>crop_area</code>) (example for the
+simulation unit resolution below).</p>
 <pre><code>CROP_DATA(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,SPECIES,INPUTSYS,'BaseArea') 
 = crop_area(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,SPECIES,INPUTSYS);</code></pre>
-<p>Add to the code of the GAMS <code>.gms</code> file, replace the existing <code>CROP_DATA</code> cropland use area for the country with the new cropland use dataset (<code>crop_area</code>). An example for COLROW resolution is below which replaces the existing <code>CROP_DATA</code>, with new dataset while also aggregating to the COLROW/CR30 resolution.</p>
+<p>Add to the code of the GAMS <code>.gms</code> file, replace the
+existing <code>CROP_DATA</code> cropland use area for the country with
+the new cropland use dataset (<code>crop_area</code>). An example for
+COLROW resolution is below which replaces the existing
+<code>CROP_DATA</code>, with new dataset while also aggregating to the
+COLROW/CR30 resolution.</p>
 <pre><code>parameter
 crop_area2(ANYREGION,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,SPECIES,ALLTECH) CR resolution of the new crop areas
 ; 
@@ -465,10 +564,15 @@ crop_area2(CR30_COUNTRY,COLROW30,"Alti_Any","Slp_Any","Soil_Any",AEZCLASS,SPECIE
 *Note here: CR30_COUNTRY is used for the 0.5 degree COLROW resolution 
 
 CROP_DATA(CR30_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,SPECIES,INPUTSYS,'BaseArea') = crop_area(CR30_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,SPECIES,INPUTSYS);</code></pre>
-<p>For simulation unit resolution, add code that will replace the existing <code>LANDCOVER_INIT_CrpGrsForOagADJ</code> land cover area for the country with the new land cover use dataset (<code>land_cover</code>).</p>
+<p>For simulation unit resolution, add code that will replace the
+existing <code>LANDCOVER_INIT_CrpGrsForOagADJ</code> land cover area for
+the country with the new land cover use dataset
+(<code>land_cover</code>).</p>
 <pre><code>LANDCOVER_INIT_CrpGrsForOagADJ(SIMU_COUNTRY,ALLCOLROW,AltiClass,SlpClass,SoilClass,AezClass,LC_TYPES_EPIC) 
 = landcover(SIMU_COUNTRY,ALLCOLROW,AltiClass,SlpClass,SoilClass,AezClass,LC_TYPES_EPIC);</code></pre>
-<p>For COLROW resolution, add code to the <code>.gms</code> file that will replace the existing <code>CROP_DATA</code>, with new dataset while also aggregating to the COLROW/CR30 resolution</p>
+<p>For COLROW resolution, add code to the <code>.gms</code> file that
+will replace the existing <code>CROP_DATA</code>, with new dataset while
+also aggregating to the COLROW/CR30 resolution</p>
 <pre><code>parameter
 landcover2(CR30_COUNTRY,ALLCOLROW,AltiClass,SlpClass,SoilClass,AezClass,LC_TYPES_EPIC) CR resolution of the new landcover
 ; 
@@ -479,10 +583,13 @@ landcover2(CR30_COUNTRY,COLROW30,"Alti_Any","Slp_Any","Soil_Any",AEZCLASS,SPECIE
 
 LANDCOVER_INIT_CrpGrsForOagADJ(CR30_COUNTRY,ALLCOLROW,AltiClass,SlpClass,SoilClass,AezClass,LC_TYPES_EPIC)
 = landcover2(CR30_COUNTRY,ALLCOLROW,AltiClass,SlpClass,SoilClass,AezClass,LC_TYPES_EPIC);</code></pre>
-<div id="troubleshooting-reorder-or-drop-dimenstions" class="section level4">
-<h4 class="hasAnchor">
-<a href="#troubleshooting-reorder-or-drop-dimenstions" class="anchor"></a>Troubleshooting: reorder or drop dimenstions</h4>
-<p>If the mapspam2globiom output has too many dimensions to fit in <code>CROP_DATA</code> or <code>LANDCOVER_INIT_CrpGrsForOagADJ</code> or the dimensions are in the wrong order you can reorder a parameter like this:</p>
+<div class="section level4">
+<h4 id="troubleshooting-reorder-or-drop-dimenstions">Troubleshooting: reorder or drop dimenstions<a class="anchor" aria-label="anchor" href="#troubleshooting-reorder-or-drop-dimenstions"></a>
+</h4>
+<p>If the mapspam2globiom output has too many dimensions to fit in
+<code>CROP_DATA</code> or <code>LANDCOVER_INIT_CrpGrsForOagADJ</code> or
+the dimensions are in the wrong order you can reorder a parameter like
+this:</p>
 <pre><code>parameter
 crop_area_reorder;
 
@@ -501,16 +608,34 @@ crop_area_dropdim(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,S
 sum(SimUID, crop_area(SimUID,SPECIES,INPUTSYS,SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS));</code></pre>
 </div>
 </div>
-<div id="step-6-udpate-the-crop-yields-for-new-crop-areas-and-identify-and-fill-missing-data-with-averages-values" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-6-udpate-the-crop-yields-for-new-crop-areas-and-identify-and-fill-missing-data-with-averages-values" class="anchor"></a>Step 6: Udpate the crop yields for new crop areas and identify and fill missing data with averages values</h2>
-<p>To use the cropland use area map, cropland management and crop production information is needed in GLOBIOM to model the production at grid cell or unit level. A dataset of crop yields and input requirements should provide information that can be linked to the crop/management systems in each simu location. The dataset of yields and input requirements can be produced using outputs of regional biophysical crop models or locally reported yield and input data. The yield and input requirements dataset can also be generated using the existing crop model outputs available for GLOBIOM. GLOBIOM is likely to have existing biophysical crop model yields and input requirements for many crop/management systems at a grid cell or simulation unit level even if the previous cropland use map does not show crop area in that gridcell or simulation unit location in the base year. However if the newly generated cropland use map shows new crops/management systems in simu locations with no existing crop model yields and input requirements, it is necessary to fill this information gap. To do this we replace the missing information with the average national average values.</p>
-<p>Add code to replace the <code>CROP_DATA</code> crop yields for the new crop areas:</p>
-<pre><code>CROP_DATA(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,inputsys,PRODUCT)=
-CROP_DATA_Orig(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,inputsys,PRODUCT);</code></pre>
-<div id="calculate-the-crop-yield-average-using-fao-statistics" class="section level4">
-<h4 class="hasAnchor">
-<a href="#calculate-the-crop-yield-average-using-fao-statistics" class="anchor"></a>Calculate the crop yield average using FAO Statistics</h4>
+<div class="section level2">
+<h2 id="step-6-udpate-the-crop-yields-for-new-crop-areas-and-identify-and-fill-missing-data-with-averages-values">Step 6: Udpate the crop yields for new crop areas and identify and
+fill missing data with averages values<a class="anchor" aria-label="anchor" href="#step-6-udpate-the-crop-yields-for-new-crop-areas-and-identify-and-fill-missing-data-with-averages-values"></a>
+</h2>
+<p>To use the cropland use area map, cropland management and crop
+production information is needed in GLOBIOM to model the production at
+grid cell or unit level. A dataset of crop yields and input requirements
+should provide information that can be linked to the crop/management
+systems in each simu location. The dataset of yields and input
+requirements can be produced using outputs of regional biophysical crop
+models or locally reported yield and input data. The yield and input
+requirements dataset can also be generated using the existing crop model
+outputs available for GLOBIOM. GLOBIOM is likely to have existing
+biophysical crop model yields and input requirements for many
+crop/management systems at a grid cell or simulation unit level even if
+the previous cropland use map does not show crop area in that gridcell
+or simulation unit location in the base year. However if the newly
+generated cropland use map shows new crops/management systems in simu
+locations with no existing crop model yields and input requirements, it
+is necessary to fill this information gap. To do this we replace the
+missing information with the average national average values.</p>
+<p>Add code to replace the <code>CROP_DATA</code> crop yields for the
+new crop areas:</p>
+<pre><code><span><span class="fu">CROP_DATA</span><span class="op">(</span><span class="va">SIMU_COUNTRY</span>,<span class="va">ALLCOLROW</span>,<span class="va">ALTICLASS</span>,<span class="va">SLPCLASS</span>,<span class="va">SOILCLASS</span>,<span class="va">AEZCLASS</span>,<span class="va">CROP</span>,<span class="va">inputsys</span>,<span class="va">PRODUCT</span><span class="op">)</span><span class="op">=</span></span>
+<span><span class="fu">CROP_DATA_Orig</span><span class="op">(</span><span class="va">SIMU_COUNTRY</span>,<span class="va">ALLCOLROW</span>,<span class="va">ALTICLASS</span>,<span class="va">SLPCLASS</span>,<span class="va">SOILCLASS</span>,<span class="va">AEZCLASS</span>,<span class="va">CROP</span>,<span class="va">inputsys</span>,<span class="va">PRODUCT</span><span class="op">)</span>;</span></code></pre>
+<div class="section level4">
+<h4 id="calculate-the-crop-yield-average-using-fao-statistics">Calculate the crop yield average using FAO Statistics<a class="anchor" aria-label="anchor" href="#calculate-the-crop-yield-average-using-fao-statistics"></a>
+</h4>
 <pre><code>parameter
 average_FAO_yield(anyregion,crops)
 ;
@@ -520,9 +645,10 @@ average_FAO_yield(simu_country,crops)$PRODATA_C(simu_country,CROPS,'AreaHarv') =
  PRODATA_C(simu_country,CROPS,'AreaHarv');
 </code></pre>
 </div>
-<div id="calculate-the-crop-yield-average-using-the-average-of-each-management-system-based-on-epic-data" class="section level4">
-<h4 class="hasAnchor">
-<a href="#calculate-the-crop-yield-average-using-the-average-of-each-management-system-based-on-epic-data" class="anchor"></a>Calculate the crop yield average using the average of each management system (based on EPIC Data)</h4>
+<div class="section level4">
+<h4 id="calculate-the-crop-yield-average-using-the-average-of-each-management-system-based-on-epic-data">Calculate the crop yield average using the average of each
+management system (based on EPIC Data)<a class="anchor" aria-label="anchor" href="#calculate-the-crop-yield-average-using-the-average-of-each-management-system-based-on-epic-data"></a>
+</h4>
 <pre><code>parameter
 average_EPIC_yield(anyregion,inputsys,crop)
 
@@ -530,9 +656,10 @@ average_EPIC_yield(anyregion,inputsys,crop)
 *calculate the average yield for each system based on the EPIC data and existing land use map
 average_EPIC_yield(simu_country,inputsys,crop) $ sum((ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS), CROP_DATA_Orig(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,inputsys,'BaseArea')) = sum((ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROPS), CROP_DATA_Orig(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,inputsys,CROPS)* (CROP_DATA_Orig(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,inputsys,'BaseArea')))/ (sum((ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS), CROP_DATA_Orig(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,inputsys,'BaseArea')));</code></pre>
 </div>
-<div id="calculate-the-average-crop-input-requirement-using-the-average-of-each-management-system-based-on-epic-data" class="section level4">
-<h4 class="hasAnchor">
-<a href="#calculate-the-average-crop-input-requirement-using-the-average-of-each-management-system-based-on-epic-data" class="anchor"></a>Calculate the average crop input requirement using the average of each management system (based on EPIC Data)</h4>
+<div class="section level4">
+<h4 id="calculate-the-average-crop-input-requirement-using-the-average-of-each-management-system-based-on-epic-data">Calculate the average crop input requirement using the average of
+each management system (based on EPIC Data)<a class="anchor" aria-label="anchor" href="#calculate-the-average-crop-input-requirement-using-the-average-of-each-management-system-based-on-epic-data"></a>
+</h4>
 <pre><code>parameter
 average_FT(anyregion,inputsys,crop,*)
 ;
@@ -541,10 +668,13 @@ average_FT(anyregion,inputsys,crop,*)
 *calculate the average nitrogen by crop and system
 average_FT(simu_country,inputsys,crop,'FTN')$ sum((ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS), CROP_DATA_Orig(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,inputsys,'BaseArea')) = sum((ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS),  CROP_DATA_Orig(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,inputsys,'FTN')* (CROP_DATA_Orig(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,inputsys,'BaseArea')))/ (sum((ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS), CROP_DATA_Orig(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,inputsys,'BaseArea')));</code></pre>
 </div>
-<div id="identify-the-grid-cells-with-missing-data-and-replace-with-average-crop-yields" class="section level4">
-<h4 class="hasAnchor">
-<a href="#identify-the-grid-cells-with-missing-data-and-replace-with-average-crop-yields" class="anchor"></a>Identify the grid cells with missing data and replace with average crop yields</h4>
-<p>Use the following code to identify the grid cells or units with missing crop yield data and then replace it with the country average crop yield or other data sources.</p>
+<div class="section level4">
+<h4 id="identify-the-grid-cells-with-missing-data-and-replace-with-average-crop-yields">Identify the grid cells with missing data and replace with average
+crop yields<a class="anchor" aria-label="anchor" href="#identify-the-grid-cells-with-missing-data-and-replace-with-average-crop-yields"></a>
+</h4>
+<p>Use the following code to identify the grid cells or units with
+missing crop yield data and then replace it with the country average
+crop yield or other data sources.</p>
 <pre><code>Parameter
 missing_crop_data;
 
@@ -582,15 +712,27 @@ missing_crop_data(SIMU_COUNTRY,colrow30,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CR
 </code></pre>
 </div>
 </div>
-<div id="step-7-update-production-costs-by-crop-and-management-system" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-7-update-production-costs-by-crop-and-management-system" class="anchor"></a>Step 7: Update production costs by crop and management system</h2>
-<p>Rather than rely on the exisiting dataset for crop production costs from CROP_DATA, it is eaiser to recalculate all the costs after updating the crop areas. The production costs are calculated with the assumptions that for low and subsistence crop production, the total costs equal the total revenues per ha. For high input, rainfed we also add the additional nutrient expenses based on USDA fertilizer farm prices, based on the Table 1. For irrigation systems, we add the additional nutrient requirement and also operations and maintenance costs for irrigation systems based on an FAO estimate based on smallholder irrigation <a href="http://www.fao.org/3/a-i3765e.pdf">Smith et al., 2014</a>.</p>
+<div class="section level2">
+<h2 id="step-7-update-production-costs-by-crop-and-management-system">Step 7: Update production costs by crop and management system<a class="anchor" aria-label="anchor" href="#step-7-update-production-costs-by-crop-and-management-system"></a>
+</h2>
+<p>Rather than rely on the exisiting dataset for crop production costs
+from CROP_DATA, it is eaiser to recalculate all the costs after updating
+the crop areas. The production costs are calculated with the assumptions
+that for low and subsistence crop production, the total costs equal the
+total revenues per ha. For high input, rainfed we also add the
+additional nutrient expenses based on USDA fertilizer farm prices, based
+on the Table 1. For irrigation systems, we add the additional nutrient
+requirement and also operations and maintenance costs for irrigation
+systems based on an FAO estimate based on smallholder irrigation <a href="http://www.fao.org/3/a-i3765e.pdf" class="external-link">Smith et al., 2014</a>.</p>
 <p><strong>Table 1: USDA fertilizer farm prices</strong></p>
 <table class="table">
+<colgroup>
+<col width="34%">
+<col width="65%">
+</colgroup>
 <thead><tr class="header">
 <th>Fertilizer</th>
-<th>farm price <a href="http://www.ers.usda.gov/Data/FertilizerUse/">USDA-ERS</a>
+<th>farm price <a href="http://www.ers.usda.gov/Data/FertilizerUse/" class="external-link">USDA-ERS</a>
 </th>
 </tr></thead>
 <tbody>
@@ -604,9 +746,9 @@ missing_crop_data(SIMU_COUNTRY,colrow30,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CR
 </tr>
 </tbody>
 </table>
-<div id="table-2" class="section level4">
-<h4 class="hasAnchor">
-<a href="#table-2" class="anchor"></a>Table 2</h4>
+<div class="section level4">
+<h4 id="table-2">Table 2<a class="anchor" aria-label="anchor" href="#table-2"></a>
+</h4>
 <table class="table">
 <thead><tr class="header">
 <th>Irrigation Systems</th>
@@ -632,10 +774,12 @@ missing_crop_data(SIMU_COUNTRY,colrow30,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CR
 </tbody>
 </table>
 </div>
-<div id="example-code-for-updating-the-cropmanagement-system-production-costs" class="section level4">
-<h4 class="hasAnchor">
-<a href="#example-code-for-updating-the-cropmanagement-system-production-costs" class="anchor"></a>Example code for updating the crop/management system production costs</h4>
-<p>The following code should be added to the GAMS .gms file to replace the crop production costs.</p>
+<div class="section level4">
+<h4 id="example-code-for-updating-the-cropmanagement-system-production-costs">Example code for updating the crop/management system production
+costs<a class="anchor" aria-label="anchor" href="#example-code-for-updating-the-cropmanagement-system-production-costs"></a>
+</h4>
+<p>The following code should be added to the GAMS .gms file to replace
+the crop production costs.</p>
 <pre><code>PARAMETER
 PRICE_FT(FT) farm prices of fertilisers in USD per kg
 * SOURCE: http://www.ers.usda.gov/Data/FertilizerUse/ ,     Table 7
@@ -680,10 +824,17 @@ CROP_DATA(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,'HI'
   * PRICE_FT(FT) * 2.5);</code></pre>
 </div>
 </div>
-<div id="step-8-harmonize-the-cropland-area-with-national-level-statistics-and-the-land-cover-with-the-national-level-statistics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-8-harmonize-the-cropland-area-with-national-level-statistics-and-the-land-cover-with-the-national-level-statistics" class="anchor"></a>Step 8: Harmonize the cropland area with national level statistics and the land cover with the national level statistics</h2>
-<p>The purpose of this step is to harmonize the new base year crop area with the reported FAO statistics for crop area. The user can use any national crop area statistics but should take care to compare only physical area as the cropland use maps produced by mapspam2globiom are in physical areas not harvested area. The following code should be added to the <code>.gms</code> file and used to calculate the differences in the crop areas with the national statistics.</p>
+<div class="section level2">
+<h2 id="step-8-harmonize-the-cropland-area-with-national-level-statistics-and-the-land-cover-with-the-national-level-statistics">Step 8: Harmonize the cropland area with national level statistics
+and the land cover with the national level statistics<a class="anchor" aria-label="anchor" href="#step-8-harmonize-the-cropland-area-with-national-level-statistics-and-the-land-cover-with-the-national-level-statistics"></a>
+</h2>
+<p>The purpose of this step is to harmonize the new base year crop area
+with the reported FAO statistics for crop area. The user can use any
+national crop area statistics but should take care to compare only
+physical area as the cropland use maps produced by mapspam2globiom are
+in physical areas not harvested area. The following code should be added
+to the <code>.gms</code> file and used to calculate the differences in
+the crop areas with the national statistics.</p>
 <pre><code>
 SET
 SOURCE
@@ -726,7 +877,11 @@ ACR_CHECK(SIMU_COUNTRY,CROP,'PCT%')
  $ (abs(ACR_CHECK(SIMU_COUNTRY,CROP,'PCT%')) lt 0.001)
  = 0;
 </code></pre>
-<p>The purpose of this step is to check the differences between the total cropland cover, the new cropland cover, and the aggregated cropland use. The mapspam2globiom package uses the new cropland cover dataset as an input for the cropland use maps so this step is simply to check that all crops are included properly.</p>
+<p>The purpose of this step is to check the differences between the
+total cropland cover, the new cropland cover, and the aggregated
+cropland use. The mapspam2globiom package uses the new cropland cover
+dataset as an input for the cropland use maps so this step is simply to
+check that all crops are included properly.</p>
 <pre><code>PARAMETER
 LndCov_CHECK(ANYREGION,SOURCE) land cover check parameter in 1000 ha;
 
@@ -761,10 +916,17 @@ LndCov_CHECK(SIMU_COUNTRY,'PCT%','1')
  = 0;
 </code></pre>
 </div>
-<div id="step-9-calibrate-and-rescale-the-crop-yields-using-the-national-level-statistics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-9-calibrate-and-rescale-the-crop-yields-using-the-national-level-statistics" class="anchor"></a>Step 9: Calibrate and rescale the crop yields using the national level statistics</h2>
-<p>The purpose of this step is to harmonize the crop production in the base year that is calculated using the new base year crop areas with the production quantitites from the national level crop produciton statistics in the base year. The following code will identify and rescale the crop yields in the <code>CROP_DATA</code> parameter so that the calculated crop production levels in the base year (crop yield * new crop area) match the reported statistics.</p>
+<div class="section level2">
+<h2 id="step-9-calibrate-and-rescale-the-crop-yields-using-the-national-level-statistics">Step 9: Calibrate and rescale the crop yields using the national
+level statistics<a class="anchor" aria-label="anchor" href="#step-9-calibrate-and-rescale-the-crop-yields-using-the-national-level-statistics"></a>
+</h2>
+<p>The purpose of this step is to harmonize the crop production in the
+base year that is calculated using the new base year crop areas with the
+production quantitites from the national level crop produciton
+statistics in the base year. The following code will identify and
+rescale the crop yields in the <code>CROP_DATA</code> parameter so that
+the calculated crop production levels in the base year (crop yield * new
+crop area) match the reported statistics.</p>
 <pre><code>PARAMETER
 PRODCHECK(ANYREGION,ALLPRODUCT,SOURCE,*)
 YIELDCHECK(ANYREGION,ALLPRODUCT,SOURCE,*)
@@ -809,16 +971,25 @@ CROP_DATA(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,Inpu
  = CROP_DATA(SIMU_COUNTRY,ALLCOLROW,ALTICLASS,SLPCLASS,SOILCLASS,AEZCLASS,CROP,InputSys,PRODUCT) *
    PRODCHECK(SIMU_COUNTRY,PRODUCT,'OBS_FAO','1')/ PRODCHECK(SIMU_COUNTRY,PRODUCT,'OBS_SIMU','1');</code></pre>
 </div>
-<div id="step-10-send-the-updated-parameters-to-the-finaldata-subfolder-in-the-model-branch" class="section level2">
-<h2 class="hasAnchor">
-<a href="#step-10-send-the-updated-parameters-to-the-finaldata-subfolder-in-the-model-branch" class="anchor"></a>Step 10: Send the updated parameters to the <code>finaldata</code> subfolder in the <code>model</code> branch</h2>
-<p>The final step in the process to add new base year cropland use and land cover maps to use in GLOBIOM is to send the parameters to the finaldata subfolder of the <code>model</code> branch.</p>
-<p>This process is relatively straightforward depending on how the data and model branches are linked on the user’s machine.</p>
-<p>The CROP_DATA parameter is held in a GDX file. Depending on how the folders are nested on the user’s machine, the code to send the parameter to the appropriate GDX in the finaldat folder can look something like this:</p>
+<div class="section level2">
+<h2 id="step-10-send-the-updated-parameters-to-the-finaldata-subfolder-in-the-model-branch">Step 10: Send the updated parameters to the <code>finaldata</code>
+subfolder in the <code>model</code> branch<a class="anchor" aria-label="anchor" href="#step-10-send-the-updated-parameters-to-the-finaldata-subfolder-in-the-model-branch"></a>
+</h2>
+<p>The final step in the process to add new base year cropland use and
+land cover maps to use in GLOBIOM is to send the parameters to the
+finaldata subfolder of the <code>model</code> branch.</p>
+<p>This process is relatively straightforward depending on how the data
+and model branches are linked on the user’s machine.</p>
+<p>The CROP_DATA parameter is held in a GDX file. Depending on how the
+folders are nested on the user’s machine, the code to send the parameter
+to the appropriate GDX in the finaldat folder can look something like
+this:</p>
 <pre><code>$setLocal X %system.dirSep%     
 
 execute_unload '..%X%Model%X%finaldata%X%data_crops.gdx'          , CROP_DATA</code></pre>
-<p>To write the landcover parameter as a <code>.gms</code> file with the appropriate name: <code>data_EPICLandCov_CrpGrsForOagADJ.gms</code> the following code should be used;</p>
+<p>To write the landcover parameter as a <code>.gms</code> file with the
+appropriate name: <code>data_EPICLandCov_CrpGrsForOagADJ.gms</code> the
+following code should be used;</p>
 <pre><code>FILE Resource_DataLandDet_CrpGrsForOagADJ /'..%X%Model%X%finaldata%X%data_EPICLandCov_CrpGrsForOagADJ.gms'/;
 PUT  Resource_DataLandDet_CrpGrsForOagADJ;
 
@@ -852,7 +1023,9 @@ LOOP((COUNTRY,ALLCOLROW,AltiClass,SlpClass,SoilClass,AezClass)
  PUT /;
      );
 PUT ";";</code></pre>
-<p>Once these ten steps are taken the user can navigate toward the model folder and should run the GLOBIOM model with the new land cover and cropland use maps.</p>
+<p>Once these ten steps are taken the user can navigate toward the model
+folder and should run the GLOBIOM model with the new land cover and
+cropland use maps.</p>
 </div>
   </div>
 
@@ -867,11 +1040,13 @@ PUT ";";</code></pre>
 
 
       <footer><div class="copyright">
-  <p>Developed by Michiel Van Dijk.</p>
+  <p></p>
+<p>Developed by Michiel Van Dijk.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -879,6 +1054,8 @@ PUT ";";</code></pre>
 
   
 
+
+  
 
   </body>
 </html>

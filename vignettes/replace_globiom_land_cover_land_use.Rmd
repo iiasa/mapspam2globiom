@@ -14,52 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Replacing land cover and land use information in GLOBIOM
 
-With respect to the distribution of crops, GLOBIOM uses two related data layers. A table with area information on the land cover per simu, distinguishing seven major land use classes,some of which are split into subclasses:
-
-- Cropland (CrpLnd)
-- Other agricultural land (OthAgri)
-- Grassland (Grass)
-- Forest (Forest), separated into managed, unmanaged and rotation forest
-- Wetlands (WetLnd)
-- Other natural vegetation (OthNatLnd)
-- Not relevant land cover (NotRel)
-
-The second table provides information on the location of the 18 crops that are modeled by GLOBIOM, which together make up the Cropland class. Other agricultural land shows the location of all the other crops. The distribution of crops in the global version of the model is based on the global Spatial Production Allocation Model (SPAM) for 2000.
-
-The function `create_globiom_input()` creates two gdx files. One file updates the global land cover data in GLOBIOM for the target country, while the other file replaces global land use data. Both files will be saved in the `processed_data/results` folder. Before `create_globiom_input()` can be run, you need to prepare three input files.
-
-First, you need to collect a new country level land cover map. Any product can be used as long as it contains information on the six GLOBIOM land cover classes. The most obvious choice would be to take a national land cover map for the year 2000 or any other map that is close to the year for which the subnational statistics are available. If such map is not available it is also possible to use a global land cover product and use the country polygon to mask the relevant area. We illustrate this case for Malawi, where we used the [ESACCI](https://www.esa-landcover-cci.org/2010) land cover map that was described in the section on [Input data collection](input_data_collection.html). We started by clipping the country area by running the script `03_spatial_data/select_esa.r` (see [Process spatial data](process_spatial_data.html)). 
-
-Second, we prepared a table (`mappings/esacci2globiom.csv`) that maps the ESACCI land cover classes to the six GLOBIOM land cover classes. This table will be used to aggregate the land cover classes in the new map to the GLOBIOM land cover classes. You will have to prepare a similar table for your land cover map. 
-
-Finally, in case you want to add an additional crop, you have to update the table that maps the SPAMc crops to the 18 GLOBIOM crops (`mappings/crop2globiom.cvs`). Also see the [Adding a new crop to GLOBIOM](add_new_crop_to_globiom.html). In the example below, we will add coffee as a separate crop. The updated table will be loaded by `create_globiom_input()` to aggregate the SPAMc crops to the GLOBIOM crop classification.
-
-
-```{r eval = FALSE}
-# Select the new land cover map, in this case ESACCI
-lc_file <- file.path(param$spam_path,
-  glue("processed_data/maps/cropland/{param$res}/esa_raw_{param$year}_{param$iso3c}.tif"))
-# Load the map
-lc_map <- raster(lc_file)
-plot(lc_map)
-
-# Update crop2globiom.csv and map coff to coff (instead of the rest category) and overwrite
-load_data("crop2globiom", param)
-crop2globiom <- crop2globiom %>%
-  mutate(globiom_crop = ifelse(crop == "coff", "Coff", globiom_crop))
-write_csv(crop2globiom, file.path(param$spam_path, "mappings/crop2globiom.csv"))
-
-# Load mapping of lc classes to globiom lc classes
-lc_class2globiom <- read_csv(file.path(param$spam_path, "mappings/esacci2globiom.csv"))
-
-# Aggregate land cover map to GLOBIOM land cover classes at simu level
-# Not that the area will be expressed in 1000 ha, which is common in GLOBIOM!
-create_globiom_input(lc_class2globiom, lc_map, param)
-```
-
-The existing land cover data in GLOBIOM can be found in the parameter `LANDCOVER_INIT` which defines the land cover classes at the simulation unit level and the existing crop specific land use data found in `CROP_DATA` parameter at the simulation unit level. 
+After creating the updated GLOBIOM input files, several adjustments need to be made in GLOBIOM to replace the country-level land cover and crop distribution information. The existing land cover data in GLOBIOM can be found in the parameter `LANDCOVER_INIT` which defines the land cover classes at the simulation unit level and the existing crop specific land use data found in `CROP_DATA` parameter at the simulation unit level. 
 
 The steps required to update the GLOBIOM land cover and land use maps with new maps are the following:
 
@@ -85,7 +41,7 @@ The steps required to update the GLOBIOM land cover and land use maps with new m
 10.  Write the new parameters to the `finaldata` subfolder of the GLOBIOM `model` branch 
 
 
-## Step 1: Downlad the GLOBIOM `model` and GLOBIOM `data` branches
+## Step 1: Download the GLOBIOM `model` and GLOBIOM `data` branches
 
 For guidance in how to download the GLOBIOM model branch used for the FABLE training: https://github.com/iiasa/GLOBIOM_FABLE/blob/master/README.md
 

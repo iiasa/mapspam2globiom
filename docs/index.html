@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">mapspam2globiom</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.1</span>
       </span>
     </div>
 
@@ -39,7 +41,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -47,75 +49,21 @@
   <a href="articles/installation.html">Installation</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Background</a>
-      <ul class="dropdown-menu" role="menu">
 <li>
-          <a href="articles/crop_distribution_maps.html">Crop distribution maps</a>
-        </li>
-        <li>
-          <a href="articles/model_description.html">Model description</a>
-        </li>
-        <li>
-          <a href="articles/data.html">Input data</a>
-        </li>
-        <li>
-          <a href="articles/appendix.html">Appendix</a>
-        </li>
-      </ul>
-</li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Preparation</a>
-      <ul class="dropdown-menu" role="menu">
-<li>
-          <a href="articles/input_data_collection.html">Input data collection</a>
-        </li>
-        <li>
-          <a href="articles/template.html">Country examples/templates</a>
-        </li>
-      </ul>
-</li>
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Run SPAMc</a>
-      <ul class="dropdown-menu" role="menu">
-<li>
-          <a href="articles/model_setup.html">1. Model setup</a>
-        </li>
-        <li>
-          <a href="articles/process_subnational_statistics.html">2. Process subnational statistics</a>
-        </li>
-        <li>
-          <a href="articles/process_spatial_data.html">3. Process spatial data</a>
-        </li>
-        <li>
-          <a href="articles/create_synergy_cropland.html">4. Create synergy cropland map</a>
-        </li>
-        <li>
-          <a href="articles/create_synergy_irrigated_area.html">5. Create synergy irrigated area map</a>
-        </li>
-        <li>
-          <a href="articles/combine_input_data.html">6. Combine input data</a>
-        </li>
-        <li>
-          <a href="articles/run_model.html">7. Run model</a>
-        </li>
-        <li>
-          <a href="articles/post_process.html">8. Post-processing</a>
-        </li>
-        <li>
-          <a href="articles/replace_globiom_land_cover_land_use.html">9. Replace land cover and land use information in GLOBIOM</a>
-        </li>
-        <li>
-          <a href="articles/add_new_crop_to_globiom.html">10. Adding new crop to GLOBIOM</a>
-        </li>
-      </ul>
-</li>
+      <a href="articles/replace_globiom_land_cover_land_use.html">1. Replace land cover and land use information in GLOBIOM</a>
+    </li>
+    <li>
+      <a href="articles/create_updated_globiom_input_data.html">2. Create updated GLOBIOM land cover and crop distribution data</a>
+    </li>
+    <li>
+      <a href="articles/add_new_crop_to_globiom.html">3. Adding a new crop to GLOBIOM</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -127,8 +75,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/iiasa/mapspam2globiom">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/iiasa/mapspam2globiom" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -144,75 +92,49 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="mapspam2globiom" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#mapspam2globiom" class="anchor"></a>mapspam2globiom</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="mapspam2globiom">mapspam2globiom<a class="anchor" aria-label="anchor" href="#mapspam2globiom"></a>
+</h1></div>
 <!-- badges: start -->
 
-<p>The aim of the <a href="https://iiasa.github.io/mapspam2globiom">mapspam2globiom R package</a> is to facilitate the creation of country level crop distribution maps, which can be used as input by the IIASA’s <a href="https://www.globiom.org/">Global Biosphere Management Model (GLOBIOM)</a>. GLOBIOM is a spatially explicit partial equilibrium model that is used to analyze the competition for land use between agriculture, forestry, and bioenergy. The model can be used for global and national level analysis (Valin et al. 2013; Leclère et al. 2014; Havlik et al. 2014). In the latter case, model output can be greatly improved by incorporating regionally specific information that is often provided by local stakeholders or can be taken from national statistics. Information on crop cover and the location of crops are a key driver of the model and it is therefore desirable to base these as much as possible on national sources of information.</p>
-<p>mapspam2globiom provides the necessary infrastructure to run the Spatial Production Allocation Model for Country level studies (SPAMc). The model builds on the global version of SPAM (You and Wood 2006; You, Wood, and Wood-Sichra 2009; You et al. 2014; Yu et al. 2020), which uses an cross-entropy optimization approach to ‘pixelate’ national and subnational crop statistics on a spatial grid at a 5 arcmin resolution. SPAMc was specifically developed to support country level analysis and makes it possible to incorporate national sources of information and potentially create maps at a higher resolution of 30 arcsec (Van Dijk et al. 2020). The articles in the Background section provide more information on <a href="articles/crop_distribution_maps.html">Crop distribution maps</a> in general, the <a href="articles/model_description.html">model</a>, <a href="articles/data.html">input data</a> and an <a href="articles/appendix.html">Appendix</a> with additional information on specific topics. Apart from implementing SPAMc, mapspam2globiom includes functions to aggregate the SPAMc output to the spatial (i.e. simulation units) and crop-level (18 major crops) format that is used by GLOBIOM.</p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<p>The aim of the <a href="https://iiasa.github.io/mapspam2globiom">mapspam2globiom R package</a> is to facilitate the creation of country level crop distribution maps, which can be used as input by the IIASA’s <a href="https://www.globiom.org/" class="external-link">Global Biosphere Management Model (GLOBIOM)</a>. GLOBIOM is a spatially explicit partial equilibrium model that is used to analyze the competition for land use between agriculture, forestry, and bioenergy. The model can be used for global and national level analysis (Valin et al. 2013; Leclère et al. 2014; Havlik et al. 2014). In the latter case, model output can be greatly improved by incorporating regionally specific information that is often provided by local stakeholders or can be taken from national statistics. Information on crop cover and the location of crops are a key driver of the model and it is therefore desirable to base these as much as possible on national sources of information.</p>
+<p>mapspam2globiom includes a single function to aggregate crop distribution maps that were created with <a href="https://michielvandijk.github.io/mapspamc/" class="external-link">mapspamc package</a> to the GLOBIOM input format. mapspamc (Dijk et al. 2023) was specifically developed to create national crop distribution maps using the Spatial Production Allocation Model (You and Wood 2006; You, Wood, and Wood-Sichra 2009; You et al. 2014; Yu et al. 2020). mapspam2globiom aggregates mapspamc output along two dimensions: (a) it aggregates raster cells to GLOBIOM simulation units (simu), which are clusters of grid cells with similar bio-physical characteristics and (b) it aggregates the 40+ mapspamc crops to the 18 crop groups in GLOBIOM.</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>To install mapspam2globiom:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"iiasa/mapspam2globiom"</span>)</pre></div>
-<p>Apart from the mapspam2globiom package, several other pieces of software are essential to run SPAMc, which are described in the <a href="articles/software.html">Installation</a> section.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"iiasa/mapspam2globiom"</span><span class="op">)</span></span></code></pre></div>
+<p>Apart from the mapspam2globiom package, several other pieces of software are essential to run <code>mapspam2globiom</code>, which are described in the <a href="articles/software.html">Installation</a> section.</p>
 </div>
-<div id="preparation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#preparation" class="anchor"></a>Preparation</h2>
-<p>It takes some preparation before SPAMc can be run. Most important and probably most time consuming is the collection of input data. SPAMc is a data-driven model and therefore requires a large variety of input data, which can be grouped under two headers: (1) (Sub)national agricultural statistics and (2) spatial information. The availability of data strongly affects the structure of the model and how can be solved. We highly recommend to start collecting input data before running the model. The articles in the Preparation section give an overview of all the information that is requited by SPAMc and shows were to download country examples, which can be used as a template to implement SPAMc to other countries:</p>
-<ul>
-<li>
-<a href="articles/input_data_collection.html">Input data collection</a>.</li>
-<li><a href="articles/template.html">Country examples/templates</a></li>
-</ul>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-VanDijk2023" class="csl-entry">
+Dijk, Michiel van, Ulrike Wood-Sichra, Yating Ru, Zhe Guo, and Liangzhi You. 2023. “<span class="nocase">mapspamc: An R package to create crop distribution maps for country studies using a downscaling approach</span>.” Preprint. <a href="https://doi.org/10.21203/rs.3.rs-2497136/v1" class="external-link uri">https://doi.org/10.21203/rs.3.rs-2497136/v1</a>.
 </div>
-<div id="run-spamc" class="section level2">
-<h2 class="hasAnchor">
-<a href="#run-spamc" class="anchor"></a>Run SPAMc</h2>
-<p>Running SPAMc can be divided into eight steps, which are described in the articles in the Run SPAMc section. The other two articlesdescribe how to update the land cover and land use maps in GLOBIOM and how to add a new crop in GLOBIOM, which both require SPAMc output:</p>
-<ol>
-<li><a href="articles/model_structure.html">Model setup</a></li>
-<li><a href="articles/process_subnational_statistics.html">Processing of subnational statistics</a></li>
-<li><a href="articles/process_spatial_data.html">Processing of spatial data</a></li>
-<li><a href="articles/create_synergy_cropland.html">Create synergy cropland map</a></li>
-<li><a href="articles/create_synergy_irrigated_area.html">Create synergy irrigated area map</a></li>
-<li><a href="articles/combine_input_data.html">Combine input data</a></li>
-<li><a href="articles/run_model.html">Run model</a></li>
-<li><a href="articles/post_process.html">Post-processing</a></li>
-<li><a href="articles/replace_globiom_land_cover_land_use.html">Replace GLOBIOM land use and land cover</a></li>
-<li><a href="articles/add_new_crop_to_globiom.html">Adding a new crop to GLOBIOM</a></li>
-</ol>
+<div id="ref-Havlik2014" class="csl-entry">
+Havlik, Petr, Hugo Valin, Mario Herrero, Michael Obersteiner, Erwin Schmid, Mariana C Rufino, Aline Mosnier, et al. 2014. “<span class="nocase">Climate change mitigation through livestock system transitions.</span>” <em>Proceedings of the National Academy of Sciences of the United States of America</em> 111 (10): 3709–14. <a href="https://doi.org/10.1073/pnas.1308044111" class="external-link uri">https://doi.org/10.1073/pnas.1308044111</a>.
 </div>
-<div id="references" class="section level2">
-<h2 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h2>
-<div id="refs" class="references">
-<div id="ref-Havlik2014">
-<p>Havlik, Petr, Hugo Valin, Mario Herrero, Michael Obersteiner, Erwin Schmid, Mariana C Rufino, Aline Mosnier, et al. 2014. “Climate change mitigation through livestock system transitions.” <em>Proceedings of the National Academy of Sciences of the United States of America</em> 111 (10): 3709–14. <a href="https://doi.org/10.1073/pnas.1308044111" class="uri">https://doi.org/10.1073/pnas.1308044111</a>.</p>
+<div id="ref-Leclere2014" class="csl-entry">
+Leclère, D, Petr Havlik, S Fuss, E Schmid, A Mosnier, B Walsh, H Valin, Mario Herrero, N Khabarov, and M Obersteiner. 2014. “<span class="nocase">Climate change induced transformations of agricultural systems: insights from a global model</span>.” <em>Environmental Research Letters</em> 9 (12): 124018. <a href="https://doi.org/10.1088/1748-9326/9/12/124018" class="external-link uri">https://doi.org/10.1088/1748-9326/9/12/124018</a>.
 </div>
-<div id="ref-Leclere2014">
-<p>Leclère, D, Petr Havlik, S Fuss, E Schmid, A Mosnier, B Walsh, H Valin, Mario Herrero, N Khabarov, and M Obersteiner. 2014. “Climate change induced transformations of agricultural systems: insights from a global model.” <em>Environmental Research Letters</em> 9 (12): 124018. <a href="https://doi.org/10.1088/1748-9326/9/12/124018" class="uri">https://doi.org/10.1088/1748-9326/9/12/124018</a>.</p>
+<div id="ref-Valin2013b" class="csl-entry">
+Valin, H, Petr Havlik, A Mosnier, Mario Herrero, E Schmid, and M Obersteiner. 2013. “<span class="nocase">Agricultural productivity and greenhouse gas emissions: Trade-offs or synergies between mitigation and food security?</span>” <em>Environmental Research Letters</em> 8 (3): 1–9. <a href="https://doi.org/10.1088/1748-9326/8/3/035019" class="external-link uri">https://doi.org/10.1088/1748-9326/8/3/035019</a>.
 </div>
-<div id="ref-Valin2013b">
-<p>Valin, H, Petr Havlik, A Mosnier, Mario Herrero, E Schmid, and M Obersteiner. 2013. “Agricultural productivity and greenhouse gas emissions: Trade-offs or synergies between mitigation and food security?” <em>Environmental Research Letters</em> 8 (3): 1–9. <a href="https://doi.org/10.1088/1748-9326/8/3/035019" class="uri">https://doi.org/10.1088/1748-9326/8/3/035019</a>.</p>
+<div id="ref-You2006" class="csl-entry">
+You, Liangzhi, and Stanley Wood. 2006. “<span class="nocase">An entropy approach to spatial disaggregation of agricultural production</span>.” <em>Agricultural Systems</em> 90 (1): 329–47. <a href="https://doi.org/10.1016/j.agsy.2006.01.008" class="external-link uri">https://doi.org/10.1016/j.agsy.2006.01.008</a>.
 </div>
-<div id="ref-VanDijk2020">
-<p>Van Dijk, Michiel, Ulrike Wood-Sichra, Yating Ru, Amanda Palazzo, Petr Havlik, and Liangzhi You. 2020. “Mapping the change in crop distribution over time using a data fusion approach.”</p>
+<div id="ref-You2009" class="csl-entry">
+You, Liangzhi, Stanley Wood, and Ulrike Wood-Sichra. 2009. “<span class="nocase">Generating plausible crop distribution maps for Sub-Saharan Africa using a spatially disaggregated data fusion and optimization approach</span>.” <em>Agricultural Systems</em> 99 (2): 126–40. <a href="https://doi.org/10.1016/j.agsy.2008.11.003" class="external-link uri">https://doi.org/10.1016/j.agsy.2008.11.003</a>.
 </div>
-<div id="ref-You2006">
-<p>You, Liangzhi, and Stanley Wood. 2006. “An entropy approach to spatial disaggregation of agricultural production.” <em>Agricultural Systems</em> 90 (1): 329–47. <a href="https://doi.org/10.1016/j.agsy.2006.01.008" class="uri">https://doi.org/10.1016/j.agsy.2006.01.008</a>.</p>
+<div id="ref-You2014a" class="csl-entry">
+You, Liangzhi, Stanley Wood, Ulrike Wood-Sichra, and Wenbin Wu. 2014. “<span class="nocase">Generating global crop distribution maps: From census to grid</span>.” <em>Agricultural Systems</em> 127: 53–60. <a href="https://doi.org/10.1016/j.agsy.2014.01.002" class="external-link uri">https://doi.org/10.1016/j.agsy.2014.01.002</a>.
 </div>
-<div id="ref-You2009">
-<p>You, Liangzhi, Stanley Wood, and Ulrike Wood-Sichra. 2009. “Generating plausible crop distribution maps for Sub-Saharan Africa using a spatially disaggregated data fusion and optimization approach.” <em>Agricultural Systems</em> 99 (2): 126–40. <a href="https://doi.org/10.1016/j.agsy.2008.11.003" class="uri">https://doi.org/10.1016/j.agsy.2008.11.003</a>.</p>
-</div>
-<div id="ref-You2014a">
-<p>You, Liangzhi, Stanley Wood, Ulrike Wood-Sichra, and Wenbin Wu. 2014. “Generating global crop distribution maps: From census to grid.” <em>Agricultural Systems</em> 127: 53–60. <a href="https://doi.org/10.1016/j.agsy.2014.01.002" class="uri">https://doi.org/10.1016/j.agsy.2014.01.002</a>.</p>
-</div>
-<div id="ref-Yu2020">
-<p>Yu, Qiangyi, Liangzhi You, Ulrike Wood-Sichra, Yating Ru, Alison K. B. Joglekar, Steffen Fritz, Wei Xiong, Wenbin Wu, and Peng Yang. 2020. “A cultivated planet in 2010: 2. the global gridded agricultural production maps.” <em>Earth System Science Data</em>. <a href="https://doi.org/https://doi.org/10.5194/essd-2020-11" class="uri">https://doi.org/https://doi.org/10.5194/essd-2020-11</a>.</p>
+<div id="ref-Yu2020" class="csl-entry">
+Yu, Qiangyi, Liangzhi You, Ulrike Wood-Sichra, Yating Ru, Alison K. B. Joglekar, Steffen Fritz, Wei Xiong, Miao Lu, Wenbin Wu, and Peng Yang. 2020. “<span class="nocase">A cultivated planet in 2010 – Part 2: The global gridded agricultural-production maps</span>.” <em>Earth System Science Data</em> 12 (4): 3545–72. <a href="https://doi.org/10.5194/essd-12-3545-2020" class="external-link uri">https://doi.org/10.5194/essd-12-3545-2020</a>.
 </div>
 </div>
 </div>
@@ -221,51 +143,56 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/iiasa/mapspam2globiom/">https://​github.com/​iiasa/​mapspam2globiom/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/iiasa/mapspam2globiom/issues">https://​github.com/​iiasa/​mapspam2globiom/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="citation">
-<h2>Citation</h2>
-<ul class="list-unstyled">
-<li><a href="authors.html">Citing mapspam2globiom</a></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>Michiel Van Dijk <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-5207-7304" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="https://github.com/iiasa/mapspam2globiom/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/iiasa/mapspam2globiom/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing mapspam2globiom</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Michiel Van Dijk <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-5207-7304" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Michiel Van Dijk.</p>
+  <p></p>
+<p>Developed by Michiel Van Dijk.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
@@ -273,6 +200,8 @@
 
   
 
+
+  
 
   </body>
 </html>

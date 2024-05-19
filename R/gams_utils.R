@@ -1,4 +1,19 @@
 # Functions to prepare gdx file for GAMS
+setup_gams <- function(param) {
+  if (!requireNamespace("gdxrrw", quietly = TRUE)) {
+    stop("Package gdxrrw is not installed!",
+         "\nPlease install it (see vignette on installation for more information).",
+         call. = FALSE
+    )
+  }
+  gams <- gdxrrw::igdx(param$gams_path, silent = TRUE)
+  if (!gams) {
+    stop("GAMS is not installed!",
+         "\nPlease install it (see vignette on installation for more information).",
+         call. = FALSE
+    )
+  }
+}
 
 # Function to create val for parameter prep file
 val_gdx <- function(val, variables){

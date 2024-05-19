@@ -24,93 +24,113 @@ national statistics. Information on crop cover and the location of crops
 are a key driver of the model and it is therefore desirable to base
 these as much as possible on national sources of information.
 
-mapspam2globiom provides the necessary infrastructure to run the Spatial
-Production Allocation Model for Country level studies (SPAMc). The model
-builds on the global version of SPAM (You and Wood 2006; You, Wood, and
-Wood-Sichra 2009; You et al. 2014; Yu et al. 2020), which uses an
-cross-entropy optimization approach to ‘pixelate’ national and
-subnational crop statistics on a spatial grid at a 5 arcmin resolution.
-SPAMc was specifically developed to support country level analysis and
-makes it possible to incorporate national sources of information and
-potentially create maps at a higher resolution of 30 arcsec (Van Dijk et
-al. 2020).
+mapspam2globiom includes a single function to aggregate crop
+distribution maps that were created with [mapspamc
+package](https://michielvandijk.github.io/mapspamc/) to the GLOBIOM
+input format. mapspamc (Dijk et al. 2023) was specifically developed to
+create national crop distribution maps using the Spatial Production
+Allocation Model (You and Wood 2006; You, Wood, and Wood-Sichra 2009;
+You et al. 2014; Yu et al. 2020). mapspam2globiom aggregates mapspamc
+output along two dimensions: (a) it aggregates raster cells to GLOBIOM
+simulation units (simu), which are clusters of grid cells with similar
+bio-physical characteristics and (b) it aggregates the 40+ mapspamc
+crops to the 18 crop groups in GLOBIOM.
+
+## Installation
+
+To install mapspam2globiom:
+
+``` r
+install.packages("remotes")
+remotes::install_github("iiasa/mapspam2globiom")
+```
+
+Apart from the mapspam2globiom package, several other pieces of software
+are essential to run `mapspam2globiom`, which are described in the
+[Installation](articles/software.html) section.
 
 ## References
 
-<div id="refs" class="references">
+<div id="refs" class="references csl-bib-body hanging-indent">
 
-<div id="ref-Havlik2014">
+<div id="ref-VanDijk2023" class="csl-entry">
 
-Havlik, Petr, Hugo Valin, Mario Herrero, Michael Obersteiner, Erwin
-Schmid, Mariana C Rufino, Aline Mosnier, et al. 2014. “Climate change
-mitigation through livestock system transitions.” *Proceedings of the
-National Academy of Sciences of the United States of America* 111 (10):
-3709–14. <https://doi.org/10.1073/pnas.1308044111>.
+Dijk, Michiel van, Ulrike Wood-Sichra, Yating Ru, Zhe Guo, and Liangzhi
+You. 2023. “<span class="nocase">mapspamc: An R package to create crop
+distribution maps for country studies using a downscaling
+approach</span>.” Preprint.
+<https://doi.org/10.21203/rs.3.rs-2497136/v1>.
 
 </div>
 
-<div id="ref-Leclere2014">
+<div id="ref-Havlik2014" class="csl-entry">
+
+Havlik, Petr, Hugo Valin, Mario Herrero, Michael Obersteiner, Erwin
+Schmid, Mariana C Rufino, Aline Mosnier, et al. 2014.
+“<span class="nocase">Climate change mitigation through livestock system
+transitions.</span>” *Proceedings of the National Academy of Sciences of
+the United States of America* 111 (10): 3709–14.
+<https://doi.org/10.1073/pnas.1308044111>.
+
+</div>
+
+<div id="ref-Leclere2014" class="csl-entry">
 
 Leclère, D, Petr Havlik, S Fuss, E Schmid, A Mosnier, B Walsh, H Valin,
-Mario Herrero, N Khabarov, and M Obersteiner. 2014. “Climate change
-induced transformations of agricultural systems: insights from a global
-model.” *Environmental Research Letters* 9 (12): 124018.
+Mario Herrero, N Khabarov, and M Obersteiner. 2014.
+“<span class="nocase">Climate change induced transformations of
+agricultural systems: insights from a global model</span>.”
+*Environmental Research Letters* 9 (12): 124018.
 <https://doi.org/10.1088/1748-9326/9/12/124018>.
 
 </div>
 
-<div id="ref-Valin2013b">
+<div id="ref-Valin2013b" class="csl-entry">
 
 Valin, H, Petr Havlik, A Mosnier, Mario Herrero, E Schmid, and M
-Obersteiner. 2013. “Agricultural productivity and greenhouse gas
-emissions: Trade-offs or synergies between mitigation and food
-security?” *Environmental Research Letters* 8 (3): 1–9.
+Obersteiner. 2013. “<span class="nocase">Agricultural productivity and
+greenhouse gas emissions: Trade-offs or synergies between mitigation and
+food security?</span>” *Environmental Research Letters* 8 (3): 1–9.
 <https://doi.org/10.1088/1748-9326/8/3/035019>.
 
 </div>
 
-<div id="ref-VanDijk2020">
+<div id="ref-You2006" class="csl-entry">
 
-Van Dijk, Michiel, Ulrike Wood-Sichra, Yating Ru, Amanda Palazzo, Petr
-Havlik, and Liangzhi You. 2020. “Mapping the change in crop distribution
-over time using a data fusion approach.”
-
-</div>
-
-<div id="ref-You2006">
-
-You, Liangzhi, and Stanley Wood. 2006. “An entropy approach to spatial
-disaggregation of agricultural production.” *Agricultural Systems* 90
-(1): 329–47. <https://doi.org/10.1016/j.agsy.2006.01.008>.
+You, Liangzhi, and Stanley Wood. 2006. “<span class="nocase">An entropy
+approach to spatial disaggregation of agricultural production</span>.”
+*Agricultural Systems* 90 (1): 329–47.
+<https://doi.org/10.1016/j.agsy.2006.01.008>.
 
 </div>
 
-<div id="ref-You2009">
+<div id="ref-You2009" class="csl-entry">
 
-You, Liangzhi, Stanley Wood, and Ulrike Wood-Sichra. 2009. “Generating
-plausible crop distribution maps for Sub-Saharan Africa using a
-spatially disaggregated data fusion and optimization approach.”
-*Agricultural Systems* 99 (2): 126–40.
+You, Liangzhi, Stanley Wood, and Ulrike Wood-Sichra. 2009.
+“<span class="nocase">Generating plausible crop distribution maps for
+Sub-Saharan Africa using a spatially disaggregated data fusion and
+optimization approach</span>.” *Agricultural Systems* 99 (2): 126–40.
 <https://doi.org/10.1016/j.agsy.2008.11.003>.
 
 </div>
 
-<div id="ref-You2014a">
+<div id="ref-You2014a" class="csl-entry">
 
 You, Liangzhi, Stanley Wood, Ulrike Wood-Sichra, and Wenbin Wu. 2014.
-“Generating global crop distribution maps: From census to grid.”
-*Agricultural Systems* 127: 53–60.
+“<span class="nocase">Generating global crop distribution maps: From
+census to grid</span>.” *Agricultural Systems* 127: 53–60.
 <https://doi.org/10.1016/j.agsy.2014.01.002>.
 
 </div>
 
-<div id="ref-Yu2020">
+<div id="ref-Yu2020" class="csl-entry">
 
 Yu, Qiangyi, Liangzhi You, Ulrike Wood-Sichra, Yating Ru, Alison K. B.
-Joglekar, Steffen Fritz, Wei Xiong, Wenbin Wu, and Peng Yang. 2020. “A
-cultivated planet in 2010: 2. the global gridded agricultural production
-maps.” *Earth System Science Data*.
-<https://doi.org/https://doi.org/10.5194/essd-2020-11>.
+Joglekar, Steffen Fritz, Wei Xiong, Miao Lu, Wenbin Wu, and Peng Yang.
+2020. “<span class="nocase">A cultivated planet in 2010 – Part 2: The
+global gridded agricultural-production maps</span>.” *Earth System
+Science Data* 12 (4): 3545–72.
+<https://doi.org/10.5194/essd-12-3545-2020>.
 
 </div>
 
